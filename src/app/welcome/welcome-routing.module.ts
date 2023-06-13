@@ -5,8 +5,13 @@ import { WelcomePage } from './welcome.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'welcome',
     component: WelcomePage
+  },
+  {
+    path: '',
+    redirectTo: '/welcome',
+    pathMatch: 'full'
   }
 ];
 
