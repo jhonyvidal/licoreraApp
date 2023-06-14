@@ -1,34 +1,33 @@
 <ion-content [fullscreen]="true">
-    <div class="imgWelcome">
-      <img src="../../assets/Icon_tres_jotas.svg" alt="Descripción de la imagen">
+    <div class="imgWelcome custom-body-center">
+      <img src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa">
     </div>
-    <div class="h1Welcome">
+    <div class="h1Welcome color-primary custom-body-center">
       <h1>BIENVENIDO</h1>
     </div>
-    <div class="h4Welcome">
+    <div class="h4Welcome custom-body-center">
       <h4>Por favor ingresa tu fecha de nacimiento</h4>
     </div>
    
-    <div class="divLabelWelcome">
-      <ion-item class="labelWelcome">
-        <ion-label position="floating" ></ion-label>
-        <ion-input type="date" style="margin-top: -25px;" label=""></ion-input>
+    <div class="custom-body-center">
+      <ion-item class="mt16 br10">
+        <ion-input class="labelWelcome" type="date" label=""></ion-input>
       </ion-item>
     </div>
 
-    <div class="divLabelWelcome">
-      <p class="pWelcome">El contenido de esta aplicación es solo para mayores de edad. 
+    <div class="custom-body-center">
+      <p class="pWelcome font-secondary">El contenido de esta aplicación es solo para mayores de edad. 
         Prohíbase el expendio de bebidas embriagantes a menores de edad. 
         El exceso de alcohol es perjudicial para la salud.</p>
     </div>
 
-    <div class="divLabelWelcome">
-      <p class="pWelcome">
-        Al ingresar acepto los  <a> términos y condiciones</a> 
+    <div class="custom-body-center">
+      <p class="pWelcome font-secondary">
+        Al ingresar acepto los <a> términos y condiciones</a> 
       </p>
     </div>
 
-    <ion-item lines="inset" *ngFor="let data of departmentList">
+    <!-- <ion-item lines="inset" *ngFor="let data of departmentList">
       <ion-label>
         <h5>{{data.name}}</h5>
         <p>{{data.location}}</p>
@@ -37,15 +36,15 @@
         <ion-icon name="create" style="zoom:2.0" [routerLink]="['/song/', data.id]"></ion-icon>        
         <ion-icon name="trash" style="zoom:2.0" (click)="deleteSong(data.id)"></ion-icon>
       </div>
-    </ion-item>
+    </ion-item> -->
 
     <div id="footer">
-      <div class="divLabelWelcome">
+      <div class=" custom-body-center">
         <ion-checkbox class="custom-checkbox"></ion-checkbox>
-        <ion-label style="color:white">Acepto que soy mayor de edad</ion-label>
+        <ion-label style="color:white" class="font-secondary">Acepto que soy mayor de edad</ion-label>
       </div> 
 
-      <div class="divLabelWelcome">
+      <div class=" custom-body-center">
         <ion-button type="submit" class="buttonWelcome" color="#D1D1D1">Enviar</ion-button>
       </div> 
     </div>
