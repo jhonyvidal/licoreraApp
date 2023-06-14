@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: Tab1Page,
+    pathMatch: 'full'
   }
 ];
 
