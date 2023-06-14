@@ -1,1 +1,36 @@
+ion-menu ion-content {
+    --background:  #272727;
+}
 
+ion-menu ion-toolbar {
+    --background:  #1A1A1A;
+}
+
+.menu-logo{
+    display: flex;
+    margin-top: 45px;
+}
+
+.menu-logo-center{
+    position: absolute;
+}
+
+ion-item::part(native) {
+    background-color: #272727;
+    background: #272727;
+    color: #fff;
+
+}
+
+ion-toolbar {
+    --background: #272727;
+    --color: white;
+  
+    --min-height: 30px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+}
+
+ion-page ion-header {
+    height: 60px;
+}

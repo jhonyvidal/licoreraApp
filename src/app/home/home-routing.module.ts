@@ -4,7 +4,7 @@ import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomePage,
     children: [
       {
@@ -21,16 +21,16 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/menu/home/tab1',
+        redirectTo: '/home/tab1',
         pathMatch: 'full'
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/home/tab1',
-    pathMatch: 'full'
-  }
+  // {
+  //   path: '',
+  //   redirectTo: '/home/tab1',
+  //   pathMatch: 'full'
+  // }
 ];
 
 @NgModule({

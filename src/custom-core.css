@@ -1,0 +1,50 @@
+:root {
+    --color-primary: #99791C;
+    --color-seconday: #FFFFFF;
+}
+
+html, p, h1, h2, h3, a {
+    font-family: HudsonNY-Serif;
+}
+.font-secondary {
+    font-family: WeblySleek ui-rounded;
+}
+  
+.color-primary {
+    color: var(--color-primary);
+}
+
+.color-secondary {
+    color: var(--color-seconday);
+}
+
+.text-center{
+    text-align: center;
+}
+.mb10{
+    margin-bottom: 10px;
+}
+.mt-10{
+    margin-top: -10px;
+}
+.mt10{
+    margin-top: 10px !important;
+}
+.m0{
+    margin:0px;
+}
+.p0{
+    padding: 0px;
+}
+.bg-color-primary{
+    background-color:  #272727;
+}
+.h60{
+    height: 60px;
+}
+.custom-body-center{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

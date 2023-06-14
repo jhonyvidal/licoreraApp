@@ -4,19 +4,13 @@ ion-content {
 
 .imgWelcome {
     margin-top: 50px;
-    display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
 }
   
 .imgWelcome img {
-    max-width: 100%; /* Asegurarse de que la imagen no exceda el ancho del contenedor */
-    max-height: 100%; /* Asegurarse de que la imagen no exceda la altura del contenedor */
+    max-width: 100%; 
+    max-height: 100%;
 }
 .h1Welcome, .h4Welcome{
-    display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
     margin-top: 16px;
     height: 16px;
 }
@@ -25,15 +19,9 @@ ion-content {
     position: absolute;
     height: 30px;
 
-    font-family: 'HudsonNY-Serif';
     font-size: 30px;
     line-height: 16px;
 
-    display: flex;
-    align-items: center;
-    text-align: center;
-
-    color: #99791C;
 }
 
 .h4Welcome h4{
@@ -41,7 +29,7 @@ ion-content {
     width: 295px;
     height: 16px;
 
-    font-family: 'WeblySleek UI';
+    font-family: WeblySleek UI;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -53,24 +41,24 @@ ion-content {
 
     color: #FFFFFF;
 }
-.divLabelWelcome{
-    display: flex; 
-    justify-content: center;
-    align-items: center;
+.mt16{
     margin-top: 16px;
+}
+.br10{
+    border-radius: 10px;
 }
 
 .labelWelcome{
     justify-content: center;
     align-items: center;
     height: 45px;
-    background: #FFFFFF;
-    border-radius: 10px;   
+    background: #FFFFFF; 
+    font-family: HudsonNY-Serif;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
 }
 .pWelcome{
-    display: flex;
-    align-items: center;
-    text-align: center;
     color: #FFFFFF;
     padding: 0 10px;
     font-size: 12px;
@@ -96,15 +84,9 @@ a {
 }
 ion-button {
     background-color: #D1D1D1;
-  }
+}
 
-.custom-checkbox {
-    --background-checked: url('../../assets/checkBox.svg');
-    --background-unchecked: url('../../assets/checkBox.svg');
-    --border-color: transparent;
-    --border-radius: 0;
-    --indicator-color: transparent;
-    --background-focused: none;
-    --background-hover: none;
-    --background-activated: none;
+.custom-checkbox{
+    margin-right: 10px;
+    border-radius: 20px;
 }
