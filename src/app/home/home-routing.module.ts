@@ -9,15 +9,19 @@ const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        loadChildren: () => import('../landing/landing.module').then(m => m.LandingPageModule)
       },
       {
         path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        loadChildren: () => import('../store/store.module').then(m => m.StorePageModule)
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        loadChildren: () => import('../cart/cart.module').then(m => m.CartPageModule)
+      },
+      {
+        path: 'tab4',
+        loadChildren: () => import('../exchange/exchange.module').then(m => m.ExchangePageModule)
       },
       {
         path: '',

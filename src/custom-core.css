@@ -40,7 +40,7 @@ html, p, h1, h2, h3, a {
     background-color:  #272727;
 }
 .h60{
-    height: 60px;
+    margin-top: 60px;
 }
 .custom-body-center{
     display: flex; 

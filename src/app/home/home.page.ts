@@ -9,4 +9,11 @@ export class HomePage {
 
   constructor() {}
 
+  selectedTab: string = 'tab1'; 
+
+  changeTab(tab: string) {
+    this.selectedTab = tab;
+  }
+  
+
 }

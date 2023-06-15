@@ -11,6 +11,7 @@ import { SQLiteService } from 'src/store/services/sqlite.service';
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { InitializeAppService } from 'src/store/services/initialize.app.service';
 import { DbnameVersionService } from 'src/store/services/dbname-version.service';
+import { ServicesModule } from 'src/services/services.module';
 
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
@@ -18,7 +19,7 @@ export function initializeFactory(init: InitializeAppService) {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,ServicesModule],
   providers: [
     SQLiteService, 
     InitializeAppService,
@@ -34,3 +35,4 @@ export function initializeFactory(init: InitializeAppService) {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
