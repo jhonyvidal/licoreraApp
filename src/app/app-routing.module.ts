@@ -25,7 +25,11 @@ const routes: Routes = [
   {
     path: 'exchange',
     loadChildren: () => import('./exchange/exchange.module').then( m => m.ExchangePageModule)
+  },  {
+    path: 'campaign-detail',
+    loadChildren: () => import('./campign/campaign-detail/campaign-detail.module').then( m => m.CampaignDetailPageModule)
   },
+
 ];
 @NgModule({
   imports: [
