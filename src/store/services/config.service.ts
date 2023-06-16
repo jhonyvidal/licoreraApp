@@ -33,7 +33,6 @@ export class ConfigService {
 
 
   async initializeDatabase() {
-    debugger
     // create upgrade statements
     await this.sqliteService
     .addUpgradeStatement({ database: this.databaseName,

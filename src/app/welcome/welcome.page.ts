@@ -28,7 +28,7 @@ export class WelcomePage implements OnInit {
   ) { 
     this.myForm = this.formBuilder.group({
       birthday: ['', Validators.required],
-      condition: ['', Validators.required ]
+      condition: [false, Validators.required ]
     });
   }
 
