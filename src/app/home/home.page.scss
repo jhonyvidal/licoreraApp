@@ -8,11 +8,17 @@ ion-menu ion-toolbar {
 
 .menu-logo{
     display: flex;
-    margin-top: 45px;
+    margin-top: 10px;
 }
 
 .menu-logo-center{
     position: absolute;
+}
+
+.dev-logo-header{
+    display: flex;
+    justify-content: center;
+    margin-right: 60px;
 }
 
 ion-item::part(native) {
@@ -33,4 +39,34 @@ ion-toolbar {
 
 ion-page ion-header {
     height: 60px;
+}
+
+ion-tab-button.tab-selected {
+    position: relative;
+  }
+  
+  ion-tab-button.tab-selected::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Ajusta el posicionamiento de la línea horizontal */
+    transform: translateX(-50%);
+    width: 100%; /* Ajusta el ancho de la línea horizontal */
+    height: 5px; /* Ajusta el grosor de la línea horizontal */
+    margin-bottom: 55px;
+    background-color: #99791C;
+  }
+
+  ion-tab-bar{
+    height: 60px;
+  }
+
+  .delivery-icon{
+    width: 41px;
+    margin-right: 10px;
+    float: right
+  }
+
+  ion-menu-button.ios.button.in-toolbar.ion-activatable.ion-focusable.hydrated {
+    color: #FFFFFF;
 }

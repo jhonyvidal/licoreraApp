@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [formGroup]="myForm">
     <div class="imgWelcome custom-body-center">
       <img src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa">
     </div>
@@ -11,9 +11,12 @@
    
     <div class="custom-body-center">
       <ion-item class="mt16 br10">
-        <ion-input class="labelWelcome" type="date" label=""></ion-input>
-      </ion-item>
+        <ion-input formControlName="birthday"  class="labelWelcome" type="date" required></ion-input>
+      </ion-item> 
     </div>
+    <ion-note *ngIf="myForm.get('birthday')?.invalid && myForm.get('birthday')?.touched">
+      La fecha es requerida.
+    </ion-note>
 
     <div class="custom-body-center">
       <p class="pWelcome font-secondary">El contenido de esta aplicación es solo para mayores de edad. 
@@ -27,25 +30,14 @@
       </p>
     </div>
 
-    <!-- <ion-item lines="inset" *ngFor="let data of departmentList">
-      <ion-label>
-        <h5>{{data.name}}</h5>
-        <p>{{data.location}}</p>
-      </ion-label>
-      <div class="item-note" item-end>
-        <ion-icon name="create" style="zoom:2.0" [routerLink]="['/song/', data.id]"></ion-icon>        
-        <ion-icon name="trash" style="zoom:2.0" (click)="deleteSong(data.id)"></ion-icon>
-      </div>
-    </ion-item> -->
-
     <div id="footer">
-      <div class=" custom-body-center">
-        <ion-checkbox class="custom-checkbox"></ion-checkbox>
+      <div class=" custom-body-center mb10">
+        <ion-checkbox formControlName="condition" class="custom-checkbox"></ion-checkbox>
         <ion-label style="color:white" class="font-secondary">Acepto que soy mayor de edad</ion-label>
       </div> 
 
       <div class=" custom-body-center">
-        <ion-button type="submit" class="buttonWelcome" color="#D1D1D1">Enviar</ion-button>
+        <ion-button (click)="redirectTo()" [disabled]="!isFormValid || !isCheckboxChecked" [ngClass]="buttonWelcome" color="#D1D1D1">INGRESAR</ion-button>
       </div> 
     </div>
 </ion-content>

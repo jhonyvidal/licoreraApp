@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { Department } from 'src/store/models/employee-dept';
+import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 
 @Component({
   selector: 'app-welcome',
@@ -16,13 +17,30 @@ export class WelcomePage implements OnInit {
     public formBuilder: FormBuilder,
     private departmentEmployeesService: DepartmentEmployeesService,
     private toast: ToastController,
-    private router: Router
-  ) { }
+    private router: Router,
+    private requestUseCase: RequestUseCases
+  ) { 
+    this.myForm = this.formBuilder.group({
+      birthday: ['', Validators.required],
+      condition: ['', Validators.required ]
+    });
+  }
 
-  mainForm: FormGroup;
+  isFormValid = false;
+  isCheckboxChecked = false;
+  buttonWelcome = 'buttonWelcome';
+  myForm: FormGroup;
   public departmentList: Department[] = [];
 
   ngOnInit() {
+    this.myForm.valueChanges.subscribe(() => {
+      this.isFormValid = this.myForm.valid;
+      this.classValid()
+    });
+    this.myForm.get('condition')?.valueChanges.subscribe(value => {
+      this.isCheckboxChecked = value;
+      this.classValid()
+    });
     try {
       this.departmentEmployeesService.departmentState().subscribe((res) => {
         if(res) {
@@ -36,6 +54,27 @@ export class WelcomePage implements OnInit {
       console.log(err,this.departmentList);
       throw new Error(`Error: ${err}`);
     }
+
+    this.requestUseCase.getBasicData('token').subscribe(response => {
+        if (response.success === true) {
+          console.log(response);
+        } else {
+          console.log(response);
+        }
+    })
+  }
+
+  classValid(){
+    if(this.myForm.valid && this.isCheckboxChecked){
+      this.buttonWelcome = 'ActivebuttonWelcome'
+    }else{
+      this.buttonWelcome = 'buttonWelcome'
+    }
+  }
+
+
+  redirectTo() {
+    this.router.navigate(['/home']);
   }
 
 
