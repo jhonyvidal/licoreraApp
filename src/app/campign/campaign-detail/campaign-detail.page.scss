@@ -1,4 +1,4 @@
-ion-toolbar {
+ion-header ion-toolbar {
     --background: #272727;
 }
 
@@ -9,16 +9,17 @@ ion-buttons {
 }
 
 ion-content {
-    --padding-top: 10px;
+    --padding-top: 5%;
 }
 
 ion-content .product-img-container {
     margin: 0px;
-    padding: 0px;
     width: 100%;
+    height: 45%;
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 ion-content .product-img-container .promotion-container{
@@ -31,6 +32,11 @@ ion-content .product-img-container .promotion-container{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+ion-content .product-img-container .product-img {
+    width: 105px;
+    height: 90%;
 }
 
 ion-content .product-img-container .promotion-container .promotion-icon{
@@ -48,8 +54,56 @@ ion-content .product-img-container .promotion-container h4{
     font-size: 40px;
 }
 
-ion-content .promotion-container .promotion-icon {
+section {
+    padding: 20px;
+    width: 100%;
+    height: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 35px 35px 0 0;
+    background-color: #F7F5F5;
 }
+
+section .features div {
+    display: flex;
+    justify-content: space-between;
+}
+
+section .features div ion-chip {
+    background-color: white;
+}
+
+ion-footer ion-toolbar {
+    // --border-width: 0;
+    --background: #F7F5F5;
+}
+
+.add-product {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.add-product ion-button {
+    width: 90%;
+    --background: #99791C;
+}
+
+// ion-footer ion-toolbar .footer-container {
+//     width: 100%;
+//     display: flex;
+//     background-color: blue;
+// }
+
+// ion-footer ion-toolbar .footer-container .add-substract-container {
+//     width: 50%;
+// }
+
+// ion-footer ion-toolbar .footer-container .add-product-container {
+//     padding: 10px;
+//     width: 50%;
+// }
 
 // ion-card {
 //     margin: 0;
