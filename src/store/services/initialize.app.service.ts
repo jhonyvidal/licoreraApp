@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SQLiteService } from './sqlite.service';
 import { DepartmentEmployeesService } from './department-employees.service';
 import { Toast } from '@capacitor/toast';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class InitializeAppService {
@@ -11,6 +12,7 @@ export class InitializeAppService {
 
   constructor(
     private sqliteService: SQLiteService,
+    // private configService:ConfigService,
     private departmentEmployeesService: DepartmentEmployeesService
     ) {
 
@@ -26,6 +28,8 @@ export class InitializeAppService {
         }
         // Initialize the starter_employees database
         await this.departmentEmployeesService.initializeDatabase();
+
+        // await this.configService.initializeDatabase();
         // Initialize any other database if any
 
         this.isAppInit = true;

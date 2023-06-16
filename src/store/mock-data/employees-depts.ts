@@ -1,4 +1,4 @@
-import {Employee, Department} from '../models/employee-dept';
+import {Employee, Department, ConfigData} from '../models/employee-dept';
 
 export const MOCK_EMPLOYEES: Employee[] = [
   {empid: 1, name: 'John Smith', title: 'CEO', deptid: 3},
@@ -12,4 +12,8 @@ export const MOCK_DEPARTMENTS: Department[] = [
   {deptid: 1, name: 'Sales', location: 'Los Angeles'},
   {deptid: 2, name: 'Technology', location: 'San Jose'},
   {deptid: 3, name: 'Marketing', location: 'Los Angeles'},
+];
+
+export const MOCK_CONFIGS: ConfigData[] = [
+  {configid: 1, name: 'Welcome', value: 'false'},
 ];

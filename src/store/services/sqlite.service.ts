@@ -5,6 +5,7 @@ import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection, CapacitorSQLiteP
   capSQLiteUpgradeOptions, capSQLiteResult, capSQLiteValues} from '@capacitor-community/sqlite';
 import { DbnameVersionService } from './dbname-version.service';
 
+
 @Injectable()
 
 export class SQLiteService {
