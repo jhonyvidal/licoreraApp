@@ -1,32 +1,47 @@
-<!-- <ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>campaign-detail</ion-title>
+      <ion-buttons class="toolbar-detail-container">
+        <ion-button>
+          <img class="delivery-icon" src="../../assets/icon/backIcon.svg" alt="back arrow">
+        </ion-button>
+        <ion-button>
+          <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button>
+          <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow">
+        </ion-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">campaign-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content> -->
-<!-- <div class="card-container"> -->
-  <ion-card>
-    <figure class="img-card-container">
-      <img class="discount-img" src="../../../assets/icon/Discount icon.png" alt="">
-      <img class="card-img" alt="Silhouette of mountains" [src]="product.image" />
+<ion-content>
+  <figure class="product-img-container">
+    <figure class="promotion-container">
+      <h4>20</h4>
+      <p>% off</p>
+      <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
     </figure>
-    <div class="description-card-container">
-      <ion-card-header>
-        <ion-card-title>{{product.name}}</ion-card-title>
-        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-      </ion-card-header>
-    
-      <ion-card-content>
-        <!-- Here's a small text description for the card content. Nothing more, nothing less. -->
-        {{product.description}}
-      </ion-card-content>
-    </div>
-  </ion-card>
-<!-- </div> -->
+    <img src="../../assets/icon/Bailles.svg" alt="">
+  </figure>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title color="light">Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>
+
+
+<!-- <ion-card>
+  <figure class="img-card-container">
+    <img class="discount-img" src="../../../assets/icon/Discount icon.png" alt="">
+    <img class="card-img" alt="Silhouette of mountains" [src]="product.image" />
+  </figure>
+  <div class="description-card-container">
+    <ion-card-header>
+      <ion-card-title>{{product.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{product.description}}
+    </ion-card-content>
+  </div>
+</ion-card> -->

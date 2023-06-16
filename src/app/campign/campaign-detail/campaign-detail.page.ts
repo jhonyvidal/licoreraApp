@@ -9,7 +9,7 @@ import { Product } from 'src/shared/domain/response/PromotionsData';
 })
 export class CampaignDetailPage implements OnInit {
 
-  pageNumber: number = 1;
+  pageNumber: number = 2;
   product: Product = {};
 
   constructor(
@@ -21,7 +21,7 @@ export class CampaignDetailPage implements OnInit {
     this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
         if (response.success === true) {
           console.log('Promotions: ', response.data.data[0]);
-          this.product = {...response.data.data[14].product}
+          this.product = {...response.data.data[0].product}
           console.log(this.product);
         } else {
           console.log('Body del error: ', response);
