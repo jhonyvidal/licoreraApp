@@ -15,5 +15,5 @@ export const MOCK_DEPARTMENTS: Department[] = [
 ];
 
 export const MOCK_CONFIGS: ConfigData[] = [
-  {configid: 1, name: 'Welcome', value: 'false'},
+  {id: 1, name: 'Welcome', data: 'false'},
 ];

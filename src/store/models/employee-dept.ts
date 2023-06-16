@@ -17,10 +17,11 @@ export class EmployeeData {
 }
 
 export class ConfigData {
-  configid!: number;
+  id!: number;
   name!: string;
-  value?: string;
+  data!: string;
 }
+
 /*export class OutEvent {
   from!: string;
   employee!: EmployeeData;

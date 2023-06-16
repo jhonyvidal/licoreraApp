@@ -203,7 +203,6 @@ export class DepartmentEmployeesService {
   async getDepartment(jsonDepartment: Department): Promise<Department> {
     let department = await this.sqliteService.findOneBy(this.mDb, "department", {deptid: jsonDepartment.deptid});
     if(!department) {
-      debugger
       if(jsonDepartment.name) {
         // create a new department
         department = new Department();

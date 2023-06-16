@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
-// import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
+import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { Department } from 'src/store/models/employee-dept';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
-import { ConfigService } from 'src/store/services/config.service';
+// import { ConfigService } from 'src/store/services/config.service';
 import { InitializeAppService } from 'src/store/services/initialize.app.service';
 import { SQLiteService } from 'src/store/services/sqlite.service';
 
@@ -20,7 +20,7 @@ export class WelcomePage implements OnInit {
     private initAppService: InitializeAppService,
     private sqliteService: SQLiteService,
     public formBuilder: FormBuilder,
-    // private departmentEmployeesService: DepartmentEmployeesService,
+    private departmentEmployeesService: DepartmentEmployeesService,
     // private configService:ConfigService,
     private toast: ToastController,
     private router: Router,
@@ -57,19 +57,18 @@ export class WelcomePage implements OnInit {
     this.isEncrypt = this.isNative &&
       (await this.sqliteService.isInConfigEncryption()).result
       ? true : false;
-    // try {
-    //   this.departmentEmployeesService.departmentState().subscribe((res) => {
-    //     if(res) {
-    //       this.departmentEmployeesService.fetchDepartments().subscribe(data => {
-    //         this.departmentList = data;
-    //       });
-    //       console.log(res, this.departmentList);
-    //     }
-    //   });
-    // } catch(err) {
-    //   console.log(err,this.departmentList);
-    //   throw new Error(`Error: ${err}`);
-    // }
+    try {
+      this.departmentEmployeesService.departmentState().subscribe((res) => {
+        if(res) {
+          this.departmentEmployeesService.fetchEmployees().subscribe(data => {
+            console.log(res, data);
+          });
+        }
+      });
+    } catch(err) {
+      console.log(err,this.departmentList);
+      throw new Error(`Error: ${err}`);
+    }
 
     // this.configService.fetchConfigs().subscribe(data => {
     //   console.log(data);

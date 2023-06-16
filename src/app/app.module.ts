@@ -13,6 +13,7 @@ import { DbnameVersionService } from 'src/store/services/dbname-version.service'
 import { ServicesModule } from 'src/services/services.module';
 import { ConfigService } from 'src/store/services/config.service';
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
+import { AuthorPostsService } from 'src/store/services/author-posts.service';
 
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
@@ -25,7 +26,8 @@ export function initializeFactory(init: InitializeAppService) {
     SQLiteService, 
     InitializeAppService,
     DepartmentEmployeesService,
-    // ConfigService,
+    ConfigService,
+    AuthorPostsService,
     DbnameVersionService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: APP_INITIALIZER,

@@ -9,7 +9,7 @@ export const environment = {
   databaseNames:[
     {name:"starter_posts"},
     {name:"starter_employees"},
-    {name:"config"},
+    {name:"starter_config"},
   ],
 };
 
