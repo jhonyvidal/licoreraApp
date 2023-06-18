@@ -35,8 +35,8 @@ ion-content .product-img-container .promotion-container{
 }
 
 ion-content .product-img-container .product-img {
-    width: 105px;
-    height: 90%;
+    height: 100%;
+    object-fit: contain;
 }
 
 ion-content .product-img-container .promotion-container .promotion-icon{

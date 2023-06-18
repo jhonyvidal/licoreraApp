@@ -22,7 +22,7 @@ export class CampaignDetailPage implements OnInit {
         if (response.success === true) {
           // console.log('Promotions: ', response.data.data[0]);
           console.log('Promotions: ', response.data);
-          this.product = {...response.data.data[3].product}
+          this.product = {...response.data.data[0].product}
           // console.log(this.product);
         } else {
           console.log('Body del error: ', response);
