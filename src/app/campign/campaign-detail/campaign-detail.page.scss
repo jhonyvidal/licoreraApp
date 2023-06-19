@@ -2,8 +2,9 @@ ion-header ion-toolbar {
     --background: #272727;
 }
 
-ion-buttons {
+ion-header ion-toolbar ion-buttons {
     padding: 10px 10px 10px 0px;
+    color: white;
     display: flex;
     justify-content: space-between;
 }
