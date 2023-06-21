@@ -29,9 +29,9 @@
   <section>
     <article>
       <h2>{{product.name}}</h2>
-      <p>{{product.description}}</p>
+      <p class="font-secondary">{{product.description}}</p>
     </article>
-    <article class="features">
+    <article *ngIf="showFeatures" class="features">
       <h3>Características</h3>
       <div>
         <ion-chip>Default</ion-chip>
@@ -41,7 +41,7 @@
       </div>
     </article>
     <article>
-      <h6><span>Antes: </span> $127.500</h6>
+      <h6 *ngIf="beforePrice" class="before-price"><span>Antes: </span> $127.500</h6>
       <h6><span>Ahora: </span> $127.500</h6>
     </article>
   </section>
@@ -52,12 +52,12 @@
       <ion-row>
         <ion-col>
           <ion-buttons class="buttons-left">
-            <ion-button>
-              <img class="delivery-icon" width="35" src="../../assets/icon/MinusSign.svg" alt="back arrow">
+            <ion-button (click)="subtractBtn()">
+              <img class="delivery-icon" width="35" src="../../assets/icon/MinusSign.svg" alt="Substract btn">
             </ion-button>
-            <h4>1</h4>
-            <ion-button>
-              <img class="delivery-icon" width="35" src="../../assets/icon/Plus.svg" alt="back arrow">
+            <h4>{{quantity}}</h4>
+            <ion-button (click)="addBtn()">
+              <img class="delivery-icon" width="35" src="../../assets/icon/Plus.svg" alt="Add btn">
             </ion-button>
           </ion-buttons>
         </ion-col>

@@ -15,5 +15,7 @@ interface DataArray {
 export interface Product {
     image?: string,
     name?: string,
-    description?: string
+    description?: string,
+    features?: string,
+    beforePrice?: string
 }
