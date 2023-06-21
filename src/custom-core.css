@@ -1,13 +1,41 @@
+@font-face {
+    font-family: 'weblysleekuil';
+    src: url('./assets/fonts/weblysleekuil.ttf') format('truetype');
+
+    font-family: 'weblysleekuili';
+    src: url('./assets/fonts/weblysleekuili.ttf') format('truetype');
+
+    font-family: 'weblysleekuisb';
+    src: url('./assets/fonts/weblysleekuisb.ttf') format('truetype');
+
+    font-family: 'weblysleekuisbi';
+    src: url('./assets/fonts/weblysleekuisbi.ttf') format('truetype');
+
+    font-family: 'weblysleekuisl';
+    src: url('./assets/fonts/weblysleekuisl.ttf') format('truetype');
+
+    font-family: 'weblysleekuisli';
+    src: url('./assets/fonts/weblysleekuisli.ttf') format('truetype');
+
+    font-family: 'HudsonNYSerif';
+    src: url('./assets/fonts/Hudson NY Serif.otf') format('truetype');
+}
+
+
+
 :root {
     --color-primary: #99791C;
     --color-seconday: #FFFFFF;
 }
 
 html, p, h1, h2, h3, a {
-    font-family: HudsonNY-Serif;
+    font-family: HudsonNYSerif;
+}
+.font-primary {
+    font-family: HudsonNYSerif;
 }
 .font-secondary {
-    font-family: WeblySleek ui-rounded;
+    font-family: weblysleekuil;
 }
   
 .color-primary {

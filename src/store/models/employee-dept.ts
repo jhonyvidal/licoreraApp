@@ -15,6 +15,13 @@ export class EmployeeData {
   title?: string;
   department!: Department;
 }
+
+export class ConfigData {
+  id!: number;
+  name!: string;
+  data!: string;
+}
+
 /*export class OutEvent {
   from!: string;
   employee!: EmployeeData;

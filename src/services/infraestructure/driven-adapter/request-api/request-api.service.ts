@@ -13,8 +13,10 @@ export  class RequestApiService extends RequestGateway {
   constructor(private http: BaseApiService,private https: HttpClient) {super();}
 
   getBasicData(token: string): Observable<BasicDataOut> {
-    const headers = new HttpHeaders(/*{'Authorization': 'Bearer '+ token}*/);
-    return this.http.get('isActive',headers).pipe(
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('promotions',headers).pipe(
       map(response => {
         console.log(response)
         return response as BasicDataOut

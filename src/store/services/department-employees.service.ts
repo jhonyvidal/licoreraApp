@@ -5,11 +5,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SQLiteService } from './sqlite.service';
 import { DbnameVersionService } from './dbname-version.service';
 import { environment } from 'src/environments/environment';
-import { deptEmployeesVersionUpgrades } from '../upgrades/employee-dept/upgrade-statements';
+
 
 import { MOCK_EMPLOYEES, MOCK_DEPARTMENTS} from '../mock-data/employees-depts';
 import { Employee, EmployeeData, Department } from '../models/employee-dept';
 import { IdsSeq } from '../models/ids-seq';
+import { deptEmployeesVersionUpgrades } from '../upgrades/employee-dept/upgrade-statements';
 
 
 @Injectable()
@@ -298,6 +299,7 @@ export class DepartmentEmployeesService {
    * @returns
    */
   private async createInitialData(): Promise<void> {
+  
     // create departments
     for (const department of MOCK_DEPARTMENTS) {
         await this.getDepartment(department);
