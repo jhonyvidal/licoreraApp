@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
-import { Department } from 'src/store/models/employee-dept';
+import { ConfigData, Department } from 'src/store/models/employee-dept';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
-// import { ConfigService } from 'src/store/services/config.service';
 import { InitializeAppService } from 'src/store/services/initialize.app.service';
 import { SQLiteService } from 'src/store/services/sqlite.service';
+import { ConfigService } from 'src/store/services/config.service';
 
 @Component({
   selector: 'app-welcome',
@@ -21,16 +21,18 @@ export class WelcomePage implements OnInit {
     private sqliteService: SQLiteService,
     public formBuilder: FormBuilder,
     private departmentEmployeesService: DepartmentEmployeesService,
-    // private configService:ConfigService,
+    private configService: ConfigService,
     private toast: ToastController,
     private router: Router,
-    private requestUseCase: RequestUseCases
-  ) { 
+    private requestUseCase: RequestUseCases,
+  ) {
     this.myForm = this.formBuilder.group({
-      birthday: ['', Validators.required],
-      condition: [false, Validators.required ]
+      birthday: ['', [Validators.required, this.fechaNacimientoValidator]],
+      condition: [false, Validators.required]
     });
   }
+
+  @Output() toUpdateConfig = new EventEmitter<{ command: string, database: string, config: ConfigData }>();
 
   isNative: boolean = false;
   isEncrypt: boolean = false;
@@ -39,7 +41,7 @@ export class WelcomePage implements OnInit {
   isCheckboxChecked = false;
   buttonWelcome = 'buttonWelcome';
   myForm: FormGroup;
-  public departmentList: Department[] = [];
+  public configList: ConfigData[] = [];
 
   async ngOnInit() {
     this.myForm.valueChanges.subscribe(() => {
@@ -57,43 +59,71 @@ export class WelcomePage implements OnInit {
     this.isEncrypt = this.isNative &&
       (await this.sqliteService.isInConfigEncryption()).result
       ? true : false;
-    try {
-      this.departmentEmployeesService.departmentState().subscribe((res) => {
-        if(res) {
-          this.departmentEmployeesService.fetchEmployees().subscribe(data => {
-            console.log(res, data);
-          });
-        }
-      });
-    } catch(err) {
-      console.log(err,this.departmentList);
-      throw new Error(`Error: ${err}`);
-    }
+    // try {
+    //   this.departmentEmployeesService.departmentState().subscribe((res) => {
+    //     if(res) {
+    //       this.departmentEmployeesService.fetchEmployees().subscribe(data => {
+    //         console.log(res, data);
+    //       });
+    //     }
+    //   });
+    // } catch(err) {
+    //   console.log(err,this.departmentList);
+    //   throw new Error(`Error: ${err}`);
+    // }
 
-    // this.configService.fetchConfigs().subscribe(data => {
-    //   console.log(data);
-    // });
-    
+    this.configService.fetchConfigs().subscribe(data => {
+      this.configList = data;
+    });
+
     this.requestUseCase.getBasicData('token').subscribe(response => {
-        if (response.success === true) {
-          console.log(response);
-        } else {
-          console.log(response);
-        }
+      if (response.success === true) {
+        console.log(response);
+      } else {
+        console.log(response);
+      }
     })
   }
 
-  classValid(){
-    if(this.myForm.valid && this.isCheckboxChecked){
+  classValid() {
+    if (this.myForm.valid && this.isCheckboxChecked) {
       this.buttonWelcome = 'ActivebuttonWelcome'
-    }else{
+    } else {
       this.buttonWelcome = 'buttonWelcome'
     }
   }
 
+  fechaNacimientoValidator(control: any) {
+    const fechaSeleccionada = new Date(control.value);
+    const fechaMinima = new Date();
+    fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
 
-  redirectTo() {
-    this.router.navigate(['/home']);
+    if (fechaSeleccionada > fechaMinima) {
+      console.log(fechaSeleccionada, fechaMinima)
+      return { fechaInvalida: true };
+
+    }
+
+    return null;
+  }
+
+
+  async redirectTo() {
+    const config:ConfigData = { id: 1, name: "Welcome", data: "true" }
+    const result = this.configService.getConfig(config)
+
+    // const data = this.toUpdateConfig.emit(
+    //   { command: "update",
+    //    database: this.configService.databaseName,
+    //     config: { id: 1, name: "Welcome", data: "true" }
+    //    });
+
+    await this.sqliteService.sqliteConnection.saveToStore(this.configService.databaseName);
+    this.configService.fetchConfigs().subscribe(data => {
+      console.log(result,this.configList);
+    });
+   
+    // this.router.navigate(['/home']);
   }
 
 

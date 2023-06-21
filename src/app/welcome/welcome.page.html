@@ -14,9 +14,15 @@
         <ion-input formControlName="birthday"  class="labelWelcome" type="date" required></ion-input>
       </ion-item> 
     </div>
-    <ion-note *ngIf="myForm.get('birthday')?.invalid && myForm.get('birthday')?.touched">
-      La fecha es requerida.
-    </ion-note>
+    <div class="custom-body-center">
+      <ion-note *ngIf="myForm.get('birthday')?.invalid && myForm.get('birthday')?.touched">
+        La fecha es requerida.
+      </ion-note>
+      <ion-note *ngIf="myForm.get('birthday')?.errors?.fechaInvalida">
+        La fecha de nacimiento debe ser mayor a 18 años.
+      </ion-note>
+    </div>
+
 
     <div class="custom-body-center">
       <p class="pWelcome font-secondary">El contenido de esta aplicación es solo para mayores de edad. 

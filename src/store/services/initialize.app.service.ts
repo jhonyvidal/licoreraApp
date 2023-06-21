@@ -29,9 +29,9 @@ export class InitializeAppService {
           await this.sqliteService.initWebStore();
         }
          // Initialize the starter_posts database
-        await this.authorPostsService.initializeDatabase();
+        // await this.authorPostsService.initializeDatabase();
         // Initialize the starter_employees database
-        await this.departmentEmployeesService.initializeDatabase();
+        // await this.departmentEmployeesService.initializeDatabase();
         // Initialize the start:config database
         await this.configService.initializeDatabase();
        

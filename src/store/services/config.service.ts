@@ -105,25 +105,26 @@ export class ConfigService {
    * @returns
    */
   async getConfig(jsonDepartment: ConfigData): Promise<ConfigData> {
-    let department = await this.sqliteService.findOneBy(this.mDb, "configuration", {deptid: jsonDepartment.id});
+    let department = await this.sqliteService.findOneBy(this.mDb, "configuration", {id: jsonDepartment.id});
     if(!department) {
       if(jsonDepartment.name) {
         // create a new department
         department = new ConfigData();
-        department.deptid = jsonDepartment.id;
+        department.id = jsonDepartment.id;
         department.name = jsonDepartment.name;
+        department.data = jsonDepartment.data;
       
         await this.sqliteService.save(this.mDb, "configuration", department);
-        department = await this.sqliteService.findOneBy(this.mDb, "configuration", {deptid: jsonDepartment.id});
+        department = await this.sqliteService.findOneBy(this.mDb, "configuration", {id: jsonDepartment.id});
         if(department) {
           return department;
         } else {
-          return Promise.reject(`failed to getDepartment for id ${jsonDepartment.id}`);
+          return Promise.reject(`failed to getConfig for id ${jsonDepartment.id}`);
         }
       } else {
         // department not in the database
         department = new ConfigData();
-        department.deptid = -1;
+        department.id = -1;
         return department;
       }
     } else {
@@ -134,12 +135,13 @@ export class ConfigService {
         updDepartment.name = jsonDepartment.name;
         updDepartment.data = jsonDepartment.data
 
-        await this.sqliteService.save(this.mDb, "config", updDepartment, {deptid: jsonDepartment.id});
-        department = await this.sqliteService.findOneBy(this.mDb, "configuration", {deptid: jsonDepartment.id});
+        debugger
+        await this.sqliteService.save(this.mDb, "configuration", updDepartment, {id: jsonDepartment.id});
+        department = await this.sqliteService.findOneBy(this.mDb, "configuration", {id: jsonDepartment.id});
         if(department) {
           return department;
         } else {
-          return Promise.reject(`failed to getDepartment for deptid ${jsonDepartment.id}`);
+          return Promise.reject(`failed to getDepartment for id ${jsonDepartment.id}`);
         }
       } else {
         return department;
@@ -151,9 +153,9 @@ export class ConfigService {
    * @returns
    */
   async deleteConfig(jsonDepartment: ConfigData): Promise<void>  {
-    let department = await this.sqliteService.findOneBy(this.mDb, "configuration", {deptid: jsonDepartment.id});
+    let department = await this.sqliteService.findOneBy(this.mDb, "configuration", {id: jsonDepartment.id});
     if( department) {
-      await this.sqliteService.remove(this.mDb, "configuration", {deptid: jsonDepartment.id});
+      await this.sqliteService.remove(this.mDb, "configuration", {id: jsonDepartment.id});
     }
     return;
   }
