@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'campaign-detail',
     loadChildren: () => import('./campign/campaign-detail/campaign-detail.module').then( m => m.CampaignDetailPageModule)
   },
+  {
+    path: 'product-search',
+    loadChildren: () => import('./search/product-search/product-search.module').then( m => m.ProductSearchPageModule)
+  },
 
 ];
 @NgModule({
