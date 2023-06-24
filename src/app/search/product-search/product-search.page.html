@@ -18,24 +18,30 @@
   <div class="search-container">
     <ion-searchbar [(ngModel)]="inputText" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
   </div>
-  <ion-content class="ion-content-infinite" *ngIf="inputText">
-    <ion-list>
-      <div class="product-searched" *ngFor="let item of products; let index">
-        <figure class="img-container">
-          <img [src]="item.product.image" alt="">
-        </figure>
-        <div class="info-searched-container">
-          <h2>{{item.product.name}}</h2>
-          <p>{{item.product.description.slice(0,80)}}...</p>
-          <div class="product-price-container">
-            <p>Precentación: 1000ml</p>
-            <h2 class="font-secondary">170.000</h2>
+  <div class="bad-request" *ngIf="products.lenght === 0; else showProductSearched">
+    <h2>no obtuvimos resultados para</h2>
+    <p>"{{inputText}}"</p>
+  </div>
+  <ng-template #showProductSearched>
+    <ion-content class="ion-content-infinite" *ngIf="inputText">
+      <ion-list>
+        <div class="product-searched" *ngFor="let item of products; let index">
+          <figure class="img-container">
+            <img [src]="item.product.image" alt="">
+          </figure>
+          <div class="info-searched-container">
+            <h2>{{item.product.name}}</h2>
+            <p>{{item.product.description.slice(0,80)}}...</p>
+            <div class="product-price-container">
+              <p>Precentación: {{item.product.name.split(' ')[item.product.name.split(' ').length - 2]}} ml</p>
+              <h2 class="font-secondary">{{item.price | number}}</h2>
+            </div>
           </div>
         </div>
-      </div>
-    </ion-list>
-    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </ion-content>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-content>
+  </ng-template>
 </ion-content>
