@@ -8,19 +8,9 @@ ion-header ion-toolbar ion-buttons {
     display: flex;
     justify-content: space-between;
 }
+
 .ion-content-scrool {
     --overflow: hidden;
-}
-
-// .ion-content-infinite {
-//     --display: flex;
-//     --justify-content: center;
-//     --background: blue;
-// }
-
-ion-list {
-    display: flex;
-    flex-direction: column;
 }
 
 ion-content .search-container{
@@ -44,26 +34,11 @@ ion-content .search-container ion-searchbar {
     --border-radius: 10px;
 }
 
-ion-content .product-list-container {
-    padding-top: 10px;
-    width: 100%;
-    height: 90%;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // overflow: auto;
-    overflow: auto;
-    background-color: white;
+ion-list {
+    padding: 10px 0 20px 0;
+    display: flex;
+    flex-direction: column;
 }
-
-// ion-content .product-list-container .product-searched {
-//     margin-bottom: 10px;
-//     width: 95%;
-//     display: flex;
-//     border-radius: 15px;
-//     border: 1px solid rgb(170, 170, 170);
-//     background-color: white;
-// }
 
 ion-content .product-searched {
     margin-bottom: 10px !important;

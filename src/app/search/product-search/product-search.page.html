@@ -14,134 +14,11 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content>
-  <div class="search-container">
-    <ion-searchbar ></ion-searchbar>
-  </div>
-  <div class="product-list-container">
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <div class="product-searched">
-      <figure class="img-container">
-        <img [src]="product.image" alt="">
-      </figure>
-      <div class="info-searched-container">
-        <h2>{{product.name}}</h2>
-        <p>{{product.description}}</p>
-        <div class="product-price-container">
-          <p>Precentación: 1000ml</p>
-          <h2 class="font-secondary">170.000</h2>
-        </div>
-      </div>
-    </div>
-    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </div>
-</ion-content> -->
-
 <ion-content class="ion-content-scrool">
   <div class="search-container">
-    <ion-searchbar ></ion-searchbar>
+    <ion-searchbar [(ngModel)]="inputText" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
   </div>
-  <ion-content class="ion-content-infinite">
-    <!-- <ion-list>
-      <ion-item *ngFor="let item of items; let index">
-        <ion-avatar slot="start">
-          <img [src]="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
-        </ion-avatar>
-        <ion-label>{{ item }}</ion-label>
-      </ion-item>
-    </ion-list> -->
+  <ion-content class="ion-content-infinite" *ngIf="inputText">
     <ion-list>
       <div class="product-searched" *ngFor="let item of products; let index">
         <figure class="img-container">
@@ -149,7 +26,7 @@
         </figure>
         <div class="info-searched-container">
           <h2>{{item.product.name}}</h2>
-          <p>{{item.product.description.slice(0, 150)}}...</p>
+          <p>{{item.product.description.slice(0,80)}}...</p>
           <div class="product-price-container">
             <p>Precentación: 1000ml</p>
             <h2 class="font-secondary">170.000</h2>

@@ -14,6 +14,7 @@ export class ProductSearchPage implements OnInit {
   product: Product = {};
   items: string [] = [];
   products: any = [];
+  inputText: string;
 
   constructor(
     private requestUseCase: RequestUseCases
@@ -21,23 +22,19 @@ export class ProductSearchPage implements OnInit {
 
   ngOnInit() {
 
-    this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
-        if (response.success === true) {
-          console.log('Promotions: ', response.data);
-          this.product = {...response.data.data[0].product}
-          this.products = response.data.data;
-        } else {
-          console.log('Body del error: ', response);
-        }
-    })
+    // this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
+    //     if (response.success === true) {
+    //       console.log('Promotions: ', response.data);
+    //       this.product = {...response.data.data[0].product}
+    //       this.products = response.data.data;
+    //     } else {
+    //       console.log('Body del error: ', response);
+    //     }
+    // })
 
     this.generateItems();
 
   }
-
-  // ngOnInit() {
-  //   this.generateItems();
-  // }
 
   private generateItems() {
     const count = this.items.length + 1;
@@ -51,6 +48,17 @@ export class ProductSearchPage implements OnInit {
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
+  }
+
+  getProductsSearched(inputSearched: any) {
+    this.requestUseCase.getProductSearch('token', inputSearched).subscribe(response => {
+      if (response.success === true) {
+        console.log('API product search: ', response.data);
+        this.products = response.data;
+      } else {
+        console.log('Body del error: ', response);
+      }
+    })
   }
 
 }
