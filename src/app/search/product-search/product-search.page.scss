@@ -89,8 +89,13 @@ h2 {
     font-weight: 600;
 }
 
-p {
+.presentation, .product-description {
     font-size: 12px;
+    font-family: weblysleekuil;
+}
+
+.bad-request-inputText {
+    font-size: 16px;
     font-family: weblysleekuil;
 }
 

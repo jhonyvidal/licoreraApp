@@ -54,6 +54,8 @@ export class ProductSearchPage implements OnInit {
     this.requestUseCase.getProductSearch('token', inputSearched).subscribe(response => {
       if (response.success === true) {
         console.log('API product search: ', response.data);
+        console.log('Tamaño de la data: ', response.data.length);
+        
         this.products = response.data;
       } else {
         console.log('Body del error: ', response);
