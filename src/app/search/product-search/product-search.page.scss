@@ -10,6 +10,7 @@ ion-header ion-toolbar ion-buttons {
 }
 
 .ion-content-scrool {
+    display: flex;
     --overflow: hidden;
 }
 
@@ -94,15 +95,28 @@ h2 {
     font-family: weblysleekuil;
 }
 
+
+///////////////////////////Bad request//////////////////////////
+
+.bad-request-container {
+    margin: auto;
+    width: 95%;
+}
+
 .bad-request-inputText {
     font-size: 16px;
     font-family: weblysleekuil;
 }
 
-///////////////////////////Bad request//////////////////////////
 .bad-request {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.interested {
+    font-size: 16px;
+    font-family: weblysleekuil;
+    font-weight: 900;
 }

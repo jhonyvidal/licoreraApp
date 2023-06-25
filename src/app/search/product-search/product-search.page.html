@@ -18,9 +18,12 @@
   <div class="search-container">
     <ion-searchbar [(ngModel)]="inputText" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
   </div>
-  <div class="bad-request" *ngIf="products.length === 0 && inputText; else showProductSearched">
-    <h2>no obtuvimos resultados para</h2>
-    <p class="bad-request-inputText">"{{inputText}}"</p>
+  <div class="bad-request-container" *ngIf="products.length === 0 && inputText; else showProductSearched">
+    <div class="bad-request">
+      <h2>no obtuvimos resultados para</h2>
+      <p class="bad-request-inputText">"{{inputText}}"</p>
+    </div>
+    <p class="interested">Te podría interesar</p>
   </div>
   <ng-template #showProductSearched>
     <ion-content class="ion-content-infinite" *ngIf="inputText">
