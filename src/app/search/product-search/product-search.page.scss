@@ -9,7 +9,7 @@ ion-header ion-toolbar ion-buttons {
     justify-content: space-between;
 }
 
-.ion-content-scrool {
+.ion-content-scroll {
     display: flex;
     --overflow: hidden;
 }
@@ -21,10 +21,6 @@ ion-content .search-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    // overflow: hidden;
-    // position: fixed;
-    // background-color: white;
-    // z-index: 1;
 }
 
 ion-content .search-container ion-searchbar {
@@ -95,6 +91,12 @@ h2 {
     font-family: weblysleekuil;
 }
 
+.product-description-card {
+  font-size: 12px;
+  font-family: weblysleekuil;
+  text-align: center;
+}
+
 
 ///////////////////////////Bad request//////////////////////////
 
@@ -121,13 +123,43 @@ h2 {
     font-weight: 900;
 }
 
-.bad-request-container .related-products-container {
-    width: 100%;
-    height: auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 10px;
-    row-gap: 1em;
-    overflow: auto !important;
-    background-color: blue;
+.scroll-grid-container {
+  background-color: yellow;
+  overflow: auto  ;
 }
+
+.grid-container-list {
+  margin: auto;
+  width: 95%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  column-gap: 10px;
+  row-gap: 1em;
+}
+
+.card-title {
+  text-align: center;
+  font-size: 12px;
+}
+
+.card-not-found {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid rgb(170, 170, 170);
+}
+
+.product-description-card {
+  margin: 0;
+}
+
+.price-card {
+
+}
+
+
