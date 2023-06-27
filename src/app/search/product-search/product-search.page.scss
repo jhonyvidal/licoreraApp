@@ -121,13 +121,13 @@ h2 {
     font-weight: 900;
 }
 
-.bad-request-container .related-products-container {
+.related-products-container {
     width: 100%;
     height: auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
     row-gap: 1em;
-    overflow: auto !important;
+    overflow: auto;
     background-color: blue;
 }
