@@ -14,6 +14,7 @@ export class ProductSearchPage implements OnInit {
   product: Product = {};
   items: string [] = [];
   products: any = [];
+  products1: any = [];
   inputText: string;
 
   constructor(
@@ -22,15 +23,15 @@ export class ProductSearchPage implements OnInit {
 
   ngOnInit() {
 
-    // this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
-    //     if (response.success === true) {
-    //       console.log('Promotions: ', response.data);
-    //       this.product = {...response.data.data[0].product}
-    //       this.products = response.data.data;
-    //     } else {
-    //       console.log('Body del error: ', response);
-    //     }
-    // })
+    this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
+        if (response.success === true) {
+          console.log('Promotions: ', response.data);
+          this.product = {...response.data.data[0].product}
+          this.products1 = response.data.data;
+        } else {
+          console.log('Body del error: ', response);
+        }
+    })
 
     this.generateItems();
 
@@ -55,7 +56,7 @@ export class ProductSearchPage implements OnInit {
       if (response.success === true) {
         console.log('API product search: ', response.data);
         console.log('Tamaño de la data: ', response.data.length);
-        
+
         this.products = response.data;
       } else {
         console.log('Body del error: ', response);
