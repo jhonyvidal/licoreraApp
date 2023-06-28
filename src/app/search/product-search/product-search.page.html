@@ -140,26 +140,14 @@
     </div>
   </div> -->
   <ion-content class="ion-content-infinite" *ngIf="inputText">
-    <ion-list class="grid-container-list">
-      <!-- <div class="product-searched" *ngFor="let item of products1; let index">
-        <figure class="img-container">
-          <img [src]="item.product.image" alt="">
-        </figure>
-        <div class="info-searched-container">
-          <h2>{{item.product.name}}</h2>
-          <p class="product-description">{{item.product.description.slice(0,80)}}...</p>
-          <div class="product-price-container">
-            <p class="presentation">Precentación: {{item.product.name.split(' ')[item.product.name.split(' ').length - 2]}} ml</p>
-            <h2 class="font-secondary">{{item.price | number}}</h2>
-          </div>
+    <ion-list>
+      <div class="grid-container-list">
+        <div class="card-not-found" *ngFor="let item of products1; let index">
+          <img alt="" [src]="item.product.image" width="130" height="130"/>
+          <h2 class="card-title">{{item.product.name}}</h2>
+          <p class="product-description-card">{{item.product.description.slice(0,80)}}...</p>
+          <h1>$127.500</h1>
         </div>
-      </div> -->
-      <div class="card-not-found" *ngFor="let item of products1; let index">
-        <img alt="" [src]="item.product.image" width="130" height="130"/>
-        <h2 class="card-title">{{item.product.name}}</h2>
-        <p class="product-description-card">{{item.product.description.slice(0,80)}}...</p>
-        <h1>$127.500</h1>
-
       </div>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
