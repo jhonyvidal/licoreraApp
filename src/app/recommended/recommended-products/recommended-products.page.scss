@@ -1,0 +1,81 @@
+ion-header ion-toolbar {
+  --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+  padding: 10px 10px 10px 0px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ion-content-scroll {
+  display: flex;
+  --overflow: hidden;
+}
+
+.recommended-title-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-header {
+  font-size: 16px;
+}
+
+.grid-list {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  column-gap: 10px;
+  row-gap: 10px;
+}
+
+.grid-list .product-searched {
+  padding: 10px;
+  height: auto;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+}
+
+.grid-list .product-searched .img-container {
+  width: 100%;
+  height: 40%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-list .product-searched .info-searched-container {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid-list .product-searched figure img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+h2 {
+  margin: 0;
+  font-size: 12px;
+}
+
+p {
+  margin: 0;
+  font-size: 12px;
+  font-family: weblysleekuil;
+}
+
+h1{
+  margin: 0;
+}

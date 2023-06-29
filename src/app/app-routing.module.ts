@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'product-search',
     loadChildren: () => import('./search/product-search/product-search.module').then( m => m.ProductSearchPageModule)
   },
+  {
+    path: 'recommended-products',
+    loadChildren: () => import('./recommended/recommended-products/recommended-products.module').then( m => m.RecommendedProductsPageModule)
+  },
 
 ];
 @NgModule({
