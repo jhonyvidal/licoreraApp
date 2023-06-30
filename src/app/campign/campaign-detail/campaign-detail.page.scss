@@ -1,0 +1,143 @@
+ion-header ion-toolbar {
+    --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+    padding: 10px 10px 10px 0px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+ion-content {
+    --padding-top: 5%;
+}
+
+ion-content .product-img-container {
+    margin: 0px;
+    width: 100%;
+    height: 45%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-content .product-img-container .promotion-container{
+    position: absolute;
+    width: 99px;
+    height: 99px;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+ion-content .product-img-container .product-img {
+    height: 100%;
+    object-fit: contain;
+}
+
+ion-content .product-img-container .promotion-container .promotion-icon{
+    position: absolute;
+}
+
+ion-content .product-img-container .promotion-container :nth-child(-n + 2){
+    margin: 0;
+    padding: 0;
+    color: white;
+    z-index: 1;
+}
+
+ion-content .product-img-container .promotion-container h4{
+    font-size: 40px;
+}
+
+section {
+    padding: 20px;
+    width: 100%;
+    height: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 35px 35px 0 0;
+    background-color: #F7F5F5;
+}
+
+section .features div {
+    display: flex;
+    justify-content: space-between;
+}
+
+section .features div ion-chip {
+    background-color: white;
+}
+
+ion-footer ion-toolbar {
+    // --border-width: 0;
+    --background: #F7F5F5;
+}
+
+.add-product {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.add-product ion-button {
+    width: 90%;
+    --background: #99791C;
+}
+
+// ion-footer ion-toolbar .footer-container {
+//     width: 100%;
+//     display: flex;
+//     background-color: blue;
+// }
+
+// ion-footer ion-toolbar .footer-container .add-substract-container {
+//     width: 50%;
+// }
+
+// ion-footer ion-toolbar .footer-container .add-product-container {
+//     padding: 10px;
+//     width: 50%;
+// }
+
+// ion-card {
+//     margin: 0;
+//     padding-top: 20px;
+//     border-radius: 0px;
+//     background-color: none;
+//     box-shadow: none;
+// }
+
+// ion-card .img-card-container {
+//     position: relative;
+//     padding: 0;
+//     width: 80%;
+//     height: 226px;
+//     display: flex;
+//     justify-content: center;
+//     overflow: hidden;
+// }
+
+// ion-card .img-card-container .discount-img {
+//     position: absolute;
+//     width: 99px;
+//     height: 99px;
+//     top: 0;
+//     left: 0;
+// }
+
+// ion-card .img-card-container .card-img {
+//     height: 226px;
+//     object-fit: contain;
+// }
+
+// ion-card .description-card-container {
+//     border-radius: 30px 30px 0 0;
+//     background-color: #F7F5F5;
+// }
