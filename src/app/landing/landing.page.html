@@ -7,7 +7,7 @@
     <h1 class="title">¿ QUE QUIERES TOMAR HOY ?</h1>
   </ion-text>
   <ion-toolbar>
-    <ion-searchbar placeholder="Old parr, Whisky, Cervezas" class="ionSearchbar"></ion-searchbar>
+    <ion-searchbar (click)="search()" placeholder="Old parr, Whisky, Cervezas" class="ionSearchbar"></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="all">
@@ -40,7 +40,7 @@
         <div>
           <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
-          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
           <p>Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
@@ -93,15 +93,22 @@
   </ion-toolbar>
 
   <ion-toolbar *ngIf="ListSuggestedProducts?.length > 0" style="height: 350px;">
-    <h1 class="title">PRODUCTOS RECOMENDADOS</h1>
-    <swiper-container  [spaceBetween]="10"  [slidesPerView]="ListSuggestedProducts.length > 3 ? 3 : ListSuggestedProducts.length" >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6"><h1 class="title titleHome">PRODUCTOS RECOMENDADOS</h1></ion-col>
+        <ion-col size="6"><a href="#" class="aHome" style="float:right">ver todos</a></ion-col>
+      </ion-row>
+    </ion-grid>
+   
+ 
+    <swiper-container  [spaceBetween]="10"  [freeMode]="true" [slidesPerView]="ListSuggestedProducts.length > 3 ? 3 : ListSuggestedProducts.length" >
       <swiper-slide class="recomendados"  *ngFor="let data of ListSuggestedProducts" >
         <div class="swiperContainer">
           <div class="swiperRecomendado"><img [src]="data.product.image" alt="fondo Blanco"></div>
-          <h1 class="text-center">{{data.product.name}}</h1>
-          <p class="font-w300 text-center">750 ml</p>
-          <p class="text-center" style="font-size: 12px; max-height: 60px;min-height: 40px;overflow: hidden; padding: 2px 5px;">{{data.product.description}}</p>
-          <span class="text-center">$ {{data.price}}</span>
+          <h1 class="text-center">{{data.product.name | customPipe: 1}}</h1>
+          <p class="font-w300 text-center">{{data.product.name | customPipe: 2}}</p>
+          <p class="text-center description" style="font-size: 12px; max-height: 60px;min-height: 60px;overflow: hidden; padding: 2px 5px;">{{data.product.description}}</p>
+          <span class="text-center">{{data.price | currency :'USD':'symbol':'1.0-0' }}</span>
         </div>
       </swiper-slide>
     </swiper-container>

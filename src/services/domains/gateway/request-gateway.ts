@@ -6,11 +6,10 @@ import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 
 export abstract class RequestGateway {
 
-    abstract getBasicData(token:string): Observable<BasicDataOut>;
     abstract getIsActive (token:string) : Observable <ActiveResponse>;
     abstract getSuggestedProducts (token:string) : Observable <suggestedProducts>;
-    abstract getPromotions(token: string): Observable<suggestedProducts> ;
-    abstract getPromotions(token:string, promotionPage: number): Observable<PromotionsData>;
+    abstract getPromotion(token: string): Observable<suggestedProducts> ;
+    abstract getPromotions(token:string, promotionPage?: number): Observable<PromotionsData>;
 }
 
 

@@ -15,6 +15,8 @@ import { ConfigService } from 'src/store/services/config.service';
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { AuthorPostsService } from 'src/store/services/author-posts.service';
 import { register } from 'swiper/element/bundle';
+import { CustomPipe } from 'src/shared/pipes/custom.pipe';
+
 
 register();
 

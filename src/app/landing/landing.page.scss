@@ -57,7 +57,7 @@ swiper-slide p{
     text-align: left;
     padding: 0px;
     margin: 0;
-    color: gray;
+    font-family: weblysleekuil;
 }
 swiper-slide img {
     display: block;
@@ -77,7 +77,6 @@ swiper-pagination {
     max-width: 100px;
     margin-top: 0px;
 }
-
 .swiperContainer h1{
     font-family: weblysleekuil;
     font-size: 16px;
@@ -97,7 +96,22 @@ swiper-pagination {
     border: 1px solid #BBBBBB;
     border-radius: 10px;
 }
-
-.swiper-slide-next div{
-    // margin-top: -15px
+.description{
+    font-size: 12px;
+    max-height: 60px;
+    min-height: 60px;
+    overflow: hidden; 
+    padding: 2px 5px;
+    padding: 5px;
+}
+.PromotionDescription{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    max-width: 200px;
+}
+.titleHome{
+    margin-top: 0;
+}
+.aHome{
+    color: #A37906;
 }

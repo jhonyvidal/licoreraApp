@@ -10,10 +10,6 @@ import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 export class RequestUseCases {
   constructor( private _requestGateWay: RequestGateway) {}
 
-  getBasicData (token:string) : Observable <BasicDataOut> {
-    return this._requestGateWay.getBasicData(token);
-  }
-
   getIsActive (token:string) : Observable <ActiveResponse> {
     return this._requestGateWay.getIsActive(token);
   }
@@ -22,8 +18,8 @@ export class RequestUseCases {
     return this._requestGateWay.getSuggestedProducts(token);
   }
 
-  getPromotions2(token: string): Observable<suggestedProducts> {
-    return this._requestGateWay.getPromotions(token);
+  getPromotion(token: string): Observable<suggestedProducts> {
+    return this._requestGateWay.getPromotion(token);
   }
   
   getPromotions (token:string, promotionPage: number) : Observable <PromotionsData> {

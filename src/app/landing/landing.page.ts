@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, IonicSlides } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { suggestedProducts } from 'src/shared/domain/response/suggestedProductResponse';
@@ -14,6 +15,7 @@ export class LandingPage implements OnInit {
   swiperModules = [IonicSlides];
 
   constructor(private alertController: AlertController,
+    private router: Router,
     private requestUseCase: RequestUseCases) { }
     public ListSuggestedProducts:suggestedProducts[];
     public ListPromotions:suggestedProducts[];
@@ -47,7 +49,7 @@ export class LandingPage implements OnInit {
       }
     })
 
-    this.requestUseCase.getPromotions('token').subscribe(response => {
+    this.requestUseCase.getPromotion('token').subscribe(response => {
       if (response.success === true) {
         response.data.forEach((elemento:any,indice:number) => {
           if(indice < 5){
@@ -101,6 +103,10 @@ export class LandingPage implements OnInit {
 
   show(id:number){
     this.ionSegment = id;
+  }
+
+  search(){
+    this.router.navigate(['/home']);
   }
 
 }

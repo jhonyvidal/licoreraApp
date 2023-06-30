@@ -53,13 +53,6 @@ export class WelcomePage implements OnInit {
       this.classValid()
     });
     
-    this.requestUseCase.getBasicData('token').subscribe(response => {
-      if (response.success === true) {
-        console.log(response);
-      } else {
-        console.log(response);
-      }
-    })
   }
 
   classValid() {
@@ -89,13 +82,15 @@ export class WelcomePage implements OnInit {
     const config:ConfigData = { id: 1, name: "Welcome", data: "true" }
     const result = this.configService.getConfig(config)
 
+    this.router.navigate(['/home']);
+    
     if(this.sqliteService.platform === "web") {
       await this.sqliteService.sqliteConnection.saveToStore(this.configService.databaseName);
     }
 
     await this.configService.updateConfig(config);
 
-    this.router.navigate(['/home']);
+    
   }
 
 

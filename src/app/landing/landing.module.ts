@@ -8,6 +8,7 @@ import { LandingPageRoutingModule } from './landing-routing.module';
 
 import { LandingPage } from './landing.page';
 import { Config } from '@ionic/angular';
+import { CustomPipe } from 'src/shared/pipes/custom.pipe';
 
 @NgModule({
 
@@ -19,7 +20,7 @@ import { Config } from '@ionic/angular';
     FormsModule,
     LandingPageRoutingModule
   ],
-  declarations: [LandingPage],
+  declarations: [LandingPage,CustomPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LandingPageModule {}
