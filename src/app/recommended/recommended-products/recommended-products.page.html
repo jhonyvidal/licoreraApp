@@ -19,7 +19,7 @@
     <h2 class="title-header">Productos recomendados</h2>
   </div>
   <ion-content class="ion-content-infinite">
-    <ion-list class="grid-list">
+    <ion-list [class]="listClass">
       <div class="product-searched" *ngFor="let item of products; let index">
         <figure class="img-container">
           <img [src]="item.product.image" alt="">
@@ -31,8 +31,11 @@
         </div>
       </div>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="crescent"
+      >
+      </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-content>
 </ion-content>

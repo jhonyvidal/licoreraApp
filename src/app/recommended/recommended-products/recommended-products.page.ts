@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-recommended-products',
@@ -9,40 +9,73 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 })
 export class RecommendedProductsPage implements OnInit {
 
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
   pageNumber: number = 1;
   products: any = [];
   items: string [] = [];
+  position: number = 0;
+  showInfiniteScroll = true;
+  listClass: string = 'grid-list';
 
   constructor(
     private requestUseCase: RequestUseCases
   ) { }
 
   ngOnInit() {
-    this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
+
+    this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
       if (response.success === true) {
-        console.log('Promotions: ', response.data);
-        // this.product = {...response.data.data[0].product}
-        this.products = response.data.data;
+        for (let index = 0; index < 20; index++) {
+          this.products.push(response.data[this.position]);
+          this.position++;
+        }
       } else {
         console.log('Body del error: ', response);
       }
     })
 
-    this.generateItems();
   }
 
-  private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 50; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
-  }
+  loadData(event: any) {
 
-  onIonInfinite(ev: any) {
-    this.generateItems();
+    console.log('cargando los siguientes...');
+
     setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
+
+      if (this.position >= 117) {
+        event.target.complete;
+        this.showInfiniteScroll = false;
+        this.infiniteScroll.disabled = true;
+        this.listClass = 'grid-list-padding';
+        return;
+      }
+
+      this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
+        if (response.success === true) {
+          for (let index = 0; index < 20; index++) {
+            if (response.data[this.position]) {
+              this.products.push(response.data[this.position]);
+              this.position++;
+              console.log('Position: ',this.position);
+            }
+
+          }
+        } else {
+          console.log('Body del error: ', response);
+        }
+      })
+      event.target.complete();
+    }, 1000);
+
+
   }
+
+  // onIonInfinite(ev: any) {
+  //   this.generateItems();
+  //   setTimeout(() => {
+  //     (ev as InfiniteScrollCustomEvent).target.complete();
+  //   }, 2000);
+  // }
 
 }

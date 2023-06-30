@@ -4,6 +4,7 @@ import { RequestGateway } from '../gateway/request-gateway';
 import { BasicDataOut } from 'src/shared/domain/response/BasicData';
 import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
+import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
 
 @Injectable()
 export class RequestUseCases {
@@ -19,6 +20,10 @@ export class RequestUseCases {
 
   getProductSearch (token:string, inputSearched: string) : Observable <ProductSearch> {
     return this._requestGateWay.getProductSearch(token, inputSearched);
+  }
+
+  getRecommendedProducts (token:string) : Observable <RecommendedProducts> {
+    return this._requestGateWay.getRecommendedProducts(token);
   }
 
 }
