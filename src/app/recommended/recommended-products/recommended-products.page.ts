@@ -17,6 +17,8 @@ export class RecommendedProductsPage implements OnInit {
   position: number = 0;
   showInfiniteScroll = true;
   listClass: string = 'grid-list';
+  numberOfItems: number = 10;
+  numberOfApiProducts: number = 0;
 
   constructor(
     private requestUseCase: RequestUseCases
@@ -24,16 +26,7 @@ export class RecommendedProductsPage implements OnInit {
 
   ngOnInit() {
 
-    this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
-      if (response.success === true) {
-        for (let index = 0; index < 20; index++) {
-          this.products.push(response.data[this.position]);
-          this.position++;
-        }
-      } else {
-        console.log('Body del error: ', response);
-      }
-    })
+    this.getAPIData();
 
   }
 
@@ -43,7 +36,7 @@ export class RecommendedProductsPage implements OnInit {
 
     setTimeout(() => {
 
-      if (this.position >= 117) {
+      if (this.position >= this.numberOfApiProducts) {
         event.target.complete;
         this.showInfiniteScroll = false;
         this.infiniteScroll.disabled = true;
@@ -51,31 +44,28 @@ export class RecommendedProductsPage implements OnInit {
         return;
       }
 
-      this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
-        if (response.success === true) {
-          for (let index = 0; index < 20; index++) {
-            if (response.data[this.position]) {
-              this.products.push(response.data[this.position]);
-              this.position++;
-              console.log('Position: ',this.position);
-            }
+      this.getAPIData();
 
-          }
-        } else {
-          console.log('Body del error: ', response);
-        }
-      })
       event.target.complete();
     }, 1000);
 
 
   }
 
-  // onIonInfinite(ev: any) {
-  //   this.generateItems();
-  //   setTimeout(() => {
-  //     (ev as InfiniteScrollCustomEvent).target.complete();
-  //   }, 2000);
-  // }
+  getAPIData(){
+    this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
+      if (response.success === true) {
+        this.numberOfApiProducts = response.data.length;
+        for (let index = 0; index < this.numberOfItems; index++) {
+          if (response.data[this.position]) {
+            this.products.push(response.data[this.position]);
+            this.position++;
+          }
+        }
+      } else {
+        console.log('Body del error: ', response);
+      }
+    })
+  }
 
 }

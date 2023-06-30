@@ -27,13 +27,13 @@
         <div class="info-searched-container">
           <h2>{{item.product.name}}</h2>
           <p class="product-description">{{item.product.description.slice(0,80)}}...</p>
-          <h1>$127000</h1>
+          <h1>{{item.price | currency}}</h1>
         </div>
       </div>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
-        loadingSpinner="crescent"
+        loadingSpinner="bubbles"
       >
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
