@@ -52,30 +52,7 @@ export class WelcomePage implements OnInit {
       this.isCheckboxChecked = value;
       this.classValid()
     });
-    if (this.initAppService.platform === 'android') {
-      this.isAndroid = true;
-    }
-    this.isNative = this.sqliteService.native;
-    this.isEncrypt = this.isNative &&
-      (await this.sqliteService.isInConfigEncryption()).result
-      ? true : false;
-    // try {
-    //   this.departmentEmployeesService.departmentState().subscribe((res) => {
-    //     if(res) {
-    //       this.departmentEmployeesService.fetchEmployees().subscribe(data => {
-    //         console.log(res, data);
-    //       });
-    //     }
-    //   });
-    // } catch(err) {
-    //   console.log(err,this.departmentList);
-    //   throw new Error(`Error: ${err}`);
-    // }
-
-    this.configService.fetchConfigs().subscribe(data => {
-      this.configList = data;
-    });
-
+    
     this.requestUseCase.getBasicData('token').subscribe(response => {
       if (response.success === true) {
         console.log(response);
@@ -112,18 +89,13 @@ export class WelcomePage implements OnInit {
     const config:ConfigData = { id: 1, name: "Welcome", data: "true" }
     const result = this.configService.getConfig(config)
 
-    // const data = this.toUpdateConfig.emit(
-    //   { command: "update",
-    //    database: this.configService.databaseName,
-    //     config: { id: 1, name: "Welcome", data: "true" }
-    //    });
+    if(this.sqliteService.platform === "web") {
+      await this.sqliteService.sqliteConnection.saveToStore(this.configService.databaseName);
+    }
 
-    await this.sqliteService.sqliteConnection.saveToStore(this.configService.databaseName);
-    this.configService.fetchConfigs().subscribe(data => {
-      console.log(result,this.configList);
-    });
-   
-    // this.router.navigate(['/home']);
+    await this.configService.updateConfig(config);
+
+    this.router.navigate(['/home']);
   }
 
 

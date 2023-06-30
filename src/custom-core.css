@@ -47,7 +47,7 @@ html, p, h1, h2, h3, a {
 }
 
 .text-center{
-    text-align: center;
+    text-align: center !important;
 }
 .mb10{
     margin-bottom: 10px;
@@ -76,3 +76,42 @@ html, p, h1, h2, h3, a {
     align-items: center;
     text-align: center;
 }
+.buttonWelcome {
+    width: 90% !important;
+    font-family: HudsonNYSerif;
+    border-radius: 5px !important;
+    color:#000000 !important;
+    --background:#FFFFFF !important;
+    border: 2px solid #000000 !important;
+}
+.alert-message.sc-ion-alert-ios {
+    max-height: 280px;
+}
+.alert-wrapper.ion-overlay-wrapper.sc-ion-alert-md {
+    background: #FFFFFF;
+}
+.alert-message{
+    text-align: center;
+}
+.alert-button-inner.sc-ion-alert-md {
+    -ms-flex-pack: end;
+    justify-content: center;
+}
+.alertFont{
+    font-size: 16px;
+    font-family: HudsonNYSerif;
+    color: #000000;
+}
+.alertSubtitle{
+    font-weight: 300px;
+    font-size: 13px;
+    text-align: center;
+}
+.font-w300{
+    font-weight: 300px !important;
+}
+.font-w600{
+    font-weight: 600px !important;
+}
+
+

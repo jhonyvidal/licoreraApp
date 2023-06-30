@@ -6,11 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-
-  constructor() {}
+  
+  constructor() {
+  }
 
   selectedTab: string = 'tab1'; 
-
+ 
   changeTab(tab: string) {
     this.selectedTab = tab;
   }

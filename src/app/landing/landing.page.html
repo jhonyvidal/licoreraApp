@@ -1,20 +1,112 @@
 <ion-header [translucent]="true" class="h60">
-  <ion-toolbar>
-    <ion-title>landing</ion-title>
-  </ion-toolbar>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-      <ion-title size="large">landing</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-text color="primary">
+    <h1 class="title">¿ QUE QUIERES TOMAR HOY ?</h1>
+  </ion-text>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Old parr, Whisky, Cervezas" class="ionSearchbar"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="all">
+      <ion-segment-button value="all" (click)="show(1)">
+        <ion-label class="segmentLabel" >DESTACADOS</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="favorites" (click)="show(2)" >
+        <ion-label  >PROMOCIONES</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="productoNuevos"  (click)="show(3)" >
+        <ion-label >PRODUCTOS NUEVOS</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+
+  <ion-toolbar *ngIf="ionSegment === 1">
+    <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
+      <swiper-slide>
+        <div>
+          <img src="../../assets/img/test.svg" alt="fondo Blanco">
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="ionSegment === 2">
+    <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
+      <swiper-slide>
+        <div>
+          <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
+          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p>Válido hasta: Enero 23, 2023</p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div>
+        <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
+          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p>Válido hasta: Enero 23, 2023</p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div>
+        <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
+          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p>Válido hasta: Enero 23, 2023</p>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="ionSegment === 3">
+    <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
+      <swiper-slide>
+        <div>
+          <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML</h1>
+          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p>Válido hasta: Enero 23, 2023</p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div>
+        <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML</h1>
+          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p>Válido hasta: Enero 23, 2023</p>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div>
+        <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML</h1>
+          <p>Descripción del producto, caracteristicas y demás información</p>
+          <p>Válido hasta: Enero 23, 2023</p>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="ListSuggestedProducts?.length > 0" style="height: 350px;">
+    <h1 class="title">PRODUCTOS RECOMENDADOS</h1>
+    <swiper-container  [spaceBetween]="10"  [slidesPerView]="ListSuggestedProducts.length > 3 ? 3 : ListSuggestedProducts.length" >
+      <swiper-slide class="recomendados"  *ngFor="let data of ListSuggestedProducts" >
+        <div class="swiperContainer">
+          <div class="swiperRecomendado"><img [src]="data.product.image" alt="fondo Blanco"></div>
+          <h1 class="text-center">{{data.product.name}}</h1>
+          <p class="font-w300 text-center">750 ml</p>
+          <p class="text-center" style="font-size: 12px; max-height: 60px;min-height: 40px;overflow: hidden; padding: 2px 5px;">{{data.product.description}}</p>
+          <span class="text-center">$ {{data.price}}</span>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </ion-toolbar>
+  
 </ion-content>
+
+

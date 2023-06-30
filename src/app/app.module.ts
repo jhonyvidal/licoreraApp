@@ -14,6 +14,9 @@ import { ServicesModule } from 'src/services/services.module';
 import { ConfigService } from 'src/store/services/config.service';
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { AuthorPostsService } from 'src/store/services/author-posts.service';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
@@ -21,7 +24,13 @@ export function initializeFactory(init: InitializeAppService) {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,ServicesModule],
+  imports: [BrowserModule,
+    IonicModule.forRoot({
+      innerHTMLTemplatesEnabled: true
+    }), 
+    AppRoutingModule,
+    HttpClientModule,
+    ServicesModule],
   providers: [
     SQLiteService, 
     InitializeAppService,
