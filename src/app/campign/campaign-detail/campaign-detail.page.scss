@@ -56,7 +56,7 @@ ion-content .product-img-container .promotion-container h4{
 }
 
 section {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     width: 100%;
     height: 55%;
     display: flex;
@@ -78,6 +78,11 @@ section .features div ion-chip {
 ion-footer ion-toolbar {
     // --border-width: 0;
     --background: #F7F5F5;
+}
+
+section article .before-price {
+    color: #BBBBBB;
+    text-decoration: line-through;
 }
 
 .add-product {

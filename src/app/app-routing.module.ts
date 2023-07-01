@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./campign/campaign-detail/campaign-detail.module').then( m => m.CampaignDetailPageModule)
   },
   {
+    path: 'product-search',
+    loadChildren: () => import('./search/product-search/product-search.module').then( m => m.ProductSearchPageModule)
+  },
+  {
+    path: 'recommended-products',
+    loadChildren: () => import('./recommended/recommended-products/recommended-products.module').then( m => m.RecommendedProductsPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
   },

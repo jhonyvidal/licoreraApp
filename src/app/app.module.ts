@@ -15,10 +15,10 @@ import { ConfigService } from 'src/store/services/config.service';
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { AuthorPostsService } from 'src/store/services/author-posts.service';
 import { register } from 'swiper/element/bundle';
-import { CustomPipe } from 'src/shared/pipes/custom.pipe';
 
 
 register();
+import { FormsModule } from '@angular/forms';
 
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
@@ -32,7 +32,8 @@ export function initializeFactory(init: InitializeAppService) {
     }), 
     AppRoutingModule,
     HttpClientModule,
-    ServicesModule],
+    ServicesModule,
+    FormsModule],
   providers: [
     SQLiteService, 
     InitializeAppService,

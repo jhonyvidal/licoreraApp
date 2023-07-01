@@ -7,10 +7,11 @@ import { BasicDataOut } from 'src/shared/domain/response/BasicData';
 import { suggestedProducts } from 'src/shared/domain/response/suggestedProductResponse';
 import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 import { BaseApiService } from 'src/shared/infraestructure/base-api.service';
+import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
+import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
-
 
   constructor(private http: BaseApiService,private https: HttpClient) {super();}
 
@@ -26,16 +27,6 @@ export  class RequestApiService extends RequestGateway {
   }
 
 
-  getPromotions(token: string, promotionPage: number): Observable<PromotionsData> {
-    const headers = new HttpHeaders(/*{'Authorization': 'Bearer '+ token}*/);
-    return this.http.get('promotionProducts?page=' + promotionPage, headers).pipe(
-      map(response => {
-        // console.log(response)
-        return response as PromotionsData
-      })
-    )
-  }
-
   getSuggestedProducts(token: string): Observable<suggestedProducts> {
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
@@ -43,6 +34,18 @@ export  class RequestApiService extends RequestGateway {
     return this.http.get('suggestedProducts',headers).pipe(
       map(response => {
         return response as suggestedProducts
+      })
+    )
+  }
+
+  getProductSearch(token: string, inputSearched: string): Observable<ProductSearch> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('search?q=' + inputSearched,headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as BasicDataOut
       })
     )
   }
@@ -58,6 +61,14 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getPromotions(token: string, promotionPage: number): Observable<PromotionsData> {
+    const headers = new HttpHeaders(/*{'Authorization': 'Bearer '+ token}*/);
+    return this.http.get('promotionProducts?page=' + promotionPage, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as PromotionsData
+      })
+    )
+  }
   
-
 }
