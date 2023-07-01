@@ -106,7 +106,7 @@ export class LandingPage implements OnInit {
   }
 
   search(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/campaign-detail']);
   }
 
 }

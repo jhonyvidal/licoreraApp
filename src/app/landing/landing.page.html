@@ -36,7 +36,7 @@
 
   <ion-toolbar *ngIf="ionSegment === 2">
     <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
-      <swiper-slide>
+      <swiper-slide (click)="search()">
         <div>
           <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
@@ -44,7 +44,7 @@
           <p>Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide (click)="search()">
         <div>
         <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
@@ -52,7 +52,7 @@
           <p>Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide (click)="search()">
         <div>
         <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
@@ -65,7 +65,7 @@
 
   <ion-toolbar *ngIf="ionSegment === 3">
     <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
-      <swiper-slide>
+      <swiper-slide (click)="search()">
         <div>
           <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML</h1>
@@ -73,7 +73,7 @@
           <p>Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide (click)="search()">
         <div>
         <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML</h1>
@@ -81,7 +81,7 @@
           <p>Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide (click)="search()">
         <div>
         <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML</h1>
@@ -96,7 +96,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6"><h1 class="title titleHome">PRODUCTOS RECOMENDADOS</h1></ion-col>
-        <ion-col size="6"><a href="#" class="aHome" style="float:right">ver todos</a></ion-col>
+        <ion-col size="6"><a href="" class="aHome" style="float:right">ver todos</a></ion-col>
       </ion-row>
     </ion-grid>
    
