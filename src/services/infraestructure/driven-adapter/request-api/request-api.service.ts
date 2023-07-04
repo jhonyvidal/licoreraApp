@@ -70,5 +70,17 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+
+  getRecommendedProducts(token: string): Observable<RecommendedProducts> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('suggestedProducts',headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as BasicDataOut
+      })
+    )
+  }
   
 }

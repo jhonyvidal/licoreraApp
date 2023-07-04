@@ -19,9 +19,14 @@ const routes: Routes = [
     loadChildren: () => import('./recommended/recommended-products/recommended-products.module').then( m => m.RecommendedProductsPageModule)
   },
   {
+    path: 'how-to-get',
+    loadChildren: () => import('./how-to-get/how-to-get.module').then( m => m.HowToGetPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
   },
+
 ];
 @NgModule({
   imports: [

@@ -13,7 +13,7 @@ export abstract class RequestGateway {
     abstract getPromotion(token: string): Observable<suggestedProducts> ;
     abstract getPromotions(token:string, promotionPage: number): Observable<PromotionsData>;
     abstract getProductSearch(token:string, inputSearched: string): Observable<ProductSearch>;
-    // abstract getRecommendedProducts(token:string): Observable<RecommendedProducts>;
+    abstract getRecommendedProducts(token:string): Observable<RecommendedProducts>;
 
 }
 

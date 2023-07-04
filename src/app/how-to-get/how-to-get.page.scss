@@ -1,0 +1,39 @@
+ion-header ion-toolbar {
+--background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+    padding: 10px 10px 10px 0px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.title{
+    font-size: 20px;
+    font-family: HudsonNYSerif;
+    color:#000000;
+}
+.subtitle{
+    font-size: 16px;
+    font-family: weblysleekuil;
+    font-weight: 600;
+    color:#000000;
+}
+.text{
+    font-size: 16px;
+    font-family: weblysleekuil;
+    font-weight: 300;
+    color:#000000;
+}
+.linkNumber{
+    font-size: 20px;
+    font-family: HudsonNYSerif;
+    color:#005DB4
+}
+.CenterText{
+    font-size: 16px;
+    font-family: weblysleekuil;
+    font-weight: 600;
+    text-align: center;
+    color:#000000;
+}

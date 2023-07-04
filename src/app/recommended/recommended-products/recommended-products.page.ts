@@ -53,19 +53,19 @@ export class RecommendedProductsPage implements OnInit {
   }
 
   getAPIData(){
-    // this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
-    //   if (response.success === true) {
-    //     this.numberOfApiProducts = response.data.length;
-    //     for (let index = 0; index < this.numberOfItems; index++) {
-    //       if (response.data[this.position]) {
-    //         this.products.push(response.data[this.position]);
-    //         this.position++;
-    //       }
-    //     }
-    //   } else {
-    //     console.log('Body del error: ', response);
-    //   }
-    // })
+    this.requestUseCase.getRecommendedProducts('token').subscribe(response => {
+      if (response.success === true) {
+        this.numberOfApiProducts = response.data.length;
+        for (let index = 0; index < this.numberOfItems; index++) {
+          if (response.data[this.position]) {
+            this.products.push(response.data[this.position]);
+            this.position++;
+          }
+        }
+      } else {
+        console.log('Body del error: ', response);
+      }
+    })
   }
 
 }

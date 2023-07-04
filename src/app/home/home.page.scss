@@ -70,3 +70,16 @@ ion-tab-button.tab-selected {
   ion-menu-button.ios.button.in-toolbar.ion-activatable.ion-focusable.hydrated {
     color: #FFFFFF;
 }
+
+ion-icon[name="custom-icon"] {
+    background-image: url('../../assets/icon/Menu.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+}
+
+ion-icon .md .hydrated{
+    background-image: url('../../assets/icon/Menu.svg');
+}

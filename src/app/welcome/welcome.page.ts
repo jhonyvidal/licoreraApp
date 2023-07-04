@@ -71,7 +71,6 @@ export class WelcomePage implements OnInit {
     if (fechaSeleccionada > fechaMinima) {
       console.log(fechaSeleccionada, fechaMinima)
       return { fechaInvalida: true };
-
     }
 
     return null;

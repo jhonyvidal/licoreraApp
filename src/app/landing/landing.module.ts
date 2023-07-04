@@ -9,6 +9,7 @@ import { LandingPageRoutingModule } from './landing-routing.module';
 import { LandingPage } from './landing.page';
 import { Config } from '@ionic/angular';
 import { CustomPipe } from 'src/shared/pipes/custom.pipe';
+import { customCurrency } from 'src/shared/pipes/customCurrency.pipe';
 
 @NgModule({
 
@@ -20,7 +21,7 @@ import { CustomPipe } from 'src/shared/pipes/custom.pipe';
     FormsModule,
     LandingPageRoutingModule
   ],
-  declarations: [LandingPage,CustomPipe],
+  declarations: [LandingPage,CustomPipe,customCurrency],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LandingPageModule {}

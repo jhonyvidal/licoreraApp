@@ -32,8 +32,8 @@ export class RequestUseCases {
     return this._requestGateWay.getProductSearch(token, inputSearched);
   }
 
-  // getRecommendedProducts (token:string) : Observable <RecommendedProducts> {
-  //   return this._requestGateWay.getRecommendedProducts(token);
-  // }
+  getRecommendedProducts (token:string) : Observable <RecommendedProducts> {
+    return this._requestGateWay.getRecommendedProducts(token);
+  }
 
 }

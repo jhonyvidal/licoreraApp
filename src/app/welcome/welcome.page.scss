@@ -1,6 +1,9 @@
 ion-content {
     --background:  #272727;
 }
+ion-input {
+    color: #8F8F8F;
+}
 
 .imgWelcome {
     margin-top: 50px;
@@ -50,13 +53,14 @@ ion-content {
 .br10{
     border-radius: 10px;
 }
+.has-value{
+    color: #000000;
+}
 
-.labelWelcome{
+.labelWelcome {
     min-width: 150px;
     min-height: 45px;
-    background: #FFFFFF; 
     font-family: HudsonNYSerif;
-    color: #000000;
     font-size: 20px;
     font-weight: bold;
 }
@@ -69,6 +73,7 @@ ion-content {
 
 a {
     color: #99791C;
+    font-family: weblysleekuil;
 }
 
 #footer {

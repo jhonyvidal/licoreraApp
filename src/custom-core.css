@@ -1,33 +1,37 @@
 @font-face {
-    font-family: 'weblysleekuil';
-    src: url('./assets/fonts/weblysleekuil.ttf') format('truetype');
-
-    font-family: 'weblysleekuili';
-    src: url('./assets/fonts/weblysleekuili.ttf') format('truetype');
-
-    font-family: 'weblysleekuisb';
-    src: url('./assets/fonts/weblysleekuisb.ttf') format('truetype');
-
-    font-family: 'weblysleekuisbi';
-    src: url('./assets/fonts/weblysleekuisbi.ttf') format('truetype');
-
-    font-family: 'weblysleekuisl';
-    src: url('./assets/fonts/weblysleekuisl.ttf') format('truetype');
-
-    font-family: 'weblysleekuisli';
-    src: url('./assets/fonts/weblysleekuisli.ttf') format('truetype');
-
     font-family: 'HudsonNYSerif';
     src: url('./assets/fonts/Hudson NY Serif.otf') format('truetype');
 }
-
+@font-face {
+    font-family: 'weblysleekuil';
+    src: url('./assets/fonts/weblysleekuil.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuili';
+    src: url('./assets/fonts/weblysleekuili.otf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisb';
+    src: url('./assets/fonts/weblysleekuisb.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisbi';
+    src: url('./assets/fonts/weblysleekuisbi.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisl';
+    src: url('./assets/fonts/weblysleekuisl.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisli';
+    src: url('./assets/fonts/weblysleekuisli.ttf') format('truetype');
+}
 
 
 :root {
     --color-primary: #99791C;
     --color-seconday: #FFFFFF;
 }
-
 html, p, h1, h2, h3, a {
     font-family: HudsonNYSerif;
 }
@@ -80,9 +84,9 @@ html, p, h1, h2, h3, a {
     width: 90% !important;
     font-family: HudsonNYSerif;
     border-radius: 5px !important;
-    color:#000000 !important;
+    /* color:#000000 !important; */
     --background:#FFFFFF !important;
-    border: 2px solid #000000 !important;
+    /* border: 2px solid #000000 !important; */
 }
 .alert-message.sc-ion-alert-ios {
     max-height: 280px;
