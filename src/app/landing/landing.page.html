@@ -99,8 +99,8 @@
         <ion-col size="6"><a (click)="recommendedProduct()" class="aHome" style="float:right">ver todos</a></ion-col>
       </ion-row>
     </ion-grid>
-   
- 
+
+
     <swiper-container  [spaceBetween]="10"  [freeMode]="true" [slidesPerView]="ListSuggestedProducts.length > 2.5 ? 2.5 : ListSuggestedProducts.length" >
       <swiper-slide class="recomendados"  *ngFor="let data of ListSuggestedProducts" >
         <div class="swiperContainer" >
@@ -113,7 +113,7 @@
       </swiper-slide>
     </swiper-container>
   </ion-toolbar>
-  
+
 </ion-content>
 
 

@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons class="toolbar-detail-container">
-        <ion-back-button>
-          <img class="delivery-icon" src="../../assets/icon/backIcon.svg" alt="back arrow">
-        </ion-back-button>
+        <!-- <ion-back-button>
+          <img class="delivery-icon" src="../../assets/icon/about-icon.svg" alt="back arrow">
+        </ion-back-button> -->
+        <!-- <ion-button (click)="goBack()">
+          <img src="../../assets/icon/backIcon.svg" alt="Back" />
+        </ion-button> -->
+        <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button>
         <ion-button>
           <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
         </ion-button>
@@ -25,9 +29,9 @@
           <img [src]="item.product.image" alt="">
         </figure>
         <div class="info-searched-container">
-          <h2>{{item.product.name}}</h2>
+          <h2 class="porduct-name">{{item.product.name}}</h2>
           <p class="product-description">{{item.product.description.slice(0,80)}}...</p>
-          <h1>{{item.price | currency}}</h1>
+          <h1 class="product-price">{{item.price | customCurrency :'.':'$ '}}</h1>
         </div>
       </div>
     </ion-list>
