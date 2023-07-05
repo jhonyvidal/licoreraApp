@@ -9,6 +9,7 @@ import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 import { BaseApiService } from 'src/shared/infraestructure/base-api.service';
 import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
 import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
+import { CategoriesOut } from 'src/shared/domain/response/Categories';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -82,5 +83,18 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+
+  getCategories(token:string):Observable<CategoriesOut> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('categories',headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as CategoriesOut
+      })
+    )
+  }
+  
   
 }
