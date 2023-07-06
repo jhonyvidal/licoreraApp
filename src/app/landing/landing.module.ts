@@ -9,11 +9,13 @@ import { LandingPageRoutingModule } from './landing-routing.module';
 import { LandingPage } from './landing.page';
 import { Config } from '@ionic/angular';
 import { CustomPipe } from 'src/shared/pipes/custom.pipe';
-import { customCurrency } from 'src/shared/pipes/customCurrency.pipe';
+import { SharedModule } from 'src/shared/shared.module';
+
 
 @NgModule({
 
   imports: [
+    SharedModule,
     IonicModule.forRoot({
       innerHTMLTemplatesEnabled: true
     }),
@@ -21,7 +23,7 @@ import { customCurrency } from 'src/shared/pipes/customCurrency.pipe';
     FormsModule,
     LandingPageRoutingModule
   ],
-  declarations: [LandingPage,CustomPipe,customCurrency],
+  declarations: [LandingPage,CustomPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LandingPageModule {}

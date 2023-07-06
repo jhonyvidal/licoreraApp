@@ -37,3 +37,34 @@ ion-header ion-toolbar ion-buttons {
     text-align: center;
     color:#000000;
 }
+.mapTitle{
+    font-size: 20px;
+    font-family: HudsonNYSerif;
+    color:#000000;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.mapButton{
+    font-size: 17px;
+    font-family: HudsonNYSerif;
+    text-align: center;
+    color:#000000;
+    width: 100%;
+    --background:#FFFFFF;
+    border: 2px solid;
+    border-radius: 5px;
+}
+.mapContainer{
+    margin-bottom: 50px;
+}
+ion-button button{
+    color:#000000;
+}
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
+}
