@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecommendedProductsPageRoutingModule } from './recommended-products-routing.module';
 
 import { RecommendedProductsPage } from './recommended-products.page';
+import { customCurrency } from 'src/shared/pipes/customCurrency.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { RecommendedProductsPage } from './recommended-products.page';
     IonicModule,
     RecommendedProductsPageRoutingModule
   ],
-  declarations: [RecommendedProductsPage]
+  declarations: [RecommendedProductsPage, customCurrency]
 })
 export class RecommendedProductsPageModule {}

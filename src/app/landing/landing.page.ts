@@ -61,10 +61,10 @@ export class LandingPage implements OnInit {
         console.log(response);
       }
     })
-    
-    
+
+
   }
-  
+
   public alertButtons = ['OK'];
   public isOpen = true;
 

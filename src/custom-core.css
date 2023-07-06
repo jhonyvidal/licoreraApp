@@ -41,7 +41,7 @@ html, p, h1, h2, h3, a {
 .font-secondary {
     font-family: weblysleekuil;
 }
-  
+
 .color-primary {
     color: var(--color-primary);
 }
@@ -75,7 +75,7 @@ html, p, h1, h2, h3, a {
     margin-top: 60px;
 }
 .custom-body-center{
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
