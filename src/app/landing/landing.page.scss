@@ -1,0 +1,132 @@
+.title{
+    font-size: 16px;
+    font-family: HudsonNYSerif;
+    color: #000000;
+}
+
+.ionSearchbar {
+    border-radius: 10px;
+    border: 1px solid #9E9E9E;
+    --box-shadow: none !important;
+    background: #FFFFFF;
+}
+
+.searchbar-input-container .sc-ion-searchbar-md, .searchbar-input {
+    --box-shadow: none !important;
+    --background:#FFFFFF;
+}
+
+.in-segment{
+    font-family: HudsonNYSerif;
+    color: #8F8F8F;
+    margin-right: 5px;
+}
+.segment-button-checked.md::part(native) {
+    font-family: HudsonNYSerif;
+    color: #000000;
+}
+ion-segment-button::part(indicator-background) {
+    background: #99791C;
+}
+
+ion-content, ion-toolbar{
+  --background: #ECECEC;
+}
+//swiper css
+swiper-container {
+    width: 100%;
+    height: 250px;
+    margin-top: 15px;
+}
+
+swiper-slide {
+    min-width: 76px;
+    min-height: 250px;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+swiper-slide h1{
+    font-size: 16px;
+    text-align: left;
+    padding: 0px;
+    margin-top: 10px;
+    padding: 0px 10px;
+    color:#000000;
+}
+swiper-slide p{
+    font-size: 10px;
+    text-align: left;
+    padding: 0px;
+    margin: 0;
+    padding: 0px 10px;
+    font-family: weblysleekuil;
+}
+swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 70%;
+    margin-top: -50px;
+}
+swiper-slide .div-swiper-slide{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+swiper-pagination {
+    background-color: red;
+}
+.swiperRecomendado{
+    display: flex;
+    justify-content: center;
+}
+.swiperRecomendado img{
+    max-width: 100px;
+    margin-top: 0px;
+}
+.swiperContainer h1{
+    font-family: weblysleekuil;
+    font-size: 16px;
+    font-weight: 600;
+}
+.swiperContainer p{
+    font-family: weblysleekuil;
+    font-size: 14px;
+}
+.swiperContainer span{
+    font-size: 18px;
+    font-family: HudsonNYSerif;
+    color: #000000;
+}
+.recomendados{
+    background: #FFFFFF;
+    border: 1px solid #BBBBBB;
+    border-radius: 10px;
+}
+.description{
+    font-size: 12px !important;
+    font-weight: 300;
+    max-height: 60px;
+    min-height: 45px;
+    overflow: hidden; 
+    padding: 2px 5px;
+    padding: 5px;
+    margin-top: 5px !important;
+}
+.PromotionDescription{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    max-width: 200px;
+}
+.titleHome{
+    margin-top: 0;
+}
+.aHome{
+    color: #A37906;
+    text-decoration: underline;
+    float:right;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: weblysleekuil;
+}

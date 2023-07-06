@@ -135,7 +135,6 @@ export class ConfigService {
         updDepartment.name = jsonDepartment.name;
         updDepartment.data = jsonDepartment.data
 
-        debugger
         await this.sqliteService.save(this.mDb, "configuration", updDepartment, {id: jsonDepartment.id});
         department = await this.sqliteService.findOneBy(this.mDb, "configuration", {id: jsonDepartment.id});
         if(department) {
@@ -149,7 +148,7 @@ export class ConfigService {
     }
   }
   /**
-   * Delete a Department
+   * Delete a Config
    * @returns
    */
   async deleteConfig(jsonDepartment: ConfigData): Promise<void>  {
@@ -157,6 +156,23 @@ export class ConfigService {
     if( department) {
       await this.sqliteService.remove(this.mDb, "configuration", {id: jsonDepartment.id});
     }
+    return;
+  }
+ /**
+   * Post a Config
+   * @returns
+   */
+  async postConfig(json: ConfigData): Promise<void>  {
+    await this.sqliteService.save(this.mDb, "configuration", {id: json.id,name:json.name,data:json.data});
+    return;
+  }
+
+   /**
+   * Post a Config
+   * @returns
+   */
+   async updateConfig(json: ConfigData): Promise<void>  {
+    await this.sqliteService.save(this.mDb, "configuration",json, {id: json.id});
     return;
   }
   /**

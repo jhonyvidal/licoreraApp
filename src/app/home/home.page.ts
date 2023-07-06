@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,13 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-
-  constructor() {}
+  
+  constructor(private router: Router) {
+  }
 
   selectedTab: string = 'tab1'; 
-
+ 
   changeTab(tab: string) {
     this.selectedTab = tab;
+  }
+
+  routerLink(route:string){
+    this.router.navigate(['/' + route])
   }
   
 

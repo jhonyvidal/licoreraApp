@@ -14,6 +14,10 @@ import { ServicesModule } from 'src/services/services.module';
 import { ConfigService } from 'src/store/services/config.service';
 import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { AuthorPostsService } from 'src/store/services/author-posts.service';
+import { register } from 'swiper/element/bundle';
+
+
+register();
 import { FormsModule } from '@angular/forms';
 
 export function initializeFactory(init: InitializeAppService) {
@@ -22,7 +26,14 @@ export function initializeFactory(init: InitializeAppService) {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,ServicesModule, FormsModule],
+  imports: [BrowserModule,
+    IonicModule.forRoot({
+      innerHTMLTemplatesEnabled: true
+    }), 
+    AppRoutingModule,
+    HttpClientModule,
+    ServicesModule,
+    FormsModule],
   providers: [
     SQLiteService, 
     InitializeAppService,

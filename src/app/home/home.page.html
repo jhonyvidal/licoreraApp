@@ -35,10 +35,10 @@
       </ion-label>
     </ion-item>
     
-    <ion-item button detail="true" lines="none">
+    <ion-item button detail="true" lines="none" routerLink="/how-to-get">
       <ion-label class="m0">
         <ion-grid class="p0">
-          <ion-row>
+          <ion-row (click)="routerLink('how-to-get')">
             <ion-col size="auto"><img style="width: 30px" src="../../assets/icon/location-icon.svg" alt="home"></ion-col>
             <ion-col><h3 class="mt10">COMO LLEGAR</h3></ion-col>
           </ion-row>
@@ -86,7 +86,9 @@
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+        <ion-menu-button>
+          <img class="delivery-icon" src="../../assets/icon/Menu.svg" alt="Menu">
+        </ion-menu-button>
       </ion-buttons>
       <div class="dev-logo-header"><img class="menu-logo-center" style="width: 50px;" src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa"></div>
       <img class="delivery-icon" src="../../assets/icon/delivery-icon-white-icon.svg" alt="Logo empresa">
@@ -115,6 +117,7 @@
   </ion-tabs>
   <!-- finish section tabs -->
 </div>
+
 
 
 

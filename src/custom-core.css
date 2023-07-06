@@ -1,33 +1,37 @@
 @font-face {
-    font-family: 'weblysleekuil';
-    src: url('./assets/fonts/weblysleekuil.ttf') format('truetype');
-
-    font-family: 'weblysleekuili';
-    src: url('./assets/fonts/weblysleekuili.ttf') format('truetype');
-
-    font-family: 'weblysleekuisb';
-    src: url('./assets/fonts/weblysleekuisb.ttf') format('truetype');
-
-    font-family: 'weblysleekuisbi';
-    src: url('./assets/fonts/weblysleekuisbi.ttf') format('truetype');
-
-    font-family: 'weblysleekuisl';
-    src: url('./assets/fonts/weblysleekuisl.ttf') format('truetype');
-
-    font-family: 'weblysleekuisli';
-    src: url('./assets/fonts/weblysleekuisli.ttf') format('truetype');
-
     font-family: 'HudsonNYSerif';
     src: url('./assets/fonts/Hudson NY Serif.otf') format('truetype');
 }
-
+@font-face {
+    font-family: 'weblysleekuil';
+    src: url('./assets/fonts/weblysleekuil.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuili';
+    src: url('./assets/fonts/weblysleekuili.otf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisb';
+    src: url('./assets/fonts/weblysleekuisb.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisbi';
+    src: url('./assets/fonts/weblysleekuisbi.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisl';
+    src: url('./assets/fonts/weblysleekuisl.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'weblysleekuisli';
+    src: url('./assets/fonts/weblysleekuisli.ttf') format('truetype');
+}
 
 
 :root {
     --color-primary: #99791C;
     --color-seconday: #FFFFFF;
 }
-
 html, p, h1, h2, h3, a {
     font-family: HudsonNYSerif;
 }
@@ -37,7 +41,7 @@ html, p, h1, h2, h3, a {
 .font-secondary {
     font-family: weblysleekuil;
 }
-  
+
 .color-primary {
     color: var(--color-primary);
 }
@@ -47,7 +51,7 @@ html, p, h1, h2, h3, a {
 }
 
 .text-center{
-    text-align: center;
+    text-align: center !important;
 }
 .mb10{
     margin-bottom: 10px;
@@ -71,8 +75,47 @@ html, p, h1, h2, h3, a {
     margin-top: 60px;
 }
 .custom-body-center{
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
+.buttonWelcome {
+    width: 90% !important;
+    font-family: HudsonNYSerif;
+    border-radius: 5px !important;
+    /* color:#000000 !important; */
+    --background:#FFFFFF !important;
+    /* border: 2px solid #000000 !important; */
+}
+.alert-message.sc-ion-alert-ios {
+    max-height: 280px;
+}
+.alert-wrapper.ion-overlay-wrapper.sc-ion-alert-md {
+    background: #FFFFFF;
+}
+.alert-message{
+    text-align: center;
+}
+.alert-button-inner.sc-ion-alert-md {
+    -ms-flex-pack: end;
+    justify-content: center;
+}
+.alertFont{
+    font-size: 16px;
+    font-family: HudsonNYSerif;
+    color: #000000;
+}
+.alertSubtitle{
+    font-weight: 300px;
+    font-size: 13px;
+    text-align: center;
+}
+.font-w300{
+    font-weight: 300px !important;
+}
+.font-w600{
+    font-weight: 600px !important;
+}
+
+
