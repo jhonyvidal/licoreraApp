@@ -15,9 +15,15 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-content-scroll">
-  <div class="recommended-title-container">
-    <h2 class="title-header">Productos recomendados</h2>
+  <div class="search-container">
+    <ion-searchbar [(ngModel)]="inputText" placeholder="Old Parr, Whisky" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
+    <h2 class="no-obtuvimos">no obtuvimos resultados para</h2>
+    <p class="bad-request-inputText">"{{inputText}}"</p>
+    <p class="interested">Te podría interesar</p>
   </div>
+  <!-- <div class="recommended-title-container">
+    <h2 class="title-header">Productos recomendados</h2>
+  </div> -->
   <ion-content class="ion-content-infinite">
     <!-- <ion-list [class]="listClass"> -->
       <ion-list class="grid-list">
