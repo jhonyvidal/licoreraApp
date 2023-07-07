@@ -49,7 +49,6 @@ export class RecommendedProductsPage implements OnInit {
       event.target.complete();
     }, 1000);
 
-
   }
 
   getAPIData(){

@@ -133,13 +133,22 @@ text-align: center;
 
 .grid-list {
   margin: auto;
-  // padding: 10px;
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(100px, 1fr);
-  column-gap: 10px;
-  row-gap: 10px;
+  column-gap: 20px;
+  row-gap: 15px;
+}
+
+.grid-list-margin {
+  margin: 0 auto 50px auto;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(100px, 1fr);
+  column-gap: 20px;
+  row-gap: 15px;
 }
 
 .product-recommended {
@@ -222,7 +231,7 @@ text-align: center;
 
 .product-description-recommended {
   margin: 0;
-  padding: 10px;
+  padding: 0px 10px 0 10px;
   font-family: 'weblysleekuil';
   font-size: 12px;
   text-align: center;
@@ -230,6 +239,7 @@ text-align: center;
 }
 
 .product-price-recommended {
+  margin: 0;
   font-size: 18px;
 }
 

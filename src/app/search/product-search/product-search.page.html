@@ -26,7 +26,7 @@
   </div> -->
   <ion-content class="ion-content-infinite">
     <!-- <ion-list [class]="listClass"> -->
-      <ion-list class="grid-list">
+      <ion-list [class]="listClass">
       <div class="product-recommended" *ngFor="let item of products1; let index">
         <figure class="img-container">
           <!-- <figure class="promotion-container"> Todo, cuando pasen la API
@@ -38,13 +38,13 @@
         </figure>
         <div class="info-searched-container">
           <h2 class="product-name-recommended">{{item.product.name}}</h2>
-          <p class="product-description-recommended">{{item.product.description.slice(0,80)}}...</p>
-          <h1 class="product-price-recommended">{{item.price | currency}}</h1>
+          <p class="product-description-recommended">{{item.product.description.slice(0,70)}}...</p>
+          <h1 class="product-price-recommended">{{item.price | customCurrency :'.':'$ '}}</h1>
         </div>
       </div>
     </ion-list>
     <!-- <ion-infinite-scroll (ionInfinite)="loadData($event)"> -->
-      <ion-infinite-scroll>
+      <ion-infinite-scroll (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
       >
