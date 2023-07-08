@@ -129,9 +129,51 @@ section article .Before-price {
     align-items: center;
 }
 
-.add-product ion-button {
-    width: 90%;
-    --background: #99791C;
+.Btn-minus {
+  background-color: #FDBD00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%
+}
+
+.Btn-plus {
+  background-color: #FDBD00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%
+}
+
+.Toolbar-footer {
+  padding: 0 20px 20px 20px !important;
+}
+
+.Btns-container {
+  width: 100%;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
+
+.buttons-left {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttons-right {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Btn-add {
+  width: 80%;
+  height: 40px;
+  border-radius: 5px;
+  color: white;
+  font-family: 'HudsonNYSerif';
+  font-size: 17px;
+  background-color: #99791C;
 }
 
 // ion-footer ion-toolbar .footer-container {

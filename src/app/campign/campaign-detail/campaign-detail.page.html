@@ -47,27 +47,41 @@
   </section>
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
-    <ion-grid>
+  <ion-toolbar class="Toolbar-footer">
+    <!-- <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-buttons class="buttons-left">
+        <ion-col> -->
+          <!-- <ion-buttons class="buttons-left">
             <ion-button (click)="subtractBtn()">
-              <img class="delivery-icon" width="35" src="../../assets/icon/MinusSign.svg" alt="Substract btn">
+              <img class="delivery-icon" src="../../assets/icon/MinusSign.svg" alt="Substract btn">
             </ion-button>
             <h4>{{quantity}}</h4>
             <ion-button (click)="addBtn()">
-              <img class="delivery-icon" width="35" src="../../assets/icon/Plus.svg" alt="Add btn">
+              <img class="delivery-icon" src="../../assets/icon/Plus.svg" alt="Add btn">
             </ion-button>
-          </ion-buttons>
-        </ion-col>
-        <ion-col class="add-product">
+          </ion-buttons> -->
+          <div class="Btns-container">
+            <ion-buttons class="buttons-left">
+              <ion-button class="Btn-minus">
+                <ion-icon color="light" name="remove-outline"></ion-icon>
+              </ion-button>
+              <h4>{{quantity}}</h4>
+              <ion-button class="Btn-plus">
+                <ion-icon color="light" name="add-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-buttons class="buttons-right">
+              <ion-button class="Btn-add">Agregar</ion-button>
+            </ion-buttons>
+          </div>
+        <!-- </ion-col>
+        <ion-col class="add-product"> -->
           <!-- <ion-buttons class="buttons-right"> -->
-            <ion-button>Default</ion-button>
+            <!-- <ion-button>Default</ion-button> -->
           <!-- </ion-buttons> -->
-        </ion-col>
+        <!-- </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
   </ion-toolbar>
 </ion-footer>
 
