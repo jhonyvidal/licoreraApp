@@ -35,6 +35,15 @@ ion-content .product-img-container .promotion-container{
     flex-direction: column;
 }
 
+.Promotion-number {
+  margin: 0;
+  font-size: 35px;
+}
+
+.Promotion-off {
+  font-size: 13px;
+}
+
 ion-content .product-img-container .product-img {
     height: 100%;
     object-fit: contain;
@@ -56,12 +65,12 @@ ion-content .product-img-container .promotion-container h4{
 }
 
 section {
-    padding: 20px 20px 0 20px;
+    padding: 0px 20px 0 20px;
     width: 100%;
     height: 55%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     border-radius: 35px 35px 0 0;
     background-color: #F7F5F5;
 }
@@ -104,6 +113,7 @@ ion-footer ion-toolbar {
 }
 
 .Price-now {
+  margin: 0;
   font-size: 24px;
 }
 
@@ -113,6 +123,7 @@ ion-footer ion-toolbar {
 }
 
 section article .Before-price {
+  margin: 0;
   font-size: 18px;
   color: #BBBBBB;
   text-decoration: line-through;
@@ -131,15 +142,15 @@ section article .Before-price {
 
 .Btn-minus {
   background-color: #FDBD00;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%
 }
 
 .Btn-plus {
   background-color: #FDBD00;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%
 }
 
@@ -164,6 +175,12 @@ section article .Before-price {
   width: 60%;
   display: flex;
   justify-content: flex-end;
+}
+
+.Quantity {
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 26px;
 }
 
 .Btn-add {
