@@ -26,9 +26,9 @@ export class CampaignDetailPage implements OnInit {
     this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
         if (response.success === true) {
           console.log('Promotions: ', response.data);
-          this.product = {...response.data.data[0].product}
-          this.showFeatures = !this.product.features ? false : true;
-          this.beforePrice = !this.product.beforePrice ? false : true;
+          this.product = {...response.data.data[3].product}
+          this.showFeatures = !this.product.features ? true : false;
+          this.beforePrice = !this.product.beforePrice ? true : false;
         } else {
           console.log('Body del error: ', response);
         }

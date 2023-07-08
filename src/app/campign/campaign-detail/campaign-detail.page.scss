@@ -72,7 +72,10 @@ section .features div {
 }
 
 section .features div ion-chip {
-    background-color: white;
+  margin: 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 ion-footer ion-toolbar {
@@ -80,9 +83,44 @@ ion-footer ion-toolbar {
     --background: #F7F5F5;
 }
 
-section article .before-price {
-    color: #BBBBBB;
-    text-decoration: line-through;
+.Product-name {
+  margin: 0;
+  font-size: 26px;
+}
+
+.Product-description {
+  margin: 20px 0 0 0;
+  font-family: 'weblysleekuil';
+  font-size: 16px;
+}
+
+.Features-title {
+  margin: 0;
+  font-size: 26px;
+}
+
+.Chip-container {
+  margin: 16px 0 0 0;
+}
+
+.Price-now {
+  font-size: 24px;
+}
+
+.Now {
+  font-family: 'weblysleekuisb';
+  font-size: 20px;
+}
+
+section article .Before-price {
+  font-size: 18px;
+  color: #BBBBBB;
+  text-decoration: line-through;
+}
+
+.Before {
+  font-size: 18px;
+  font-family: 'weblysleekuil';
 }
 
 .add-product {

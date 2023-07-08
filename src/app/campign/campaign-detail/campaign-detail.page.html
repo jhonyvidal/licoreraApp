@@ -28,12 +28,12 @@
   </figure>
   <section>
     <article>
-      <h2>{{product.name}}</h2>
-      <p class="font-secondary">{{product.description}}</p>
+      <h2 class="Product-name">{{product.name}}</h2>
+      <p class="Product-description">{{product.description}}</p>
     </article>
     <article *ngIf="showFeatures" class="features">
-      <h3>Características</h3>
-      <div>
+      <h3 class="Features-title">Características</h3>
+      <div class="Chip-container">
         <ion-chip>Default</ion-chip>
         <ion-chip>Default</ion-chip>
         <ion-chip>Default</ion-chip>
@@ -41,8 +41,8 @@
       </div>
     </article>
     <article>
-      <h6 *ngIf="beforePrice" class="before-price"><span>Antes: </span> $127.500</h6>
-      <h6><span>Ahora: </span> $127.500</h6>
+      <h2 *ngIf="beforePrice" class="Before-price"><span class="Before">Antes: </span> $127.500</h2>
+      <h2 class="Price-now"><span class="Now">Ahora: </span> $127.500</h2>
     </article>
   </section>
 </ion-content>
