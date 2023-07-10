@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./how-to-get/how-to-get.module').then( m => m.HowToGetPageModule)
   },
   {
+    path: 'store-detail/:idCategory',
+    loadChildren: () => import('./store/store-detail/store-detail.module').then( m => m.StoreDetailPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
   },

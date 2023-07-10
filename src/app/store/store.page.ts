@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 
@@ -9,7 +10,8 @@ import { CategoriesOut } from 'src/shared/domain/response/Categories';
 })
 export class StorePage implements OnInit {
 
-  constructor(private requestUseCase: RequestUseCases) { }
+  constructor(private requestUseCase: RequestUseCases,
+    private router: Router) { }
 
   public ListCategories:CategoriesOut[];
   elementos: CategoriesOut[] = [];
@@ -26,6 +28,10 @@ export class StorePage implements OnInit {
         console.log(response);
       }
     })
+  }
+
+  routerLink(id:number){
+    this.router.navigate(['/store-detail/' + id])
   }
 
 

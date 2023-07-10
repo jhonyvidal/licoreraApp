@@ -8,6 +8,7 @@ import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
 import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
+import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 
 @Injectable()
 export class RequestUseCases {
@@ -39,6 +40,10 @@ export class RequestUseCases {
 
   getCategories (token:string) : Observable <CategoriesOut> {
     return this._requestGateWay.getCategories(token);
+  }
+
+  getCategoriesByProduct(token:string, id:string, page:number) : Observable <CategoriesByProductOut> {
+    return this._requestGateWay.getCategoriesByProduct(token, id, page);
   }
 
 }

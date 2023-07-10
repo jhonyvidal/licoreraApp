@@ -10,6 +10,7 @@ import { BaseApiService } from 'src/shared/infraestructure/base-api.service';
 import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
 import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
+import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -92,6 +93,19 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         console.log(response)
         return response as CategoriesOut
+      })
+    )
+  }
+
+  getCategoriesByProduct(token:string, id:string, page:number):Observable<CategoriesByProductOut> {
+    console.log(page)
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('categories/' + id + '/products?page=' + page, headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as CategoriesByProductOut
       })
     )
   }

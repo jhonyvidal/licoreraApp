@@ -3,8 +3,12 @@ ion-content {
 }
 ion-input {
     color: #8F8F8F;
+    --placeholder-color:#8F8F8F;
 }
-
+ion-modal{
+    --width: 350px;
+    --height: 400px;
+}
 .imgWelcome {
     margin-top: 50px;
 }
@@ -44,8 +48,8 @@ ion-input {
 
     color: #FFFFFF;
 }
-.mt16{
-    margin-top: 16px;
+.mt20{
+    margin-top: 20px;
 }
 .mb10{
     margin-bottom: 10px;
@@ -59,11 +63,17 @@ ion-input {
 
 .labelWelcome {
     min-width: 150px;
-    min-height: 45px;
+    min-height: 20px;
     font-family: HudsonNYSerif;
     font-size: 20px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
 }
+
 .pWelcome{
     color: #FFFFFF;
     padding: 0 10px;
@@ -108,7 +118,23 @@ ion-note{
     margin-top: 5px;
     color:#b74a4a;
 }
-.custom-checkbox{
-    margin-right: 10px !important;
+ion-checkbox {
+    --size: 37px;
+    --checkbox-background-checked:  url(../../assets/img/checkBoxChecked.svg);
+    --checkbox-background: url(../../assets/img/checkBox.svg);
+}
+  
+ion-checkbox::part(container) {
+   border: none;
+}
+ion-checkbox::part(mark) {
+    display: none;
+}
+
+svg .checkbox-icon{
     border-radius: 20px !important;
+}
+
+.button-disabled{
+    opacity: 1 !important;
 }
