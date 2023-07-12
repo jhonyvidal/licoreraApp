@@ -7,7 +7,7 @@
       </div>
      
       <ion-text>
-        <h3 class="color-primary text-center">INICIA SESIÓN</h3>
+        <h3 class="color-primary text-center"  (click)="routerLink('sign-in')">INICIA SESIÓN</h3>
         <p class="color-secondary text-center mt-10">Y ACUMULA PUNTOS</p>
       </ion-text>
     </ion-toolbar>
@@ -90,7 +90,9 @@
           <img class="delivery-icon" src="../../assets/icon/Menu.svg" alt="Menu">
         </ion-menu-button>
       </ion-buttons>
-      <div class="dev-logo-header"><img class="menu-logo-center" style="width: 50px;" src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa"></div>
+      <div class="dev-logo-header">
+        <img class="menu-logo-center" style="width: 50px;" src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa">
+      </div>
       <img class="delivery-icon" src="../../assets/icon/delivery-icon-white-icon.svg" alt="Logo empresa">
     </ion-toolbar>
   </ion-header>

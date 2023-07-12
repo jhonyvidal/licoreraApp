@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true" class="ion-content-scroll">
+  <ion-header collapse="condense">
+  
+  </ion-header>
+  <ion-content [formGroup]="myForm">
+    <div class="imgWelcome custom-body-center">
+      <img src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa">
+    </div>
+    <div class="h4Welcome custom-body-center">
+      <h4>Para continuar debes iniciar sesión</h4>
+    </div>
+    <ion-grid class="imgWelcome">
+      <ion-row class="ion-row">
+        <ion-col size="12">
+          <ion-input  formControlName="email"  class="custom" type="email" placeholder="Correo electrónico" required></ion-input>
+        </ion-col>
+        <ion-col size="12">
+          <ion-input  formControlName="password"  class="custom" type="password" placeholder="Contraseña" required></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+      
+      
+
+
+  </ion-content>
+</ion-content>
