@@ -26,9 +26,11 @@ export class CampaignDetailPage implements OnInit {
     this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
         if (response.success === true) {
           console.log('Promotions: ', response.data);
-          this.product = {...response.data.data[0].product}
-          this.showFeatures = !this.product.features ? false : true;
-          this.beforePrice = !this.product.beforePrice ? false : true;
+          this.product = {...response.data.data[4].product}
+          // ToDo. Cuando pasen la API, se debe mejorar el código para mostrar u ocultar el
+          // apartado de features
+          this.showFeatures = !this.product.features ? true : false;
+          this.beforePrice = !this.product.beforePrice ? true : false;
         } else {
           console.log('Body del error: ', response);
         }
@@ -44,11 +46,14 @@ export class CampaignDetailPage implements OnInit {
   }
 
   addBtn() {
+    console.log('Presionando add...');
+
     this.quantity += this.quantity < 10 ? 1 : 0;
     localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
   }
 
   subtractBtn() {
+    console.log('Presionando minus...');
     this.quantity -= this.quantity > 1 ? 1 : 0;
     localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
   }

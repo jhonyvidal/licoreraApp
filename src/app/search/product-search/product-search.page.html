@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons class="toolbar-detail-container">
-        <!-- <ion-back-button>
-          <img class="delivery-icon" src="../../assets/icon/backIcon.svg" alt="back arrow">
-        </ion-back-button> -->
         <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button>
         <ion-button>
           <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
@@ -14,148 +11,40 @@
       </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content class="ion-content-scroll">
+<ion-content [fullscreen]="true" class="ion-content-scroll">
   <div class="search-container">
-    <ion-searchbar [(ngModel)]="inputText" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="inputText" placeholder="Old Parr, Whisky" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
   </div>
-  <div class="bad-request-container" *ngIf="products.length === 0 && inputText; else showProductSearched">
-    <div class="bad-request">
-      <h2>no obtuvimos resultados para</h2>
-      <p class="bad-request-inputText">"{{inputText}}"</p>
-    </div>
+  <div class="Not-found-container" *ngIf="products.length === 0 && inputText">
+    <h2 class="no-obtuvimos">no obtuvimos resultados para</h2>
+    <p class="bad-request-inputText">"{{inputText}}"</p>
     <p class="interested">Te podría interesar</p>
   </div>
-  <!-- <div class="scroll-grid-container">
-    <div class="related-products-container">
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-      <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-        <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </div> -->
-  <ion-content class="ion-content-infinite" *ngIf="inputText">
-    <ion-list>
-      <div class="grid-container-list">
-        <div class="card-not-found" *ngFor="let item of products1; let index">
-          <img alt="" [src]="item.product.image" width="130" height="130"/>
-          <h2 class="card-title">{{item.product.name}}</h2>
-          <p class="product-description-card">{{item.product.description.slice(0,80)}}...</p>
-          <h1>$127.500</h1>
+  <ion-content class="ion-content-infinite-recommended" *ngIf="products.length === 0 && inputText; else showProductSearched">
+      <ion-list [class]="listClass">
+      <div class="product-recommended" *ngFor="let item of products1; let index">
+        <figure class="img-container">
+          <figure class="promotion-container">
+            <h4 class="discount-number">50</h4>
+            <p class="discount-off">% off</p>
+            <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
+          </figure>
+          <img [src]="item.product.image" alt="">
+        </figure>
+        <div class="info-searched-container">
+          <h2 class="product-name-recommended">{{item.product.name}}</h2>
+          <p class="product-description-recommended">{{item.product.description.slice(0,70)}}...</p>
+          <h1 class="product-price-recommended">{{item.price | customCurrency :'.':'$ '}}</h1>
         </div>
       </div>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      <ion-infinite-scroll (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+      >
+      </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-content>
-
   <ng-template #showProductSearched>
     <ion-content class="ion-content-infinite" *ngIf="inputText">
       <ion-list>
@@ -164,18 +53,20 @@
             <img [src]="item.product.image" alt="">
           </figure>
           <div class="info-searched-container">
-            <h2>{{item.product.name}}</h2>
-            <p class="product-description">{{item.product.description.slice(0,80)}}...</p>
+            <h2 class="Product-name-searched">{{item.product.name}}</h2>
+            <p class="product-description-searched">{{item.product.description.slice(0,80)}}...</p>
             <div class="product-price-container">
               <p class="presentation">Precentación: {{item.product.name.split(' ')[item.product.name.split(' ').length - 2]}} ml</p>
-              <h2 class="font-secondary">{{item.price | number}}</h2>
+              <h2 class="Product-price-searched">{{item.price | customCurrency :'.':'$ '}}</h2>
             </div>
           </div>
         </div>
       </ion-list>
-      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <!-- <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+      </ion-infinite-scroll> -->
     </ion-content>
   </ng-template>
 </ion-content>
+
+

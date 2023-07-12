@@ -35,6 +35,15 @@ ion-content .product-img-container .promotion-container{
     flex-direction: column;
 }
 
+.Promotion-number {
+  margin: 0;
+  font-size: 35px;
+}
+
+.Promotion-off {
+  font-size: 13px;
+}
+
 ion-content .product-img-container .product-img {
     height: 100%;
     object-fit: contain;
@@ -56,12 +65,12 @@ ion-content .product-img-container .promotion-container h4{
 }
 
 section {
-    padding: 20px 20px 0 20px;
+    padding: 0px 20px 0 20px;
     width: 100%;
     height: 55%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     border-radius: 35px 35px 0 0;
     background-color: #F7F5F5;
 }
@@ -72,7 +81,10 @@ section .features div {
 }
 
 section .features div ion-chip {
-    background-color: white;
+  margin: 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 ion-footer ion-toolbar {
@@ -80,9 +92,46 @@ ion-footer ion-toolbar {
     --background: #F7F5F5;
 }
 
-section article .before-price {
-    color: #BBBBBB;
-    text-decoration: line-through;
+.Product-name {
+  margin: 0;
+  font-size: 26px;
+}
+
+.Product-description {
+  margin: 20px 0 0 0;
+  font-family: 'weblysleekuil';
+  font-size: 16px;
+}
+
+.Features-title {
+  margin: 0;
+  font-size: 26px;
+}
+
+.Chip-container {
+  margin: 16px 0 0 0;
+}
+
+.Price-now {
+  margin: 0;
+  font-size: 24px;
+}
+
+.Now {
+  font-family: 'weblysleekuisb';
+  font-size: 20px;
+}
+
+section article .Before-price {
+  margin: 0;
+  font-size: 18px;
+  color: #BBBBBB;
+  text-decoration: line-through;
+}
+
+.Before {
+  font-size: 18px;
+  font-family: 'weblysleekuil';
 }
 
 .add-product {
@@ -91,9 +140,57 @@ section article .before-price {
     align-items: center;
 }
 
-.add-product ion-button {
-    width: 90%;
-    --background: #99791C;
+.Btn-minus {
+  background-color: #FDBD00;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%
+}
+
+.Btn-plus {
+  background-color: #FDBD00;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%
+}
+
+.Toolbar-footer {
+  padding: 0 20px 20px 20px !important;
+}
+
+.Btns-container {
+  width: 100%;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
+
+.buttons-left {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttons-right {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Quantity {
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 26px;
+}
+
+.Btn-add {
+  width: 80%;
+  height: 40px;
+  border-radius: 5px;
+  color: white;
+  font-family: 'HudsonNYSerif';
+  font-size: 17px;
+  background-color: #99791C;
 }
 
 // ion-footer ion-toolbar .footer-container {

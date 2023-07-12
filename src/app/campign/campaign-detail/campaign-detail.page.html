@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons class="toolbar-detail-container">
-        <!-- <ion-button>
-          <img class="delivery-icon" src="../../assets/icon/backIcon.svg" alt="back arrow">
-        </ion-button> -->
         <ion-back-button>
           <img class="delivery-icon" src="../../assets/icon/backIcon.svg" alt="back arrow">
         </ion-back-button>
@@ -19,8 +16,8 @@
 <ion-content>
   <figure class="product-img-container">
     <figure class="promotion-container">
-      <h4>50</h4>
-      <p>% off</p>
+      <h2 class="Promotion-number">50</h2>
+      <p class="Promotion-off">% off</p>
       <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
     </figure>
     <!-- <img class="product-img" src="../../assets/icon/Bailles.svg" alt=""> -->
@@ -28,12 +25,12 @@
   </figure>
   <section>
     <article>
-      <h2>{{product.name}}</h2>
-      <p class="font-secondary">{{product.description}}</p>
+      <h2 class="Product-name">{{product.name}}</h2>
+      <p class="Product-description">{{product.description}}</p>
     </article>
     <article *ngIf="showFeatures" class="features">
-      <h3>Características</h3>
-      <div>
+      <h3 class="Features-title">Características</h3>
+      <div class="Chip-container">
         <ion-chip>Default</ion-chip>
         <ion-chip>Default</ion-chip>
         <ion-chip>Default</ion-chip>
@@ -41,33 +38,27 @@
       </div>
     </article>
     <article>
-      <h6 *ngIf="beforePrice" class="before-price"><span>Antes: </span> $127.500</h6>
-      <h6><span>Ahora: </span> $127.500</h6>
+      <h2 *ngIf="beforePrice" class="Before-price"><span class="Before">Antes: </span> $127.500</h2>
+      <h2 class="Price-now"><span class="Now">Ahora: </span> $127.500</h2>
     </article>
   </section>
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-buttons class="buttons-left">
-            <ion-button (click)="subtractBtn()">
-              <img class="delivery-icon" width="35" src="../../assets/icon/MinusSign.svg" alt="Substract btn">
-            </ion-button>
-            <h4>{{quantity}}</h4>
-            <ion-button (click)="addBtn()">
-              <img class="delivery-icon" width="35" src="../../assets/icon/Plus.svg" alt="Add btn">
-            </ion-button>
-          </ion-buttons>
-        </ion-col>
-        <ion-col class="add-product">
-          <!-- <ion-buttons class="buttons-right"> -->
-            <ion-button>Default</ion-button>
-          <!-- </ion-buttons> -->
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <ion-toolbar class="Toolbar-footer">
+          <div class="Btns-container">
+            <ion-buttons class="buttons-left">
+              <ion-button class="Btn-minus" (click)="subtractBtn()" [disabled]="quantity <=1 ? true : false">
+                <ion-icon color="light" name="remove-outline"></ion-icon>
+              </ion-button>
+              <h4 class="Quantity">{{quantity}}</h4>
+              <ion-button class="Btn-plus" (click)="addBtn()" [disabled]="quantity >= 10 ? true : false">
+                <ion-icon color="light" size="large" name="add-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-buttons class="buttons-right">
+              <ion-button class="Btn-add">Agregar</ion-button>
+            </ion-buttons>
+          </div>
   </ion-toolbar>
 </ion-footer>
 
