@@ -1,0 +1,50 @@
+.title-jotas-container {
+  width: 100%;
+  height: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #99791C;
+}
+
+.title-jotas-container .title-jotas {
+  margin: 0;
+  font-size: 20px;
+}
+
+.list-container {
+  margin: 0;
+  padding: 20px 20px 0 20px;
+  width: 100%;
+  height: 93%;
+}
+
+.list-container .product-exchange-container {
+  display: flex;
+  height: 150px;
+  border: 1px solid #BBBBBB;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.list-container .product-exchange-container .img-container {
+  margin: 0;
+  padding: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-container .product-exchange-container .img-container img {
+  width: 110px;
+  height: 110px;
+}
+
+.list-container .product-exchange-container .info-exchange-container {
+  margin: 0;
+  padding: 0;
+  width: 70%;
+  height: 100%;
+}
