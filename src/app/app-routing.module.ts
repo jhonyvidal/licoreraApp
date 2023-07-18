@@ -25,7 +25,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },  {
+    path: 'exchange-products',
+    loadChildren: () => import('./exchange-products/exchange-products/exchange-products.module').then( m => m.ExchangeProductsPageModule)
   },
+
 
 ];
 @NgModule({

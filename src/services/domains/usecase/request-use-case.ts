@@ -24,7 +24,7 @@ export class RequestUseCases {
   getPromotion(token: string): Observable<suggestedProducts> {
     return this._requestGateWay.getPromotion(token);
   }
-  
+
   getPromotions (token:string, promotionPage: number) : Observable <PromotionsData> {
     return this._requestGateWay.getPromotions(token, promotionPage);
   }

@@ -1,0 +1,92 @@
+ion-header ion-toolbar {
+  --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+  padding: 10px 10px 10px 0px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-content .img-exchange-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .img-exchange-container img{
+  width: 325px;
+  height: 318px;
+}
+
+ion-content .exchange-products-detail-container {
+  width: 100%;
+  height: 60%;
+  border-radius: 50px 50px 0 0;
+  background-color: #F7F5F5;
+  ;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-detal {
+  padding: 30px 20px 20px 20px;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-detal .product-name {
+  margin:0;
+  padding: 0;
+  font-size: 26px;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-detal .product-description {
+  margin: 20px 0 0 0;
+  padding: 0;
+  font-family: 'weblysleekuil';
+  font-size: 16px;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-detal .puntos-a-canjear {
+  margin: auto 0 0 0;
+  font-family: 'weblysleekuisb';
+  font-size: 18px;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-detal .dispoibles {
+  margin: 0;
+  padding: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 18px;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-button-container {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+ion-content .exchange-products-detail-container .exchange-products-button-container ion-button {
+  padding: 0 0 5px 0;
+  width: 90%;
+  height: 45px;
+  margin: 0 0 20px 0;
+  --background: none;
+  font-family: 'HudsonNYSerif';
+  font-size: 17px;
+  color: black;
+  border: 2px solid black;
+  --box-shadow: none;
+  border-radius: 5px;
+  // --align: center;
+  // --justify: center;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 
 @Component({
@@ -11,7 +12,8 @@ export class ExchangePage implements OnInit {
   products: any = [];
 
   constructor(
-    private requestUseCase: RequestUseCases
+    private requestUseCase: RequestUseCases,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,10 @@ export class ExchangePage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+  }
+
+  routerLink(route:string){
+    this.router.navigate(['/' + route])
   }
 
 }
