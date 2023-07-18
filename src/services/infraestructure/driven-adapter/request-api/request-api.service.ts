@@ -11,6 +11,7 @@ import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
 import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
+import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -98,7 +99,6 @@ export  class RequestApiService extends RequestGateway {
   }
 
   getCategoriesByProduct(token:string, id:string, page:number):Observable<CategoriesByProductOut> {
-    console.log(page)
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
       );
@@ -106,6 +106,22 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         console.log(response)
         return response as CategoriesByProductOut
+      })
+    )
+  }
+
+  postLogin(token:string, email:string, password:string):Observable<LoginResponse> {
+    const data = {
+      email:email,
+      password:password
+    }
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.post('login', data , headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as LoginResponse
       })
     )
   }

@@ -4,6 +4,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-store-detail',
@@ -27,7 +28,8 @@ export class StoreDetailPage implements OnInit {
 
   constructor(
     private requestUseCase: RequestUseCases,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location: Location
     ) {
       this.getCategories();
      }
@@ -71,6 +73,10 @@ export class StoreDetailPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

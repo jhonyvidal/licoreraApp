@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from 'src/shared/domain/response/PromotionsData';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { InfiniteScrollCustomEvent, IonInfiniteScroll } from '@ionic/angular';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-product-search',
   templateUrl: './product-search.page.html',
-  styleUrls: ['./product-search.page.scss'],
+  styleUrls: ['./product-search.page.scss','./product-search.page2.scss'],
 })
 export class ProductSearchPage implements OnInit {
 
@@ -26,7 +27,8 @@ export class ProductSearchPage implements OnInit {
   numberOfApiProducts: number = 0;
 
   constructor(
-    private requestUseCase: RequestUseCases
+    private requestUseCase: RequestUseCases,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -93,6 +95,10 @@ export class ProductSearchPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

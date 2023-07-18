@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { InfiniteScrollCustomEvent, IonInfiniteScroll } from '@ionic/angular';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-recommended-products',
@@ -21,7 +22,8 @@ export class RecommendedProductsPage implements OnInit {
   numberOfApiProducts: number = 0;
 
   constructor(
-    private requestUseCase: RequestUseCases
+    private requestUseCase: RequestUseCases,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -65,6 +67,10 @@ export class RecommendedProductsPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

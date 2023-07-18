@@ -52,7 +52,8 @@ swiper-slide h1{
     font-size: 16px;
     text-align: left;
     padding: 0px;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding: 0px 10px;
     color:#000000;
 }
@@ -129,4 +130,8 @@ swiper-pagination {
     font-weight: 600;
     font-size: 14px;
     font-family: weblysleekuil;
+}
+
+.custom-swiper{
+    --swiper-pagination-color:#464646
 }

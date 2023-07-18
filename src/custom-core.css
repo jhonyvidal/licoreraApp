@@ -106,6 +106,14 @@ html, p, h1, h2, h3, a {
     font-family: HudsonNYSerif;
     color: #000000;
 }
+.alertButton{
+    width: 90%;
+    font-family: HudsonNYSerif;
+    margin-bottom: 30px !important;
+    border-radius: 5px !important;
+    color: #000000 !important;
+    border: solid 2px #000000 !important;
+}
 .alertSubtitle{
     font-weight: 300px;
     font-size: 13px;
@@ -117,4 +125,28 @@ html, p, h1, h2, h3, a {
 .font-w600{
     font-weight: 600px !important;
 }
-
+.dev-logo-header{
+    display: flex;
+    justify-content: center;
+    margin-right: 25px;
+}
+.swiper-pagination-bullet-active {
+    background-color: #464646;
+}
+.DisableButton{
+    width: 90%;
+    font-family: HudsonNYSerif;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    color:#FFFFFF;
+    background:#D1D1D1 !important;
+}
+.Activebutton{
+    width: 90%;
+    font-family: HudsonNYSerif;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    color:#000000 !important;
+    background:#FFFFFF !important;
+    border:solid 2px #000000;
+}
