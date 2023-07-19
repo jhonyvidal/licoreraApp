@@ -17,4 +17,11 @@ export class HowToGetPage implements OnInit {
     this.location.back();
   }
 
+  llamar(numeros: string): void {
+    const numerosArray = numeros.split(',');
+    numerosArray.forEach((numero) => {
+      window.open('tel:' + numero, '_system');
+    });
+  }
+
 }

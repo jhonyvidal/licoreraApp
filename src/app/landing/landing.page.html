@@ -25,68 +25,75 @@
 
 
   <ion-toolbar *ngIf="ionSegment === 1">
-    <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
+    <swiper-container class="custom-swiper" [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
       <swiper-slide>
         <div>
-          <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <img src="../../assets/img/destacado.svg" alt="fondo Blanco">
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div>
+          <img src="../../assets/img/destacado.svg" alt="fondo Blanco">
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div>
+          <img src="../../assets/img/destacado.svg" alt="fondo Blanco">
         </div>
       </swiper-slide>
     </swiper-container>
   </ion-toolbar>
 
   <ion-toolbar *ngIf="ionSegment === 2">
-    <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
+    <swiper-container class="custom-swiper" [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" [freeMode]="true">
       <swiper-slide (click)="search()">
         <div class="div-swiper-slide">
           <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
-          <p class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
-          <p>Válido hasta: Enero 23, 2023</p>
+          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
+          <p style="padding-bottom: 5px;">Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
       <swiper-slide (click)="search()">
         <div class="div-swiper-slide">
         <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
-          <p>Descripción del producto, caracteristicas y demás información</p>
-          <p>Válido hasta: Enero 23, 2023</p>
+          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
+          <p style="padding-bottom: 5px;">Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
       <swiper-slide (click)="search()">
         <div class="div-swiper-slide">
         <img src="../../assets/img/test.svg" alt="fondo Blanco">
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
-          <p>Descripción del producto, caracteristicas y demás información</p>
-          <p>Válido hasta: Enero 23, 2023</p>
+          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
+          <p style="padding-bottom: 5px;">Válido hasta: Enero 23, 2023</p>
         </div>
       </swiper-slide>
     </swiper-container>
   </ion-toolbar>
 
   <ion-toolbar *ngIf="ionSegment === 3">
-    <swiper-container [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" >
+    <swiper-container class="custom-swiper" [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" [freeMode]="true">
       <swiper-slide (click)="search()">
-        <div>
+        <div class="div-swiper-slide">
           <img src="../../assets/img/test.svg" alt="fondo Blanco">
-          <h1>BUCHANAN´S DELUXE 1000 ML</h1>
-          <p>Descripción del producto, caracteristicas y demás información</p>
-          <p>Válido hasta: Enero 23, 2023</p>
+          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
+          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
         </div>
       </swiper-slide>
       <swiper-slide (click)="search()">
-        <div>
-        <img src="../../assets/img/test.svg" alt="fondo Blanco">
-          <h1>BUCHANAN´S DELUXE 1000 ML</h1>
-          <p>Descripción del producto, caracteristicas y demás información</p>
-          <p>Válido hasta: Enero 23, 2023</p>
+        <div class="div-swiper-slide">
+          <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
+          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
         </div>
       </swiper-slide>
       <swiper-slide (click)="search()">
-        <div>
-        <img src="../../assets/img/test.svg" alt="fondo Blanco">
-          <h1>BUCHANAN´S DELUXE 1000 ML</h1>
-          <p>Descripción del producto, caracteristicas y demás información</p>
-          <p>Válido hasta: Enero 23, 2023</p>
+        <div class="div-swiper-slide">
+          <img src="../../assets/img/test.svg" alt="fondo Blanco">
+          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
+          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
         </div>
       </swiper-slide>
     </swiper-container>

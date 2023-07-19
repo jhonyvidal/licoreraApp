@@ -4,9 +4,9 @@
         <ion-button (click)="goBack()">
           <img src="../../assets/icon/backIcon.svg" alt="Back" />
         </ion-button>
-        <ion-button>
-          <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
-        </ion-button>
+        <div class="dev-logo-header">
+          <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </div>
         <ion-button>
         </ion-button>
       </ion-buttons>
@@ -44,7 +44,7 @@
           </ion-col>
           <ion-col size="11">
             <div>
-            <a class="linkNumber">6 39 24 74 - 6 79 94 93</a>
+            <a class="linkNumber" (click)="llamar('+6392474,+6799493')" >6 39 24 74 - 6 79 94 93</a>
             </div>
           </ion-col>
           <ion-col size="1">
@@ -52,7 +52,7 @@
           </ion-col>
           <ion-col size="11">
             <div>
-            <a class="linkNumber">315 352 19 66 - 315 483 55 60</a>
+            <a class="linkNumber" (click)="llamar('3153521966,3154835560')">315 352 19 66 - 315 483 55 60</a>
             </div>
           </ion-col>
         </ion-row>

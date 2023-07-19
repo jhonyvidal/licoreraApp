@@ -27,6 +27,7 @@ export class WelcomePage implements OnInit {
     private requestUseCase: RequestUseCases,
   ) {
     this.myForm = this.formBuilder.group({
+      birthdayModal: ['', []],
       birthday: ['', [Validators.required, this.fechaNacimientoValidator]],
       condition: [false, Validators.required]
     });
@@ -39,6 +40,7 @@ export class WelcomePage implements OnInit {
   isFormValid = false;
   isAndroid: boolean = false;
   isCheckboxChecked = false;
+  modalDateTime = false;
   buttonWelcome = 'buttonWelcome';
   myForm: FormGroup;
   public configList: ConfigData[] = [];
@@ -51,6 +53,11 @@ export class WelcomePage implements OnInit {
     this.myForm.get('condition')?.valueChanges.subscribe(value => {
       this.isCheckboxChecked = value;
       this.classValid()
+    });
+    this.myForm.get('birthdayModal')?.valueChanges.subscribe(value => {
+      this.myForm.patchValue({
+        birthday: this.convertDateFormat(this.myForm.get('birthdayModal')?.value.split('T')[0])
+      });
     });
     
   }
@@ -76,6 +83,10 @@ export class WelcomePage implements OnInit {
     return null;
   }
 
+  modalDate(){
+    this.modalDateTime = true;
+  }
+
 
   async redirectTo() {
     const config:ConfigData = { id: 1, name: "Welcome", data: "true" }
@@ -88,8 +99,15 @@ export class WelcomePage implements OnInit {
     }
 
     await this.configService.updateConfig(config);
+  }
 
-    
+  convertDateFormat(dateString: string): string {
+    const dateParts = dateString.split('-'); // Separar los componentes de la fecha
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2];
+
+    return `${day}/${month}/${year}`; // Construir la fecha en formato DD/MM/AAAA
   }
 
 

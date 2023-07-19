@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons class="toolbar-detail-container">
-        <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button>
-        <ion-button>
-          <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        <ion-button (click)="goBack()">
+          <img src="../../assets/icon/backIcon.svg" alt="Back" />
         </ion-button>
+        <div class="dev-logo-header">
+          <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </div>
         <ion-button>
           <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
         </ion-button>
@@ -32,7 +34,7 @@
           <img [src]="item.product.image" alt="">
         </figure>
         <div class="info-searched-container">
-          <h2 class="product-name-recommended">{{item.product.name}}</h2>
+          <h2 class="product-name-recommended">{{item.product.name | customPipe: 1}}</h2>
           <p class="product-description-recommended">{{item.product.description.slice(0,70)}}...</p>
           <h1 class="product-price-recommended">{{item.price | customCurrency :'.':'$ '}}</h1>
         </div>

@@ -10,21 +10,38 @@
     </div>
    
     <div class="custom-body-center">
-      <ion-item class="mt16 br10">
-        <ion-input formControlName="birthday"  class="labelWelcome" type="date" required></ion-input>
+      <ion-item class="mt20 br10">
+        <ion-input id="open-modal"  expand="block" formControlName="birthday"  (click)="modalDate()" class="labelWelcome" type="text" placeholder="DD/MM/YYYY" required readonly></ion-input>
+        <ion-modal #modal trigger="open-modal">
+          <ng-template>
+            <ion-content>
+              <ion-toolbar>
+                <ion-buttons slot="end">
+                  <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+              <ion-content>
+                <ion-datetime presentation="date" formControlName="birthdayModal" *ngIf="modalDateTime"   displayFormat="DD/MM/YYYY" placeholder="Selecciona una fecha"></ion-datetime>
+              </ion-content>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+        <!-- <ion-input formControlName="birthday"  class="labelWelcome" type="date" placeholder="Custom input" required></ion-input> -->
       </ion-item> 
     </div>
     <div class="custom-body-center">
       <ion-note *ngIf="myForm.get('birthday')?.invalid && myForm.get('birthday')?.touched">
         La fecha es requerida.
       </ion-note>
+    </div>
+    <div class="custom-body-center">
       <ion-note *ngIf="myForm.get('birthday')?.errors?.fechaInvalida">
         La fecha de nacimiento debe ser mayor a 18 años.
       </ion-note>
     </div>
 
 
-    <div class="custom-body-center">
+    <div class="custom-body-center mt20">
       <p class="pWelcome font-secondary">El contenido de esta aplicación es solo para mayores de edad. 
         Prohíbase el expendio de bebidas embriagantes a menores de edad. 
         El exceso de alcohol es perjudicial para la salud.</p>
@@ -47,3 +64,5 @@
       </div> 
     </div>
 </ion-content>
+
+

@@ -6,6 +6,8 @@ import { ProductSearch } from 'src/shared/domain/response/ProductSearch';
 import { PromotionsData } from 'src/shared/domain/response/PromotionsData';
 import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProducts';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
+import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
+import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 
 export abstract class RequestGateway {
 
@@ -16,7 +18,8 @@ export abstract class RequestGateway {
     abstract getProductSearch(token:string, inputSearched: string): Observable<ProductSearch>;
     abstract getRecommendedProducts(token:string): Observable<RecommendedProducts>;
     abstract getCategories(token:string): Observable<CategoriesOut>;
-
+    abstract getCategoriesByProduct(token:string, id:string, page:number): Observable<CategoriesByProductOut>;
+    abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse> ;
 }
 
 
