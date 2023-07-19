@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { presentAlert } from 'src/shared/components/alert.component';
 import { Product } from 'src/shared/domain/response/PromotionsData';
 
 @Component({
@@ -14,7 +16,10 @@ export class ExchangeProductsPage implements OnInit {
   quantity: number;
   points: number;
 
-  constructor(private requestUseCase: RequestUseCases) { }
+  constructor(
+    private requestUseCase: RequestUseCases,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     // promotionProducts
@@ -28,6 +33,18 @@ export class ExchangeProductsPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+  }
+
+  canjear(){
+    this.showAlert();
+  }
+
+  async showAlert() {
+    await presentAlert(
+      this.alertController,
+      'INFORMACIÓN',
+      'Los datos no coinciden en nuestros registros, revísalos o crea una cuenta.'
+    );
   }
 
 }
