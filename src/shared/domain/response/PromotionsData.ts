@@ -5,11 +5,13 @@ export interface PromotionsData extends BaseResponse {
 }
 
 interface Data {
-    data: DataArray[]   
+    data: DataArray[]
 }
 
 interface DataArray {
-    product: Product
+    points: number,
+    product: Product,
+    quantity: number
 }
 
 export interface Product {

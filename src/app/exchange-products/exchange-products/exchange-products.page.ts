@@ -12,6 +12,7 @@ export class ExchangeProductsPage implements OnInit {
   pageNumber: number = 1;
   product: Product = {};
   quantity: number;
+  points: number;
 
   constructor(private requestUseCase: RequestUseCases) { }
 
@@ -21,6 +22,8 @@ export class ExchangeProductsPage implements OnInit {
       if (response.success === true) {
         console.log('Promotions: ', response.data);
         this.product = {...response.data.data[4].product}
+        this.points = response.data.data[4].points;
+        this.quantity = response.data.data[4].quantity;
       } else {
         console.log('Body del error: ', response);
       }

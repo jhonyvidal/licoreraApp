@@ -20,11 +20,19 @@
     <div class="exchange-products-detal">
       <h2 class="product-name">{{product.name}}</h2>
       <p class="product-description">{{product.description}}</p>
-      <h3 class="puntos-a-canjear">Puntos a canjear: 323 J</h3>
-      <h3 class="dispoibles">Disponibles: 4</h3>
+      <div class="puntos-container">
+        <div>
+          <h3 class="puntos-a-canjear">Puntos a canjear:</h3>
+          <h3 class="dispoibles">Disponibles:</h3>
+        </div>
+        <div>
+          <h3 class="h3-values">{{points}} J</h3>
+          <h3 class="h3-values">{{quantity}}</h3>
+        </div>
+      </div>
     </div>
     <div class="exchange-products-button-container">
-        <ion-button>Canjear</ion-button>
+        <ion-button disabled="true">Canjear</ion-button>
     </div>
   </div>
 </ion-content>
