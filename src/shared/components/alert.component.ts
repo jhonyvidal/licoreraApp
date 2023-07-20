@@ -4,12 +4,16 @@ export async function presentAlert(
   alertController: AlertController,
   title: string,
   text: string,
+  type?: string,
   timeAlert?: string
 ) {
   const imagePath = window.location.origin + '/assets/img/cerrado.svg';
+  const imagePathEP = window.location.origin + '/assets/img/warning.svg';
   const timeAlertText = timeAlert ? '<b>${timeAlert}</b></br>' : '';
+  let imageAlert = type === 'exchange-products' ? imagePathEP : imagePath;
+
   const dynamicContent = `
-    <img src="${imagePath}" alt="img cerrado">
+    <img src="${imageAlert}" alt="img cerrado">
     <h5 class="alertFont">${title}</h5>
     <p class="alertSubtitle">${text}</p> </br>
     ${timeAlertText}`;

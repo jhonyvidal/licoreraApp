@@ -43,7 +43,8 @@ export class ExchangeProductsPage implements OnInit {
     await presentAlert(
       this.alertController,
       'INFORMACIÓN',
-      'Los datos no coinciden en nuestros registros, revísalos o crea una cuenta.'
+      'No tienes los puntos suficientes para canjear este producto. Sigue comprando y acumula.',
+      'exchange-products'
     );
   }
 

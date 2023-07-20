@@ -107,17 +107,18 @@ html, p, h1, h2, h3, a {
     color: #000000;
 }
 .alertButton{
+    margin: 0 auto 30px auto !important;
     width: 90%;
     font-family: HudsonNYSerif;
-    margin-bottom: 30px !important;
     border-radius: 5px !important;
     color: #000000 !important;
     border: solid 2px #000000 !important;
 }
 .alertSubtitle{
     font-weight: 300px;
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
+    font-family: weblysleekuil;
 }
 .font-w300{
     font-weight: 300px !important;
@@ -150,3 +151,5 @@ html, p, h1, h2, h3, a {
     background:#FFFFFF !important;
     border:solid 2px #000000;
 }
+
+
