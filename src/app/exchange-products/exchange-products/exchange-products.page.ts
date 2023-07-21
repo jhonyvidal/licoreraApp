@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
-import { presentAlert } from 'src/shared/components/alert.component';
+import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { Product } from 'src/shared/domain/response/PromotionsData';
 
 @Component({
@@ -15,6 +15,10 @@ export class ExchangeProductsPage implements OnInit {
   product: Product = {};
   quantity: number;
   points: number;
+  puedeCanjear: boolean;
+  productName: string | undefined;
+  productImage: string | undefined;
+  canjeables: number = 80;
 
   constructor(
     private requestUseCase: RequestUseCases,
@@ -29,6 +33,8 @@ export class ExchangeProductsPage implements OnInit {
         this.product = {...response.data.data[4].product}
         this.points = response.data.data[4].points;
         this.quantity = response.data.data[4].quantity;
+        this.productName = response.data.data[4].product.name;
+        this.productImage = response.data.data[4].product.image;
       } else {
         console.log('Body del error: ', response);
       }
@@ -36,15 +42,35 @@ export class ExchangeProductsPage implements OnInit {
   }
 
   canjear(){
-    this.showAlert();
+
+    this.puedeCanjear = this.points >= this.canjeables ? true : false;
+
+    console.log('puede canjear: ',this.puedeCanjear);
+    console.log('Points: ', this.points);
+
+    if (this.puedeCanjear) {
+      this.showAlertSuccess();
+    }else{
+      this.showAlertBad();
+    }
   }
 
-  async showAlert() {
-    await presentAlert(
+  async showAlertBad() {
+    await presentAlertExchange(
       this.alertController,
       'INFORMACIÓN',
       'No tienes los puntos suficientes para canjear este producto. Sigue comprando y acumula.',
-      'exchange-products'
+      'exchange-products-bad'
+    );
+  }
+
+  async showAlertSuccess() {
+    await presentAlertExchange(
+      this.alertController,
+      this.productName,
+      `¿Quieres canjearlo por ${this.canjeables} J?`,
+      'exchange-products-success',
+      this.productImage
     );
   }
 
