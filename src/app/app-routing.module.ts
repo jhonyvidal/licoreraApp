@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },  {
+    path: 'recent-orders',
+    loadChildren: () => import('./orders/recent-orders/recent-orders.module').then( m => m.RecentOrdersPageModule)
   }
+
 ];
 @NgModule({
   imports: [
