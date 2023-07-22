@@ -19,21 +19,21 @@ export class RecentOrdersPage implements OnInit {
       address: 'string',
       products: 6,
       total: 100,
-      status: 'string'
+      status: 'Completado'
     },
     {
       date: 'hola',
       address: 'string',
       products: 6,
       total: 100,
-      status: 'string'
+      status: 'Cancelado'
     },
     {
       date: 'hola',
       address: 'string',
       products: 6,
       total: 100,
-      status: 'string'
+      status: 'Rechazado'
     },
     )
   }
