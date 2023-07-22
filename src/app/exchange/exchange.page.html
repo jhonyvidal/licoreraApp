@@ -1,13 +1,39 @@
 <ion-header [translucent]="true" class="h60">
-  <ion-toolbar>
-    <ion-title>exchange</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">exchange</ion-title>
-    </ion-toolbar>
   </ion-header>
+  <!-- <ion-content class="ion-content-infinite" *ngIf="inputText"> -->
+  <div class="title-jotas-container">
+    <h2 class="title-jotas">512 jotas</h2>
+  </div>
+  <ion-content class="content-exchange-products">
+    <ion-list class="list-container">
+      <!-- <div class="product-searched" *ngFor="let item of products; let index"> -->
+        <div class="product-exchange-container" *ngFor="let item of products; let index" (click)="routerLink('/exchange-products')">
+          <figure class="img-container">
+            <!-- <img [src]="item.product.image" alt=""> -->
+            <img [src]="item.product.image" alt="">
+          </figure>
+          <div class="info-exchange-container">
+            <!-- <h2 class="Product-name-searched">{{item.product.name}}</h2> -->
+            <div class="product-name-jotas-container">
+              <div class="name-container">
+                <h2 class="Product-name-exchange">{{item.product.name}}</h2>
+              </div>
+              <div class="jotas-container">
+                <h2 class="product-jotas">323 J</h2>
+              </div>
+            </div>
+            <!-- <p class="product-description-searched">{{item.product.description.slice(0,80)}}...</p> -->
+            <p class="product-description-exchange">{{item.product.description.slice(0,80)}}...</p>
+            <h4 class="disponible-exchange">Disponibles: 3</h4>
+          </div>
+        </div>
+    </ion-list>
+    <!-- <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+  </ion-content>
 </ion-content>

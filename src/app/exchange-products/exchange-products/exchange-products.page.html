@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button>
+        <ion-button>
+          <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button>
+          <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow">
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <figure class="img-exchange-container">
+    <img [src]="product.image" alt="">
+  </figure>
+  <div class="exchange-products-detail-container">
+    <div class="exchange-products-detal">
+      <h2 class="product-name">{{product.name}}</h2>
+      <p class="product-description">{{product.description}}</p>
+      <div class="puntos-container">
+        <div>
+          <h3 class="puntos-a-canjear">Puntos a canjear:</h3>
+          <h3 class="dispoibles">Disponibles:</h3>
+        </div>
+        <div>
+          <h3 class="h3-values">{{points}} J</h3>
+          <h3 class="h3-values">{{quantity}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="exchange-products-button-container">
+        <ion-button (click)="canjear()">Canjear</ion-button>
+    </div>
+  </div>
+</ion-content>

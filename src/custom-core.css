@@ -94,9 +94,17 @@ html, p, h1, h2, h3, a {
 .alert-message.sc-ion-alert-ios {
     max-height: 280px;
 }
+
 .alert-wrapper.ion-overlay-wrapper.sc-ion-alert-md {
+  padding: 16px 20px 20px 20px;
     background: #FFFFFF;
+    border-radius: 10px;
 }
+
+.alert-head.sc-ion-alert-md {
+  padding: 0;
+}
+
 .alert-message{
     text-align: center;
 }
@@ -104,24 +112,60 @@ html, p, h1, h2, h3, a {
     -ms-flex-pack: end;
     justify-content: center;
 }
+
+.alert-button-group.sc-ion-alert-md {
+  padding: 0;
+}
+
+.alert-message.sc-ion-alert-md {
+  padding: 0;
+}
+
 .alertFont{
+  margin: 16px 0 0 0;
     font-size: 16px;
     font-family: HudsonNYSerif;
     color: #000000;
 }
 .alertButton{
+    padding: 6px 0 12px 0 !important;
+    margin: 0 auto 0 auto !important;
     width: 90%;
     font-family: HudsonNYSerif;
-    margin-bottom: 30px !important;
     border-radius: 5px !important;
     color: #000000 !important;
     border: solid 2px #000000 !important;
 }
-.alertSubtitle{
-    font-weight: 300px;
-    font-size: 13px;
-    text-align: center;
+
+.alert-button.sc-ion-alert-md {
+  font-size: 17px;
 }
+
+.alertButtonExchange{
+  padding: 6px 0 12px 0 !important;
+  margin: 0 auto 0 auto !important;
+  width: 45%;
+  font-family: HudsonNYSerif;
+  font-size: 17px;
+  border-radius: 5px !important;
+  color: #000000 !important;
+  border: solid 2px #000000 !important;
+}
+
+.alertSubtitle{
+  margin: 16px 0 0 0;
+    font-weight: 300px;
+    font-size: 14px;
+    text-align: center;
+    font-family: weblysleekuisb;
+    color: black;
+}
+
+.img-alert {
+  width: 80px;
+  height: 80px;
+}
+
 .font-w300{
     font-weight: 300px !important;
 }
@@ -153,3 +197,5 @@ html, p, h1, h2, h3, a {
     background:#FFFFFF !important;
     border:solid 2px #000000;
 }
+
+

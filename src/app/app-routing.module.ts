@@ -23,18 +23,21 @@ const routes: Routes = [
     loadChildren: () => import('./how-to-get/how-to-get.module').then( m => m.HowToGetPageModule)
   },
   {
+    path: 'exchange-products',
+    loadChildren: () => import('./exchange-products/exchange-products/exchange-products.module').then( m => m.ExchangeProductsPageModule)
+  },
+  {
     path: 'store-detail/:idCategory',
     loadChildren: () => import('./store/store-detail/store-detail.module').then( m => m.StoreDetailPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },  {
     path: 'sign-in',
     loadChildren: () => import('./sign-in/sign-in.module').then( m => m.SignInPageModule)
   },
-
-
+  {
+    path: '',
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  }
 ];
 @NgModule({
   imports: [
