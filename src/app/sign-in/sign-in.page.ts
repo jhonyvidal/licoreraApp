@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
+import { UserService } from 'src/store/services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -21,7 +22,8 @@ export class SignInPage implements OnInit {
     public formBuilder: FormBuilder,
     private alertController: AlertController,
     private requestUseCase: RequestUseCases,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.myForm = this.formBuilder.group({
       password: ['', [Validators.required]],
@@ -64,6 +66,7 @@ export class SignInPage implements OnInit {
           if(response.data === null){
             this.showAlert()
           }else{
+            this.userService.login(response.data)
             this.router.navigate(['/home']);
           }
           console.log(response);

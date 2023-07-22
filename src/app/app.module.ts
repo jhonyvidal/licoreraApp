@@ -19,6 +19,7 @@ import { register } from 'swiper/element/bundle';
 
 register();
 import { FormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 export function initializeFactory(init: InitializeAppService) {
   return () => init.initializeApp();
@@ -30,6 +31,7 @@ export function initializeFactory(init: InitializeAppService) {
     IonicModule.forRoot({
       innerHTMLTemplatesEnabled: true
     }), 
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     ServicesModule,
