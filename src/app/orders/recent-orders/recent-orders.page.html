@@ -26,7 +26,7 @@
 </ion-content>
 <ng-template #showOrders>
   <ion-content class="orders-found-container">
-    <div class="card-orders" *ngFor="let item of orders; let index">
+    <div class="card-orders" *ngFor="let item of orders; let index" (click)="routerLink('/recent-order')">
       <div class="card-header">
         <h2>Lun, 15 enero 2023, 8:42 pm</h2>
       </div>

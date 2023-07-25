@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { OrdersData } from 'src/shared/domain/response/OrdersData';
 
 @Component({
@@ -11,7 +12,10 @@ export class RecentOrdersPage implements OnInit {
 
   orders: OrdersData[] = [];
 
-  constructor(private location: Location) { }
+  constructor(
+    private location: Location,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.orders.push({
@@ -40,6 +44,10 @@ export class RecentOrdersPage implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  routerLink(route:string){
+    this.router.navigate(['/' + route])
   }
 
 }

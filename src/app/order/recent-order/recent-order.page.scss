@@ -1,0 +1,93 @@
+ion-header ion-toolbar {
+  --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+  // padding: 10px 10px 10px 0px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-header {
+  margin: 0;
+  padding: 0;
+  width: 56px;
+}
+
+ion-content .header-content-container {
+  padding: 13px 20px;
+  width: 100%;
+  height: 6%;
+  background-color: #404040;
+}
+
+ion-content .header-content-container .header-content-title {
+  margin: 0;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+}
+
+ion-content .status-container {
+  padding: 13px 20px;
+  width: 100%;
+  height: 6%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .status-container h3 {
+  margin: 0 0 0 8px;
+  font-size: 16px;
+  font-family: 'weblysleekuisb';
+}
+
+ion-content .list-container {
+  margin: 0;
+  padding: 7px 20px 0 20px;
+  width: 100%;
+  height: 44%;
+  background-color: blue;
+}
+
+ion-content .list-container .card-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 110px;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #BBBBBB;
+  border-radius: 10px;
+  background-color: red;
+}
+
+ion-content .list-container .card-container .img-container {
+  margin: 0;
+  width: 25%;
+  height: 100%;
+  background-color: orange;
+}
+
+ion-content .list-container .card-container .info-container {
+  width: 55%;
+  height: 100%;
+  background-color: black;
+}
+
+ion-content .list-container .card-container .price-container {
+  width: 20%;
+  height: 100%;
+  background-color: brown;
+}
+
+
+ion-content .invoice-container {
+  width: 100%;
+  height: 44%;
+  background-color: green;
+}
+
+
