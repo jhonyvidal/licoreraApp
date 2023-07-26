@@ -49,11 +49,11 @@ ion-content .list-container {
   padding: 7px 20px 0 20px;
   width: 100%;
   height: 44%;
-  background-color: blue;
+  overflow: auto;
 }
 
 ion-content .list-container .card-container {
-  margin: 0;
+  margin: 0 0 10px 0;
   padding: 0;
   width: 100%;
   height: 110px;
@@ -61,33 +61,68 @@ ion-content .list-container .card-container {
   overflow: hidden;
   border: 1px solid #BBBBBB;
   border-radius: 10px;
-  background-color: red;
 }
 
 ion-content .list-container .card-container .img-container {
   margin: 0;
-  width: 25%;
+  width: 30%;
   height: 100%;
-  background-color: orange;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+ion-content .list-container .card-container .img-container img{
+  width: 90px;
+  height: 90px;
 }
 
 ion-content .list-container .card-container .info-container {
-  width: 55%;
+  padding: 20px 0 10px 0;
+  width: 50%;
   height: 100%;
-  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ion-content .list-container .card-container .info-container h2{
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 16px;
+}
+
+ion-content .list-container .card-container .info-container .presentation{
+  margin: 0;
+  font-size: 12px;
+  font-family: 'weblysleekuil';
+}
+
+ion-content .list-container .card-container .info-container .quantity{
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 12px;
 }
 
 ion-content .list-container .card-container .price-container {
   width: 20%;
   height: 100%;
-  background-color: brown;
+  display: flex;
+  align-items: start;
 }
 
+ion-content .list-container .card-container .price-container h2{
+  font-size: 16px;
+}
 
 ion-content .invoice-container {
   width: 100%;
   height: 44%;
   background-color: green;
+}
+
+ion-content .invoice-container h2{
+  margin: 0;
 }
 
 

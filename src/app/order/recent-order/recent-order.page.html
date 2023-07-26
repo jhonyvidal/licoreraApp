@@ -24,15 +24,17 @@
     <h3 [style.color]="status === 'Completado' ? '#048404' : '#FF1806'">{{status}}</h3>
   </div>
   <ion-list class="list-container">
-    <div class="card-container">
+    <div class="card-container" *ngFor="let item of productsArray; let index">
       <figure class="img-container">
-        <img src="" alt="">
+        <img [src]="item.product.image" alt="">
       </figure>
       <div class="info-container">
-        <h2>hola</h2>
+        <h2>{{item.product.name}}</h2>
+        <p class="presentation">Presentación: 1000 ml</p>
+        <p class="quantity">Cantidad: 3</p>
       </div>
       <div class="price-container">
-        <h2>price</h2>
+        <h2>$ 170.000</h2>
       </div>
     </div>
   </ion-list>
