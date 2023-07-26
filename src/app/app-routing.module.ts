@@ -37,13 +37,18 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },  {
+  },
+  {
     path: 'recent-orders',
     loadChildren: () => import('./orders/recent-orders/recent-orders.module').then( m => m.RecentOrdersPageModule)
   },
   {
     path: 'recent-order',
     loadChildren: () => import('./order/recent-order/recent-order.module').then( m => m.RecentOrderPageModule)
+  },
+  {
+    path: 'suggestions',
+    loadChildren: () => import('./suggestions/suggestions/suggestions.module').then( m => m.SeggestionsPageModule)
   }
 
 ];

@@ -1,0 +1,33 @@
+ion-header ion-toolbar {
+    --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-header {
+    margin: 0;
+    padding: 0;
+    width: 56px;
+}
+
+ion-content .suggestions-title {
+    margin: 30px 0 16px 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+ion-content .suggestions-text {
+    margin: 0 20px 30px 20px;
+    font-family: 'weblysleekuil';
+    font-size: 16px;
+    text-align: center;
+}
+
+ion-content ion-list {
+    padding: 0 20px;
+    width: 100%;
+}
