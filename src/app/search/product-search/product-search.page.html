@@ -17,14 +17,14 @@
   <div class="search-container">
     <ion-searchbar [(ngModel)]="inputText" placeholder="Old Parr, Whisky" (ngModelChange)="getProductsSearched($event)"></ion-searchbar>
   </div>
-  <div class="Not-found-container" *ngIf="products.length === 0 && inputText">
+  <div class="Not-found-container" *ngIf="products.length === 0 && inputText && !search">
     <h2 class="no-obtuvimos">no obtuvimos resultados para</h2>
     <p class="bad-request-inputText">"{{inputText}}"</p>
     <p class="interested">Te podría interesar</p>
   </div>
-  <ion-content class="ion-content-infinite-recommended" *ngIf="products.length === 0 && inputText; else showProductSearched">
+  <ion-content class="ion-content-infinite-recommended" *ngIf="products.length === 0 && inputText &&  !search; else showProductSearched">
       <ion-list [class]="listClass">
-      <div class="product-recommended" *ngFor="let item of products1; let index">
+      <div class="product-recommended" *ngFor="let item of products1; let index" (click)="getProductDetail(item)">
         <figure class="img-container">
           <figure class="promotion-container">
             <h4 class="discount-number">50</h4>
@@ -48,9 +48,9 @@
     </ion-infinite-scroll>
   </ion-content>
   <ng-template #showProductSearched>
-    <ion-content class="ion-content-infinite" *ngIf="inputText">
+    <ion-content class="ion-content-infinite" *ngIf="inputText" >
       <ion-list>
-        <div class="product-searched" *ngFor="let item of products; let index">
+        <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
           <figure class="img-container">
             <img [src]="item.product.image" alt="">
           </figure>

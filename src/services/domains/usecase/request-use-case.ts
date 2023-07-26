@@ -51,5 +51,8 @@ export class RequestUseCases {
     return this._requestGateWay.postLogin(token, email, password);
   }
   
+  postForgotPassword(token:string, email:string):Observable<LoginResponse> {
+    return this._requestGateWay.postForgotPassword(token, email);
+  }
 
 }

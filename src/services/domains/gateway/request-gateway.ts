@@ -20,6 +20,7 @@ export abstract class RequestGateway {
     abstract getCategories(token:string): Observable<CategoriesOut>;
     abstract getCategoriesByProduct(token:string, id:string, page:number): Observable<CategoriesByProductOut>;
     abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse> ;
+    abstract postForgotPassword(token:string, email:string):Observable<LoginResponse>;
 }
 
 

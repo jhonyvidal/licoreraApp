@@ -9,6 +9,9 @@ ion-modal{
     --width: 350px;
     --height: 400px;
 }
+.container{
+    overflow-y: scroll;
+}
 .imgWelcome {
     margin-top: 50px;
 }
@@ -23,7 +26,7 @@ ion-modal{
 }
 
 .h1Welcome h1{
-    position: absolute;
+    // position: absolute;
     height: 30px;
 
     font-size: 30px;
@@ -32,7 +35,7 @@ ion-modal{
 }
 
 .h4Welcome h4{
-    position: absolute;
+    // position: absolute;
     width: 295px;
     height: 16px;
 
@@ -87,7 +90,7 @@ a {
 }
 
 #footer {
-    // position: fixed;
+    position: fixed;
     margin-top: 300px;
     left: 0;
     bottom: 0;

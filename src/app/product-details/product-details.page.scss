@@ -161,7 +161,6 @@ section article .Before-price {
 .Btns-container {
   width: 100%;
   display: flex;
-  // justify-content: center;
   align-items: center;
 }
 
@@ -191,6 +190,15 @@ section article .Before-price {
   font-family: 'HudsonNYSerif';
   font-size: 17px;
   background-color: #99791C;
+}
+.lottie{
+  position: fixed;
+  margin-top: 50%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 // ion-footer ion-toolbar .footer-container {

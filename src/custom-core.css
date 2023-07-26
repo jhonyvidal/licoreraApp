@@ -197,5 +197,12 @@ html, p, h1, h2, h3, a {
     background:#FFFFFF !important;
     border:solid 2px #000000;
 }
+span.button-inner{
+    width: 20px;
+    height: 20px;
+}
+.button-native{
+    --background: black;
+  }
 
 

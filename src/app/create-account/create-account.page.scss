@@ -1,0 +1,86 @@
+.imgWelcome {
+    margin-top: 50px;
+}
+.h4Welcome{
+    margin-top: 16px;
+    height: 16px;
+    font-family: weblysleekuil;
+}
+.h4Welcome h4{
+  padding: 20px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 16px;
+}
+ion-input.custom {
+    --background: #ffff;
+    --color: #000000;
+    --placeholder-color: #ddd;
+    --placeholder-opacity: 0.8;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    border-bottom: solid 1px;
+  }
+  .aHome{
+    color: #A37906;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 12px;
+    font-family: weblysleekuil;
+}
+.signButton{
+  margin-top: 30px;
+  font-size: 17px;
+  font-family: HudsonNYSerif;
+  text-align: center;
+  color:#FFFFFF;
+  width: 100%;
+  height: 45px;
+  background:#D1D1D1;
+  border-radius: 5px;
+  --box-shadow: none;
+}
+.circle{
+  border: 1px solid #D1D1D1;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+p{
+  font-family: weblysleekuil;
+  color: #000000;
+  font-size: 12px;
+}
+.container{
+  margin: 0px 15px;
+  margin-top: -30px;
+}
+.footer{
+  position: fixed;
+  margin-top: 300px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  color: blue;
+}
+
+.closeIcon{
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+  width: 20px;
+  height: 20px;
+}
+.closeIcon img{
+  width: 17.5px;
+  height: 17.5px;
+}

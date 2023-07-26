@@ -16,8 +16,6 @@ export class UserService {
 
   // Método para realizar el inicio de sesión
   login(userData: UserModel): boolean {
-    // Aquí va la lógica para autenticar al usuario
-    // Supongamos que el inicio de sesión fue exitoso y obtuvimos los datos del usuario:
 
     // Almacenar los datos del usuario en el almacenamiento local
     this.storage.set('userData', userData);

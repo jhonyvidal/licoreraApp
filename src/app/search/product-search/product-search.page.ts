@@ -3,6 +3,8 @@ import { Product } from 'src/shared/domain/response/PromotionsData';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { InfiniteScrollCustomEvent, IonInfiniteScroll } from '@ionic/angular';
 import { Location } from '@angular/common'
+import { Router } from '@angular/router';
+import { ShareObjectService } from 'src/shared/services/shareObject';
 
 @Component({
   selector: 'app-product-search',
@@ -25,10 +27,14 @@ export class ProductSearchPage implements OnInit {
   listClass: string = 'grid-list';
   numberOfItems: number = 10;
   numberOfApiProducts: number = 0;
+  myTimeout: any;
+  search:boolean = true;
 
   constructor(
     private requestUseCase: RequestUseCases,
-    private location: Location
+    private location: Location,
+    private router:Router,
+    private shareObjectService:ShareObjectService,
   ) { }
 
   ngOnInit() {
@@ -52,7 +58,6 @@ export class ProductSearchPage implements OnInit {
     console.log('cargando los siguientes...');
 
     setTimeout(() => {
-
       if (this.position >= this.numberOfApiProducts) {
         event.target.complete;
         this.showInfiniteScroll = false;
@@ -69,16 +74,21 @@ export class ProductSearchPage implements OnInit {
   }
 
   getProductsSearched(inputSearched: any) {
-    this.requestUseCase.getProductSearch('token', inputSearched).subscribe(response => {
-      if (response.success === true) {
-        console.log('API product search: ', response.data);
-        console.log('Tamaño de la data: ', response.data.length);
+    this.search = true;
+    clearTimeout(this.myTimeout);
+    this.myTimeout = setTimeout(() => {
+      this.search = false;
+      this.requestUseCase.getProductSearch('token', inputSearched).subscribe(response => {
+        if (response.success === true) {
+          console.log('API product search: ', response.data);
+          console.log('Tamaño de la data: ', response.data.length);
 
-        this.products = response.data;
-      } else {
-        console.log('Body del error: ', response);
-      }
-    })
+          this.products = response.data;
+        } else {
+          console.log('Body del error: ', response);
+        }
+      })
+    }, 1000);
   }
 
   getAPIData(){
@@ -98,7 +108,12 @@ export class ProductSearchPage implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/home/tab1']);
+  }
+
+  getProductDetail(data:any){
+    this.shareObjectService.setObjetoCompartido(data)
+    this.router.navigate(['/product-details']);
   }
 
 }

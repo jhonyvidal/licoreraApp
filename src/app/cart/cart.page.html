@@ -1,14 +1,86 @@
 <ion-header [translucent]="true" class="h60">
-  <ion-toolbar>
-    <ion-title>cart</ion-title>
-    <ion-button routerLink="/campaign-detail">Carrito</ion-button>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="products.length === 0">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cart</ion-title>
-    </ion-toolbar>
   </ion-header>
+  <div class="title-jotas-container">
+    <h2 class="title-jotas">¿QUE ESPERAS PARA HACER TU PEDIDO?</h2>
+  </div>
+  <div class="container">
+    <div class="childContainer">
+      <img src="../../assets/img/phone-hand.svg" alt="phone-hand" />
+      <div><p>Todo lo que necesitas en un solo lugar</p></div>
+    </div>
+  </div>
 </ion-content>
+
+<ion-content [fullscreen]="true" *ngIf="products.length > 0">
+  <div class="cart-container">
+    <h2 class="title-jotas">CARRITO DE COMPRAS</h2>
+  </div>
+  <div class="content-exchange-products">
+    <ion-content class="">
+        <ion-list class="list-container">
+          <div class="product-exchange-container" *ngFor="let item of products; let index">
+            <figure class="img-container">
+              <img [src]="item.product.image" alt="">
+            </figure>
+            <div class="info-exchange-container">
+              <div class="product-name-jotas-container">
+                <div class="name-container">
+                  <h2 class="Product-name-exchange">{{item.product.name | customPipe: 1 }}</h2>
+                </div>
+              </div>
+              <h4 class="disponible-exchange">Presentación: {{item.product.name | customPipe: 2}}</h4>
+            </div>
+            <div class="Btns-container">
+            <div>
+              <ion-grid class="p0">
+                <ion-row>
+                <ion-col>
+                  <h2 class="Price-now"><span class="Now"></span>{{item.price  | customCurrency :'.':'$ '}}</h2>
+                </ion-col>
+               
+                <ion-col class="buttonsCol">
+                  <ion-buttons>
+                    <ion-button class="Btn-minus" (click)="subtractBtn(item.id)" [disabled]="item.quantitySelected <=1 ? true : false">
+                      <ion-icon class="icon-inner" size="large" color="light" name="remove-outline"></ion-icon>
+                    </ion-button>
+                    <h4 class="Quantity">{{item.quantitySelected}}</h4>
+                    <ion-button class="Btn-plus" (click)="addBtn(item.id)" [disabled]="quantity >= 10 ? true : false">
+                      <ion-icon class="icon-inner" size="large" color="light" size="large" name="add-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-col>
+                </ion-row>
+              </ion-grid> 
+            </div>
+            </div>
+            <div class="closeIcon">
+              <img width="15" height="15"  (click)="deleteProduct(item)"  src="../../assets/icon/Vector.svg" alt="">
+            </div>
+          </div>
+        </ion-list>
+    </ion-content>
+  </div>
+
+  <div class="contentPayChild">
+    <p>Obtienes por tu compra 101 J</p>
+    <p class="line"></p>
+    <ion-grid class="p0">
+      <ion-row>
+        <ion-col>
+          <h4>Total:</h4>
+        </ion-col>
+        <ion-col>
+          <h4 class="payTotal">{{total | customCurrency :'.':'$ '}}</h4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p class="text">Domicilio gratis por compras mayores a $ %@ IVA incluido.</p> 
+    <ion-button class="buttonSubmit">IR A PAGAR</ion-button>
+  </div>
+
+</ion-content>
+

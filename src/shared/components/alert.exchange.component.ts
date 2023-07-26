@@ -6,6 +6,8 @@ export async function presentAlertExchange(
   text: string,
   type: string,
   productImage?: string | undefined,
+  AcceptFuntion?:  (id: number) => void,
+  id?:number
 ) {
   const warningImg = window.location.origin + '/assets/img/warning.svg';
   // const timeAlertText = timeAlert ? '<b>${timeAlert}</b></br>' : '';
@@ -42,10 +44,12 @@ export async function presentAlertExchange(
         buttons: [
           {
             text: 'ACEPTAR',
-            role: 'cancel',
+            role: 'accept',
             cssClass: 'alertButtonExchange',
             handler: () => {
-              closeAlert(alertController);
+              if (AcceptFuntion) {
+                AcceptFuntion(id || 0); // Puedes pasar cualquier ID que necesites aquí
+              }
             },
           },
           {

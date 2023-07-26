@@ -75,4 +75,8 @@ export class SignInPage implements OnInit {
         }
       });
   }
+
+  routerLink(route: string) {
+    this.router.navigate(['/' + route]);
+  }
 }

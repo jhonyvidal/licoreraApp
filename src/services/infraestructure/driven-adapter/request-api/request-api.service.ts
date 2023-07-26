@@ -125,6 +125,21 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+
+  postForgotPassword(token:string, email:string):Observable<LoginResponse> {
+    const data = {
+      email:email
+    }
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.post('clients/rememberPassword', data , headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as LoginResponse
+      })
+    )
+  }
   
   
 }

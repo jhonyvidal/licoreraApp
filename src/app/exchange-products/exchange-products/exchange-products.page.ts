@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { Product } from 'src/shared/domain/response/PromotionsData';
+import { UserService } from 'src/store/services/user.service';
 
 @Component({
   selector: 'app-exchange-products',
@@ -18,11 +19,12 @@ export class ExchangeProductsPage implements OnInit {
   puedeCanjear: boolean;
   productName: string | undefined;
   productImage: string | undefined;
-  canjeables: number = 80;
+  userPoint:number;
 
   constructor(
     private requestUseCase: RequestUseCases,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -39,11 +41,12 @@ export class ExchangeProductsPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+    this.getUser();
   }
 
   canjear(){
-
-    this.puedeCanjear = this.points >= this.canjeables ? true : false;
+    
+    this.puedeCanjear =this.userPoint  >= this.points  ? true : false;
 
     console.log('puede canjear: ',this.puedeCanjear);
     console.log('Points: ', this.points);
@@ -68,10 +71,21 @@ export class ExchangeProductsPage implements OnInit {
     await presentAlertExchange(
       this.alertController,
       this.productName,
-      `¿Quieres canjearlo por ${this.canjeables} J?`,
+      `¿Quieres canjearlo por ${this.points} J?`,
       'exchange-products-success',
       this.productImage
     );
+  }
+
+  getUser(){
+    this.userService.getUserData()
+    .then(data => {
+      console.log(data.points)
+      this.userPoint = data.points;
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
   }
 
 }

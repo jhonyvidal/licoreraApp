@@ -44,7 +44,7 @@
           </ion-col>
           <ion-col size="11">
             <div>
-            <a class="linkNumber" (click)="llamar('+6392474,+6799493')" >6 39 24 74 - 6 79 94 93</a>
+            <a class="linkNumber" (click)="llamar('+6392474')" >6 39 24 74</a> - <a class="linkNumber" (click)="llamar('+6799493')" >6 79 94 93</a>
             </div>
           </ion-col>
           <ion-col size="1">
@@ -52,7 +52,7 @@
           </ion-col>
           <ion-col size="11">
             <div>
-            <a class="linkNumber" (click)="llamar('3153521966,3154835560')">315 352 19 66 - 315 483 55 60</a>
+            <a class="linkNumber" href="https://wa.me/573153521966">315 352 19 66</a> - <a class="linkNumber" href="https://wa.me/573154835560">315 483 55 60</a>
             </div>
           </ion-col>
         </ion-row>
@@ -69,12 +69,12 @@
       <ion-title class="mapTitle">
         ¿COMO LLEGAR?
       </ion-title>
-      <img class="delivery-icon" width="388" height="222"  src="../../assets/img/map.svg" alt="Logo empresa">
+      <img (click)="openGoogleMap()" class="delivery-icon" width="388" height="222"  src="../../assets/img/map.svg" alt="Logo empresa">
     </ion-toolbar>
 
     <ion-toolbar>
       <div class="footer">
-        <ion-button class="mapButton" color="#000000">RUTA A LA LICORERA</ion-button>
+        <ion-button class="mapButton" color="#000000" (click)="openGoogleMap()">RUTA A LA LICORERA</ion-button>
       </div> 
     </ion-toolbar>
 

@@ -24,7 +24,7 @@
   </div>
   <ion-content class="ion-content-infinite">
     <ion-list [class]="listClass">
-      <div class="product-searched" *ngFor="let item of products; let index">
+      <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
         <figure class="img-container">
           <!-- <figure class="promotion-container"> Todo, cuando pasen la API
             <h4 class="discount-number">50</h4>

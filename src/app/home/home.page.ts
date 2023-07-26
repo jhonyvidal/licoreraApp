@@ -14,8 +14,8 @@ export class HomePage {
   selectedTab: string = 'tab1';
   userData: UserModel;
 
-  ngOnInit(){
-    this.getUser()
+  ionViewWillEnter() {
+    this.getUser() 
   }
 
   changeTab(tab: string) {

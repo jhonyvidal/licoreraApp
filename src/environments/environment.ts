@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
+  //apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
   apiUrl: 'https://licorera3jjjs.com/api/mobile/',
   // apiUrl: 'https://rickandmortyapi.com/api/',
   databaseNames:[

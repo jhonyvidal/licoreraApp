@@ -7,8 +7,8 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'campaign-detail',
-    loadChildren: () => import('./campign/campaign-detail/campaign-detail.module').then( m => m.CampaignDetailPageModule)
+    path: 'product-details',
+    loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   },
   {
     path: 'product-search',
@@ -33,6 +33,14 @@ const routes: Routes = [
   {
     path: 'sign-in',
     loadChildren: () => import('./sign-in/sign-in.module').then( m => m.SignInPageModule)
+  },
+  {
+    path: 'password-reset',
+    loadChildren: () => import('./password-reset/password-reset.module').then( m => m.PasswordResetPageModule)
+  },
+  {
+    path: 'create-account',
+    loadChildren: () => import('./create-account/create-account.module').then( m => m.CreateAccountPageModule)
   },
   {
     path: '',

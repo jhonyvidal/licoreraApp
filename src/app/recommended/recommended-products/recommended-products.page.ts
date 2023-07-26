@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { InfiniteScrollCustomEvent, IonInfiniteScroll } from '@ionic/angular';
 import { Location } from '@angular/common'
+import { Router } from '@angular/router';
+import { ShareObjectService } from 'src/shared/services/shareObject';
 
 @Component({
   selector: 'app-recommended-products',
@@ -23,7 +25,9 @@ export class RecommendedProductsPage implements OnInit {
 
   constructor(
     private requestUseCase: RequestUseCases,
-    private location: Location
+    private location: Location,
+    private router:Router,
+    private shareObjectService:ShareObjectService,
   ) { }
 
   ngOnInit() {
@@ -70,7 +74,13 @@ export class RecommendedProductsPage implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/home/tab1']);
   }
+
+  getProductDetail(data:any){
+    this.shareObjectService.setObjetoCompartido(data)
+    this.router.navigate(['/product-details']);
+  }
+
 
 }

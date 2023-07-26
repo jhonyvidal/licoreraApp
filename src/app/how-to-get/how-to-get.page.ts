@@ -8,6 +8,9 @@ import { Location } from '@angular/common';
 })
 export class HowToGetPage implements OnInit {
 
+  lat:number = 3.57886709556234;
+  lng:number = -76.49209239119809;
+
   constructor(private location: Location) { }
 
   ngOnInit() {
@@ -22,6 +25,11 @@ export class HowToGetPage implements OnInit {
     numerosArray.forEach((numero) => {
       window.open('tel:' + numero, '_system');
     });
+  }
+
+  openGoogleMap(){
+    const url = `https://maps.google.com/maps?q=${this.lat},${this.lng}`;
+    open(url)
   }
 
 }

@@ -1,4 +1,5 @@
 <ion-content [fullscreen]="true" [formGroup]="myForm">
+  <div class="container">
     <div class="imgWelcome custom-body-center">
       <img src="../../assets/img/Icon_tres_jotas.svg" alt="Logo empresa">
     </div>
@@ -29,29 +30,30 @@
         <!-- <ion-input formControlName="birthday"  class="labelWelcome" type="date" placeholder="Custom input" required></ion-input> -->
       </ion-item> 
     </div>
-    <div class="custom-body-center">
+    <!-- <div class="custom-body-center">
       <ion-note *ngIf="myForm.get('birthday')?.invalid && myForm.get('birthday')?.touched">
         La fecha es requerida.
       </ion-note>
-    </div>
+    </div> -->
     <div class="custom-body-center">
       <ion-note *ngIf="myForm.get('birthday')?.errors?.fechaInvalida">
         La fecha de nacimiento debe ser mayor a 18 años.
       </ion-note>
     </div>
 
-
     <div class="custom-body-center mt20">
       <p class="pWelcome font-secondary">El contenido de esta aplicación es solo para mayores de edad. 
         Prohíbase el expendio de bebidas embriagantes a menores de edad. 
         El exceso de alcohol es perjudicial para la salud.</p>
     </div>
-
+    
     <div class="custom-body-center">
       <p class="pWelcome font-secondary">
-        Al ingresar acepto los <a> términos y condiciones</a> 
+        Al ingresar acepto los <a href="https://www.licorera3jjjs.com/condiciones" _blank> términos y condiciones</a> 
       </p>
     </div>
+
+  </div>
 
     <div id="footer">
       <div class=" custom-body-center mb10">

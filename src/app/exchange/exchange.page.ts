@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { UserService } from 'src/store/services/user.service';
 
 @Component({
   selector: 'app-exchange',
@@ -10,10 +11,12 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 export class ExchangePage implements OnInit {
 
   products: any = [];
+  userPoint:number;
 
   constructor(
     private requestUseCase: RequestUseCases,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -27,10 +30,22 @@ export class ExchangePage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+    this.getUser()
   }
 
   routerLink(route:string){
     this.router.navigate(['/' + route])
+  }
+
+  getUser(){
+    this.userService.getUserData()
+    .then(data => {
+      console.log(data.points)
+      this.userPoint = data.points;
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
   }
 
 }

@@ -7,9 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ExchangePage
-  },  {
+  },
+  {
     path: 'exchange-products',
-    loadChildren: () => import('./exchange-products/exchange-products.module').then( m => m.ExchangeProductsPageModule)
+    loadChildren: () => import('../exchange-products/exchange-products/exchange-products.module').then( m => m.ExchangeProductsPageModule)
   }
 
 ];

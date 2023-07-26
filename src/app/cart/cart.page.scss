@@ -1,0 +1,230 @@
+.title-jotas-container {
+    width: 100%;
+    height: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #99791C;
+  }
+
+  .cart-container {
+    width: 100%;
+    height: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #404040;
+  }
+
+  
+  .title-jotas-container .title-jotas {
+    margin: 0;
+    font-size: 17px;
+  }
+
+  .cart-container .title-jotas {
+    margin: 0;
+    font-size: 20px;
+    color: #FFFFFF;
+  }
+
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+  }
+  .childContainer{
+    text-align: center;
+  }
+  p {
+    font-family:weblysleekuil;
+    font-size: 17px;
+    color: #000000;
+    text-align: center;
+  }
+
+  .content-exchange-products {
+    width: 100%;
+    height: 65%;
+    overflow: auto;
+  }
+  
+  .list-container {
+    margin: 0;
+    padding: 20px 20px 0 20px;
+  }
+  
+  .list-container .product-exchange-container {
+    margin-bottom: 16px;
+    display: flex;
+    height: 150px;
+    border: 1px solid #BBBBBB;
+    border-radius: 10px;
+    background-color: white;
+  }
+  
+  .list-container .product-exchange-container .img-container {
+    margin: 0;
+    padding: 0;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+  }
+  
+  .list-container .product-exchange-container .img-container img {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container {
+    margin: 0;
+    padding: 20px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container {
+    display: flex;
+    align-items: baseline;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container > * {
+    display: flex;
+    align-items: center;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .name-container {
+    width: 80%;
+    height: 100%;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .jotas-container {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: start;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container > div > * {
+    margin: 0;
+    padding: auto;
+    font-size: 16px;
+    color: #000000;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .Product-name-exchange {
+    width: 80%;
+    font-family: 'weblysleekuisb';
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .product-jotas {
+    margin: 0 0 auto 0;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-description-exchange {
+    margin: 5px 0 0 0;
+    padding: 0;
+    font-family: 'weblysleekuil';
+    font-size: 12px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .disponible-exchange {
+    margin: auto 0 0 0;
+    padding: 0;
+    font-family: 'weblysleekuisb';
+    font-size: 12px;
+  }
+  .closeIcon{
+    margin-right: 10px;
+    float: right;
+    margin-top: 10px;
+    font-size: 15px;
+    width: 20px;
+    color: #000000;
+  }
+
+  .Btns-container {
+    display: flex;
+    align-items: center;
+  }
+  .Btn-minus {
+    --background: #FDBD00;
+    width: 26px;
+    height: 26px;
+    --border-radius: 50% !important;
+  }
+  .Btn-plus {
+    --background: #FDBD00;
+    width: 26px;
+    height: 26px;
+    --border-radius: 50% !important;
+  }
+  .icon-inner {
+    position: absolute;
+    width: 25px !important;
+  }
+  .Quantity {
+    margin: 0;
+    font-family: 'weblysleekuisb';
+    font-size: 26px;
+    padding: 5px;
+  }
+  .Price-now{
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: -8px;
+  }
+  .buttonsCol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.payTotal{
+  float: right;
+  font-family: HudsonNYSerif;
+  font-size: 18px;
+  color: #000000;
+}
+h4{
+  font-family: HudsonNYSerif;
+  font-size: 18px;
+  color: #000000;
+}
+.text{
+  font-size: 12px;
+  color:#4F4F4F;
+}
+.contentPayChild{
+  padding: 0px 20px 0 20px;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  background: white;
+}
+.buttonSubmit{
+  width: 100%;
+  font-family: HudsonNYSerif;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  color: #000000;
+  --background: #FFFFFF !important;
+  border: 1px solid #000000;
+}
+.line{
+  border-bottom: 1px solid #4F4F4F;
+}
+.p0{
+  margin-top: -20px;
+}
+ion-row{
+  margin-top: 50px;
+}

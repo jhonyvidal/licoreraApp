@@ -71,12 +71,19 @@ export class WelcomePage implements OnInit {
   }
 
   fechaNacimientoValidator(control: any) {
-    const fechaSeleccionada = new Date(control.value);
+
+    const partesFecha = control.value.split("/"); 
+  
+    const dia = parseInt(partesFecha[0], 10);
+    const mes = parseInt(partesFecha[1], 10) - 1;
+    const anio = parseInt(partesFecha[2], 10);
+
+    const fechaSeleccionada = new Date(anio, mes, dia);
+    
     const fechaMinima = new Date();
     fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
 
     if (fechaSeleccionada > fechaMinima) {
-      console.log(fechaSeleccionada, fechaMinima)
       return { fechaInvalida: true };
     }
 

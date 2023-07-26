@@ -1,19 +1,22 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons class="toolbar-detail-container">
-        <ion-back-button>
-          <img class="delivery-icon" src="../../assets/icon/backIcon.svg" alt="back arrow">
-        </ion-back-button>
-        <ion-button>
-          <img class="delivery-icon" width="40" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        <ion-button (click)="goBack()">
+          <img src="../../assets/icon/backIcon.svg" alt="Back" />
         </ion-button>
+        <div class="dev-logo-header" style="margin-right: 0px;">
+          <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </div>
         <ion-button>
           <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow">
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+
+<app-success-lottie *ngIf="isSuccess"/>
+
+<ion-content >
   <figure class="product-img-container">
     <figure class="promotion-container">
       <h2 class="Promotion-number">50</h2>
@@ -48,15 +51,15 @@
           <div class="Btns-container">
             <ion-buttons class="buttons-left">
               <ion-button class="Btn-minus" (click)="subtractBtn()" [disabled]="quantity <=1 ? true : false">
-                <ion-icon color="light" name="remove-outline"></ion-icon>
+                <ion-icon slot="icon-only" color="light" name="remove-outline"></ion-icon>
               </ion-button>
               <h4 class="Quantity">{{quantity}}</h4>
               <ion-button class="Btn-plus" (click)="addBtn()" [disabled]="quantity >= 10 ? true : false">
-                <ion-icon color="light" size="large" name="add-outline"></ion-icon>
+                <ion-icon  slot="icon-only" color="light" size="large" name="add-outline"></ion-icon>
               </ion-button>
             </ion-buttons>
             <ion-buttons class="buttons-right">
-              <ion-button class="Btn-add">Agregar</ion-button>
+              <ion-button class="Btn-add" (click)="setCart()">Agregar</ion-button>
             </ion-buttons>
           </div>
   </ion-toolbar>

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { Location } from '@angular/common'
+import { ShareObjectService } from 'src/shared/services/shareObject';
 
 @Component({
   selector: 'app-store-detail',
@@ -29,7 +30,9 @@ export class StoreDetailPage implements OnInit {
   constructor(
     private requestUseCase: RequestUseCases,
     private activatedRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router:Router,
+    private shareObjectService:ShareObjectService,
     ) {
       this.getCategories();
      }
@@ -77,6 +80,12 @@ export class StoreDetailPage implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  getProductDetail(data:any){
+    console.log(data)
+    this.shareObjectService.setObjetoCompartido({product:data})
+    this.router.navigate(['/product-details']);
   }
 
 }
