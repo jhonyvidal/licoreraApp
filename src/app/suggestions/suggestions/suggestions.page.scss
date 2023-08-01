@@ -28,6 +28,26 @@ ion-content .suggestions-text {
 }
 
 ion-content ion-list {
-    padding: 0 20px;
+    padding: 0 23px;
     width: 100%;
+}
+
+ion-content ion-list ion-item {
+  --padding-bottom: 16px;
+  --padding-start: 0;
+}
+
+ion-content ion-list ion-item .inputs{
+  font-size: 14px;
+}
+
+.message {
+  font-family: 'weblysleekuisb';
+  font-size: 14px;
+}
+
+ion-content ion-list #mensaje {
+  margin: 13px 0 0 0;
+  --border-radius: 10px;
+  --border-color: #BBBBBB;
 }

@@ -20,21 +20,16 @@
   <p class="suggestions-text">Para nosotros es muy importante tu opinión, ayúdanos a mejorar. ¿Tienes alguna sugerencia?</p>
   <ion-list>
     <ion-item>
-      <ion-input aria-label="Email" placeholder="Título"></ion-input>
+      <ion-input class="inputs" aria-label="Email" placeholder="Título"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input aria-label="Email" placeholder="Nombre"></ion-input>
+      <ion-input class="inputs" aria-label="Email" placeholder="Nombre"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input aria-label="Email" placeholder="Correo electrónico" email></ion-input>
+      <ion-input class="inputs" aria-label="Email" placeholder="Correo electrónico" email></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-textarea
-        label="Email"
-        labelPlacement="floating"
-        ngModel
-        text
-      ></ion-textarea>
-    </ion-item>
+    <br>
+    <ion-label class="message" for="mensaje">Mensaje</ion-label>
+    <ion-textarea id="mensaje" fill="outline" rows="5"></ion-textarea>
   </ion-list>
 </ion-content>
