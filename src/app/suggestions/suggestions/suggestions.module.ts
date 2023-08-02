@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeggestionsPageRoutingModule } from './suggestions-routing.module';
+import { SuggestionsPageRoutingModule } from './suggestions-routing.module';
 
-import { SeggestionsPage } from './suggestions.page';
+import { SuggestionsPage } from './suggestions.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeggestionsPageRoutingModule
+    ReactiveFormsModule,
+    SuggestionsPageRoutingModule
   ],
-  declarations: [SeggestionsPage]
+  declarations: [SuggestionsPage]
 })
 export class SeggestionsPageModule {}

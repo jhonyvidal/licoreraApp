@@ -15,28 +15,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [formGroup]="myForm">
   <h2 class="suggestions-title">Sugerencias</h2>
   <p class="suggestions-text">Para nosotros es muy importante tu opinión, ayúdanos a mejorar. ¿Tienes alguna sugerencia?</p>
-  <ion-list>
-    <ion-item>
-      <ion-input class="inputs" aria-label="Email" placeholder="Título"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input class="inputs" aria-label="Email" placeholder="Nombre"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input class="inputs" aria-label="Email" placeholder="Correo electrónico" email></ion-input>
-    </ion-item>
+  <ion-list >
+    <!-- <ion-item> -->
+      <ion-input class="inputs" formControlName="title" aria-label="title" placeholder="Título" required></ion-input>
+    <!-- </ion-item> -->
+    <!-- <ion-item> -->
+      <ion-input class="inputs" formControlName="name" aria-label="name" placeholder="Nombre" required></ion-input>
+    <!-- </ion-item> -->
+    <!-- <ion-item> -->
+      <ion-input class="inputs" formControlName="email"  aria-label="email" placeholder="Correo electrónico" email required></ion-input>
+    <!-- </ion-item> -->
     <!-- <br> -->
     <ion-label class="message" for="mensaje">Mensaje</ion-label>
-    <ion-textarea id="mensaje" fill="outline" rows="5"></ion-textarea>
+    <ion-textarea id="mensaje" formControlName="message" fill="outline" rows="5"></ion-textarea>
   </ion-list>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <ion-button disabled="true">Enviar</ion-button>
+      <ion-button [disabled]="!isFormValid"  [ngClass]="buttonStyle" color="#D1D1D1">Enviar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
