@@ -7,9 +7,9 @@ export async function presentAlertExchange(
   type: string,
   productImage?: string | undefined,
 ) {
-  const warningImg = window.location.origin + '/assets/img/warning.svg';
+  const warningImg = window.location.origin + `/assets/img/${type === 'exchange-products-bad' ? 'warning' : type === 'exchange-products-success-response' ? 'checkGreen' : ''}.svg`;
   // const timeAlertText = timeAlert ? '<b>${timeAlert}</b></br>' : '';
-  let imageAlert = type === 'exchange-products-bad' ? warningImg : productImage;
+  let imageAlert = type === 'exchange-products-success' ? productImage :  warningImg;
   let alert: any;
 
   const dynamicContent = `
@@ -19,6 +19,23 @@ export async function presentAlertExchange(
 
   switch (type) {
     case 'exchange-products-bad':
+      alert = await alertController.create({
+        message: dynamicContent,
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'ACEPTAR',
+            role: 'cancel',
+            cssClass: 'alertButton',
+            handler: () => {
+              closeAlert(alertController);
+            },
+          },
+        ],
+      });
+      break;
+
+    case 'exchange-products-success-response':
       alert = await alertController.create({
         message: dynamicContent,
         backdropDismiss: false,

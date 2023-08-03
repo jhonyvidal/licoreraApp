@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
+import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 
 @Component({
   selector: 'app-suggestions',
@@ -12,9 +14,12 @@ export class SuggestionsPage implements OnInit {
   myForm: FormGroup;
   isFormValid = false;
   buttonStyle = 'DisableButton';
+  suggested: boolean = true;
+
   constructor(
     private location: Location,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private alertController: AlertController
   ){
     this.myForm = this.formBuilder.group({
       title: ['', [Validators.required]],
@@ -41,6 +46,32 @@ export class SuggestionsPage implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  async showAlertBad() {
+    await presentAlertExchange(
+      this.alertController,
+      'INFORMACIÓN',
+      'Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.',
+      'exchange-products-bad'
+    );
+  }
+
+  async showAlertSuccess() {
+    await presentAlertExchange(
+      this.alertController,
+      '¡felicitaciones!',
+      'Tu sugerencia ha sido enviada exitosamente y la atenderemos muy pronto. Trabajamos para mejorar.',
+      'exchange-products-success-response'
+    );
+  }
+
+  submit() {
+    if (!this.suggested) {
+      this.showAlertBad();
+    }else {
+      this.showAlertSuccess();
+    }
   }
 
 }

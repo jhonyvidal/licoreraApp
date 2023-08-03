@@ -28,7 +28,6 @@
     <!-- <ion-item> -->
       <ion-input class="inputs" formControlName="email"  aria-label="email" placeholder="Correo electrónico" email required></ion-input>
     <!-- </ion-item> -->
-    <!-- <br> -->
     <ion-label class="message" for="mensaje">Mensaje</ion-label>
     <ion-textarea id="mensaje" formControlName="message" fill="outline" rows="5"></ion-textarea>
   </ion-list>
@@ -36,7 +35,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons>
-      <ion-button [disabled]="!isFormValid"  [ngClass]="buttonStyle" color="#D1D1D1">Enviar</ion-button>
+      <ion-button [disabled]="!isFormValid" [ngClass]="buttonStyle" color="#D1D1D1" (click)="submit()">Enviar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
