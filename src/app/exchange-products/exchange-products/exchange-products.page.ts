@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { Product } from 'src/shared/domain/response/PromotionsData';
+import { ShareObjectService } from 'src/shared/services/shareObject';
 import { UserService } from 'src/store/services/user.service';
 
 @Component({
@@ -24,23 +25,19 @@ export class ExchangeProductsPage implements OnInit {
   constructor(
     private requestUseCase: RequestUseCases,
     private alertController: AlertController,
-    private userService: UserService
+    private userService: UserService,
+    private shareObjectService:ShareObjectService,
   ) { }
 
   ngOnInit() {
-    // promotionProducts
-    this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
-      if (response.success === true) {
-        console.log('Promotions: ', response.data);
-        this.product = {...response.data.data[4].product}
-        this.points = response.data.data[4].points;
-        this.quantity = response.data.data[4].quantity;
-        this.productName = response.data.data[4].product.name;
-        this.productImage = response.data.data[4].product.image;
-      } else {
-        console.log('Body del error: ', response);
-      }
-    })
+
+    const productDetail = this.shareObjectService.getObjetoCompartido() 
+    console.log(productDetail)
+    this.product = productDetail.product;
+    this.points = productDetail.points;
+    this.quantity = productDetail.quantity;
+    this.productName = productDetail.product.name;
+    this.productImage = productDetail.product.image;
     this.getUser();
   }
 

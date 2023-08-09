@@ -42,10 +42,7 @@ const routes: Routes = [
     path: 'create-account',
     loadChildren: () => import('./create-account/create-account.module').then( m => m.CreateAccountPageModule)
   },
-  {
-    path: '',
-    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },
+ 
   {
     path: 'recent-orders',
     loadChildren: () => import('./orders/recent-orders/recent-orders.module').then( m => m.RecentOrdersPageModule)
@@ -57,7 +54,11 @@ const routes: Routes = [
   {
     path: 'suggestions',
     loadChildren: () => import('./suggestions/suggestions/suggestions.module').then( m => m.SeggestionsPageModule)
-  }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },
 
 ];
 @NgModule({

@@ -37,6 +37,10 @@ export class ProductDetailsPage implements OnInit {
   ) {
   }
 
+  ionViewWillEnter() {
+    this.quantity = 1;
+  }
+
   ngOnInit() {
     this.product = this.shareObjectService.getObjetoCompartido().product;
 

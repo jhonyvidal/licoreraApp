@@ -11,7 +11,7 @@
   <ion-content class="content-exchange-products">
     <ion-list class="list-container">
       <!-- <div class="product-searched" *ngFor="let item of products; let index"> -->
-        <div class="product-exchange-container" *ngFor="let item of products; let index" (click)="routerLink('/exchange-products')">
+        <div class="product-exchange-container" *ngFor="let item of products; let index" (click)="setProduct(item)">
           <figure class="img-container">
             <!-- <img [src]="item.product.image" alt=""> -->
             <img [src]="item.product.image" alt="">

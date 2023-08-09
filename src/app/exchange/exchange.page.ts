@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { ShareObjectService } from 'src/shared/services/shareObject';
+import { Product, cartModel } from 'src/store/models/cart.model';
 import { UserService } from 'src/store/services/user.service';
 
 @Component({
@@ -16,6 +18,7 @@ export class ExchangePage implements OnInit {
   constructor(
     private requestUseCase: RequestUseCases,
     private router: Router,
+    private shareObjectService:ShareObjectService,
     private userService: UserService
   ) { }
 
@@ -35,6 +38,11 @@ export class ExchangePage implements OnInit {
 
   routerLink(route:string){
     this.router.navigate(['/' + route])
+  }
+
+  async setProduct(item:cartModel){
+    this.shareObjectService.setObjetoCompartido(item) 
+    this.router.navigate(['/exchange-products'])
   }
 
   getUser(){
