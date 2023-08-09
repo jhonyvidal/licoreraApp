@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <!-- <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button> -->
+        <ion-button class="btn-header" (click)="goBack()">
+          <img width="25" height="25" src="../../assets/icon/backIcon.svg" alt="Back" />
+        </ion-button>
+        <ion-button class="btn-header">
+          <img width="40" height="40" class="delivery-icon" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button class="btn-header">
+          <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [formGroup]="myForm">
+  <h2 class="suggestions-title">Sugerencias</h2>
+  <p class="suggestions-text">Para nosotros es muy importante tu opinión, ayúdanos a mejorar. ¿Tienes alguna sugerencia?</p>
+  <ion-list >
+    <!-- <ion-item> -->
+      <ion-input class="inputs" formControlName="title" aria-label="title" placeholder="Título" required></ion-input>
+    <!-- </ion-item> -->
+    <!-- <ion-item> -->
+      <ion-input class="inputs" formControlName="name" aria-label="name" placeholder="Nombre" required></ion-input>
+    <!-- </ion-item> -->
+    <!-- <ion-item> -->
+      <ion-input class="inputs" formControlName="email"  aria-label="email" placeholder="Correo electrónico" email required></ion-input>
+    <!-- </ion-item> -->
+    <ion-label class="message" for="mensaje">Mensaje</ion-label>
+    <ion-textarea id="mensaje" formControlName="message" fill="outline" rows="5"></ion-textarea>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button [disabled]="!isFormValid" [ngClass]="buttonStyle" color="#D1D1D1" (click)="submit()">Enviar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

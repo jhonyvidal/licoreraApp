@@ -1,0 +1,228 @@
+ion-header ion-toolbar {
+  --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+  // padding: 10px 10px 10px 0px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-header {
+  margin: 0;
+  padding: 0;
+  width: 56px;
+}
+
+ion-content {
+  --background: #F7F5F5;
+}
+
+ion-content .header-content-container {
+  padding: 13px 20px;
+  width: 100%;
+  height: 6%;
+  background-color: #404040;
+}
+
+ion-content .header-content-container .header-content-title {
+  margin: 0;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+}
+
+ion-content .status-container {
+  padding: 13px 20px;
+  width: 100%;
+  height: 6%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .status-container h3 {
+  margin: 0 0 0 8px;
+  font-size: 16px;
+  font-family: 'weblysleekuisb';
+}
+
+ion-content .list-container {
+  margin: 0;
+  padding: 7px 20px 0 20px;
+  width: 100%;
+  height: 44%;
+  overflow: auto;
+  background-color: #F7F5F5;
+}
+
+ion-content .list-container .card-container {
+  margin: 0 0 10px 0;
+  padding: 0;
+  width: 100%;
+  height: 110px;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #BBBBBB;
+  border-radius: 10px;
+  background-color: white;
+}
+
+ion-content .list-container .card-container .img-container {
+  margin: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+ion-content .list-container .card-container .img-container img{
+  width: 90px;
+  height: 90px;
+}
+
+ion-content .list-container .card-container .info-container {
+  padding: 20px 0 10px 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ion-content .list-container .card-container .info-container h2{
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 16px;
+}
+
+ion-content .list-container .card-container .info-container .presentation{
+  margin: 0;
+  font-size: 12px;
+  font-family: 'weblysleekuil';
+}
+
+ion-content .list-container .card-container .info-container .quantity{
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 12px;
+}
+
+ion-content .list-container .card-container .price-container {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: start;
+}
+
+ion-content .list-container .card-container .price-container h2{
+  font-size: 16px;
+}
+
+ion-content .invoice-container {
+  width: 100%;
+  height: 44%;
+}
+
+ion-content .invoice-container .points-earned {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .invoice-container .points-earned h2 { 
+  margin: 0;
+  font-family: 'weblysleekuisb';
+  font-size: 16px;
+}
+
+ion-content .invoice-container .invoice-resume-container { 
+  padding: 0 20px 32px 20px;
+  width: 100%;
+  height: 80%;
+} 
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  // border: 1px solid #BBBBBB;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+}
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-header { 
+  width: 100%;
+  height: 30%;
+}
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-header .subtotal-domicilio {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoice-resume-header-text {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #4F4F4F;
+}
+
+hr {
+  margin: 0;
+  border-top: 1px solid #4F4F4F;
+}
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-info-container { 
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-info-container .total-container {
+  padding: 20px 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-info-container .total-container h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-info-container p {
+  margin: 0 0 auto 0;
+  font-family: 'weblysleekuil';
+  font-size: 12px;
+  text-align: center;
+} 
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-info-container .btn-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+ion-content .invoice-container .invoice-resume-container .invoice-resume .invoice-resume-info-container .btn-container ion-button {
+  width: 90%;
+  height: 45px;
+  --background: white;
+  font-family: 'HudsonNYSerif';
+  font-size: 17px;
+  color: black;
+  border: 2px solid black;
+  --box-shadow: none;
+  border-radius: 5px;
+}

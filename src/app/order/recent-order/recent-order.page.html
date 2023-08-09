@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <!-- <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button> -->
+        <ion-button class="btn-header" (click)="goBack()">
+          <img width="25" height="25" src="../../assets/icon/backIcon.svg" alt="Back" />
+        </ion-button>
+        <ion-button class="btn-header">
+          <img width="40" height="40" class="delivery-icon" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button class="btn-header">
+          <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="header-content-container">
+    <h2 class="header-content-title">lun, 15 enero 2023, 8:42 pm</h2>
+  </div>
+  <div class="status-container">
+    <img [src]="status === 'Completado' ? '../../../assets/img/Checkmark.svg' : '../../../assets/img/Cancel.svg'" alt="">
+    <h3 [style.color]="status === 'Completado' ? '#048404' : '#FF1806'">{{status}}</h3>
+  </div>
+  <ion-list class="list-container">
+    <div class="card-container" *ngFor="let item of productsArray; let index">
+      <figure class="img-container">
+        <img [src]="item.product.image" alt="">
+      </figure>
+      <div class="info-container">
+        <h2>{{item.product.name}}</h2>
+        <p class="presentation">Presentación: 1000 ml</p>
+        <p class="quantity">Cantidad: 3</p>
+      </div>
+      <div class="price-container">
+        <h2>$ 170.000</h2>
+      </div>
+    </div>
+  </ion-list>
+  <div class="invoice-container">
+    <div class="points-earned">
+      <h2>Obtuviste por tu compra 101 J</h2>
+    </div>
+    <div class="invoice-resume-container">
+      <div class="invoice-resume">
+        <div class="invoice-resume-header">
+          <div class="subtotal-domicilio">
+            <h2 class="invoice-resume-header-text">subtotal:</h2>
+            <h2 class="invoice-resume-header-text">$ 1,018,000</h2>
+          </div>
+          <div class="subtotal-domicilio">
+            <h2 class="invoice-resume-header-text">domicilio:</h2>
+            <h2 class="invoice-resume-header-text">$ --</h2>
+          </div>
+        </div>
+        <hr>
+        <div class="invoice-resume-info-container">
+          <div class="total-container">
+            <h2>Total:</h2>
+            <h2>$ 1,018,000</h2>
+          </div>
+          <p>Domicilio gratis por compras mayores a $ %@ IVA incluido.</p>
+          <div class="btn-container">
+            <ion-button>Agregar de nuevo</ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
