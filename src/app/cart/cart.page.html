@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" class="h60">
+<ion-header [translucent]="true" style="margin-top: 65px;">
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="products.length === 0">
@@ -36,7 +36,7 @@
             </div>
             <div class="Btns-container">
             <div>
-              <ion-grid class="p0">
+              <ion-grid class="p0" style="width: 80px;">
                 <ion-row>
                 <ion-col>
                   <h2 class="Price-now"><span class="Now"></span>{{item.price  | customCurrency :'.':'$ '}}</h2>
@@ -44,7 +44,7 @@
                
                 <ion-col class="buttonsCol">
                   <ion-buttons>
-                    <ion-button class="Btn-minus" (click)="subtractBtn(item.id)" [disabled]="item.quantitySelected <=1 ? true : false">
+                    <ion-button class="Btn-minus" (click)="subtractBtn(item)">
                       <ion-icon class="icon-inner" size="large" color="light" name="remove-outline"></ion-icon>
                     </ion-button>
                     <h4 class="Quantity">{{item.quantitySelected}}</h4>
@@ -79,7 +79,7 @@
       </ion-row>
     </ion-grid>
     <p class="text">Domicilio gratis por compras mayores a $ %@ IVA incluido.</p> 
-    <ion-button class="buttonSubmit">IR A PAGAR</ion-button>
+    <ion-button class="buttonSubmit"><span style="margin-top: -5px;">IR A PAGAR</span></ion-button>
   </div>
 
 </ion-content>

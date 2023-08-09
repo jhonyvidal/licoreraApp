@@ -50,7 +50,8 @@ export class SignInPage implements OnInit {
     await presentAlert(
       this.alertController,
       'INFORMACIÓN',
-      'Los datos no coinciden en nuestros registros, revísalos o crea una cuenta.'
+      'Los datos no coinciden en nuestros registros, revísalos o crea una cuenta.',
+      '/assets/img/loginError.svg'
     );
   }
 
@@ -79,4 +80,5 @@ export class SignInPage implements OnInit {
   routerLink(route: string) {
     this.router.navigate(['/' + route]);
   }
+  
 }

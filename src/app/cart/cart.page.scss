@@ -1,10 +1,11 @@
 .title-jotas-container {
     width: 100%;
-    height: 7%;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #99791C;
+    color: #FFFFFF;
   }
 
   .cart-container {
@@ -20,6 +21,7 @@
   .title-jotas-container .title-jotas {
     margin: 0;
     font-size: 17px;
+    margin-top: -5px;
   }
 
   .cart-container .title-jotas {
@@ -67,7 +69,7 @@
   .list-container .product-exchange-container .img-container {
     margin: 0;
     padding: 0;
-    width: 30%;
+    width: 90px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -76,13 +78,13 @@
   }
   
   .list-container .product-exchange-container .img-container img {
-    width: 110px;
-    height: 110px;
+    // width: 110px;
+    // height: 110px;
   }
   
   .list-container .product-exchange-container .info-exchange-container {
     margin: 0;
-    padding: 20px;
+    padding: 20px 0px;
     width: 70%;
     height: 100%;
     display: flex;
@@ -118,6 +120,7 @@
     padding: auto;
     font-size: 16px;
     color: #000000;
+    min-width: 170px;
   }
   
   .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .Product-name-exchange {
@@ -218,6 +221,7 @@ h4{
   color: #000000;
   --background: #FFFFFF !important;
   border: 1px solid #000000;
+  font-size: 17px;
 }
 .line{
   border-bottom: 1px solid #4F4F4F;

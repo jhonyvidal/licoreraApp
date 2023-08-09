@@ -4,10 +4,11 @@ export async function presentAlert(
   alertController: AlertController,
   title: string | undefined,
   text: string,
+  img?: string,
   // type?: string,
   timeAlert?: string
 ) {
-  const imagePath = window.location.origin + '/assets/img/cerrado.svg';
+  const imagePath = window.location.origin + img ? img : '/assets/img/cerrado.svg';
   // const imagePathEP = window.location.origin + '/assets/img/warning.svg';
   const timeAlertText = timeAlert ? '<b>${timeAlert}</b></br>' : '';
   // let imageAlert = type === 'exchange-products-bad' ? imagePathEP : imagePath;

@@ -1,9 +1,18 @@
 .lottie{
     position: fixed;
-    margin-top: 40%;
+    margin-top: 70%;
     width: 100%;
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.lottie .container{
+    width: 100px;
+    height: 100px;
+    background: #000000B2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 }

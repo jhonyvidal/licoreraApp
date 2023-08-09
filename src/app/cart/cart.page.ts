@@ -50,9 +50,13 @@ export class CartPage implements OnInit {
     // localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
   }
 
-  subtractBtn(id:number) {
+  subtractBtn(item:any) {
     this.products.find((element:{id:number,quantitySelected:number}) => {
-      if(element.id === id){
+      if(element.id === item.id){
+        if(element.quantitySelected === 1 ){
+          this.deleteProduct(item)
+          return;
+        }
         element.quantitySelected -= element.quantitySelected > 1 ? 1 : 0;
       }
     })
