@@ -8,6 +8,7 @@ import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProdu
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
+import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 
 export abstract class RequestGateway {
 
@@ -21,6 +22,8 @@ export abstract class RequestGateway {
     abstract getCategoriesByProduct(token:string, id:string, page:number): Observable<CategoriesByProductOut>;
     abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse> ;
     abstract postForgotPassword(token:string, email:string):Observable<LoginResponse>;
+    abstract postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse>;
+    
 }
 
 

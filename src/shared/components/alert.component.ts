@@ -6,7 +6,8 @@ export async function presentAlert(
   text: string,
   img?: string,
   // type?: string,
-  timeAlert?: string
+  timeAlert?: string,
+  AcceptFuntion?:  () => void,
 ) {
   const imagePath = window.location.origin + img ? img : '/assets/img/cerrado.svg';
   // const imagePathEP = window.location.origin + '/assets/img/warning.svg';
@@ -28,7 +29,11 @@ export async function presentAlert(
         role: 'cancel',
         cssClass: 'alertButton',
         handler: () => {
-          closeAlert(alertController);
+          if (AcceptFuntion) {
+            AcceptFuntion();
+          }else{
+            closeAlert(alertController);
+          }
         },
       },
     ],

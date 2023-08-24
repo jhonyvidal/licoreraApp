@@ -10,6 +10,7 @@ import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProdu
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
+import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 
 @Injectable()
 export class RequestUseCases {
@@ -55,4 +56,7 @@ export class RequestUseCases {
     return this._requestGateWay.postForgotPassword(token, email);
   }
 
+  postCreateAccount(token:string,  data:CreateAccountRequest):Observable<LoginResponse> {
+    return this._requestGateWay.postCreateAccount(token, data);
+  }
 }

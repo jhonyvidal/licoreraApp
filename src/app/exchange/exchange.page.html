@@ -6,7 +6,7 @@
   </ion-header>
   <!-- <ion-content class="ion-content-infinite" *ngIf="inputText"> -->
   <div class="title-jotas-container">
-    <h2 class="title-jotas">{{userPoint}} jotas</h2>
+    <h2 class="title-jotas">{{userPoint || 0}} jotas</h2>
   </div>
   <ion-content class="content-exchange-products">
     <ion-list class="list-container">
@@ -27,8 +27,8 @@
               </div>
             </div>
             <!-- <p class="product-description-searched">{{item.product.description.slice(0,80)}}...</p> -->
-            <p class="product-description-exchange">{{item.product.description.slice(0,80)}}...</p>
-            <h4 class="disponible-exchange">Disponibles: 3</h4>
+            <p class="product-description-exchange">{{item.product.description.slice(0,100)}}...</p>
+            <h4 class="disponible-exchange">Disponibles: {{item.quantity}}</h4>
           </div>
         </div>
     </ion-list>

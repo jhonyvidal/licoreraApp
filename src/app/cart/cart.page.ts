@@ -3,6 +3,7 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { CartService } from 'src/store/services/cart.service';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +20,7 @@ export class CartPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private cartService: CartService,
     private alertController: AlertController,
+    private router: Router
   ) {}
 
 
@@ -81,6 +83,10 @@ export class CartPage implements OnInit {
     this.products.forEach((e: { price: number, quantitySelected: number }) => {
       this.total = this.total + (e.price * e.quantitySelected);
     });
+  }
+
+  submit(){
+    this.router.navigate(['/home/tab3/cart-checkout'])
   }
 
 }

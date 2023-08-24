@@ -12,6 +12,7 @@ import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProdu
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
+import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -134,6 +135,18 @@ export  class RequestApiService extends RequestGateway {
       // {'Authorization': 'Bearer '+ token}
       );
     return this.http.post('clients/rememberPassword', data , headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as LoginResponse
+      })
+    )
+  }
+
+  postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.post('clients', data , headers).pipe(
       map(response => {
         console.log(response)
         return response as LoginResponse

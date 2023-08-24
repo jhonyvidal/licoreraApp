@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
+import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { UserService } from 'src/store/services/user.service';
 
 @Component({
@@ -52,30 +53,54 @@ export class CreateAccountPage implements OnInit {
     }
   }
 
-  async showAlert() {
+  async showAlertError() {
     await presentAlert(
       this.alertController,
       'INFORMACIÓN',
-      'Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.'
+      'Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.',
+      '/assets/img/warning.svg'
+    );
+  }
+
+  async showAlertSuccess() {
+    await presentAlert(
+      this.alertController,
+      '¡FELICITACIONES!',
+      'Tu cuenta se ha creado exitosamente. Ahora puedes empezar a hacer pedidos y acumular puntos.',
+      '/assets/img/checkGreen.svg',
+      '',
+      () => this.goBack()
     );
   }
 
   submit() {
+    const data: CreateAccountRequest={
+      id:  this.myForm.get('document')?.value,
+      name: this.myForm.get('name')?.value,
+      last_name: this.myForm.get('lastName')?.value,
+      email:  this.myForm.get('email')?.value,
+      password:  this.myForm.get('password')?.value,
+      uuid:  this.myForm.get('email')?.value,
+      birthday:  this.myForm.get('date')?.value,
+      cellphone:  this.myForm.get('phone')?.value,
+      social_id: 3
+    }
     this.requestUseCase
-      .postForgotPassword(
+      .postCreateAccount(
         'token',
-        this.myForm.get('email')?.value
+         data
       )
       .subscribe((response) => {
         if (response.success === true) {
           if(response.data === null){
-            this.showAlert()
+            this.showAlertError()
           }else{
-            this.router.navigate(['/home']);
+            this.showAlertSuccess();
+            // this.router.navigate(['/home']);
           }
           console.log(response);
         } else {
-          this.showAlert()
+          this.showAlertError()
           console.log(response);
         }
       });

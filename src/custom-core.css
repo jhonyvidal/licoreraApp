@@ -203,6 +203,16 @@ span.button-inner{
 }
 .button-native{
     --background: black;
-  }
+}
+.sc-ion-input-md-h{
+    --highlight-color-focused: #000000;
+    --highlight-color-valid: #000000;
+    --highlight-color:#000000;
+    --highlight-color-invalid: #FF0000;
+    color:#BBBBBB;
+}
+.has-focus.ion-valid.sc-ion-input-md-h{
+border-bottom: solid 2px #000000;
+}
 
 

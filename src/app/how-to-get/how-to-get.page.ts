@@ -8,8 +8,8 @@ import { Location } from '@angular/common';
 })
 export class HowToGetPage implements OnInit {
 
-  lat:number = 3.57886709556234;
-  lng:number = -76.49209239119809;
+  lat:number = 7.068565;
+  lng:number = -73.104431;
 
   constructor(private location: Location) { }
 
