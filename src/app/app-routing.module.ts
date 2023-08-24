@@ -58,7 +58,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },  {
+    path: 'user',
+    loadChildren: () => import('./user/user/user.module').then( m => m.UserPageModule)
   }
+
 
 
 ];

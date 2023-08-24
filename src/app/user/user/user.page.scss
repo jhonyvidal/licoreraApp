@@ -1,0 +1,29 @@
+ion-header ion-toolbar {
+  --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+  // padding: 10px 10px 10px 0px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-header {
+  margin: 0;
+  padding: 0;
+  width: 56px;
+}
+
+ion-content .profile-header-container {
+  width: 100%;
+  height: 30%;
+  background-color: blue;
+  background-image: url('../../../assets/img/background-profile-user.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+ion-content .profile-header-container .profile-avatar-container figure {
+  margin: 0;
+}
