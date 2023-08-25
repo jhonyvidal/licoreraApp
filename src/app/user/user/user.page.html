@@ -18,12 +18,33 @@
 
 <ion-content [fullscreen]="true">
   <div class="profile-header-container">
+    <ion-buttons>
+      <ion-button class="btn-logout">
+        <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
+        <img width="15" height="15"   src="../../assets/icon/logout-icon.svg" alt="">
+      </ion-button>
+    </ion-buttons>
     <div class="profile-avatar-container">
       <figure>
-        <img src="" alt="">
+        <img src="../../../assets/icon/User-profile-pic.svg" alt="">
       </figure>
-      <h2>Diego Diaz</h2>
-      <p>525 Jotas</p>
+      <h2 class="profile-name">Diego Diaz</h2>
+      <p class="profile-jotas">525 Jotas</p>
+    </div>
+  </div>
+  <div class="user-profile-info-container">
+    <div class="profile-numbers-data-container">
+      <div class="pedidos">
+        <p>999</p>
+        <p>Pedidos</p>
+      </div>
+      <div class="vertical-divider">
+
+      </div>
+      <div class="canjes">
+        <p>25</p>
+        <p>Canjes</p>
+      </div>
     </div>
   </div>
 </ion-content>
