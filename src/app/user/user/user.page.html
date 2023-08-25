@@ -46,20 +46,39 @@
       </div>
     </div>
     <ion-segment value="info">
-      <ion-segment-button value="info">
+      <ion-segment-button value="info" (click)="show(1)">
         <ion-label>Información</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="payment">
+      <ion-segment-button value="payment" (click)="show(2)">
         <ion-label>Métodos de pago</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="address">
+      <ion-segment-button value="address" (click)="show(3)">
         <ion-label>Direcciones</ion-label>
       </ion-segment-button>
     </ion-segment>
-    <div class="aun">
+    <div class="aun" *ngIf="ionSegment === 2 && paymentMethods.length === 0">
       <h2>Aún no tiene tarjetas guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
+    <ion-list class="payment-list-container">
+      <ion-item-sliding *ngFor="let item of paymentMethods; index as i">
+        <ion-item>
+          <div class="credit-card-info-container">
+            <img src="../../../assets/icon/credit-card.svg" alt="">
+            <div>
+              <h2>4513 **** **** 1234</h2>
+              <p>Diego Diaz</p>
+            </div>
+          </div>
+          <div class="star-container">
+            <img src="../../../assets/icon/star-empty.svg" alt="">
+          </div>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger"><img src="../../../assets/icon/Trash.svg"></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border">

@@ -7,9 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPage implements OnInit {
 
+  ionSegment:number = 1;
+  paymentMethods: string[] = [
+    "MasterCard",
+    "VISA",
+    "NU",
+    "Rappi Card",
+    "Davivienda",
+    "Bancolombia",
+    "MasterCard",
+    "VISA",
+    "NU",
+    "Rappi Card",
+    "Davivienda",
+    "Bancolombia"
+  ];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  show(id:number){    
+    this.ionSegment = id;
   }
 
 }

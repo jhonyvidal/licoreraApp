@@ -211,8 +211,13 @@ span.button-inner{
     --highlight-color-invalid: #FF0000;
     color:#BBBBBB;
 }
+
 .has-focus.ion-valid.sc-ion-input-md-h{
-border-bottom: solid 2px #000000;
+    border-bottom: solid 2px #000000;
+}
+
+.item-inner {
+    padding-bottom: 28px !important;
 }
 
 
