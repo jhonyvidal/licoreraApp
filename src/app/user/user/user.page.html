@@ -60,7 +60,7 @@
       <h2>Aún no tiene tarjetas guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
-    <ion-list class="payment-list-container">
+    <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethods.length > 0">
       <ion-item-sliding *ngFor="let item of paymentMethods; index as i">
         <ion-item>
           <div class="credit-card-info-container">
