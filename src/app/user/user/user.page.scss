@@ -162,12 +162,12 @@ ion-content .user-profile-info-container .payment-list-container ion-item-slidin
   justify-content: space-between;
 }
 
-ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container h2{ 
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container h2{
   margin: 0;
   font-size: 16px;
 }
 
-ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container p{ 
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container p{
   margin: 0;
   font-family: 'weblysleekuil';
   font-size: 12px;
@@ -177,6 +177,10 @@ ion-content .user-profile-info-container .payment-list-container ion-item-slidin
   width: 50%;
   display: flex;
   justify-content: flex-end;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item-options ion-item-option {
+  background-color: #FF1806;
 }
 
 .btn-footer-container {
