@@ -40,6 +40,71 @@ ion-content .scanner-container ion-button img {
   padding-right: 10px;
 }
 
+ion-content .form-payment-container {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ion-content .form-container {
+  width: 90%;
+  margin: 30px auto 0 auto;
+}
+
+ion-content .form-container p{
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: 'weblysleekuisb';
+}
+
+ion-content .form-container .custom {
+  --background: #ffff;
+  --color: #000000;
+  --placeholder-color: #ddd;
+  --placeholder-opacity: 0.8;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  border-bottom: solid 1px;
+}
+
+ion-content .form-container .card-number-contaienr {
+  display: flex;
+}
+
+ion-content .form-container .fecha-cvv-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-content .form-container .fecha-cvv-container .fecha-container {
+  width: 5cm;
+}
+
+ion-content .form-container .fecha-cvv-container .cvv-container {
+  width: 40%;
+}
+
+ion-content .form-container .card-name-container{
+  margin-top: 15px;
+}
+
+ion-content .safe-paymnet-container {
+  margin: auto 0 25px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .safe-paymnet-container p{
+  margin: 0 0 0 10px;
+  padding: 0;
+  font-size: 17px;
+  font-family: 'weblysleekuil';
+}
+
 .btn-footer-container {
   width: 100%;
   height: 100%;

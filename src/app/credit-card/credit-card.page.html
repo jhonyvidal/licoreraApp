@@ -20,6 +20,33 @@
   <ion-buttons class="scanner-container">
     <ion-button><img src="../../assets/icon/scan-icon.svg" alt="">escanear</ion-button>
   </ion-buttons>
+  <div class="form-payment-container">
+    <div [formGroup]="myForm" class="form-container">
+      <p>Número de la tarjeta</p>
+      <div class="card-number-contaienr">
+        <ion-input  formControlName="cardNumber"  class="custom" type="number" placeholder="1234 5678 9101 1121" required></ion-input>
+        <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
+      </div>
+      <div class="fecha-cvv-container">
+        <div class="fecha-container">
+          <p>Fecha de expiración</p>
+          <ion-input  formControlName="date"  class="custom" type="date" placeholder="10/2025" required></ion-input>
+        </div>
+        <div class="cvv-container">
+          <p>CVV</p>
+          <ion-input  formControlName="cardNumber"  class="custom" type="number" placeholder="123" required></ion-input>
+        </div>
+      </div>
+      <div class="card-name-container">
+        <p>Nombre en la tarjeta</p>
+        <ion-input  formControlName="cardNumber"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+      </div>
+    </div>
+    <div class="safe-paymnet-container">
+      <img src="../../assets/icon/padlock-icon.svg" alt="">
+      <p>Pago seguro con PayU</p>
+    </div>
+  </div>
 </ion-content>
 
 <ion-footer class="ion-no-border">
