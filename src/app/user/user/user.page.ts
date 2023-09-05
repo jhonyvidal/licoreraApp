@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 
 @Component({
   selector: 'app-user',
@@ -46,6 +47,7 @@ export class UserPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    private requestUseCase: RequestUseCases,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
@@ -61,6 +63,16 @@ export class UserPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.requestUseCase.getClient('114136667852541').subscribe(response => {
+      if (response.success === true) {
+        console.log('response USER: ', response.data.name);
+        
+      } else {
+        console.log('Body del error: ', response);
+      }
+    })
+
   }
 
   show(id:number){

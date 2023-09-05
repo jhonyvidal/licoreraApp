@@ -13,6 +13,7 @@ import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
+import { ClientData } from 'src/shared/domain/response/ClientResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -110,6 +111,19 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+
+  getClient(userId: string):Observable<ClientData> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('clients/' + userId, headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as ClientData
+      })
+    )
+  }
+
 
   postLogin(token:string, email:string, password:string):Observable<LoginResponse> {
     const data = {
