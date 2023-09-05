@@ -81,13 +81,22 @@
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
+    <div [formGroup]="myForm" class="info-container" *ngIf="ionSegment === 1">
+      <div class="full-name-container">
+        <ion-input class="custom" type="text" value="Diego" ></ion-input>
+        <ion-input class="custom" type="text" value="Díaz" ></ion-input>
+      </div>
+      <ion-input class="custom" type="email" value="d.diaz110@hotmail.com" ></ion-input>
+      <ion-input class="custom" type="text" value="07/02/1994" ></ion-input>
+      <ion-input class="custom" type="cardNumber" value="3153103352" ></ion-input>
+    </div>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <ion-buttons>
       <div class="btn-footer-container">
-        <ion-button class="btn-footer">Agregar</ion-button>
+        <ion-button class="btn-footer">{{btnText}}</ion-button>
       </div>
     </ion-buttons>
   </ion-toolbar>
