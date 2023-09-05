@@ -31,17 +31,30 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     },
   ];
+  addressList: any = [
+    {
+      name: 'Mi casa',
+      address: 'Altos de Miravalle',
+      starImage: this.starEmpty
+    },
+    {
+      name: 'Casa Mamá',
+      address: 'Cra 12 # 34 - 56',
+      starImage: this.starEmpty
+    }
+  ];
 
   constructor(
     public formBuilder: FormBuilder,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
-      lastName: ['', [Validators.required, ]],
+      lastName: ['Díaz', [Validators.required, ]],
+      name: ['Diego', [Validators.required, ]],
       document: ['', [Validators.required, ]],
-      date: ['', [Validators.required, ]],
-      phone: ['', [Validators.required, Validators.maxLength(20)]],
-      email: ['', [Validators.required, Validators.email]],
+      date: [new Date('07/02/1994').toISOString().substring(0, 10), [Validators.required, ]],
+      phone: ['3153103352', [Validators.required, Validators.maxLength(20)]],
+      email: ['d.diaz110@hotmail.com', [Validators.required, Validators.email]],
       password: ['', [Validators.required, ]],
       confirPassword: ['', []],
     });
@@ -61,6 +74,16 @@ export class UserPage implements OnInit {
         this.paymentMethods[i].starImage = this.starSelected;
       }else{
         this.paymentMethods[i].starImage = this.starEmpty;
+      }
+    }
+  }
+
+  selectAddress(index: number){
+    for (let i = 0; i < this.addressList.length; i++) {
+      if (i === index) {
+        this.addressList[i].starImage = this.starSelected;
+      }else{
+        this.addressList[i].starImage = this.starEmpty;
       }
     }
   }

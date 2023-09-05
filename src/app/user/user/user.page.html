@@ -56,7 +56,7 @@
         <ion-label>Direcciones</ion-label>
       </ion-segment-button>
     </ion-segment>
-    <div class="aun" *ngIf="ionSegment === 2 && paymentMethods.length === 0">
+    <div class="aun" *ngIf="ionSegment === 2 && paymentMethods.length <= 0">
       <h2>Aún no tiene tarjetas guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
@@ -83,13 +83,38 @@
     </ion-list>
     <div [formGroup]="myForm" class="info-container" *ngIf="ionSegment === 1">
       <div class="full-name-container">
-        <ion-input class="custom" type="text" value="Diego" ></ion-input>
-        <ion-input class="custom" type="text" value="Díaz" ></ion-input>
+        <ion-input formControlName="name" class="custom" type="text"></ion-input>
+        <ion-input formControlName="lastName" class="custom" type="text" ></ion-input>
       </div>
-      <ion-input class="custom" type="email" value="d.diaz110@hotmail.com" ></ion-input>
-      <ion-input class="custom" type="text" value="07/02/1994" ></ion-input>
-      <ion-input class="custom" type="cardNumber" value="3153103352" ></ion-input>
+      <ion-input formControlName="email" class="custom" type="email"></ion-input>
+      <ion-input formControlName="date" class="custom" type="date"></ion-input>
+      <ion-input formControlName="phone" class="custom" type="number"></ion-input>
     </div>
+    <div class="aun-address" *ngIf="ionSegment === 3 && addressList.length <= 0">
+      <h2>Aún no tiene direcciones guardadas</h2>
+      <p>Agrega una para continuar</p>
+    </div>
+    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
+      <ion-item-sliding *ngFor="let item of addressList; index as i">
+        <ion-item>
+          <div class="credit-card-info-container">
+            <img src="../../../assets/icon/location-user.svg" alt="">
+            <div>
+              <h2>{{item.name}}</h2>
+              <p>{{item.address}}</p>
+            </div>
+          </div>
+          <ion-buttons class="star-container">
+            <ion-button (click)="selectAddress(i)">
+              <img [src]="item.starImage" alt="">
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border">

@@ -213,6 +213,26 @@ ion-content .user-profile-info-container .info-container .custom {
   border-bottom: solid 1px;
 }
 
+ion-content .user-profile-info-container .aun-address {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .user-profile-info-container .aun-address h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+ion-content .user-profile-info-container .aun-address p {
+  margin: 0;
+  font-family: 'weblysleekuil';
+  font-size: 14px;
+}
+
 .btn-footer-container {
   width: 100%;
   height: 100%;
