@@ -112,7 +112,7 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  getClient(userId: string):Observable<ClientData> {
+  getClient(token: string, userId: string):Observable<ClientData> {
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
       );

@@ -21,7 +21,7 @@ export abstract class RequestGateway {
     abstract getRecommendedProducts(token:string): Observable<RecommendedProducts>;
     abstract getCategories(token:string): Observable<CategoriesOut>;
     abstract getCategoriesByProduct(token:string, id:string, page:number): Observable<CategoriesByProductOut>;
-    abstract getClient(userId:string): Observable<ClientData>;
+    abstract getClient(token: string, userId:string): Observable<ClientData>;
     abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse> ;
     abstract postForgotPassword(token:string, email:string):Observable<LoginResponse>;
     abstract postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse>;

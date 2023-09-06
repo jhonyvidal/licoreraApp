@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { ClientData } from 'src/shared/domain/response/ClientResponse';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -10,10 +12,14 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 export class UserPage implements OnInit {
 
   myForm: FormGroup;
+  avatarImage: string;
+  defaultAvatarImage: string = '../../../assets/icon/User-profile-pic.svg';
   btnText: string = 'Editar';
   ionSegment:number = 1;
   starSelected: string = '../../../assets/icon/star-selected.svg';
   starEmpty: string = '../../../assets/icon/star-empty.svg';
+  client: ClientData;
+  client_Id: string = '114136667852541';
   paymentMethods: any = [
     {
       cardNumber: '4513 **** **** 1234',
@@ -44,6 +50,7 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     }
   ];
+  yaConsulto: boolean = false;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -51,28 +58,34 @@ export class UserPage implements OnInit {
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
-      lastName: ['Díaz', [Validators.required, ]],
-      name: ['Diego', [Validators.required, ]],
-      document: ['', [Validators.required, ]],
+      name: ['', [Validators.required, ]],
+      lastName: ['', [Validators.required, ]],
       date: [new Date('07/02/1994').toISOString().substring(0, 10), [Validators.required, ]],
       phone: ['3153103352', [Validators.required, Validators.maxLength(20)]],
-      email: ['d.diaz110@hotmail.com', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, ]],
-      confirPassword: ['', []],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
   ngOnInit() {
 
-    this.requestUseCase.getClient('114136667852541').subscribe(response => {
+    let startFrom = new Date().getTime(); 
+    let endResponseTime: any;
+
+    this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
       if (response.success === true) {
-        console.log('response USER: ', response.data.name);
-        
+        this.client = response;
+        this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
+
+        this.myForm.get('name')?.setValue(this.client.data.name);
+        this.myForm.get('lastName')?.setValue(this.client.data.last_name);
+        this.myForm.get('email')?.setValue(this.client.data.email);
+        this.myForm.get('date')?.setValue(this.client.data.birthday);
+        this.myForm.get('phone')?.setValue(this.client.data.cellphone);
+
       } else {
         console.log('Body del error: ', response);
       }
     })
-
   }
 
   show(id:number){

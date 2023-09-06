@@ -6,5 +6,9 @@ export interface ClientData extends BaseResponse {
 
 export interface Data {
     name: string,
-    last_name: string
+    last_name: string,
+    photo: string,
+    email: string,
+    birthday: string,
+    cellphone: string
 }

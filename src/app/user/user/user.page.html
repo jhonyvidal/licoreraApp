@@ -25,10 +25,10 @@
     </ion-buttons>
     <div class="profile-avatar-container">
       <figure>
-        <img src="../../../assets/icon/User-profile-pic.svg" alt="">
+        <img [src]="avatarImage" alt="">
       </figure>
       <div class="jotas-container">
-        <h2 class="profile-name">Diego Diaz</h2>
+        <h2 class="profile-name">{{client?.data?.name}}</h2>
         <p class="profile-jotas">525 Jotas</p>
       </div>
     </div>

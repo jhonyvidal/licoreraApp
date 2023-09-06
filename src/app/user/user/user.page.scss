@@ -44,6 +44,7 @@ ion-content .profile-header-container .profile-avatar-container figure {
   height: 60%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 ion-content .profile-header-container .profile-avatar-container figure img{

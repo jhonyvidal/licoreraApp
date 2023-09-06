@@ -49,8 +49,8 @@ export class RequestUseCases {
     return this._requestGateWay.getCategoriesByProduct(token, id, page);
   }
 
-  getClient(userId: string) : Observable <ClientData> {
-    return this._requestGateWay.getClient(userId);
+  getClient(token: string, userId: string) : Observable <ClientData> {
+    return this._requestGateWay.getClient(token, userId);
   }
 
   postLogin(token:string, email:string, password:string) : Observable <LoginResponse> {
