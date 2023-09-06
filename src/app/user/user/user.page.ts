@@ -12,6 +12,7 @@ import { forkJoin } from 'rxjs';
 export class UserPage implements OnInit {
 
   myForm: FormGroup;
+  readOnly: boolean = true;
   avatarImage: string;
   defaultAvatarImage: string = '../../../assets/icon/User-profile-pic.svg';
   btnText: string = 'Editar';
@@ -20,6 +21,7 @@ export class UserPage implements OnInit {
   starEmpty: string = '../../../assets/icon/star-empty.svg';
   client: ClientData;
   client_Id: string = '114136667852541';
+  currentValue: any;
   paymentMethods: any = [
     {
       cardNumber: '4513 **** **** 1234',
@@ -68,7 +70,7 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
-    let startFrom = new Date().getTime(); 
+    let startFrom = new Date().getTime();
     let endResponseTime: any;
 
     this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
@@ -86,6 +88,26 @@ export class UserPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+    this.detectChanges();
+  }
+
+  detectChanges() {
+    // Fires on each form control value change
+    this.myForm.valueChanges.subscribe(res => {
+      // Variable res holds the current value of the form
+      this.currentValue = res;
+      console.log(this.currentValue);
+
+    });
+  }
+
+  btnFuntion(){
+    if (this.ionSegment === 1 && this.btnText === 'Editar') {
+      this.btnText = 'Guardar';
+      this.readOnly = false;
+    }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
+      this.btnText = 'Editar';
+    }
   }
 
   show(id:number){
