@@ -13,6 +13,7 @@ import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
+import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 
 @Injectable()
 export class RequestUseCases {
@@ -61,12 +62,16 @@ export class RequestUseCases {
   postLogin(token:string, email:string, password:string) : Observable <LoginResponse> {
     return this._requestGateWay.postLogin(token, email, password);
   }
-  
+
   postForgotPassword(token:string, email:string):Observable<LoginResponse> {
     return this._requestGateWay.postForgotPassword(token, email);
   }
 
   postCreateAccount(token:string,  data:CreateAccountRequest):Observable<LoginResponse> {
     return this._requestGateWay.postCreateAccount(token, data);
+  }
+
+  putClient(userid: string, data: UpdateClientData):Observable<ClientData> {
+    return this._requestGateWay.putClient(userid, data);
   }
 }

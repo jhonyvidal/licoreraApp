@@ -15,6 +15,7 @@ import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
+import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -179,6 +180,18 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
-  
-  
+
+  putClient(userId: string, data: UpdateClientData):Observable<ClientData> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.put('clients/', userId).pipe(
+      map(response => {
+        console.log(response)
+        return response as ClientData
+      })
+    )
+  }
+
+
 }

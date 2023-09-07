@@ -11,6 +11,7 @@ import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
+import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 
 export abstract class RequestGateway {
 
@@ -27,7 +28,8 @@ export abstract class RequestGateway {
     abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse> ;
     abstract postForgotPassword(token:string, email:string):Observable<LoginResponse>;
     abstract postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse>;
-    
+    abstract putClient(userId: string, data: UpdateClientData):Observable<ClientData>;
+
 }
 
 

@@ -4,6 +4,9 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { forkJoin } from 'rxjs';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
+import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
+import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
+import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 
 @Component({
   selector: 'app-user',
@@ -24,6 +27,9 @@ export class UserPage implements OnInit {
   clientPoints: ClientPointsData;
   client_Id: string = '114136667852541';
   currentValue: any;
+  btnStylesCSS: string = 'white';
+  dataChanged: boolean = false;
+  requestDataForm: UpdateClientData;
   paymentMethods: any = [
     {
       cardNumber: '4513 **** **** 1234',
@@ -107,18 +113,43 @@ export class UserPage implements OnInit {
   detectChanges() {
     // Fires on each form control value change
     this.myForm.valueChanges.subscribe(res => {
-      // Variable res holds the current value of the form
       this.currentValue = res;
-      console.log(this.currentValue);
-
+      this.dataChanged = true;
     });
   }
 
   btnFuntion(){
     if (this.ionSegment === 1 && this.btnText === 'Editar') {
+      this.btnStylesCSS = '#99791C';
+      setBTNColor(this.btnStylesCSS);
       this.btnText = 'Guardar';
       this.readOnly = false;
     }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
+
+      if (this.dataChanged) {
+
+        this.requestDataForm = {
+          name: this.myForm.get('name')?.value,
+          last_name: this.myForm.get('lastName')?.value,
+          email: this.myForm.get('email')?.value,
+          birthday: this.myForm.get('date')?.value,
+          cellphone: this.myForm.get('phone')?.value
+        }
+
+        this.requestUseCase.putClient(this.client_Id, this.requestDataForm).subscribe(response => {
+          if (response.success === true) {
+
+            console.log('client updated...');
+
+
+          } else {
+            console.log('Body del error: ', response);
+          }
+        });
+      }
+
+      this.btnStylesCSS = 'white';
+      setBTNColor(this.btnStylesCSS);
       this.btnText = 'Editar';
       this.readOnly = true;
     }

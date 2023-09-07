@@ -245,11 +245,12 @@ ion-content .user-profile-info-container .aun-address p {
   display: flex;
   justify-content: center;
 }
+
 .btn-footer {
   width: 90%;
   height: 45px;
   margin: 0 0 30px 0;
-  --background: white;
+  --background: var(--btnClientColor);
   font-family: 'HudsonNYSerif';
   font-size: 17px;
   color: black;
