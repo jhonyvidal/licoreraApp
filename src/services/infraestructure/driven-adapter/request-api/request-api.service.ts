@@ -185,7 +185,7 @@ export  class RequestApiService extends RequestGateway {
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
       );
-    return this.http.put('clients/', userId).pipe(
+    return this.http.put(`clients/${userId}`, data).pipe(
       map(response => {
         console.log(response)
         return response as ClientData
