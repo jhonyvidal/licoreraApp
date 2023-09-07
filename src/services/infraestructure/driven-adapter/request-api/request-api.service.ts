@@ -14,6 +14,7 @@ import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByP
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
+import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -124,6 +125,17 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getClientPoints(userId: string):Observable<ClientPointsData> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get(`clients/${userId}/points`, headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as ClientPointsData
+      })
+    )
+  }
 
   postLogin(token:string, email:string, password:string):Observable<LoginResponse> {
     const data = {

@@ -12,6 +12,7 @@ import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByP
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
+import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 
 @Injectable()
 export class RequestUseCases {
@@ -51,6 +52,10 @@ export class RequestUseCases {
 
   getClient(token: string, userId: string) : Observable <ClientData> {
     return this._requestGateWay.getClient(token, userId);
+  }
+
+  getClientPoints(userId: string) : Observable <ClientPointsData> {
+    return this._requestGateWay.getClientPoints(userId);
   }
 
   postLogin(token:string, email:string, password:string) : Observable <LoginResponse> {

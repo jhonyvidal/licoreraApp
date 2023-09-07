@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { forkJoin } from 'rxjs';
+import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 
 @Component({
   selector: 'app-user',
@@ -20,6 +21,7 @@ export class UserPage implements OnInit {
   starSelected: string = '../../../assets/icon/star-selected.svg';
   starEmpty: string = '../../../assets/icon/star-empty.svg';
   client: ClientData;
+  clientPoints: ClientPointsData;
   client_Id: string = '114136667852541';
   currentValue: any;
   paymentMethods: any = [
@@ -88,6 +90,17 @@ export class UserPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+
+    this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
+      if (response.success === true) {
+
+        this.clientPoints = response;
+
+      } else {
+        console.log('Body del error: ', response);
+      }
+    })
+
     this.detectChanges();
   }
 
@@ -107,6 +120,7 @@ export class UserPage implements OnInit {
       this.readOnly = false;
     }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
       this.btnText = 'Editar';
+      this.readOnly = true;
     }
   }
 
