@@ -17,6 +17,8 @@ import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
+import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -126,20 +128,6 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  getPaymentMethods(token: string):Observable<PaymentMethodsGetResponse> {
-    const headers = new HttpHeaders(
-      {
-        'Authorization': token
-      }
-    );
-    return this.http.getV2('/api/v2/me/paymentMethods').pipe(
-      map(response => {
-        console.log(response)
-        return response as PaymentMethodsGetResponse
-      })
-    )
-  }
-
   getClientPoints(userId: string):Observable<ClientPointsData> {
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
@@ -203,6 +191,34 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         console.log(response)
         return response as ClientData
+      })
+    )
+  }
+
+
+  // Api v2
+  getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': '*',
+        'Accept': '*/*',
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/me/paymentMethods', headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as PaymentMethodsGetResponse
+      })
+    )
+  }
+
+  postLoginV2(data: LoginV2Request): Observable<LoginV2Response> {
+    return this.http.postV2('api/v2/login', data).pipe(
+      map(response => {
+        console.log(response)
+        return response as LoginV2Response
       })
     )
   }

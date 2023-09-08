@@ -7,6 +7,7 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
 import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
+import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 
 @Component({
   selector: 'app-user',
@@ -61,6 +62,11 @@ export class UserPage implements OnInit {
     }
   ];
   yaConsulto: boolean = false;
+  loginV2Data: LoginV2Request = {
+    email: "diego4@mail.com",
+    password: "Diego1234"
+  }
+  loginV2Token: string;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -79,6 +85,31 @@ export class UserPage implements OnInit {
   ngOnInit() {
 
     // Hacer el login de la nueva api v2
+    this.requestUseCase.postLoginV2(this.loginV2Data).subscribe(response => {
+      if (response.success === true) {
+        this.loginV2Token = response?.data?.token;
+        console.log(this.loginV2Token);
+
+        console.log('response primero');
+        
+
+        this.requestUseCase.getPaymentMethodsV2(this.loginV2Token).subscribe(response1 => {
+          console.log('response1 segundo');
+          
+          console.log('response1.success: ', response1.success);
+          console.log('Token dentro de payment methods: ', this.loginV2Token);
+          
+          if (response1.success === true) {
+            
+          } else {
+            console.log('Body del error response1: ', response1);
+          }
+        })
+        
+      } else {
+        console.log('Body del error response: ', response);
+      }
+    })
 
     let startFrom = new Date().getTime();
     let endResponseTime: any;
@@ -108,6 +139,8 @@ export class UserPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
+
+
 
     this.detectChanges();
   }

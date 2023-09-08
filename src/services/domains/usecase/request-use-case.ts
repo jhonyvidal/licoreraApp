@@ -15,6 +15,8 @@ import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
+import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 
 @Injectable()
 export class RequestUseCases {
@@ -60,10 +62,6 @@ export class RequestUseCases {
     return this._requestGateWay.getClientPoints(userId);
   }
 
-  getPaymentMethods(token: string) : Observable <PaymentMethodsGetResponse> {
-    return this._requestGateWay.getPaymentMethods(token);
-  }
-
   postLogin(token:string, email:string, password:string) : Observable <LoginResponse> {
     return this._requestGateWay.postLogin(token, email, password);
   }
@@ -78,5 +76,15 @@ export class RequestUseCases {
 
   putClient(userid: string, data: UpdateClientData):Observable<ClientData> {
     return this._requestGateWay.putClient(userid, data);
+  }
+
+  // Api v2
+
+  getPaymentMethodsV2(token: string) : Observable <PaymentMethodsGetResponse> {
+    return this._requestGateWay.getPaymentMethodsV2(token);
+  }
+
+  postLoginV2(data: LoginV2Request) : Observable <LoginV2Response> {
+    return this._requestGateWay.postLoginV2(data);
   }
 }

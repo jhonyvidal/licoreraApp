@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { LoginV2Request } from '../domain/request/LoginV2Request';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,11 @@ export class BaseApiService {
 
   // Api v2
   getV2(path: string, headers?: HttpHeaders) {
-    return this.http.get(`${this.urlV2}${path}`, { headers });
+    return this.http.get(`${this.urlV2}${path}`, {headers});
+  }
+
+  postV2(path: string, data: LoginV2Request, headers?:HttpHeaders) {
+    return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
 }
