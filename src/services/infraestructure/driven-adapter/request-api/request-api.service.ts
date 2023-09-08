@@ -16,6 +16,7 @@ import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -32,7 +33,6 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
-
 
   getSuggestedProducts(token: string): Observable<suggestedProducts> {
     const headers = new HttpHeaders(
@@ -122,6 +122,20 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         console.log(response)
         return response as ClientData
+      })
+    )
+  }
+
+  getPaymentMethods(token: string):Observable<PaymentMethodsGetResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('/api/v2/me/paymentMethods').pipe(
+      map(response => {
+        console.log(response)
+        return response as PaymentMethodsGetResponse
       })
     )
   }

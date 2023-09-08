@@ -12,6 +12,7 @@ import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 
 export abstract class RequestGateway {
 
@@ -25,6 +26,7 @@ export abstract class RequestGateway {
     abstract getCategoriesByProduct(token:string, id:string, page:number): Observable<CategoriesByProductOut>;
     abstract getClient(token: string, userId:string): Observable<ClientData>;
     abstract getClientPoints(userId:string): Observable<ClientPointsData>;
+    abstract getPaymentMethods(token: string): Observable<PaymentMethodsGetResponse>;
     abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse> ;
     abstract postForgotPassword(token:string, email:string):Observable<LoginResponse>;
     abstract postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse>;

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BaseApiService {
   private url = environment.apiUrl;
+  private urlV2 = environment.apiUrlV2;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -25,4 +26,10 @@ export class BaseApiService {
   delete(path: string,) {
     return this.http.delete(`${this.url}${path}`);
   }
+
+  // Api v2
+  getV2(path: string, headers?: HttpHeaders) {
+    return this.http.get(`${this.urlV2}${path}`, { headers });
+  }
+
 }

@@ -14,6 +14,7 @@ import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 
 @Injectable()
 export class RequestUseCases {
@@ -57,6 +58,10 @@ export class RequestUseCases {
 
   getClientPoints(userId: string) : Observable <ClientPointsData> {
     return this._requestGateWay.getClientPoints(userId);
+  }
+
+  getPaymentMethods(token: string) : Observable <PaymentMethodsGetResponse> {
+    return this._requestGateWay.getPaymentMethods(token);
   }
 
   postLogin(token:string, email:string, password:string) : Observable <LoginResponse> {

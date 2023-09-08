@@ -78,6 +78,8 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
+    // Hacer el login de la nueva api v2
+
     let startFrom = new Date().getTime();
     let endResponseTime: any;
 
@@ -146,6 +148,9 @@ export class UserPage implements OnInit {
             console.log('Body del error: ', response);
           }
         });
+
+        this.dataChanged = false;
+        
       }
 
       this.btnStylesCSS = 'white';
