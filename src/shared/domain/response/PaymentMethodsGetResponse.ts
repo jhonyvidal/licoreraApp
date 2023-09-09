@@ -4,7 +4,7 @@ export interface PaymentMethodsGetResponse extends BaseResponse {
     data: DataArray[]
 }
 
-interface DataArray {
+export interface DataArray {
     id: number,
     client_id: string,
     number: string,

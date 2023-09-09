@@ -122,7 +122,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('clients/' + userId, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as ClientData
       })
     )
@@ -177,7 +177,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.post('clients', data , headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginResponse
       })
     )
@@ -189,26 +189,21 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.put(`clients/${userId}`, data).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as ClientData
       })
     )
   }
 
-
   // Api v2
-  getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {
+  getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {    
     const headers = new HttpHeaders(
       {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Headers': '*',
-        'Accept': '*/*',
         'Authorization': token
       }
     );
     return this.http.getV2('api/v2/me/paymentMethods', headers).pipe(
       map(response => {
-        console.log(response)
         return response as PaymentMethodsGetResponse
       })
     )

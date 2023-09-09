@@ -8,6 +8,7 @@ import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
 import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 
 @Component({
   selector: 'app-user',
@@ -49,6 +50,10 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     },
   ];
+  
+  
+  paymentMethodsList: DataArray[] = [];
+
   addressList: any = [
     {
       name: 'Mi casa',
@@ -85,35 +90,39 @@ export class UserPage implements OnInit {
   ngOnInit() {
 
     // Hacer el login de la nueva api v2
-    this.requestUseCase.postLoginV2(this.loginV2Data).subscribe(response => {
+    this.getPaymentMethods();
+
+    // this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
+    //   if (response.success === true) {
+    //     this.client = response;
+    //     this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
+
+    //     this.myForm.get('name')?.setValue(this.client.data.name);
+    //     this.myForm.get('lastName')?.setValue(this.client.data.last_name);
+    //     this.myForm.get('email')?.setValue(this.client.data.email);
+    //     this.myForm.get('date')?.setValue(this.client.data.birthday);
+    //     this.myForm.get('phone')?.setValue(this.client.data.cellphone);
+
+    //   } else {
+    //     console.log('Body del error: ', response);
+    //   }
+    // })
+
+    this.getClientData();
+
+    this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
       if (response.success === true) {
-        this.loginV2Token = response?.data?.token;
-        console.log(this.loginV2Token);
 
-        console.log('response primero');
-        
+        this.clientPoints = response;
 
-        this.requestUseCase.getPaymentMethodsV2(this.loginV2Token).subscribe(response1 => {
-          console.log('response1 segundo');
-          
-          console.log('response1.success: ', response1.success);
-          console.log('Token dentro de payment methods: ', this.loginV2Token);
-          
-          if (response1.success === true) {
-            
-          } else {
-            console.log('Body del error response1: ', response1);
-          }
-        })
-        
       } else {
-        console.log('Body del error response: ', response);
+        console.log('Body del error: ', response);
       }
     })
+    this.detectChanges();
+  }
 
-    let startFrom = new Date().getTime();
-    let endResponseTime: any;
-
+  getClientData(){
     this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
       if (response.success === true) {
         this.client = response;
@@ -129,28 +138,35 @@ export class UserPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
-
-    this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
-      if (response.success === true) {
-
-        this.clientPoints = response;
-
-      } else {
-        console.log('Body del error: ', response);
-      }
-    })
-
-
-
-    this.detectChanges();
   }
 
   detectChanges() {
     // Fires on each form control value change
     this.myForm.valueChanges.subscribe(res => {
       this.currentValue = res;
-      this.dataChanged = true;
     });
+
+    this.dataChanged = false;
+  }
+
+  async getPaymentMethods(){
+
+    this.requestUseCase.postLoginV2(this.loginV2Data).subscribe(async response => {
+      if (response.success === true) {
+        const loginToken = response?.data?.token;
+        this.requestUseCase.getPaymentMethodsV2(loginToken).subscribe(response1 => {
+          if (response1.success === true) {
+            console.log(response1);
+            this.paymentMethodsList = response1.data;
+          } else {
+            console.log('Body del error response1: ', response1);
+          }
+        })
+      } else {
+        console.log('Body del error response: ', response);
+      }
+    });
+    
   }
 
   btnFuntion(){
@@ -160,8 +176,12 @@ export class UserPage implements OnInit {
       this.btnText = 'Guardar';
       this.readOnly = false;
     }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
-
-      if (this.dataChanged) {
+      
+      if (this.client.data.name != this.myForm.get('name')?.value ||
+          this.client.data.last_name != this.myForm.get('lastName')?.value ||
+          this.client.data.email != this.myForm.get('email')?.value ||
+          this.client.data.birthday != this.myForm.get('date')?.value ||
+          this.client.data.cellphone != this.myForm.get('phone')?.value) {
 
         this.requestDataForm = {
           name: this.myForm.get('name')?.value,
@@ -173,16 +193,13 @@ export class UserPage implements OnInit {
 
         this.requestUseCase.putClient(this.client_Id, this.requestDataForm).subscribe(response => {
           if (response.success === true) {
-
             console.log('client updated...');
-
-
+            this.getClientData();
+            // this.dataChanged = false;
           } else {
             console.log('Body del error: ', response);
           }
         });
-
-        this.dataChanged = false;
         
       }
 
