@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.licorera3jjjs.app;
 
 import com.getcapacitor.BridgeActivity;
 

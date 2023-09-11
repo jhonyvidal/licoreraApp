@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'licoreraApp',
+  appId: 'com.licorera3jjjs.app',
   appName: 'licoreraApp',
   webDir: 'www',
   server: {
