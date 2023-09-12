@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
+import { UserModel } from 'src/store/models/user-model';
 import { UserService } from 'src/store/services/user.service';
 
 @Component({
@@ -75,6 +78,46 @@ export class SignInPage implements OnInit {
           console.log(response);
         }
       });
+  }
+
+  async signInWithFacebook(): Promise<void> {
+    const FACEBOOK_PERMISSIONS = [
+      'email',
+      'user_birthday',
+      'user_photos',
+      'user_gender',
+    ];
+
+    const result = await FacebookLogin.login({
+      permissions: FACEBOOK_PERMISSIONS,
+    });
+    if (result?.accessToken) {
+      console.log(result);
+      // this.router.navigate(['/']);
+    }
+  }
+
+  async signInWithGoogle() {
+    let googleUser = await GoogleAuth.signIn();
+    const userData:UserModel = {
+      id: googleUser.id,
+      name: googleUser.name,
+      last_name: '',
+      birthday: '',
+      email: googleUser.email,
+      password: '',
+      social_id: '',
+      photo: googleUser.imageUrl,
+      cellphone: '',
+      points: 0,
+      uuid: googleUser.id,
+      remember_token: googleUser.authentication.refreshToken || '',
+      created_at: '',
+      updated_at: '',
+      token: googleUser.authentication.idToken,
+    }
+    this.userService.login(userData)
+    this.router.navigate(['/home']);
   }
 
   routerLink(route: string) {
