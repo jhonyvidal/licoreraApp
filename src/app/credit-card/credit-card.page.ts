@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-credit-card',
@@ -11,6 +12,7 @@ export class CreditCardPage implements OnInit {
   myForm: FormGroup;
   constructor(
     public formBuilder: FormBuilder,
+    private router: Router,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
@@ -25,6 +27,10 @@ export class CreditCardPage implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  closeCreditCardScreen(){
+    this.router.navigate(['/user']);
   }
 
 }

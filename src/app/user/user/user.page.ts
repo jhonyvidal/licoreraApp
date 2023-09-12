@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
-import { forkJoin } from 'rxjs';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
 import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -76,6 +76,7 @@ export class UserPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private requestUseCase: RequestUseCases,
+    private router: Router,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
@@ -91,22 +92,6 @@ export class UserPage implements OnInit {
 
     // Hacer el login de la nueva api v2
     this.getPaymentMethods();
-
-    // this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
-    //   if (response.success === true) {
-    //     this.client = response;
-    //     this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
-
-    //     this.myForm.get('name')?.setValue(this.client.data.name);
-    //     this.myForm.get('lastName')?.setValue(this.client.data.last_name);
-    //     this.myForm.get('email')?.setValue(this.client.data.email);
-    //     this.myForm.get('date')?.setValue(this.client.data.birthday);
-    //     this.myForm.get('phone')?.setValue(this.client.data.cellphone);
-
-    //   } else {
-    //     console.log('Body del error: ', response);
-    //   }
-    // })
 
     this.getClientData();
 
@@ -170,6 +155,7 @@ export class UserPage implements OnInit {
   }
 
   btnFuntion(){
+    // User data logic
     if (this.ionSegment === 1 && this.btnText === 'Editar') {
       this.btnStylesCSS = '#99791C';
       setBTNColor(this.btnStylesCSS);
@@ -195,7 +181,6 @@ export class UserPage implements OnInit {
           if (response.success === true) {
             console.log('client updated...');
             this.getClientData();
-            // this.dataChanged = false;
           } else {
             console.log('Body del error: ', response);
           }
@@ -207,6 +192,11 @@ export class UserPage implements OnInit {
       setBTNColor(this.btnStylesCSS);
       this.btnText = 'Editar';
       this.readOnly = true;
+    }
+
+    // Payment methods logic
+    if (this.ionSegment === 2) {
+      this.router.navigate(['/credit-card']);
     }
   }
 
@@ -234,5 +224,9 @@ export class UserPage implements OnInit {
       }
     }
   }
+
+  // addCreditCard(){
+  //   this.router.navigate(['/credit-card']);
+  // }
 
 }
