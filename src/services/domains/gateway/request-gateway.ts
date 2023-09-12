@@ -14,7 +14,9 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
+import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 
 export abstract class RequestGateway {
 
@@ -36,6 +38,7 @@ export abstract class RequestGateway {
     // Api v2
     abstract getPaymentMethodsV2(token: string): Observable<PaymentMethodsGetResponse>;
     abstract postLoginV2(data: LoginV2Request) : Observable <LoginV2Response>;
+    abstract postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse>;
 
 }
 

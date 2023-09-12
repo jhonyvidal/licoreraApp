@@ -16,7 +16,9 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
+import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 
 @Injectable()
 export class RequestUseCases {
@@ -87,4 +89,9 @@ export class RequestUseCases {
   postLoginV2(data: LoginV2Request) : Observable <LoginV2Response> {
     return this._requestGateWay.postLoginV2(data);
   }
+
+  postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse> {
+    return this._requestGateWay.postDeletePaymentMethods(token, data);
+  }
+
 }

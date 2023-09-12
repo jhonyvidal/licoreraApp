@@ -7,6 +7,7 @@ import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
 import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { Router } from '@angular/router';
 
@@ -32,6 +33,7 @@ export class UserPage implements OnInit {
   btnStylesCSS: string = 'white';
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
+  loginToken: string;
   paymentMethods: any = [
     {
       cardNumber: '4513 **** **** 1234',
@@ -138,8 +140,8 @@ export class UserPage implements OnInit {
 
     this.requestUseCase.postLoginV2(this.loginV2Data).subscribe(async response => {
       if (response.success === true) {
-        const loginToken = response?.data?.token;
-        this.requestUseCase.getPaymentMethodsV2(loginToken).subscribe(response1 => {
+        this.loginToken = response?.data?.token;
+        this.requestUseCase.getPaymentMethodsV2(this.loginToken).subscribe(response1 => {
           if (response1.success === true) {
             console.log(response1);
             this.paymentMethodsList = response1.data;
@@ -227,6 +229,25 @@ export class UserPage implements OnInit {
 
   goHome(){
     this.router.navigate(['/home']);
+  }
+
+  deletePaymentMethod(id: number){
+    const deleteJson: DeletePaymentMethodsRequest = {
+      'id': id
+    }
+    this.requestUseCase.postDeletePaymentMethods(this.loginToken, deleteJson).subscribe(async response => {
+      if (response.success === true) {
+        console.log(`Payment method ${id} was deleted...`);
+        this.getPaymentMethods();
+
+      } else {
+        console.log('Body del error response: ', response);
+      }
+    });
+    console.log(`Hola mundo ${id}`);
+    console.log(`token: ${this.loginToken}`);
+    console.log(`token: ${deleteJson}`);
+
   }
 
 }

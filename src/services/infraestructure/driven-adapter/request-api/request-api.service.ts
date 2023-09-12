@@ -18,7 +18,9 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
+import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -196,7 +198,7 @@ export  class RequestApiService extends RequestGateway {
   }
 
   // Api v2
-  getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {    
+  getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {
     const headers = new HttpHeaders(
       {
         'Authorization': token
@@ -214,6 +216,20 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         console.log(response)
         return response as LoginV2Response
+      })
+    )
+  }
+
+  postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest): Observable<DeletePaymentResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postDelete('api/v2/me/paymentMethods/remove', data, headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as DeletePaymentResponse
       })
     )
   }
