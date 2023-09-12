@@ -50,8 +50,8 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     },
   ];
-  
-  
+
+
   paymentMethodsList: DataArray[] = [];
 
   addressList: any = [
@@ -151,7 +151,7 @@ export class UserPage implements OnInit {
         console.log('Body del error response: ', response);
       }
     });
-    
+
   }
 
   btnFuntion(){
@@ -162,7 +162,7 @@ export class UserPage implements OnInit {
       this.btnText = 'Guardar';
       this.readOnly = false;
     }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
-      
+
       if (this.client.data.name != this.myForm.get('name')?.value ||
           this.client.data.last_name != this.myForm.get('lastName')?.value ||
           this.client.data.email != this.myForm.get('email')?.value ||
@@ -185,7 +185,7 @@ export class UserPage implements OnInit {
             console.log('Body del error: ', response);
           }
         });
-        
+
       }
 
       this.btnStylesCSS = 'white';
@@ -225,8 +225,8 @@ export class UserPage implements OnInit {
     }
   }
 
-  // addCreditCard(){
-  //   this.router.navigate(['/credit-card']);
-  // }
+  goHome(){
+    this.router.navigate(['/home']);
+  }
 
 }
