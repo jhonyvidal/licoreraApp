@@ -198,11 +198,14 @@ export class UserPage implements OnInit {
 
     // Payment methods logic
     if (this.ionSegment === 2) {
+
       this.router.navigate(['/credit-card']);
     }
   }
 
   show(id:number){
+    this.btnStylesCSS = 'white';
+    setBTNColor(this.btnStylesCSS);
     this.ionSegment = id;
     this.btnText = this.ionSegment === 1 ? 'Editar' : 'Agregar';
   }
@@ -244,9 +247,6 @@ export class UserPage implements OnInit {
         console.log('Body del error response: ', response);
       }
     });
-    console.log(`Hola mundo ${id}`);
-    console.log(`token: ${this.loginToken}`);
-    console.log(`token: ${deleteJson}`);
 
   }
 
