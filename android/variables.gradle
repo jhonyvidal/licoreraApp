@@ -13,4 +13,7 @@ ext {
     androidxJunitVersion = '1.1.5'
     androidxEspressoCoreVersion = '3.5.1'
     cordovaAndroidVersion = '10.1.1'
+    rgcfaIncludeFacebook = true
+    rgcfaIncludeGoogle = true
+    // facebookLoginVersion = "15.2.0"
 }

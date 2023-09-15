@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     namespace "io.ionic.starter"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "io.ionic.starter"
+        applicationId "com.licorera3jjjs.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -47,8 +48,10 @@ apply from: 'capacitor.build.gradle'
 try {
     def servicesJSON = file('google-services.json')
     if (servicesJSON.text) {
-        apply plugin: 'com.google.gms.google-services'
+        // apply plugin: 'com.google.gms.google-services'
     }
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
+
+

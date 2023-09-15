@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { UserModel } from 'src/store/models/user-model';
 import { UserService } from 'src/store/services/user.service';
+import { DialogService, FirebaseAuthenticationService } from '../core';
+import { User } from '@capacitor-firebase/authentication';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,13 +20,17 @@ export class SignInPage implements OnInit {
   buttonStyle = 'DisableButton';
   public activeOpen = '';
   public activeClose = '';
+  currentUser: User | null;
+  idToken: string;
 
   constructor(
     public formBuilder: FormBuilder,
     private alertController: AlertController,
     private requestUseCase: RequestUseCases,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private readonly dialogService: DialogService,
+    private readonly firebaseAuthenticationService: FirebaseAuthenticationService
   ) {
     this.myForm = this.formBuilder.group({
       password: ['', [Validators.required]],
@@ -35,10 +39,66 @@ export class SignInPage implements OnInit {
   }
 
   ngOnInit() {
+    this.firebaseAuthenticationService.getRedirectResult().then((result) => {
+      if (result?.user) {
+        const userData:UserModel = {
+          id: result?.user.uid,
+          name: result?.user.displayName || '',
+          last_name: '',
+          birthday: '',
+          email: result?.user.email || '',
+          password: '',
+          social_id: '',
+          photo: result?.user.photoUrl || '',
+          cellphone: '',
+          points: 0,
+          uuid: result?.user.uid,
+          remember_token: '',
+          created_at: '',
+          updated_at: '',
+          token: result?.credential?.idToken || '',
+        }
+        this.userService.login(userData)
+        this.router.navigate(['/home']);
+      }
+    });
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
       this.classValid();
     });
+  }
+
+  public async signInWithGoogle(): Promise<void> {
+    await this.signInWith(SignInProvider.google);
+  }
+
+  public async signInWithFacebook(): Promise<void> {
+    await this.signInWith(SignInProvider.facebook);
+  }
+
+  public async signInWithEmail(): Promise<void> {
+    var result = await this.signInWith(SignInProvider.email);
+    if (result.user) {
+      const userData:UserModel = {
+        id: result?.user.uid,
+        name: result?.user.displayName || '',
+        last_name: '',
+        birthday: '',
+        email: result?.user.email || '',
+        password: '',
+        social_id: '',
+        photo: result?.user.photoUrl || '',
+        cellphone: '',
+        points: 0,
+        uuid: result?.user.uid,
+        remember_token: '',
+        created_at: '',
+        updated_at: '',
+        token: result?.credential?.idToken || '',
+      }
+      this.userService.login(userData)
+      this.router.navigate(['/home']);
+    }
   }
 
   classValid() {
@@ -67,10 +127,10 @@ export class SignInPage implements OnInit {
       )
       .subscribe((response) => {
         if (response.success === true) {
-          if(response.data === null){
-            this.showAlert()
-          }else{
-            this.userService.login(response.data)
+          if (response.data === null) {
+            this.showAlert();
+          } else {
+            this.userService.login(response.data);
             this.router.navigate(['/home']);
           }
           console.log(response);
@@ -80,48 +140,80 @@ export class SignInPage implements OnInit {
       });
   }
 
-  async signInWithFacebook(): Promise<void> {
-    const FACEBOOK_PERMISSIONS = [
-      'email',
-      'user_birthday',
-      'user_photos',
-      'user_gender',
-    ];
+  // async signInWithFacebook(): Promise<void> {
+  //   const FACEBOOK_PERMISSIONS = [
+  //     'email',
+  //     'user_birthday',
+  //     'user_photos',
+  //     'user_gender',
+  //   ];
 
-    const result = await FacebookLogin.login({
-      permissions: FACEBOOK_PERMISSIONS,
-    });
-    if (result?.accessToken) {
-      console.log(result);
-      // this.router.navigate(['/']);
-    }
-  }
+  //   const result = await FacebookLogin.login({
+  //     permissions: FACEBOOK_PERMISSIONS,
+  //   });
+  //   if (result?.accessToken) {
+  //     console.log(result);
+  //     // this.router.navigate(['/']);
+  //   }
+  // }
 
-  async signInWithGoogle() {
-    let googleUser = await GoogleAuth.signIn();
-    const userData:UserModel = {
-      id: googleUser.id,
-      name: googleUser.name,
-      last_name: '',
-      birthday: '',
-      email: googleUser.email,
-      password: '',
-      social_id: '',
-      photo: googleUser.imageUrl,
-      cellphone: '',
-      points: 0,
-      uuid: googleUser.id,
-      remember_token: googleUser.authentication.refreshToken || '',
-      created_at: '',
-      updated_at: '',
-      token: googleUser.authentication.idToken,
+  // async signInWithGoogle() {
+  //   let googleUser = await GoogleAuth.signIn();
+  //   const userData:UserModel = {
+  //     id: googleUser.id,
+  //     name: googleUser.name,
+  //     last_name: '',
+  //     birthday: '',
+  //     email: googleUser.email,
+  //     password: '',
+  //     social_id: '',
+  //     photo: googleUser.imageUrl,
+  //     cellphone: '',
+  //     points: 0,
+  //     uuid: googleUser.id,
+  //     remember_token: googleUser.authentication.refreshToken || '',
+  //     created_at: '',
+  //     updated_at: '',
+  //     token: googleUser.authentication.idToken,
+  //   }
+  //   this.userService.login(userData)
+  //   this.router.navigate(['/home']);
+  // }
+
+  private async signInWith(provider: SignInProvider): Promise<any> {
+    const loadingElement = await this.dialogService.showLoading();
+    try {
+      switch (provider) {
+        case SignInProvider.apple:
+          await this.firebaseAuthenticationService.signInWithApple();
+          break;
+        case SignInProvider.facebook:
+          await this.firebaseAuthenticationService.signInWithFacebook();
+          break;
+        case SignInProvider.google:
+          await this.firebaseAuthenticationService.signInWithGoogle();
+          break;
+        case SignInProvider.email:
+          return await this.firebaseAuthenticationService.signInWithEmailAndPassword({
+            email: this.myForm.get('email')?.value,
+            password: this.myForm.get('password')?.value,
+          });
+          break;
+      }
+      await this.router.navigate(['/home']);
+    } finally {
+      await loadingElement.dismiss();
     }
-    this.userService.login(userData)
-    this.router.navigate(['/home']);
   }
 
   routerLink(route: string) {
     this.router.navigate(['/' + route]);
   }
-  
+}
+
+enum SignInProvider {
+  email = 'email',
+  apple = 'apple',
+  facebook = 'facebook',
+  google = 'google',
 }
