@@ -15,7 +15,7 @@ export class HomePage {
   userData: UserModel;
 
   ionViewWillEnter() {
-    this.getUser() 
+    this.getUser()
   }
 
   changeTab(tab: string) {
@@ -40,4 +40,5 @@ export class HomePage {
     this.userService.logout();
     this.getUser();
   }
+
 }

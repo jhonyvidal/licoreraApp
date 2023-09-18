@@ -1,4 +1,6 @@
-export class UserModel {
+import { BaseResponse } from "src/shared/domain/response/base-response";
+
+export interface UserModel  extends BaseResponse {
     id: string;
     name: string;
     last_name: string;

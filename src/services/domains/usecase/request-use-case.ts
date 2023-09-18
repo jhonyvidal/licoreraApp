@@ -11,6 +11,15 @@ import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
+import { ClientData } from 'src/shared/domain/response/ClientResponse';
+import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
+import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
+import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
+import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
+import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { UserModel } from 'src/store/models/user-model';
 
 @Injectable()
 export class RequestUseCases {
@@ -48,10 +57,18 @@ export class RequestUseCases {
     return this._requestGateWay.getCategoriesByProduct(token, id, page);
   }
 
+  getClient(token: string, userId: string) : Observable <ClientData> {
+    return this._requestGateWay.getClient(token, userId);
+  }
+
+  getClientPoints(userId: string) : Observable <ClientPointsData> {
+    return this._requestGateWay.getClientPoints(userId);
+  }
+
   postLogin(token:string, email:string, password:string) : Observable <LoginResponse> {
     return this._requestGateWay.postLogin(token, email, password);
   }
-  
+
   postForgotPassword(token:string, email:string):Observable<LoginResponse> {
     return this._requestGateWay.postForgotPassword(token, email);
   }
@@ -59,4 +76,27 @@ export class RequestUseCases {
   postCreateAccount(token:string,  data:CreateAccountRequest):Observable<LoginResponse> {
     return this._requestGateWay.postCreateAccount(token, data);
   }
+
+  putClient(userid: string, data: UpdateClientData):Observable<ClientData> {
+    return this._requestGateWay.putClient(userid, data);
+  }
+
+  // Api v2
+
+  getPaymentMethodsV2(token: string) : Observable <PaymentMethodsGetResponse> {
+    return this._requestGateWay.getPaymentMethodsV2(token);
+  }
+
+  postLoginV2(data: LoginV2Request) : Observable <LoginV2Response> {
+    return this._requestGateWay.postLoginV2(data);
+  }
+
+  postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse> {
+    return this._requestGateWay.postDeletePaymentMethods(token, data);
+  }
+
+  getMe(token: string) : Observable <UserModel> {
+    return this._requestGateWay.getMe(token);
+  }
+
 }

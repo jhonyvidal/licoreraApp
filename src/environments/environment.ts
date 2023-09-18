@@ -5,8 +5,12 @@
 export const environment = {
   production: false,
   apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
-  //apiUrl: 'https://licorera3jjjs.com/api/mobile/',
+  apiUrlV2: 'https://dev.licorera3jjjs.com/',
+  //apiUrlV2: 'http://127.0.0.1:8000/',
+  // apiUrl: 'https://licorera3jjjs.com/api/mobile/',
   // apiUrl: 'https://rickandmortyapi.com/api/',
+  
+
   databaseNames:[
     {name:"starter_posts"},
     {name:"starter_employees"},

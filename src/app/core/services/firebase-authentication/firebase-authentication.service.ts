@@ -154,7 +154,12 @@ export class FirebaseAuthenticationService {
   ): Promise<SignInResult> {
     return FirebaseAuthentication.signInWithEmailAndPassword(options);
   }
-  
+
+  public CreateAccountEmailAndPassword(
+    options: SignInWithEmailAndPasswordOptions
+  ): Promise<SignInResult> {
+    return FirebaseAuthentication.createUserWithEmailAndPassword(options);
+  }
 
   public async signOut(): Promise<void> {
     await FirebaseAuthentication.signOut();

@@ -41,25 +41,7 @@ export class SignInPage implements OnInit {
   ngOnInit() {
     this.firebaseAuthenticationService.getRedirectResult().then((result) => {
       if (result?.user) {
-        const userData:UserModel = {
-          id: result?.user.uid,
-          name: result?.user.displayName || '',
-          last_name: '',
-          birthday: '',
-          email: result?.user.email || '',
-          password: '',
-          social_id: '',
-          photo: result?.user.photoUrl || '',
-          cellphone: '',
-          points: 0,
-          uuid: result?.user.uid,
-          remember_token: '',
-          created_at: '',
-          updated_at: '',
-          token: result?.credential?.idToken || '',
-        }
-        this.userService.login(userData)
-        this.router.navigate(['/home']);
+        this.getMe(result?.credential?.idToken || '');
       }
     });
     this.myForm.valueChanges.subscribe(() => {
@@ -79,25 +61,8 @@ export class SignInPage implements OnInit {
   public async signInWithEmail(): Promise<void> {
     var result = await this.signInWith(SignInProvider.email);
     if (result.user) {
-      const userData:UserModel = {
-        id: result?.user.uid,
-        name: result?.user.displayName || '',
-        last_name: '',
-        birthday: '',
-        email: result?.user.email || '',
-        password: '',
-        social_id: '',
-        photo: result?.user.photoUrl || '',
-        cellphone: '',
-        points: 0,
-        uuid: result?.user.uid,
-        remember_token: '',
-        created_at: '',
-        updated_at: '',
-        token: result?.credential?.idToken || '',
-      }
-      this.userService.login(userData)
-      this.router.navigate(['/home']);
+      const token = await this.firebaseAuthenticationService.getIdToken()
+      this.getMe(token);
     }
   }
 
@@ -116,6 +81,19 @@ export class SignInPage implements OnInit {
       'Los datos no coinciden en nuestros registros, revísalos o crea una cuenta.',
       '/assets/img/loginError.svg'
     );
+  }
+
+  getMe(token:string){
+    this.requestUseCase.getMe(token)
+    .subscribe((response) => {
+      if (response.success === true) {
+        this.userService.login(response.data)
+        this.router.navigate(['/home']);
+      }
+      else{
+        this.showAlert();
+      }
+    });
   }
 
   submit() {

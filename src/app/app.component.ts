@@ -22,11 +22,11 @@ export class AppComponent {
     private readonly firebaseAuthenticationService: FirebaseAuthenticationService
      ) {
     this.initializeApp();
-    // this.configService.fetchConfigs().subscribe(data => {
-    //   if(data[0].name === "Welcome" && data[0].data === "true"){
-    //     this.router.navigate(['/home']);
-    //   }
-    // });
+    this.configService.fetchConfigs().subscribe(data => {
+      if(data[0].name === "Welcome" && data[0].data === "true"){
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   //Firebase

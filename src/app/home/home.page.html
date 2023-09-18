@@ -3,9 +3,9 @@
     <ion-toolbar>
       <div class="ion-justify-content-center ion-align-items-center menu-logo">
         <img src="../../assets/img/Ellipse.svg" alt="fondo Blanco">
-        <img class="menu-logo-center" src="../../assets/img/user-icon.svg" alt="imagen">
+        <img class="menu-logo-center" src="../../assets/img/user-icon.svg" alt="imagen" (click)="routerLink('/user')">
       </div>
-     
+
       <ion-text  *ngIf="!userData?.id">
         <h3 class="color-primary text-center"  (click)="routerLink('sign-in')">INICIA SESIÓN</h3>
         <p class="color-secondary text-center mt-10">Y ACUMULA PUNTOS</p>
@@ -27,7 +27,7 @@
         </ion-grid>
       </ion-label>
     </ion-item>
-    
+
     <ion-item button detail="true" lines="none" *ngIf="userData?.id">
       <ion-label class="m0">
         <ion-grid class="p0">
@@ -38,7 +38,7 @@
         </ion-grid>
       </ion-label>
     </ion-item>
-    
+
     <ion-item button detail="true" lines="none" routerLink="/how-to-get">
       <ion-label class="m0">
         <ion-grid class="p0">
@@ -49,7 +49,7 @@
         </ion-grid>
       </ion-label>
     </ion-item>
-    
+
     <ion-item button  detail="true" lines="none">
       <ion-label class="m0">
         <ion-grid class="p0">
@@ -93,8 +93,8 @@
         </ion-grid>
       </ion-label>
     </ion-item>
-    
-   
+
+
   </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
@@ -117,11 +117,11 @@
       <ion-tab-button tab="tab1" class="bg-color-primary" (click)="changeTab('tab1')">
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab1' ? '../../assets/icon/home1.svg' : '../../assets/icon/home-selected1.svg'" alt="Logo empresa"></ion-label>
       </ion-tab-button>
-  
+
       <ion-tab-button tab="tab2" class="bg-color-primary" (click)="changeTab('tab2')">
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab2' ? '../../assets/icon/home-selected2.svg' : '../../assets/icon/home2.svg'" alt="Logo empresa"></ion-label>
       </ion-tab-button>
-  
+
       <ion-tab-button tab="tab3" class="bg-color-primary" (click)="changeTab('tab3')">
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab3' ? '../../assets/icon/home-selected3.svg' : '../../assets/icon/home3.svg'"  alt="Logo empresa"></ion-label>
       </ion-tab-button>
@@ -130,7 +130,7 @@
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab4' ? '../../assets/icon/home-selected4.svg' : '../../assets/icon/home4.svg'"  alt="Logo empresa"></ion-label>
       </ion-tab-button>
     </ion-tab-bar>
-  
+
   </ion-tabs>
   <!-- finish section tabs -->
 </div>

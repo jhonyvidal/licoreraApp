@@ -13,6 +13,15 @@ import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
+import { ClientData } from 'src/shared/domain/response/ClientResponse';
+import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
+import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
+import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
+import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
+import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { UserModel } from 'src/store/models/user-model';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -29,7 +38,6 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
-
 
   getSuggestedProducts(token: string): Observable<suggestedProducts> {
     const headers = new HttpHeaders(
@@ -111,6 +119,30 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getClient(token: string, userId: string):Observable<ClientData> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('clients/' + userId, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as ClientData
+      })
+    )
+  }
+
+  getClientPoints(userId: string):Observable<ClientPointsData> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get(`clients/${userId}/points`, headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as ClientPointsData
+      })
+    )
+  }
+
   postLogin(token:string, email:string, password:string):Observable<LoginResponse> {
     const data = {
       email:email,
@@ -148,11 +180,74 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.post('clients', data , headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginResponse
       })
     )
   }
-  
-  
+
+  putClient(userId: string, data: UpdateClientData):Observable<ClientData> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.put(`clients/${userId}`, data).pipe(
+      map(response => {
+        // console.log(response)
+        return response as ClientData
+      })
+    )
+  }
+
+  // Api v2
+  getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/me/paymentMethods', headers).pipe(
+      map(response => {
+        return response as PaymentMethodsGetResponse
+      })
+    )
+  }
+
+  postLoginV2(data: LoginV2Request): Observable<LoginV2Response> {
+    return this.http.postV2('api/v2/login', data).pipe(
+      map(response => {
+        console.log(response)
+        return response as LoginV2Response
+      })
+    )
+  }
+
+  postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest): Observable<DeletePaymentResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postDelete('api/v2/me/paymentMethods/remove', data, headers).pipe(
+      map(response => {
+        console.log(response)
+        return response as DeletePaymentResponse
+      })
+    )
+  }
+
+  getMe(token: string):Observable<UserModel> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+      );
+    return this.http.getV2('api/v2/me', headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as UserModel
+      })
+    )
+  }
+
+
 }

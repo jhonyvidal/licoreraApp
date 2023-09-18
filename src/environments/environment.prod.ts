@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
-  //apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
+  // apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
   apiUrl: 'https://licorera3jjjs.com/api/mobile/',
+  apiUrlV2: 'https://dev.licorera3jjjs.com/',
   // apiUrl: 'https://rickandmortyapi.com/api/',
   databaseNames:[
     {name:"starter_posts"},
