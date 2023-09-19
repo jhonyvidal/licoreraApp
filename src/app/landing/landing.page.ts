@@ -38,12 +38,7 @@ export class LandingPage implements OnInit {
 
     this.requestUseCase.getSuggestedProducts('token').subscribe(response => {
       if (response.success === true) {
-        response.data.forEach((elemento:any,indice:number) => {
-          if(indice < 5){
-            this.elementos.push(elemento);
-            this.ListSuggestedProducts = this.elementos;
-          }
-        });
+        this.ListSuggestedProducts = response.data.slice(0, 5);
       } else {
         console.log(response);
       }
@@ -51,18 +46,11 @@ export class LandingPage implements OnInit {
 
     this.requestUseCase.getPromotion('token').subscribe(response => {
       if (response.success === true) {
-        response.data.forEach((elemento:any,indice:number) => {
-          if(indice < 5){
-            this.elementos.push(elemento);
-            this.ListPromotions = this.elementos;
-          }
-        });
+        this.ListPromotions = response.data.slice(0, 5);
       } else {
         console.log(response);
       }
     })
-
-
   }
 
   public alertButtons = ['OK'];
