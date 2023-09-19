@@ -10,6 +10,8 @@ import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { Router } from '@angular/router';
+import { presentAlertUser } from 'src/shared/components/alert.user.component';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-user',
@@ -79,6 +81,7 @@ export class UserPage implements OnInit {
     public formBuilder: FormBuilder,
     private requestUseCase: RequestUseCases,
     private router: Router,
+    private alertController: AlertController,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
@@ -248,6 +251,15 @@ export class UserPage implements OnInit {
       }
     });
 
+  }
+
+  async showAlertLogout() {
+    await presentAlertUser(
+      this.alertController,
+      'INFORMACIÓN',
+      '¿Seguro que quieres cerrar sesión?',
+      'Logout'
+    );
   }
 
 }
