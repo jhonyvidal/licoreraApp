@@ -17,6 +17,7 @@ import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { UserModel } from 'src/store/models/user-model';
 
 export abstract class RequestGateway {
 
@@ -39,7 +40,7 @@ export abstract class RequestGateway {
     abstract getPaymentMethodsV2(token: string): Observable<PaymentMethodsGetResponse>;
     abstract postLoginV2(data: LoginV2Request) : Observable <LoginV2Response>;
     abstract postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse>;
-
+    abstract getMe(token: string): Observable<UserModel>;
 }
 
 

@@ -46,7 +46,16 @@
 
   <ion-toolbar *ngIf="ionSegment === 2">
     <swiper-container class="custom-swiper" [pagination]="{el: '.swiper-pagination', clickable:true}" [spaceBetween]="10" [freeMode]="true">
-      <swiper-slide (click)="search()">
+      <swiper-slide (click)="search()" *ngFor="let data of ListPromotions" >
+        <div class="div-swiper-slide">
+          <ion-img [src]="data.image" alt="fondo Blanco"></ion-img>
+          <h1>{{data.name}}<span style="float: right">$ {{data.price}}</span></h1>
+          <p style="color: #000000;"  class="PromotionDescription">{{data.description}}</p>
+          <p style="padding-bottom: 5px;">Válido hasta: {{data.end_date}}</p>
+        </div>
+      </swiper-slide>
+
+      <!-- <swiper-slide (click)="search()">
         <div class="div-swiper-slide">
           <ion-img src="../../assets/img/test.svg" alt="fondo Blanco"></ion-img>
           <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
@@ -61,15 +70,7 @@
           <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
           <p style="padding-bottom: 5px;">Válido hasta: Enero 23, 2023</p>
         </div>
-      </swiper-slide>
-      <swiper-slide (click)="search()">
-        <div class="div-swiper-slide">
-          <ion-img src="../../assets/img/test.svg" alt="fondo Blanco"></ion-img>
-          <h1>BUCHANAN´S DELUXE 1000 ML<span style="float: right">$ 125.000</span></h1>
-          <p style="color: #000000;"  class="PromotionDescription">Descripción del producto, caracteristicas y demás información</p>
-          <p style="padding-bottom: 5px;">Válido hasta: Enero 23, 2023</p>
-        </div>
-      </swiper-slide>
+      </swiper-slide> -->
     </swiper-container>
   </ion-toolbar>
 

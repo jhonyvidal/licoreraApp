@@ -21,6 +21,7 @@ import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { UserModel } from 'src/store/models/user-model';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -230,6 +231,20 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         console.log(response)
         return response as DeletePaymentResponse
+      })
+    )
+  }
+
+  getMe(token: string):Observable<UserModel> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+      );
+    return this.http.getV2('api/v2/me', headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as UserModel
       })
     )
   }

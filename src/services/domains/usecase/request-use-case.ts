@@ -19,6 +19,7 @@ import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { UserModel } from 'src/store/models/user-model';
 
 @Injectable()
 export class RequestUseCases {
@@ -92,6 +93,10 @@ export class RequestUseCases {
 
   postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse> {
     return this._requestGateWay.postDeletePaymentMethods(token, data);
+  }
+
+  getMe(token: string) : Observable <UserModel> {
+    return this._requestGateWay.getMe(token);
   }
 
 }

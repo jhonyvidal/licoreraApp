@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { UserService } from 'src/store/services/user.service';
+import { FirebaseAuthenticationService } from '../core';
 
 @Component({
   selector: 'app-create-account',
@@ -24,7 +25,8 @@ export class CreateAccountPage implements OnInit {
     private alertController: AlertController,
     private requestUseCase: RequestUseCases,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private readonly firebaseAuthenticationService: FirebaseAuthenticationService
   ) {
     this.myForm = this.formBuilder.group({
       name: ['', [Validators.required, ]],
@@ -33,9 +35,10 @@ export class CreateAccountPage implements OnInit {
       date: ['', [Validators.required, ]],
       phone: ['', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, ]],
-      confirPassword: ['', []],
+      password: ['', [Validators.required]],
+      confirPassword: ['', [Validators.required]],
     });
+    this.myForm.setValidators(this.passwordMatchValidator);
   }
 
   ngOnInit() {
@@ -73,7 +76,7 @@ export class CreateAccountPage implements OnInit {
     );
   }
 
-  submit() {
+  async submit() {
     const data: CreateAccountRequest={
       id:  this.myForm.get('document')?.value,
       name: this.myForm.get('name')?.value,
@@ -85,26 +88,50 @@ export class CreateAccountPage implements OnInit {
       cellphone:  this.myForm.get('phone')?.value,
       social_id: 3
     }
-    this.requestUseCase
-      .postCreateAccount(
-        'token',
-         data
-      )
-      .subscribe((response) => {
-        if (response.success === true) {
-          if(response.data === null){
+    await this.firebaseAuthenticationService.CreateAccountEmailAndPassword({
+        email:  this.myForm.get('email')?.value,
+        password:  this.myForm.get('password')?.value,
+    })
+    .then(async (ret) => {
+      if(ret){
+        this.requestUseCase
+        .postCreateAccount(
+          'token',
+          data
+        )
+        .subscribe((response) => {
+          if (response.success === true) {
+            if(response.data === null){
+              this.showAlertError()
+            }else{
+              this.showAlertSuccess();
+              // this.router.navigate(['/home']);
+            }
+            console.log(response);
+          } else {
             this.showAlertError()
-          }else{
-            this.showAlertSuccess();
-            // this.router.navigate(['/home']);
+            console.log(response);
           }
-          console.log(response);
-        } else {
-          this.showAlertError()
-          console.log(response);
-        }
-      });
+        });
+      }
+     
+    })
+    .catch(async (err)=>{
+      this.showAlertError()
+    }) 
+    
   }
+
+    // Función de validación personalizada
+    passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      const password = control.get('password');
+      const confirmPassword = control.get('confirPassword');
+      if (password?.value !== confirmPassword?.value) {
+        console.log(password?.value,confirmPassword?.value)
+        return { 'passwordMismatch': true };
+      }
+      return null;
+    }
 
   goBack(): void {
     this.router.navigate(['/sign-in']);
