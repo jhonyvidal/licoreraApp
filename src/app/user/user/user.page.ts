@@ -149,11 +149,15 @@ export class UserPage implements OnInit {
 
     this.userService.getUserData()
     .then(data => {
-      this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response1 => {
-        if (response1.success === true) {
-          this.paymentMethodsList = response1.data;
+      console.log(data.api_token);
+
+      this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
+        if (response.success === true) {
+          console.log('Payment methods: ', response);
+
+          this.paymentMethodsList = response.data;
         } else {
-          console.log('Body del error response1: ', response1);
+          console.log('Body del error response: ', response);
         }
       })
     })
@@ -257,8 +261,6 @@ export class UserPage implements OnInit {
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
     });
-
-
 
   }
 

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginV2Request } from '../domain/request/LoginV2Request';
-import { DeletePaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
+import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +43,10 @@ export class BaseApiService {
   }
 
   postDelete(path: string, data: DeletePaymentMethodsRequest, headers?:HttpHeaders) {
+    return this.http.post(`${this.urlV2}${path}`, data , { headers } );
+  }
+
+  postPaymentMethods(path: string, data: PostPaymentMethodsRequest, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 

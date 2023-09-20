@@ -18,9 +18,9 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
-import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
+import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
-import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
 
 @Injectable()
@@ -244,6 +244,20 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         // console.log(response)
         return response as DeletePaymentResponse
+      })
+    )
+  }
+
+  postPaymentMethods(token: string, data: PostPaymentMethodsRequest): Observable<PostPaymentMethodsResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postPaymentMethods('api/v2/me/paymentMethods/remove', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as PostPaymentMethodsResponse
       })
     )
   }
