@@ -254,7 +254,7 @@ export  class RequestApiService extends RequestGateway {
         'Authorization': token
       }
     );
-    return this.http.postPaymentMethods('api/v2/me/paymentMethods/remove', data, headers).pipe(
+    return this.http.postPaymentMethods('api/v2/me/paymentMethods/add', data, headers).pipe(
       map(response => {
         // console.log(response)
         return response as PostPaymentMethodsResponse

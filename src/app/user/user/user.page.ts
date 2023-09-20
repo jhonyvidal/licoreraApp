@@ -118,6 +118,10 @@ export class UserPage implements OnInit {
     this.detectChanges();
   }
 
+  ionViewWillEnter() {
+    this.getPaymentMethods()
+  }
+
   getClientData(){
     this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
       if (response.success === true) {
@@ -265,7 +269,7 @@ export class UserPage implements OnInit {
   }
 
   goHome(){
-    this.miVariableObservable
+    this.router.navigate(['/home']);
   }
 
   async showAlertLogout() {

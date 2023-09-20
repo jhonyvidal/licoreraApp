@@ -30,11 +30,11 @@
       <div class="fecha-cvv-container">
         <div class="fecha-container">
           <p>Fecha de expiración</p>
-          <ion-input  formControlName="cvv"  class="custom" type="date" placeholder="10/2025" required></ion-input>
+          <ion-input  formControlName="expirationDate"  class="custom" type="date" placeholder="10/2025" required></ion-input>
         </div>
         <div class="cvv-container">
           <p>CVV</p>
-          <ion-input  formControlName="expirationDate"  class="custom" type="number" placeholder="123" required></ion-input>
+          <ion-input  formControlName="cvv" class="custom" maxlength="3" minlength="3" type="number" placeholder="123" required></ion-input>
         </div>
       </div>
       <div class="card-name-container">
@@ -53,7 +53,7 @@
   <ion-toolbar>
     <ion-buttons>
       <div class="btn-footer-container">
-        <ion-button class="btn-footer-disabled" [disabled]="isFormValid">Agregar</ion-button>
+        <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="createPaymentMethod()">Agregar</ion-button>
       </div>
     </ion-buttons>
   </ion-toolbar>

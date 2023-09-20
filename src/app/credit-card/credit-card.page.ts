@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, MaxLengthValidator, MaxValidator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
@@ -15,6 +15,8 @@ export class CreditCardPage implements OnInit {
   myForm: FormGroup;
   requestDataPaymentMethods: PostPaymentMethodsRequest;
   isFormValid: boolean = true;
+  btnCSS: string = 'btn-footer-disabled';
+
   constructor(
     public formBuilder: FormBuilder,
     private router: Router,
@@ -22,21 +24,44 @@ export class CreditCardPage implements OnInit {
     private userService: UserService
   ) {
     this.myForm = this.formBuilder.group({
-      number: ['', [Validators.required, ]],
-      cvv: ['', [Validators.required, ]],
+      number: ['', [Validators.required,]],
+      cvv: ['', []],
       expirationDate: ['', [Validators.required, ]],
       name: ['', [Validators.required, ]],
     });
-   }
+
+    // this.myForm.setValidators();
+    // this.myForm.setValidators(this.validatorFormPaymentMethods);
+
+  }
 
   ngOnInit() {
     this.myForm.valueChanges.subscribe(() => {
       if (this.myForm.valid) {
         this.isFormValid = false;
+        this.btnCSS = 'btn-footer';
       }else{
         this.isFormValid = true;
+        this.btnCSS = 'btn-footer-disabled';
       }
     });
+
+
+  }
+
+  // validatorFormPaymentMethods(control: AbstractControl): {[key: string]: boolean } | null} {
+
+  //   const cvv = control.get('cvv');
+  //   return null;
+  // }
+
+  validatorFormPaymentMethods(control: AbstractControl): { [key: string]: boolean } | null {
+    const cvv = control.get('cvv');
+    if (cvv?.value?.toString().length === 2) {
+
+      return { 'minLength': true };
+    }
+    return null;
   }
 
   createPaymentMethod(){
