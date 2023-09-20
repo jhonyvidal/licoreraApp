@@ -30,9 +30,6 @@ export class CreditCardPage implements OnInit {
       name: ['', [Validators.required, ]],
     });
 
-    // this.myForm.setValidators();
-    // this.myForm.setValidators(this.validatorFormPaymentMethods);
-
   }
 
   ngOnInit() {
@@ -45,23 +42,6 @@ export class CreditCardPage implements OnInit {
         this.btnCSS = 'btn-footer-disabled';
       }
     });
-
-
-  }
-
-  // validatorFormPaymentMethods(control: AbstractControl): {[key: string]: boolean } | null} {
-
-  //   const cvv = control.get('cvv');
-  //   return null;
-  // }
-
-  validatorFormPaymentMethods(control: AbstractControl): { [key: string]: boolean } | null {
-    const cvv = control.get('cvv');
-    if (cvv?.value?.toString().length === 2) {
-
-      return { 'minLength': true };
-    }
-    return null;
   }
 
   createPaymentMethod(){
