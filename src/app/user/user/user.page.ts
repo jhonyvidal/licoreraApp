@@ -10,8 +10,11 @@ import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { Router } from '@angular/router';
-import { presentAlertUser } from 'src/shared/components/alert.user.component';
+import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { AlertController } from '@ionic/angular';
+import { UserService } from 'src/store/services/user.service';
+import { Injector } from "@angular/core";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -36,6 +39,7 @@ export class UserPage implements OnInit {
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
   loginToken: string;
+  appInjectorRef: Injector;
   paymentMethods: any = [
     {
       cardNumber: '4513 **** **** 1234',
@@ -55,7 +59,7 @@ export class UserPage implements OnInit {
     },
   ];
 
-
+  miVariableObservable: Observable<boolean>;
   paymentMethodsList: DataArray[] = [];
 
   addressList: any = [
@@ -77,11 +81,13 @@ export class UserPage implements OnInit {
   }
   loginV2Token: string;
 
+
   constructor(
     public formBuilder: FormBuilder,
     private requestUseCase: RequestUseCases,
     private router: Router,
     private alertController: AlertController,
+    private userService: UserService
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
@@ -141,20 +147,18 @@ export class UserPage implements OnInit {
 
   async getPaymentMethods(){
 
-    this.requestUseCase.postLoginV2(this.loginV2Data).subscribe(async response => {
-      if (response.success === true) {
-        this.loginToken = response?.data?.token;
-        this.requestUseCase.getPaymentMethodsV2(this.loginToken).subscribe(response1 => {
-          if (response1.success === true) {
-            console.log(response1);
-            this.paymentMethodsList = response1.data;
-          } else {
-            console.log('Body del error response1: ', response1);
-          }
-        })
-      } else {
-        console.log('Body del error response: ', response);
-      }
+    this.userService.getUserData()
+    .then(data => {
+      this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response1 => {
+        if (response1.success === true) {
+          this.paymentMethodsList = response1.data;
+        } else {
+          console.log('Body del error response1: ', response1);
+        }
+      })
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
     });
 
   }
@@ -233,32 +237,44 @@ export class UserPage implements OnInit {
     }
   }
 
-  goHome(){
-    this.router.navigate(['/home']);
-  }
-
   deletePaymentMethod(id: number){
     const deleteJson: DeletePaymentMethodsRequest = {
       'id': id
     }
-    this.requestUseCase.postDeletePaymentMethods(this.loginToken, deleteJson).subscribe(async response => {
-      if (response.success === true) {
-        console.log(`Payment method ${id} was deleted...`);
-        this.getPaymentMethods();
 
-      } else {
-        console.log('Body del error response: ', response);
-      }
+    this.userService.getUserData()
+    .then(data => {
+      this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
+        if (response.success === true) {
+          console.log(`Payment method ${id} was deleted...`);
+          this.getPaymentMethods();
+
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
     });
+
+
 
   }
 
+  goHome(){
+    this.miVariableObservable
+  }
+
   async showAlertLogout() {
-    await presentAlertUser(
+    const usert_alerts = new UsertAlerts(this.router);
+    await usert_alerts.presentAlertUser(
       this.alertController,
       'INFORMACIÓN',
       '¿Seguro que quieres cerrar sesión?',
-      'Logout'
+      'Logout',
+      undefined,
+      // this.appInjectorRef
     );
   }
 

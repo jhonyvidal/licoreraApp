@@ -56,7 +56,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('search?q=' + inputSearched,headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as BasicDataOut
       })
     )
@@ -89,7 +89,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('suggestedProducts',headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as BasicDataOut
       })
     )
@@ -101,7 +101,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('categories',headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as CategoriesOut
       })
     )
@@ -113,7 +113,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('categories/' + id + '/products?page=' + page, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as CategoriesByProductOut
       })
     )
@@ -137,7 +137,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get(`clients/${userId}/points`, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as ClientPointsData
       })
     )
@@ -153,7 +153,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.post('login', data , headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginResponse
       })
     )
@@ -168,7 +168,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.post('clients/rememberPassword', data , headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginResponse
       })
     )
@@ -212,10 +212,23 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getLocationsV2(token: string):Observable<PaymentMethodsGetResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getLocationsV2('api/v2/me/paymentMethods', headers).pipe(
+      map(response => {
+        return response as PaymentMethodsGetResponse
+      })
+    )
+  }
+
   postLoginV2(data: LoginV2Request): Observable<LoginV2Response> {
     return this.http.postV2('api/v2/login', data).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginV2Response
       })
     )
@@ -229,7 +242,7 @@ export  class RequestApiService extends RequestGateway {
     );
     return this.http.postDelete('api/v2/me/paymentMethods/remove', data, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as DeletePaymentResponse
       })
     )
