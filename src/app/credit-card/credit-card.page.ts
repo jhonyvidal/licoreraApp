@@ -16,6 +16,10 @@ export class CreditCardPage implements OnInit {
   requestDataPaymentMethods: PostPaymentMethodsRequest;
   isFormValid: boolean = true;
   btnCSS: string = 'btn-footer-disabled';
+  numberInput: string;
+  dateInput: string;
+  cvvInput: string;
+  nameInput: string;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -25,7 +29,7 @@ export class CreditCardPage implements OnInit {
   ) {
     this.myForm = this.formBuilder.group({
       number: ['', [Validators.required,]],
-      cvv: ['', []],
+      cvv: ['', [Validators.minLength(3), Validators.maxLength(3), Validators.required]],
       expirationDate: ['', [Validators.required, ]],
       name: ['', [Validators.required, ]],
     });
@@ -49,6 +53,7 @@ export class CreditCardPage implements OnInit {
     this.requestDataPaymentMethods = {
       number: this.myForm.get('number')?.value,
       cvv: this.myForm.get('cvv')?.value,
+      // cvv: this.cvvInput,
       expirationDate: this.myForm.get('expirationDate')?.value,
       name: this.myForm.get('name')?.value,
       favorite: false
@@ -58,7 +63,7 @@ export class CreditCardPage implements OnInit {
     .then(data => {
       this.requestUseCase.postPaymentMethods(data.api_token, this.requestDataPaymentMethods).subscribe(response => {
         if (response.success === true) {
-          console.log('Payment method created successfully');
+          this.router.navigate(['/user']);
 
         } else {
           console.log('Body del error: ', response);

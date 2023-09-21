@@ -24,7 +24,7 @@
     <div [formGroup]="myForm" class="form-container">
       <p>Número de la tarjeta</p>
       <div class="card-number-contaienr">
-        <ion-input  formControlName="number"  class="custom" type="number" placeholder="1234 5678 9101 1121" required></ion-input>
+        <ion-input  formControlName="number" class="custom" maxlength="19" type="pin" placeholder="1234 5678 9101 1121" required></ion-input>
         <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
       </div>
       <div class="fecha-cvv-container">
@@ -34,7 +34,7 @@
         </div>
         <div class="cvv-container">
           <p>CVV</p>
-          <ion-input  formControlName="cvv" class="custom" maxlength="3" minlength="3" type="number" placeholder="123" required></ion-input>
+          <ion-input  formControlName="cvv" class="custom" maxlength="3" type="pin" placeholder="123" required></ion-input>
         </div>
       </div>
       <div class="card-name-container">
