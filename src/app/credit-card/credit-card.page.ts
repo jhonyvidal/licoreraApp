@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, MaxLengthValidator, MaxValidator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { UserService } from 'src/store/services/user.service';
 
@@ -25,7 +27,8 @@ export class CreditCardPage implements OnInit {
     public formBuilder: FormBuilder,
     private router: Router,
     private requestUseCase: RequestUseCases,
-    private userService: UserService
+    private userService: UserService,
+    private alertController: AlertController,
   ) {
     this.myForm = this.formBuilder.group({
       number: ['', [Validators.required,]],
@@ -77,5 +80,17 @@ export class CreditCardPage implements OnInit {
   closeCreditCardScreen(){
     this.router.navigate(['/user']);
   }
+
+  // async showAlert() {
+  //   const usert_alerts = new UsertAlerts(this.router);
+  //   await usert_alerts.presentAlertUser(
+  //     this.alertController,
+  //     'INFORMACIÓN',
+  //     '¿Seguro que quieres cerrar sesión?',
+  //     'logout',
+  //     undefined,
+  //     // this.appInjectorRef
+  //   );
+  // }
 
 }

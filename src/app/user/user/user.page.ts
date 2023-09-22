@@ -23,6 +23,8 @@ import { Observable } from 'rxjs';
 })
 export class UserPage implements OnInit {
 
+  items$: Observable<DataArray[]>;
+
   myForm: FormGroup;
   readOnly: boolean = true;
   avatarImage: string;
@@ -40,6 +42,7 @@ export class UserPage implements OnInit {
   requestDataForm: UpdateClientData;
   loginToken: string;
   appInjectorRef: Injector;
+  numberOfcard: string;
   paymentMethods: any = [
     {
       cardNumber: '4513 **** **** 1234',
@@ -153,7 +156,7 @@ export class UserPage implements OnInit {
 
     this.userService.getUserData()
     .then(data => {
-      console.log(data.api_token);
+      // console.log(data.api_token);
 
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
@@ -250,13 +253,13 @@ export class UserPage implements OnInit {
       'id': id
     }
 
+    // this.showAlertDeletePaymentMethod();
     this.userService.getUserData()
     .then(data => {
       this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
         if (response.success === true) {
           console.log(`Payment method ${id} was deleted...`);
           this.getPaymentMethods();
-
         } else {
           console.log('Body del error response: ', response);
         }
@@ -272,14 +275,29 @@ export class UserPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  // Alerts
   async showAlertLogout() {
-    const usert_alerts = new UsertAlerts(this.router);
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
     await usert_alerts.presentAlertUser(
       this.alertController,
       'INFORMACIÓN',
       '¿Seguro que quieres cerrar sesión?',
-      'Logout',
+      'logout',
       undefined,
+      // this.appInjectorRef
+    );
+  }
+
+  async showAlertDeletePaymentMethod(id: number, cardNumber: string) {
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
+    await usert_alerts.presentAlertUser(
+      this.alertController,
+      cardNumber,
+      '¿Seguro que quieres eliminar esta tarjeta?',
+      'areYouSure',
+      undefined,
+      id,
+      () => this.deletePaymentMethod(id)
       // this.appInjectorRef
     );
   }

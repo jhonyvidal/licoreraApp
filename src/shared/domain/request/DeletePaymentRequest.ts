@@ -1,5 +1,5 @@
 export interface DeletePaymentMethodsRequest {
-  id: number
+  id: number | undefined
 }
 
 export interface PostPaymentMethodsRequest {
