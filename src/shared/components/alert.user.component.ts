@@ -74,14 +74,15 @@ export class UsertAlerts {
     text: string,
     type: string,
     productImage?: string | undefined,
-    idToDelete?: number,
+    idToDelete?: number | undefined,
     deletePaymentMethod?: (id: number) => void,
     // injector?: Injector | undefined,
   ) {
 
     const iconObject: any = {
       logout: 'logoutAlert',
-      areYouSure: 'areYouSure'
+      areYouSure: 'areYouSure',
+      congrats: 'checkGreen',
     }
 
     // const warningImg = window.location.origin + `/assets/img/${type === 'Logout' ? 'logoutAlert' : type === 'exchange-products-success-response' ? 'checkGreen' : ''}.svg`;
@@ -114,7 +115,7 @@ export class UsertAlerts {
         });
         break;
 
-      case 'exchange-products-success-response':
+      case 'congrats':
         alert = await alertController.create({
           message: dynamicContent,
           backdropDismiss: false,
@@ -124,6 +125,7 @@ export class UsertAlerts {
               role: 'cancel',
               cssClass: 'alertButton',
               handler: () => {
+                deletePaymentMethod?.(idToDelete || 0);
                 this.closeAlert(alertController);
               },
             },

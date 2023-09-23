@@ -51,8 +51,7 @@ export class CreditCardPage implements OnInit {
     });
   }
 
-  createPaymentMethod(){
-
+  createPaymentMethod(id: number){
     this.requestDataPaymentMethods = {
       number: this.myForm.get('number')?.value,
       cvv: this.myForm.get('cvv')?.value,
@@ -67,30 +66,29 @@ export class CreditCardPage implements OnInit {
       this.requestUseCase.postPaymentMethods(data.api_token, this.requestDataPaymentMethods).subscribe(response => {
         if (response.success === true) {
           this.router.navigate(['/user']);
-
         } else {
           console.log('Body del error: ', response);
         }
       })
     })
-
-
   }
 
   closeCreditCardScreen(){
     this.router.navigate(['/user']);
   }
 
-  // async showAlert() {
-  //   const usert_alerts = new UsertAlerts(this.router);
-  //   await usert_alerts.presentAlertUser(
-  //     this.alertController,
-  //     'INFORMACIÓN',
-  //     '¿Seguro que quieres cerrar sesión?',
-  //     'logout',
-  //     undefined,
-  //     // this.appInjectorRef
-  //   );
-  // }
+  async showAlertCreatePaymentMethod() {
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
+    await usert_alerts.presentAlertUser(
+      this.alertController,
+      '¡Felicitaciones!',
+      'La tarjeta fue agregada exitosamente.',
+      'congrats',
+      undefined,
+      undefined,
+      () => this.createPaymentMethod(1)
+      // this.appInjectorRef
+    );
+  }
 
 }
