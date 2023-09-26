@@ -166,9 +166,13 @@ ion-content .user-profile-info-container .payment-list-container {
 
 ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container {
   margin: 20px 0;
-  width: 50%;
+  width: 80%;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container div{
+  margin-left: 16px;
 }
 
 ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container h2{
@@ -184,7 +188,7 @@ ion-content .user-profile-info-container .payment-list-container ion-item-slidin
 }
 
 ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .star-container {
-  width: 50%;
+  width: 20%;
   display: flex;
   justify-content: flex-end;
 }

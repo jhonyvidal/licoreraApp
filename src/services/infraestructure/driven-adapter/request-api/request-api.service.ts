@@ -22,6 +22,7 @@ import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from 'src/shar
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
+import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -212,15 +213,15 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  getLocationsV2(token: string):Observable<PaymentMethodsGetResponse> {
+  getLocationsV2(token: string):Observable<LocationsResponse> {
     const headers = new HttpHeaders(
       {
         'Authorization': token
       }
     );
-    return this.http.getLocationsV2('api/v2/me/paymentMethods', headers).pipe(
+    return this.http.getV2('api/v2/me/locations', headers).pipe(
       map(response => {
-        return response as PaymentMethodsGetResponse
+        return response as LocationsResponse
       })
     )
   }

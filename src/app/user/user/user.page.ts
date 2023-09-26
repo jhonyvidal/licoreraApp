@@ -15,6 +15,7 @@ import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/store/services/user.service';
 import { Injector } from "@angular/core";
 import { Observable } from 'rxjs';
+import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 
 @Component({
   selector: 'app-user',
@@ -23,7 +24,7 @@ import { Observable } from 'rxjs';
 })
 export class UserPage implements OnInit {
 
-  items$: Observable<DataArray[]>;
+  // items$: Observable<DataArray[]>;
 
   myForm: FormGroup;
   readOnly: boolean = true;
@@ -43,27 +44,29 @@ export class UserPage implements OnInit {
   loginToken: string;
   appInjectorRef: Injector;
   numberOfcard: string;
-  paymentMethods: any = [
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-  ];
+  // paymentMethods: any = [
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  // ];
 
   miVariableObservable: Observable<boolean>;
   paymentMethodsList: DataArray[] = [];
+
+  addressList1: LocationsResponse["data"] = [];
 
   addressList: any = [
     {
@@ -77,12 +80,15 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     }
   ];
-  yaConsulto: boolean = false;
-  loginV2Data: LoginV2Request = {
-    email: "diego4@mail.com",
-    password: "Diego1234"
-  }
-  loginV2Token: string;
+
+  // yaConsulto: boolean = false;
+
+  // loginV2Data: LoginV2Request = {
+  //   email: "diego4@mail.com",
+  //   password: "Diego1234"
+  // }
+
+  // loginV2Token: string;
 
 
   constructor(
@@ -104,8 +110,8 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
-    // Hacer el login de la nueva api v2
     this.getPaymentMethods();
+    this.getLocations();
 
     this.getClientData();
 
@@ -123,6 +129,26 @@ export class UserPage implements OnInit {
 
   ionViewWillEnter() {
     this.getPaymentMethods()
+  }
+
+  getLocations() {
+    this.userService.getUserData()
+    .then(data => {
+      // console.log('Api token: ', data.api_token);
+      this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
+        if (response.success === true) {
+          // this.paymentMethodsList = response.data;
+          this.addressList1 = response.data;
+          console.log(this.addressList1);
+          
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
   }
 
   getClientData(){
@@ -156,17 +182,37 @@ export class UserPage implements OnInit {
 
     this.userService.getUserData()
     .then(data => {
-      // console.log(data.api_token);
-
+      console.log('Api token: ', data.api_token);
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
-          console.log('Payment methods: ', response);
-
           this.paymentMethodsList = response.data;
         } else {
           console.log('Body del error response: ', response);
         }
       })
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
+
+  }
+
+  deletePaymentMethod(id: number){
+    const deleteJson: DeletePaymentMethodsRequest = {
+      'id': id
+    }
+
+    // this.showAlertDeletePaymentMethod();
+    this.userService.getUserData()
+    .then(data => {      
+      this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
+        if (response.success === true) {
+          console.log(`Payment method ${id} was deleted...`);
+          this.getPaymentMethods();
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      });
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
@@ -228,15 +274,15 @@ export class UserPage implements OnInit {
     this.btnText = this.ionSegment === 1 ? 'Editar' : 'Agregar';
   }
 
-  selectCard(index: number){
-    for (let i = 0; i < this.paymentMethods.length; i++) {
-      if (i === index) {
-        this.paymentMethods[i].starImage = this.starSelected;
-      }else{
-        this.paymentMethods[i].starImage = this.starEmpty;
-      }
-    }
-  }
+  // selectCard(index: number){
+  //   for (let i = 0; i < this.paymentMethods.length; i++) {
+  //     if (i === index) {
+  //       this.paymentMethods[i].starImage = this.starSelected;
+  //     }else{
+  //       this.paymentMethods[i].starImage = this.starEmpty;
+  //     }
+  //   }
+  // }
 
   selectAddress(index: number){
     for (let i = 0; i < this.addressList.length; i++) {
@@ -246,29 +292,6 @@ export class UserPage implements OnInit {
         this.addressList[i].starImage = this.starEmpty;
       }
     }
-  }
-
-  deletePaymentMethod(id: number){
-    const deleteJson: DeletePaymentMethodsRequest = {
-      'id': id
-    }
-
-    // this.showAlertDeletePaymentMethod();
-    this.userService.getUserData()
-    .then(data => {
-      this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
-        if (response.success === true) {
-          console.log(`Payment method ${id} was deleted...`);
-          this.getPaymentMethods();
-        } else {
-          console.log('Body del error response: ', response);
-        }
-      });
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos del usuario:', error);
-    });
-
   }
 
   goHome(){

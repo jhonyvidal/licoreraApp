@@ -97,7 +97,7 @@
       <p>Agrega una para continuar</p>
     </div>
     <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
-      <ion-item-sliding *ngFor="let item of addressList; index as i">
+      <ion-item-sliding *ngFor="let item of addressList1; index as i">
         <ion-item>
           <div class="credit-card-info-container">
             <img src="../../../assets/icon/location-user.svg" alt="">
@@ -108,7 +108,7 @@
           </div>
           <ion-buttons class="star-container">
             <ion-button (click)="selectAddress(i)">
-              <img [src]="item.starImage" alt="">
+              <img [src]="starSelected" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>
