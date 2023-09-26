@@ -104,13 +104,21 @@ export class UsertAlerts {
           buttons: [
             {
               text: 'ACEPTAR',
-              role: 'cancel',
-              cssClass: 'alertButton',
+              role: 'accept',
+              cssClass: 'alertButtonExchange',
               handler: () => {
                 deletePaymentMethod?.(idToDelete || 0);
                 this.closeAlert(alertController);
               },
             },
+            {
+              text: 'CANCELAR',
+              role: 'cancel',
+              cssClass: 'alertButtonExchange',
+              handler: () => {
+                this.closeAlert(alertController);
+              },
+            }
           ],
         });
         break;

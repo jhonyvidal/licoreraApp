@@ -68,7 +68,7 @@
           <div class="credit-card-info-container">
             <img src="../../../assets/icon/credit-card.svg" alt="">
             <div>
-              <h2>{{item.number}}</h2>
+              <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2>
               <p>{{item.name}}</p>
             </div>
           </div>

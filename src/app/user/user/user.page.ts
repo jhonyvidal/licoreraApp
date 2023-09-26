@@ -292,7 +292,7 @@ export class UserPage implements OnInit {
     const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
     await usert_alerts.presentAlertUser(
       this.alertController,
-      cardNumber,
+      `${cardNumber.substring(0, 4)} **** **** ${cardNumber.substring(12, 16)}`,
       '¿Seguro que quieres eliminar esta tarjeta?',
       'areYouSure',
       undefined,
