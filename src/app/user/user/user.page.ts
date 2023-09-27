@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user',
   templateUrl: './user.page.html',
-  styleUrls: ['./user.page.scss'],
+  styleUrls: ['./user.page.scss','./user.page2.scss'],
 })
 export class UserPage implements OnInit {
 

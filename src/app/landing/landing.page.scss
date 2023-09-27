@@ -137,3 +137,15 @@ swiper-pagination {
 .custom-swiper{
     --swiper-pagination-color:#464646
 }
+.mainImage{
+    width: 320px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 10px 10px 0px 0px;
+}
+.destacadoImage{
+    width: 320px;
+    height: 210px;
+    overflow: hidden;
+    border-radius: 10px 10px 0px 0px;
+}

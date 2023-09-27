@@ -73,6 +73,28 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getCampains(token: string): Observable<suggestedProducts> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('campaigns', headers).pipe(
+      map(response => {
+        return response as suggestedProducts
+      })
+    )
+  }
+
+  getNewProducts(token: string): Observable<suggestedProducts> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get('newProducts',headers).pipe(
+      map(response => {
+        return response as suggestedProducts
+      })
+    )
+  }
+
   getPromotions(token: string, promotionPage: number): Observable<PromotionsData> {
     const headers = new HttpHeaders(/*{'Authorization': 'Bearer '+ token}*/);
     return this.http.get('promotionProducts?page=' + promotionPage, headers).pipe(

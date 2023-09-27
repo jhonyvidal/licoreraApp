@@ -9,6 +9,7 @@ import { LandingPageRoutingModule } from './landing-routing.module';
 import { LandingPage } from './landing.page';
 import { Config } from '@ionic/angular';
 import { SharedModule } from 'src/shared/shared.module';
+import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { SharedModule } from 'src/shared/shared.module';
     FormsModule,
     LandingPageRoutingModule
   ],
+  providers:[CartModelPipe],
   declarations: [LandingPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

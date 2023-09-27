@@ -22,6 +22,15 @@ ion-content .product-img-container {
     justify-content: center;
     align-items: center;
 }
+ion-content .product-img-promotion {
+  margin: 0px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 20px;
+}
 
 ion-content .product-img-container .promotion-container{
     position: absolute;
@@ -67,12 +76,13 @@ ion-content .product-img-container .promotion-container h4{
 section {
     padding: 0px 20px 0 20px;
     width: 100%;
-    height: 55%;
-    display: flex;
+    height: 100%;
+    /* display: flex;*/
     flex-direction: column;
     justify-content: space-around;
     border-radius: 35px 35px 0 0;
     background-color: #F7F5F5;
+    position: fixed;
 }
 
 section .features div {
@@ -201,53 +211,31 @@ section article .Before-price {
   align-items: center;
 }
 
-// ion-footer ion-toolbar .footer-container {
-//     width: 100%;
-//     display: flex;
-//     background-color: blue;
-// }
-
-// ion-footer ion-toolbar .footer-container .add-substract-container {
-//     width: 50%;
-// }
-
-// ion-footer ion-toolbar .footer-container .add-product-container {
-//     padding: 10px;
-//     width: 50%;
-// }
-
-// ion-card {
-//     margin: 0;
-//     padding-top: 20px;
-//     border-radius: 0px;
-//     background-color: none;
-//     box-shadow: none;
-// }
-
-// ion-card .img-card-container {
-//     position: relative;
-//     padding: 0;
-//     width: 80%;
-//     height: 226px;
-//     display: flex;
-//     justify-content: center;
-//     overflow: hidden;
-// }
-
-// ion-card .img-card-container .discount-img {
-//     position: absolute;
-//     width: 99px;
-//     height: 99px;
-//     top: 0;
-//     left: 0;
-// }
-
-// ion-card .img-card-container .card-img {
-//     height: 226px;
-//     object-fit: contain;
-// }
-
-// ion-card .description-card-container {
-//     border-radius: 30px 30px 0 0;
-//     background-color: #F7F5F5;
-// }
+#footer {
+  position: fixed;
+  margin-top: 10px;
+  left: 0;
+  bottom: 100px;
+  width: 100%;
+  padding: 0px 20px;
+}
+.namePromotion{
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  width: 50%;
+  font-size: 36px;
+}
+.imgPromotion{
+  position: fixed;
+  right: -60px;
+  top: 100px;
+  z-index: -1;
+  max-width: 360px;
+}
+.DesPromotion{
+  font-size: 26px;
+  font-weight: 600;
+  color: #000000;
+  font-family: 'weblysleekuil';
+}
