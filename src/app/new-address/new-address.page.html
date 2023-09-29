@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <!-- <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button> -->
+        <ion-button class="btn-header">
+          <!-- <img width="25" height="25" src="../../assets/icon/backIcon.svg" alt="Back" /> -->
+        </ion-button>
+        <ion-button class="btn-header">
+          <img width="40" height="40" class="delivery-icon" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button class="btn-header">
+          <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
+          <img width="15" height="15" src="../../assets/icon/white-x.svg" alt="">
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="search-container">
+    <!-- <ion-searchbar [(ngModel)]="inputText" placeholder="Old Parr, Whisky" (ngModelChange)="getProductsSearched($event)"></ion-searchbar> -->
+    <ion-searchbar placeholder="Ingresa una dirección" ></ion-searchbar>
+    <figure>
+      <img src="../../assets/img/google.svg" alt="">
+    </figure>
+  </div>
+  <div class="google-results-container">
+    <figure>
+      <img src="../../assets/img/newAddressIcon.svg" alt="">
+    </figure>
+    <div class="btn-my-address-container">
+      <ion-button class="btn-footer">Usar mi ubicación actual</ion-button>
+    </div>
+  </div>
+</ion-content>

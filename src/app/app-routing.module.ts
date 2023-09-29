@@ -65,6 +65,10 @@ const routes: Routes = [
   {
     path: 'credit-card',
     loadChildren: () => import('./credit-card/credit-card.module').then( m => m.CreditCardPageModule)
+  },
+  {
+    path: 'new-address',
+    loadChildren: () => import('./new-address/new-address.module').then( m => m.NewAddressPageModule)
   }
 
 

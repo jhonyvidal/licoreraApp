@@ -1,0 +1,83 @@
+ion-header ion-toolbar {
+  --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-header {
+  margin: 0;
+  padding: 0;
+  width: 56px;
+}
+
+ion-content .search-container{
+  margin: 0;
+  padding-top: 20px;
+  width: 100%;
+  height: 13%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #F7F5F5;
+  ion-searchbar {
+    padding: 0;
+    width: 90%;
+    font-family: 'weblysleekuisb';
+    font-size: 16px;
+    font-weight: 600  ;
+    --background: rgb(255, 255, 255);
+    --box-shadow: rgba(46, 46, 46, 0.3) 0px 0px 0px 1px;
+    --border-radius: 10px;
+  }
+  figure {
+    margin: 0;
+    padding: 8px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    img {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+ion-content .google-results-container {
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  background-color: blue;
+  figure {
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: gray;
+    img {
+      margin: 0;
+      padding: 0;
+      width: 50px;
+    }
+  }
+  .btn-my-address-container {
+    // padding-bottom: 32px;
+    width: 90%;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
+    ion-button {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+

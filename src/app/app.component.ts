@@ -24,7 +24,7 @@ export class AppComponent {
     this.initializeApp();
     this.configService.fetchConfigs().subscribe(data => {
       if(data[0].name === "Welcome" && data[0].data === "true"){
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
       }
     });
   }
