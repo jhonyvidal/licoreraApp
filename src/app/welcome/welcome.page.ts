@@ -31,6 +31,11 @@ export class WelcomePage implements OnInit {
       birthday: ['', [Validators.required, this.fechaNacimientoValidator]],
       condition: [false, Validators.required]
     });
+    this.configService.fetchConfigs().subscribe(data => {
+      if(data[0].name === "Welcome" && data[0].data === "true"){
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   @Output() toUpdateConfig = new EventEmitter<{ command: string, database: string, config: ConfigData }>();

@@ -18,6 +18,7 @@ import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
+import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 
 export abstract class RequestGateway {
 

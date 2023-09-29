@@ -21,12 +21,7 @@ export class AppComponent {
     private platform: Platform,
     private readonly firebaseAuthenticationService: FirebaseAuthenticationService
      ) {
-    this.initializeApp();
-    this.configService.fetchConfigs().subscribe(data => {
-      // if(data[0].name === "Welcome" && data[0].data === "true"){
-      //   this.router.navigate(['/home']);
-      // }
-    });
+    this.initializeApp();   
   }
 
   //Firebase
