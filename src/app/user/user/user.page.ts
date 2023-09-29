@@ -10,6 +10,12 @@ import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { Router } from '@angular/router';
+import { UsertAlerts } from 'src/shared/components/alert.user.component';
+import { AlertController } from '@ionic/angular';
+import { UserService } from 'src/store/services/user.service';
+import { Injector } from "@angular/core";
+import { Observable } from 'rxjs';
+import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +23,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.page.scss','./user.page2.scss'],
 })
 export class UserPage implements OnInit {
+
+  // items$: Observable<DataArray[]>;
 
   myForm: FormGroup;
   readOnly: boolean = true;
@@ -34,27 +42,31 @@ export class UserPage implements OnInit {
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
   loginToken: string;
-  paymentMethods: any = [
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-    {
-      cardNumber: '4513 **** **** 1234',
-      starImage: this.starEmpty
-    },
-  ];
+  appInjectorRef: Injector;
+  numberOfcard: string;
+  // paymentMethods: any = [
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  //   {
+  //     cardNumber: '4513 **** **** 1234',
+  //     starImage: this.starEmpty
+  //   },
+  // ];
 
-
+  miVariableObservable: Observable<boolean>;
   paymentMethodsList: DataArray[] = [];
+
+  addressList1: LocationsResponse["data"] = [];
 
   addressList: any = [
     {
@@ -68,17 +80,23 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     }
   ];
-  yaConsulto: boolean = false;
-  loginV2Data: LoginV2Request = {
-    email: "diego4@mail.com",
-    password: "Diego1234"
-  }
-  loginV2Token: string;
+
+  // yaConsulto: boolean = false;
+
+  // loginV2Data: LoginV2Request = {
+  //   email: "diego4@mail.com",
+  //   password: "Diego1234"
+  // }
+
+  // loginV2Token: string;
+
 
   constructor(
     public formBuilder: FormBuilder,
     private requestUseCase: RequestUseCases,
     private router: Router,
+    private alertController: AlertController,
+    private userService: UserService
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required, ]],
@@ -92,8 +110,8 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
-    // Hacer el login de la nueva api v2
     this.getPaymentMethods();
+    this.getLocations();
 
     this.getClientData();
 
@@ -107,6 +125,30 @@ export class UserPage implements OnInit {
       }
     })
     this.detectChanges();
+  }
+
+  ionViewWillEnter() {
+    this.getPaymentMethods()
+  }
+
+  getLocations() {
+    this.userService.getUserData()
+    .then(data => {
+      // console.log('Api token: ', data.api_token);
+      this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
+        if (response.success === true) {
+          // this.paymentMethodsList = response.data;
+          this.addressList1 = response.data;
+          console.log(this.addressList1);
+          
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
   }
 
   getClientData(){
@@ -138,20 +180,42 @@ export class UserPage implements OnInit {
 
   async getPaymentMethods(){
 
-    this.requestUseCase.postLoginV2(this.loginV2Data).subscribe(async response => {
-      if (response.success === true) {
-        this.loginToken = response?.data?.token;
-        this.requestUseCase.getPaymentMethodsV2(this.loginToken).subscribe(response1 => {
-          if (response1.success === true) {
-            console.log(response1);
-            this.paymentMethodsList = response1.data;
-          } else {
-            console.log('Body del error response1: ', response1);
-          }
-        })
-      } else {
-        console.log('Body del error response: ', response);
-      }
+    this.userService.getUserData()
+    .then(data => {
+      console.log('Api token: ', data.api_token);
+      this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
+        if (response.success === true) {
+          this.paymentMethodsList = response.data;
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
+
+  }
+
+  deletePaymentMethod(id: number){
+    const deleteJson: DeletePaymentMethodsRequest = {
+      'id': id
+    }
+
+    // this.showAlertDeletePaymentMethod();
+    this.userService.getUserData()
+    .then(data => {      
+      this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
+        if (response.success === true) {
+          console.log(`Payment method ${id} was deleted...`);
+          this.getPaymentMethods();
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
     });
 
   }
@@ -210,15 +274,15 @@ export class UserPage implements OnInit {
     this.btnText = this.ionSegment === 1 ? 'Editar' : 'Agregar';
   }
 
-  selectCard(index: number){
-    for (let i = 0; i < this.paymentMethods.length; i++) {
-      if (i === index) {
-        this.paymentMethods[i].starImage = this.starSelected;
-      }else{
-        this.paymentMethods[i].starImage = this.starEmpty;
-      }
-    }
-  }
+  // selectCard(index: number){
+  //   for (let i = 0; i < this.paymentMethods.length; i++) {
+  //     if (i === index) {
+  //       this.paymentMethods[i].starImage = this.starSelected;
+  //     }else{
+  //       this.paymentMethods[i].starImage = this.starEmpty;
+  //     }
+  //   }
+  // }
 
   selectAddress(index: number){
     for (let i = 0; i < this.addressList.length; i++) {
@@ -234,20 +298,31 @@ export class UserPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  deletePaymentMethod(id: number){
-    const deleteJson: DeletePaymentMethodsRequest = {
-      'id': id
-    }
-    this.requestUseCase.postDeletePaymentMethods(this.loginToken, deleteJson).subscribe(async response => {
-      if (response.success === true) {
-        console.log(`Payment method ${id} was deleted...`);
-        this.getPaymentMethods();
+  // Alerts
+  async showAlertLogout() {
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
+    await usert_alerts.presentAlertUser(
+      this.alertController,
+      'INFORMACIÓN',
+      '¿Seguro que quieres cerrar sesión?',
+      'logout',
+      undefined,
+      // this.appInjectorRef
+    );
+  }
 
-      } else {
-        console.log('Body del error response: ', response);
-      }
-    });
-
+  async showAlertDeletePaymentMethod(id: number, cardNumber: string) {
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
+    await usert_alerts.presentAlertUser(
+      this.alertController,
+      `${cardNumber.substring(0, 4)} **** **** ${cardNumber.substring(12, 16)}`,
+      '¿Seguro que quieres eliminar esta tarjeta?',
+      'areYouSure',
+      undefined,
+      id,
+      () => this.deletePaymentMethod(id)
+      // this.appInjectorRef
+    );
   }
 
 }

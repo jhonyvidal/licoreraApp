@@ -24,22 +24,22 @@
     <div [formGroup]="myForm" class="form-container">
       <p>Número de la tarjeta</p>
       <div class="card-number-contaienr">
-        <ion-input  formControlName="cardNumber"  class="custom" type="number" placeholder="1234 5678 9101 1121" required></ion-input>
+        <ion-input  formControlName="number" class="custom" minlength="16" maxlength="16" type="pin" placeholder="1234 5678 9101 1121" required></ion-input>
         <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
       </div>
       <div class="fecha-cvv-container">
         <div class="fecha-container">
           <p>Fecha de expiración</p>
-          <ion-input  formControlName="date"  class="custom" type="date" placeholder="10/2025" required></ion-input>
+          <ion-input  formControlName="expirationDate"  class="custom" type="date" placeholder="10/2025" required></ion-input>
         </div>
         <div class="cvv-container">
           <p>CVV</p>
-          <ion-input  formControlName="cardNumber"  class="custom" type="number" placeholder="123" required></ion-input>
+          <ion-input  formControlName="cvv" class="custom" minlength="3" maxlength="3" type="pin" placeholder="123" required></ion-input>
         </div>
       </div>
       <div class="card-name-container">
         <p>Nombre en la tarjeta</p>
-        <ion-input  formControlName="cardNumber"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+        <ion-input  formControlName="name"  class="custom" type="text" placeholder="Nombres" required></ion-input>
       </div>
     </div>
     <div class="safe-paymnet-container">
@@ -53,7 +53,7 @@
   <ion-toolbar>
     <ion-buttons>
       <div class="btn-footer-container">
-        <ion-button class="btn-footer-disabled">Agregar</ion-button>
+        <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="showAlertCreatePaymentMethod()">Agregar</ion-button>
       </div>
     </ion-buttons>
   </ion-toolbar>

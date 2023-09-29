@@ -18,10 +18,11 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
-import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
+import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
-import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
+import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -56,7 +57,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('search?q=' + inputSearched,headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as BasicDataOut
       })
     )
@@ -111,7 +112,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('suggestedProducts',headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as BasicDataOut
       })
     )
@@ -123,7 +124,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('categories',headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as CategoriesOut
       })
     )
@@ -135,7 +136,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get('categories/' + id + '/products?page=' + page, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as CategoriesByProductOut
       })
     )
@@ -159,7 +160,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.get(`clients/${userId}/points`, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as ClientPointsData
       })
     )
@@ -175,7 +176,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.post('login', data , headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginResponse
       })
     )
@@ -190,7 +191,7 @@ export  class RequestApiService extends RequestGateway {
       );
     return this.http.post('clients/rememberPassword', data , headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginResponse
       })
     )
@@ -234,10 +235,23 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getLocationsV2(token: string):Observable<LocationsResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/me/locations', headers).pipe(
+      map(response => {
+        return response as LocationsResponse
+      })
+    )
+  }
+
   postLoginV2(data: LoginV2Request): Observable<LoginV2Response> {
     return this.http.postV2('api/v2/login', data).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as LoginV2Response
       })
     )
@@ -251,8 +265,22 @@ export  class RequestApiService extends RequestGateway {
     );
     return this.http.postDelete('api/v2/me/paymentMethods/remove', data, headers).pipe(
       map(response => {
-        console.log(response)
+        // console.log(response)
         return response as DeletePaymentResponse
+      })
+    )
+  }
+
+  postPaymentMethods(token: string, data: PostPaymentMethodsRequest): Observable<PostPaymentMethodsResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postPaymentMethods('api/v2/me/paymentMethods/add', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as PostPaymentMethodsResponse
       })
     )
   }

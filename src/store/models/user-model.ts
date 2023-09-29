@@ -17,4 +17,5 @@ export interface UserModel  extends BaseResponse {
     updated_at: string;
     deleted_at?: string | null;
     token: string;
+    api_token: string
 }

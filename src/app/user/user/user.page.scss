@@ -98,3 +98,167 @@ ion-content .user-profile-info-container .profile-numbers-data-container .pedido
   font-family: 'weblysleekuisb';
 }
 
+ion-content .user-profile-info-container .profile-numbers-data-container .vertical-divider {
+  width: 1px;
+  height: 30px;
+  background-color: black;
+}
+
+ion-content .user-profile-info-container .profile-numbers-data-container .canjes {
+  // background-color: red;
+}
+
+ion-content .user-profile-info-container .profile-numbers-data-container .canjes p{
+  margin: 0;
+  text-align: center;
+  font-size: 16px;
+  font-family: 'weblysleekuisb';
+}
+
+ion-content .user-profile-info-container ion-segment {
+  margin: 0 auto 0 auto;
+  width: 90%;
+  height: 10%;
+}
+
+.in-segment{
+  font-family: HudsonNYSerif;
+  color: #8F8F8F;
+  // margin-right: 5px;
+}
+
+.segment-button-checked.md::part(native) {
+  font-family: HudsonNYSerif;
+  color: #000000;
+}
+
+ion-segment-button::part(indicator-background) {
+  background: #99791C;
+}
+
+ion-content .user-profile-info-container .aun {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .user-profile-info-container .aun h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+ion-content .user-profile-info-container .aun p {
+  margin: 0;
+  font-family: 'weblysleekuil';
+  font-size: 14px;
+}
+
+ion-content .user-profile-info-container .payment-list-container {
+  padding: 0 0 50px;
+  width: 90%;
+  margin: 27px auto;
+  height: 70%;
+  overflow: auto;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container {
+  margin: 20px 0;
+  width: 80%;
+  display: flex;
+  // justify-content: space-between;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container div{
+  margin-left: 16px;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container h2{
+  margin: 0;
+  font-size: 16px;
+  font-family: 'weblysleekuisb';
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container p{
+  margin: 0;
+  font-family: 'weblysleekuil';
+  font-size: 12px;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .star-container {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item-options ion-item-option {
+  background-color: #FF1806;
+}
+
+ion-content .user-profile-info-container .info-container {
+  margin: 30px auto 0 auto;
+  width: 90%;
+}
+
+ion-content .user-profile-info-container .info-container .full-name-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-content .user-profile-info-container .info-container .full-name-container ion-input{
+  width: 45%;
+  font-size: 14px;
+}
+
+ion-content .user-profile-info-container .info-container ion-input{
+  margin-top: 16px;
+}
+
+ion-content .user-profile-info-container .info-container .custom {
+  --background: #ffff;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  border-bottom: solid 1px;
+}
+
+ion-content .user-profile-info-container .aun-address {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content .user-profile-info-container .aun-address h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+ion-content .user-profile-info-container .aun-address p {
+  margin: 0;
+  font-family: 'weblysleekuil';
+  font-size: 14px;
+}
+
+.btn-footer-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-footer {
+  width: 90%;
+  height: 45px;
+  margin: 0 0 30px 0;
+  --background: var(--btnClientColor);
+  font-family: 'HudsonNYSerif';
+  font-size: 17px;
+  color: black;
+  border: 2px solid black;
+  --box-shadow: none;
+  border-radius: 5px;
+}

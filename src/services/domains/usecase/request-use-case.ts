@@ -16,10 +16,11 @@ import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
-import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
+import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
-import { DeletePaymentResponse } from 'src/shared/domain/response/DeletePaymentResponse';
+import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
+import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 
 @Injectable()
 export class RequestUseCases {
@@ -95,12 +96,20 @@ export class RequestUseCases {
     return this._requestGateWay.getPaymentMethodsV2(token);
   }
 
+  getLocationsV2(token: string) : Observable <LocationsResponse> {
+    return this._requestGateWay.getLocationsV2(token);
+  }
+
   postLoginV2(data: LoginV2Request) : Observable <LoginV2Response> {
     return this._requestGateWay.postLoginV2(data);
   }
 
   postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse> {
     return this._requestGateWay.postDeletePaymentMethods(token, data);
+  }
+
+  postPaymentMethods(token: string, data: PostPaymentMethodsRequest) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.postPaymentMethods(token, data);
   }
 
   getMe(token: string) : Observable <UserModel> {

@@ -10,7 +10,7 @@
         </ion-button>
         <ion-button class="btn-header">
           <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
-          <img width="15" height="15"   src="../../assets/icon/white-x.svg" alt="">
+          <img width="15" height="15" (click)="goHome()"  src="../../assets/icon/white-x.svg" alt="">
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
@@ -19,7 +19,7 @@
 <ion-content [fullscreen]="true">
   <div class="profile-header-container">
     <ion-buttons>
-      <ion-button class="btn-logout" (click)="goHome()">
+      <ion-button class="btn-logout" (click)="showAlertLogout()">
         <img width="15" height="15"   src="../../assets/icon/logout-icon.svg" alt="">
       </ion-button>
     </ion-buttons>
@@ -58,7 +58,7 @@
         <ion-label>Direcciones</ion-label>
       </ion-segment-button>
     </ion-segment>
-    <div class="aun" *ngIf="ionSegment === 2 && paymentMethods.length <= 0">
+    <div class="aun" *ngIf="ionSegment === 2 && paymentMethodsList.length <= 0">
       <h2>Aún no tiene tarjetas guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
@@ -68,7 +68,7 @@
           <div class="credit-card-info-container">
             <img src="../../../assets/icon/credit-card.svg" alt="">
             <div>
-              <h2>{{item.number}}</h2>
+              <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2>
               <p>{{item.name}}</p>
             </div>
           </div>
@@ -79,7 +79,7 @@
           </ion-buttons>
         </ion-item>
         <ion-item-options>
-          <ion-item-option (click)="deletePaymentMethod(item.id)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+          <ion-item-option (click)="showAlertDeletePaymentMethod(item.id, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
@@ -97,7 +97,7 @@
       <p>Agrega una para continuar</p>
     </div>
     <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
-      <ion-item-sliding *ngFor="let item of addressList; index as i">
+      <ion-item-sliding *ngFor="let item of addressList1; index as i">
         <ion-item>
           <div class="credit-card-info-container">
             <img src="../../../assets/icon/location-user.svg" alt="">
@@ -108,7 +108,7 @@
           </div>
           <ion-buttons class="star-container">
             <ion-button (click)="selectAddress(i)">
-              <img [src]="item.starImage" alt="">
+              <img [src]="starSelected" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>

@@ -2,7 +2,7 @@ import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/commo
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginV2Request } from '../domain/request/LoginV2Request';
-import { DeletePaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
+import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -37,11 +37,19 @@ export class BaseApiService {
     return this.http.get(`${this.urlV2}${path}`, {headers});
   }
 
+  // getLocationsV2(path: string, headers?: HttpHeaders) {
+  //   return this.http.get(`${this.urlV2}${path}`, {headers});
+  // }
+
   postV2(path: string, data: LoginV2Request, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
   postDelete(path: string, data: DeletePaymentMethodsRequest, headers?:HttpHeaders) {
+    return this.http.post(`${this.urlV2}${path}`, data , { headers } );
+  }
+
+  postPaymentMethods(path: string, data: PostPaymentMethodsRequest, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 

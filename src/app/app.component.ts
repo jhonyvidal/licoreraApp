@@ -15,7 +15,7 @@ register()
 })
 export class AppComponent {
 
-  constructor( 
+  constructor(
     private configService: ConfigService,
     private router: Router,
     private platform: Platform,
@@ -33,5 +33,5 @@ export class AppComponent {
   private async initializeApp(): Promise<void> {
     await this.firebaseAuthenticationService.initialize();
   }
-  
+
 }
