@@ -24,12 +24,54 @@
       <img src="../../assets/img/google.svg" alt="">
     </figure>
   </div>
-  <div class="google-results-container">
+  <div class="currentLocation">
     <figure>
       <img src="../../assets/img/newAddressIcon.svg" alt="">
     </figure>
-    <div class="btn-my-address-container">
-      <ion-button class="btn-footer">Usar mi ubicación actual</ion-button>
+    <div class="btn-my-address-container" (click)="currentLocation()">
+      <p>Usar mi ubicación actual</p>
+    </div>
+  </div>
+  <div class="google-results-container">
+    <div class="results-list">
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+      <div class="google-result">
+        <h2>Altos de cañaveral etapa 5</h2>
+        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+      </div>
+    </div>
+    <div class="not-find">
+      <div class="not-find-container">
+        <!-- <div class="title-container"> -->
+          <h2>¿No encuentras la dirección?</h2>
+          <!-- <img src="" alt=""> -->
+        <!-- </div> -->
+        <p class="arrow">></p>
+        <p>Fija un punto en el mapa para la entrega</p>
+      </div>
     </div>
   </div>
 </ion-content>

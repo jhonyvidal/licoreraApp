@@ -12,4 +12,9 @@ export class NewAddressPage implements OnInit {
   ngOnInit() {
   }
 
+  currentLocation(){
+    console.log('Current location');
+
+  }
+
 }
