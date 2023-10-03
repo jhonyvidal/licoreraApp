@@ -69,6 +69,10 @@ const routes: Routes = [
   {
     path: 'campaign-details',
     loadChildren: () => import('./campaign-details/campaign-details.module').then( m => m.CampaignDetailsPageModule)
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   }
 
 
