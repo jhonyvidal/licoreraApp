@@ -69,6 +69,10 @@ const routes: Routes = [
   {
     path: 'new-address',
     loadChildren: () => import('./new-address/new-address.module').then( m => m.NewAddressPageModule)
+  },
+  {
+    path: 'new-address-map',
+    loadChildren: () => import('./new-address-map/new-address-map.module').then( m => m.NewAddressMapPageModule)
   }
 
 

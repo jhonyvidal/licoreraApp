@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-address',
@@ -7,14 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewAddressPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
 
   currentLocation(){
     console.log('Current location');
+  }
 
+  goToMap(){
+    this.router.navigate(['/new-address-map']);
   }
 
 }
