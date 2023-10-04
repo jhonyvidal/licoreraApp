@@ -42,7 +42,7 @@ const routes: Routes = [
     path: 'create-account',
     loadChildren: () => import('./create-account/create-account.module').then( m => m.CreateAccountPageModule)
   },
- 
+
   {
     path: 'recent-orders',
     loadChildren: () => import('./orders/recent-orders/recent-orders.module').then( m => m.RecentOrdersPageModule)
@@ -58,7 +58,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },  {
+  },
+  {
     path: 'user',
     loadChildren: () => import('./user/user/user.module').then( m => m.UserPageModule)
   },
@@ -73,7 +74,12 @@ const routes: Routes = [
   {
     path: 'new-address-map',
     loadChildren: () => import('./new-address-map/new-address-map.module').then( m => m.NewAddressMapPageModule)
-  }
+  },
+  {
+    path: 'campaign-details',
+    loadChildren: () => import('./campaign-details/campaign-details.module').then( m => m.CampaignDetailsPageModule)
+  },
+
 
 
 

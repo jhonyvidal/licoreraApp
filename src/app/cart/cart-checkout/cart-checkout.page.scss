@@ -7,6 +7,14 @@
     background: white;
     z-index: 2;
   }
+  .hiddeFooter{
+    display: none;
+  }
+  ion-footer {
+    // position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
   .content-form{
     max-height: 60%;
     overflow: scroll;

@@ -8,7 +8,6 @@ import { RecommendedProducts } from 'src/shared/domain/response/RecommendedProdu
 import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { LoginResponse } from 'src/shared/domain/response/LoginResponse';
-import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
@@ -19,12 +18,15 @@ import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
+import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 
 export abstract class RequestGateway {
 
     abstract getIsActive (token:string) : Observable <ActiveResponse>;
     abstract getSuggestedProducts (token:string) : Observable <suggestedProducts>;
     abstract getPromotion(token: string): Observable<suggestedProducts> ;
+    abstract getCampains(token: string): Observable<suggestedProducts> ;
+    abstract getNewProducts(token: string): Observable<suggestedProducts> ;
     abstract getPromotions(token:string, promotionPage: number): Observable<PromotionsData>;
     abstract getProductSearch(token:string, inputSearched: string): Observable<ProductSearch>;
     abstract getRecommendedProducts(token:string): Observable<RecommendedProducts>;

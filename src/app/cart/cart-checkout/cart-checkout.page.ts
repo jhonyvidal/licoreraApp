@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-cart-checkout',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CartCheckoutPage implements OnInit {
   myForm: FormGroup;
+  buttonWelcome = 'contentPayChild';
 
   constructor(public formBuilder: FormBuilder) {
     this.myForm = this.formBuilder.group({
@@ -18,6 +20,14 @@ export class CartCheckoutPage implements OnInit {
       contact: ['', [Validators.required]],
       paymentMethod: ['', [Validators.required]],
       disccount: ['', []],
+    });
+
+    Keyboard.addListener('keyboardDidShow', () => {
+      this.buttonWelcome = "hiddeFooter";
+    });
+
+    Keyboard.addListener('keyboardDidHide', () => {
+      this.buttonWelcome = "contentPayChild";
     });
   }
 

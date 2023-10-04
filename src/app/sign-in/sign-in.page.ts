@@ -8,6 +8,8 @@ import { UserModel } from 'src/store/models/user-model';
 import { UserService } from 'src/store/services/user.service';
 import { DialogService, FirebaseAuthenticationService } from '../core';
 import { User } from '@capacitor-firebase/authentication';
+import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -97,23 +99,31 @@ export class SignInPage implements OnInit {
   }
 
   submit() {
+    const data:LoginV2Request={
+      email:this.myForm.get('email')?.value,
+      password:this.myForm.get('password')?.value
+    }
     this.requestUseCase
-      .postLogin(
-        'token',
-        this.myForm.get('email')?.value,
-        this.myForm.get('password')?.value
+      .postLoginV2(
+        data
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error en la suscripción:', error);
+          this.showAlert();
+          return throwError(error); 
+        })
       )
       .subscribe((response) => {
         if (response.success === true) {
           if (response.data === null) {
             this.showAlert();
           } else {
-            this.userService.login(response.data);
-            this.router.navigate(['/home']);
+            this.getMe(response.data.token)
           }
-          console.log(response);
+          console.log('this:',response);
         } else {
-          console.log(response);
+          this.showAlert();
         }
       });
   }
@@ -178,7 +188,7 @@ export class SignInPage implements OnInit {
           });
           break;
       }
-      await this.router.navigate(['/home']);
+      // await this.router.navigate(['/home']);
     } finally {
       await loadingElement.dismiss();
     }

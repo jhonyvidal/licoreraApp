@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <ion-button (click)="goBack()">
+          <img src="../../assets/icon/backIcon.svg" alt="Back" />
+        </ion-button>
+        <div class="dev-logo-header" style="margin-right: 0px;">
+          <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </div>
+        <ion-button>
+          <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <div style="padding: 0px 20px;">
+    <div  style="border-radius: 15px; overflow: hidden;">
+      <ion-img [src]="campaignData?.mainImageUrl" alt="fondo Blanco"></ion-img>
+    </div>
+    <div>
+      <h1 class="title">{{campaignData?.name}}</h1>
+    </div>
+    <div>
+      <h5 >
+        <div [innerHTML]="campaignData?.description"></div>
+      </h5>
+    </div>  
+  
+
+    <ion-toolbar *ngIf="campaignData?.products.length > 0 && campaignData?.type === 'Producto'" style="height: 350px;">
+      <ion-grid>
+        <h2 class="title">PRODUCTOS</h2>
+      </ion-grid>
+      <swiper-container  [spaceBetween]="10"  [freeMode]="true" [slidesPerView]="campaignData.products.length > 2.5 ? 2.5 : campaignData.products.length" >
+        <swiper-slide class="recomendados"  *ngFor="let data of campaignData.products"  (click)="getProductDetail(data)">
+          <div class="swiperContainer" >
+            <div class="swiperRecomendado"><ion-img [src]="data.store.product.image" alt="fondo Blanco"></ion-img></div>
+            <h1 class="text-center">{{data.store.product.name | customPipe: 1}}</h1>
+            <p class="font-w300 text-center">{{data.store.product.name | customPipe: 2}}</p>
+            <p class="text-center description">{{data.store.product.description.slice(0,50)}}...</p>
+            <span class="text-center">{{data.store.price | customCurrency :'.':'$ '}}</span>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </ion-toolbar>
+
+    <div id="footer" *ngIf="campaignData?.type === 'categoria' ">
+      <div class="custom-body-center" style="padding: 0px 20px;">
+        <ion-button  (click)="routerLink(campaignData?.categoryId)" class="categoryButton"><span style="margin-top: -5px;">VER PRODUCTOS</span></ion-button>
+      </div> 
+    </div>
+
+  </div>
+</ion-content>

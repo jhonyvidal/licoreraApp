@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginV2Request } from '../domain/request/LoginV2Request';
@@ -10,8 +10,11 @@ import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domai
 export class BaseApiService {
   private url = environment.apiUrl;
   private urlV2 = environment.apiUrlV2;
+  private http: HttpClient;
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private handler: HttpBackend) { 
+    this.http = new HttpClient(handler);
+  }
 
   get(path: string, headers?:HttpHeaders) {
     return this.http.get(`${this.url}${path}`, { headers });

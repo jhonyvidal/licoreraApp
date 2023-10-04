@@ -6,10 +6,14 @@ import { Product, cartModel } from 'src/store/models/cart.model';
 })
 export class CartModelPipe implements PipeTransform {
   transform(data: any): cartModel | null {
+    let value = data;
     if (!data) {
       return null;
     }
-    const value = data.product
+   
+    if(data?.product){
+      value = data.product
+    }
    
     const newProduct : Product =  {
         id: value.id,
@@ -31,7 +35,7 @@ export class CartModelPipe implements PipeTransform {
       product_id: value.product_id,
       quantity: value.quantity,
       quantitySelected: value.quantitySelected ?? null,
-      price: value.store.price ?? null,
+      price: data.price ?? value?.store?.price ?? null,
       status: value.status,
       start_date: value.start_date ?? null,
       end_date: value.end_date ?? null,

@@ -22,10 +22,13 @@ export class ProductDetailsPage implements OnInit {
 
   pageNumber: number = 1;
   product: Product = {};
+  details:any;
   showFeatures: boolean;
   beforePrice: boolean;
   quantity: number;
   isSuccess:boolean = false;
+  isPromotion:boolean = false;
+  isNewProduct:boolean = false;
   
   constructor(
     private alertController: AlertController,
@@ -42,15 +45,20 @@ export class ProductDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.product = this.shareObjectService.getObjetoCompartido().product;
+    this.details = this.shareObjectService.getObjetoCompartido()
+    this.details.origin_page === 'Promotion' ? this.isPromotion = true : null;
+    this.details.origin_page === 'NewProduct' ? this.isNewProduct = true : null;
+    this.product = this.details.product;
 
+    console.log(this.details);
+    
+    
     if (!this.localStorageQuantity) {
       window.localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(1));
       this.quantity = JSON.parse(window.localStorage.getItem('QUANTITY_PRODUCT') as string);
     }else{
       this.quantity = JSON.parse(this.localStorageQuantity);
     }
-
   }
 
   addBtn() {
