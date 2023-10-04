@@ -58,7 +58,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },  {
+  },
+  {
     path: 'user',
     loadChildren: () => import('./user/user/user.module').then( m => m.UserPageModule)
   },
@@ -73,7 +74,19 @@ const routes: Routes = [
   {
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },
+  {
+    path: 'new-address',
+    loadChildren: () => import('./new-address/new-address.module').then( m => m.NewAddressPageModule)
+  },
+  {
+    path: 'new-address-map',
+    loadChildren: () => import('./new-address-map/new-address-map.module').then( m => m.NewAddressMapPageModule)
+  },  {
+    path: 'payment-methods',
+    loadChildren: () => import('./payment-methods/payment-methods.module').then( m => m.PaymentMethodsPageModule)
   }
+
 
 
 

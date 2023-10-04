@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <ion-button (click)="goBack()">
+          <img src="../../assets/icon/backIcon.svg" alt="Back" />
+        </ion-button>
+        <div class="dev-logo-header">
+          <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </div>
+        <ion-button>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense" class="h60">
+  </ion-header>
+  <ion-toolbar>
+    <ion-segment value="all">
+      <ion-segment-button value="all" (click)="show(1)">
+        <img class="payment-icon" width="50" src="../../assets/icon/pse.svg" alt="PSE">
+        <ion-label class="segmentLabel">PAGO PSE</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="favorites" (click)="show(2)" >
+        <img class="payment-icon" width="50" src="../../assets/icon/credit.svg" alt="PSE">
+        <ion-label  class="segmentLabel">T. CREDITO</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="productoNuevos"  (click)="show(3)" >
+        <img  *ngIf="ionSegment !== 3" class="payment-icon" width="50" src="../../assets/icon/contado.svg" alt="PSE">
+        <img  *ngIf="ionSegment === 3" class="payment-icon" width="50" src="../../assets/icon/contado-blanco.svg" alt="PSE">
+        <ion-label class="segmentLabel">EN CASA</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="ionSegment === 3" class="customContent">
+    <ion-radio-group value="segment3">
+      <ion-radio value="Efectivo">Efectivo</ion-radio><br />
+      <ion-radio value="Tarjeta débito/crédito">Tarjeta débito/crédito</ion-radio>
+    </ion-radio-group>
+  </ion-toolbar>
+  <div class="footer">
+    <ion-button  (click)="submit()" class="buttonSubmit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
+  </div>
+</ion-content>
