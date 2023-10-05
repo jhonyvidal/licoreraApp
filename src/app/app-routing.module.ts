@@ -78,7 +78,11 @@ const routes: Routes = [
   {
     path: 'campaign-details',
     loadChildren: () => import('./campaign-details/campaign-details.module').then( m => m.CampaignDetailsPageModule)
+  },  {
+    path: 'new-address-confirm',
+    loadChildren: () => import('./new-address-confirm/new-address-confirm.module').then( m => m.NewAddressConfirmPageModule)
   },
+
 
 
 

@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class NewAddressMapPage implements OnInit {
 
   myForm: FormGroup;
+  isFormValid: boolean = true;
+  btnCSS: string = 'btn-footer-disabled';
 
   constructor(
     private router: Router,
@@ -21,6 +23,15 @@ export class NewAddressMapPage implements OnInit {
   }
 
   ngOnInit() {
+    this.myForm.valueChanges.subscribe(() => {
+      if (this.myForm.valid) {
+        this.isFormValid = false;
+        this.btnCSS = 'btn-footer';
+      }else{
+        this.isFormValid = true;
+        this.btnCSS = 'btn-footer-disabled';
+      }
+    });
   }
 
   goToNewAddress(){
@@ -28,7 +39,7 @@ export class NewAddressMapPage implements OnInit {
   }
 
   goToConfirmAddress(){
-    this.router.navigate(['/new-address']);
+    this.router.navigate(['/new-address-confirm']);
   }
 
 }
