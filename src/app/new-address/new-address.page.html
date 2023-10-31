@@ -19,7 +19,7 @@
 <ion-content [fullscreen]="true">
   <div class="search-container">
     <!-- <ion-searchbar [(ngModel)]="inputText" placeholder="Old Parr, Whisky" (ngModelChange)="getProductsSearched($event)"></ion-searchbar> -->
-    <ion-searchbar placeholder="Ingresa una dirección" ></ion-searchbar>
+    <ion-searchbar placeholder="Ingresa una direcciónasd" [(ngModel)]="inputText" (ngModelChange)="getLocation($event)"></ion-searchbar>
     <figure>
       <img src="../../assets/img/google.svg" alt="">
     </figure>

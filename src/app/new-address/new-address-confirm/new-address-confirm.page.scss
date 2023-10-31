@@ -1,0 +1,100 @@
+ion-header ion-toolbar {
+    --background: #272727;
+    ion-buttons {
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      .btn-header {
+        margin: 0;
+        padding: 0;
+        width: 56px;
+      }
+    }
+  }
+  
+  ion-content {
+    .header-container, .thumbnail-container {
+      margin: 0 auto;
+      padding: 30px 0 20px 0;
+      width: 90%;
+      h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+        font-family: 'weblysleekuisb';
+      }
+      p {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        font-family: 'weblysleekuisb';
+        color: #9E9E9E;
+      }
+    }
+    figure {
+      margin: 0 auto;
+      padding: 0;
+      width: 90%;
+    }
+    .form-container {
+      margin: 0 auto;
+      width: 90%;
+      .custom {
+        --background: #ffff;
+        --color: #000000;
+        --placeholder-color: #ddd;
+        --placeholder-opacity: 0.8;
+        --padding-end: 10px;
+        --padding-start: 10px;
+        border-bottom: solid 1px;
+      }
+    }
+    ion-buttons {
+      margin-top: 30px;
+      // background-color: #000000;
+      .btn-footer-container {
+        margin: 0 auto;
+        width: 90%;
+        // background-color: #272727;
+        .btn-footer {
+          width: 100%;
+          height: 45px;
+          margin: 0 0 0 0;
+          --background: white;
+          font-family: 'HudsonNYSerif';
+          font-size: 17px;
+          color: black;
+          border: 2px solid black;
+          --box-shadow: none;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+
+ion-checkbox {
+    --size: 37px;
+    --checkbox-background-checked:  url(../../../assets/img/checkBoxChecked.svg);
+    --checkbox-background: url(../../../assets/img/checkBox.svg);
+}
+  
+ion-checkbox::part(container) {
+   border: none;
+}
+ion-checkbox::part(mark) {
+    display: none;
+}
+
+svg .checkbox-icon{
+    border-radius: 20px !important;
+}
+.custom-checkbox{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-left: 10px;
+}
+.mb-10{
+    margin-bottom: 30px;
+}
+  

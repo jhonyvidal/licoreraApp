@@ -12,8 +12,10 @@ export const environment = {
   //start DEV Enviroments
   apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
   apiUrlV2: 'https://dev.licorera3jjjs.com/',
+  apiGoogleMap: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=',
+  ApiKey:'AIzaSyBsSA1CAEjidYGVeDHfHxnemdHMnCzjvh4',
   //finsh PROD Enviroments
-
+  
   databaseNames:[
     {name:"starter_posts"},
     {name:"starter_employees"},

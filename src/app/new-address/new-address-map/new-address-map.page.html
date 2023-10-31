@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <!-- <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button> -->
+        <ion-button class="btn-header" (click)="goToNewAddress()">
+          <img width="25" height="25" src="../../assets/icon/backIcon.svg" alt="Back" />
+        </ion-button>
+        <ion-button class="btn-header">
+          <img width="100" height="100" class="delivery-icon" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button class="btn-header">
+          <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
+          <!-- <img width="15" height="15" src="../../assets/icon/white-x.svg" alt=""> -->
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="header-container">
+    <h2>Ubica la dirección en el mapa</h2>
+    <p>Mueve el punto amarillo a tu posición</p>
+  </div>
+ 
+  <figure>
+    <capacitor-google-map #map></capacitor-google-map>
+  </figure>
+  <div class="thumbnail-container">
+    <h2>Completa tu dirección</h2>
+    <p>Agrega la nomenclaruta que haga falta</p>
+  </div>
+  <div [formGroup]="myForm" class="form-container">
+    <ion-input  formControlName="addressInput" class="custom" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
+  </div>
+  <ion-buttons>
+    <div class="btn-footer-container">
+      <!-- <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="showAlertCreatePaymentMethod()">Agregar</ion-button> -->
+      <ion-button class="btn-footer" (click)="goToConfirmAddress()">Confirmar</ion-button>
+    </div>
+  </ion-buttons>
+</ion-content>

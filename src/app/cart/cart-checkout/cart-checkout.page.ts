@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
@@ -11,8 +12,9 @@ import { Keyboard } from '@capacitor/keyboard';
 export class CartCheckoutPage implements OnInit {
   myForm: FormGroup;
   buttonWelcome = 'contentPayChild';
+  contentform = 'content-form';
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public formBuilder: FormBuilder,private router: Router) {
     this.myForm = this.formBuilder.group({
       location: ['', [Validators.required]],
       address: ['', [Validators.required]],
@@ -21,15 +23,25 @@ export class CartCheckoutPage implements OnInit {
       paymentMethod: ['', [Validators.required]],
       disccount: ['', []],
     });
+    const platform = Capacitor.getPlatform();
 
-    Keyboard.addListener('keyboardDidShow', () => {
-      this.buttonWelcome = "hiddeFooter";
-    });
+    if(platform !== "web") {
+      Keyboard.addListener('keyboardDidShow', () => {
+        this.buttonWelcome = "hiddeFooter";
+        this.contentform = "content-form-full";
+      });
 
-    Keyboard.addListener('keyboardDidHide', () => {
-      this.buttonWelcome = "contentPayChild";
-    });
+      Keyboard.addListener('keyboardDidHide', () => {
+        this.buttonWelcome = "contentPayChild";
+        this.contentform = "content-form";
+      });
+    }
   }
 
   ngOnInit() {}
+
+  sendTo(router:string){
+    this.router.navigate([router])
+  }
+
 }

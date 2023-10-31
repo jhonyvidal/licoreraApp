@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginV2Request } from '../domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
+import { CreateLocationRequest } from '../domain/request/CreateLocation';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domai
 export class BaseApiService {
   private url = environment.apiUrl;
   private urlV2 = environment.apiUrlV2;
+  private urlApiGoogleMap = environment.apiGoogleMap;
+  private ApiKey = environment.ApiKey;
   private http: HttpClient;
 
   constructor(private handler: HttpBackend) { 
@@ -41,7 +44,7 @@ export class BaseApiService {
   //   return this.http.get(`${this.urlV2}${path}`, {headers});
   // }
 
-  postV2(path: string, data: LoginV2Request, headers?:HttpHeaders) {
+  postV2(path: string, data: any, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
@@ -53,4 +56,7 @@ export class BaseApiService {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
+  getApiGoogleMap(path: string, headers?:HttpHeaders) {
+    return this.http.get(`${this.urlApiGoogleMap}${path}&key=${this.ApiKey}`, { headers });
+  }
 }

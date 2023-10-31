@@ -2,7 +2,7 @@
   <ion-toolbar>
       <ion-buttons class="toolbar-detail-container">
         <!-- <ion-back-button icon="../../assets/icon/backIcon.svg"></ion-back-button> -->
-        <ion-button class="btn-header" (click)="goToNewAddress()">
+        <ion-button class="btn-header" (click)="goToNewAddressMap()">
           <img width="25" height="25" src="../../assets/icon/backIcon.svg" alt="Back" />
         </ion-button>
         <ion-button class="btn-header">
@@ -16,25 +16,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true"  [formGroup]="myForm">
   <div class="header-container">
-    <h2>Ubica la dirección en el mapa</h2>
-    <p>Mueve el punto amarillo a tu posición</p>
+    <h1>CONFIRMA LOS DETALLES DE LA DIRECCIÓN</h1>
   </div>
-  <figure>
-    <img src="../../assets/img/google-map.svg" alt="">
-  </figure>
-  <div class="thumbnail-container">
+  <!-- <div class="thumbnail-container">
     <h2>Completa tu dirección</h2>
     <p>Agrega la nomenclaruta que haga falta</p>
+  </div> -->
+  <div class="form-container">
+    <div class="mb-10">
+      <ion-label>Dirección</ion-label>
+      <ion-input  formControlName="addressInput" class="custom" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
+    </div>
+    <div>
+      <ion-label>Detalles</ion-label>
+      <ion-input  formControlName="addressDetail" class="custom" type="text" placeholder="Torre / apto / casa / detalles" required></ion-input>
+    </div>
   </div>
-  <div [formGroup]="myForm" class="form-container">
-    <ion-input  formControlName="addressInput" class="custom" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
-  </div>
+  <div class="custom-checkbox mb10">
+    <ion-checkbox formControlName="condition" class="custom-checkbox"></ion-checkbox>
+    <ion-label class="font-secondary">Guardar esta dirección para próximos envíos</ion-label>
+  </div> 
   <ion-buttons>
     <div class="btn-footer-container">
       <!-- <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="showAlertCreatePaymentMethod()">Agregar</ion-button> -->
-      <ion-button class="btn-footer" (click)="goToConfirmAddress()">Confirmar</ion-button>
+      <ion-button class="btn-footer" (click)="submit()">Confirmar</ion-button>
     </div>
   </ion-buttons>
 </ion-content>

@@ -21,6 +21,7 @@ import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
+import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
 
 @Injectable()
 export class RequestUseCases {
@@ -114,6 +115,18 @@ export class RequestUseCases {
 
   getMe(token: string) : Observable <UserModel> {
     return this._requestGateWay.getMe(token);
+  }
+
+  getApiLocation(params: string) {
+    return this._requestGateWay.getApiLocation(params);
+  }
+
+  getMeLocation(token: string) {
+    return this._requestGateWay.getMeLocation(token);
+  }
+
+  postLocations(token: string, data: CreateLocationRequest) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.postLocations(token, data);
   }
 
 }

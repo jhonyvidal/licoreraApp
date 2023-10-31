@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true"> 
   <ion-header collapse="condense" class="h60">
   </ion-header>
   <ion-toolbar>
@@ -33,13 +33,136 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
+
+  <ion-toolbar *ngIf="ionSegment === 1" class="customContent">
+    <div [formGroup]="myForm"> 
+      <ion-grid class="imgWelcome">
+        <ion-row class="ion-row">
+          <ion-col size="12">
+            <!-- <ion-input  formControlName="bankSelect"  class="custom" type="text" placeholder="Selecciona tu banco" required></ion-input> -->
+            <ion-item>
+              <ion-select formControlName="bankSelect" class="custom" label="Selecciona tu banco" required>
+                <ion-select-option value="Banka">Banka</ion-select-option>
+                <ion-select-option value="Banco Union">Banco Union</ion-select-option>
+                <ion-select-option value="Bancolombia">Bancolombia</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <p>Datos Personales</p>
+          <ion-col size="12">
+            <ion-item>
+              <ion-select formControlName="documentType" class="custom" label="Tipo de documento" required>
+                <ion-select-option value="Cedula">Cedula</ion-select-option>
+                <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
+                <ion-select-option value="Tarjeta de identidad">Tarjeta de identidad</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="names"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="lastNames"  class="custom" type="text" placeholder="Apellidos" required></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="phone"  class="custom" type="number" placeholder="Número de Celular" required></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="ionSegment === 2" class="customContent">
+    <div  *ngIf="creditStep === 1" class="text-center creditStep" >
+      <h1 class="creditTittle">AUN NO TIENES TARJETAS GUARDADAS</h1>
+      <P class="creditText">agrega una para continuar</P>
+    </div>
+    <div *ngIf="creditStep === 2" [formGroup]="myFormCreditCard"> 
+      <ion-grid class="imgWelcome">
+        <ion-row class="ion-row">
+          <p>Datos Personales</p>
+          <ion-col size="12">
+            <ion-item>
+              <ion-select formControlName="documentType" class="custom" label="Tipo de documento" required>
+                <ion-select-option value="Cedula">Cedula</ion-select-option>
+                <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
+                <ion-select-option value="Tarjeta de identidad">Tarjeta de identidad</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="names"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="lastNames"  class="custom" type="text" placeholder="Apellidos" required></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="email"  class="custom" type="email" placeholder="Correo electrónico" required></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="phone"  class="custom" type="number" placeholder="Número de Celular" required></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="creditStep === 3"> 
+      <ion-buttons class="scanner-container">
+        <ion-button><img src="../../assets/icon/scan-icon.svg" alt="">escanear</ion-button>
+      </ion-buttons>
+      <div class="form-payment-container">
+        <div [formGroup]="mySecondFormCreditCard" class="form-container">
+          <p>Número de la tarjeta</p>
+          <div class="card-number-contaienr">
+            <ion-input  formControlName="number" class="custom" minlength="16" maxlength="16" type="pin" placeholder="1234 5678 9101 1121" required></ion-input>
+            <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
+          </div>
+          <div class="fecha-cvv-container">
+            <div class="fecha-container">
+              <p>Fecha de expiración</p>
+              <ion-input  formControlName="expirationDate"  class="custom" type="date" placeholder="10/2025" required></ion-input>
+            </div>
+            <div class="cvv-container">
+              <p>CVV</p>
+              <ion-input  formControlName="cvv" class="custom" minlength="3" maxlength="3" type="pin" placeholder="123" required></ion-input>
+            </div>
+          </div>
+          <div class="card-name-container">
+            <p>Nombre en la tarjeta</p>
+            <ion-input  formControlName="name"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </ion-toolbar>
+
   <ion-toolbar *ngIf="ionSegment === 3" class="customContent">
-    <ion-radio-group value="segment3">
-      <ion-radio value="Efectivo">Efectivo</ion-radio><br />
-      <ion-radio value="Tarjeta débito/crédito">Tarjeta débito/crédito</ion-radio>
+    <ion-radio-group  [(ngModel)]="segment3" >
+      <ion-radio value="Efectivo" (click)="validateSelectDebit()">Efectivo</ion-radio><br />
+      <ion-radio value="Tarjeta débito/crédito" (click)="validateSelectDebit()">Tarjeta débito/crédito</ion-radio>
     </ion-radio-group>
   </ion-toolbar>
-  <div class="footer">
-    <ion-button  (click)="submit()" class="buttonSubmit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
+
+  <div class="footer" *ngIf="ionSegment === 1">
+    <ion-button  (click)="submit()"  [disabled]="!isFormValid" [ngClass]="buttonSubmit"><span style="margin-top: -5px;">PAGAR CON PSE</span></ion-button>
   </div>
+
+  <div class="footer" *ngIf="ionSegment === 2 && creditStep === 1">
+    <ion-button  (click)="nextStep(2)" class="buttonSubmitActive"><span style="margin-top: -5px;">AGREGAR TARJETA</span></ion-button>
+  </div>
+  <div class="footer" *ngIf="ionSegment === 2 && creditStep === 2">
+    <ion-button  (click)="nextStep(3)" [disabled]="!isFormCreditValid" [ngClass]="buttonSubmit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
+  </div>
+  <div class="footer" *ngIf="ionSegment === 2 && creditStep === 3">
+    <div class="safe-paymnet-container">
+      <img src="../../assets/icon/padlock-icon.svg" alt="">
+      <p>Pago seguro con PayU</p>
+    </div>
+    <ion-button  (click)="nextStep(3)" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
+  </div>
+ 
+  <div class="footer" *ngIf="ionSegment === 3">
+    <ion-button  (click)="submit()" [ngClass]="buttonDebit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
+  </div>
+
 </ion-content>

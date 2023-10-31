@@ -77,8 +77,108 @@ ion-radio::part(mark) {
     font-family: HudsonNYSerif;
     margin-bottom: 30px;
     border-radius: 5px;
+    color: #FFFFFF;
+    --background: #D1D1D1 !important;
+    border: 1px solid #000000;
+    font-size: 17px;
+    border: none;
+  }
+  .buttonSubmitActive{
+    width: 100%;
+    font-family: HudsonNYSerif;
+    margin-bottom: 30px;
+    border-radius: 5px;
     color: #000000;
     --background: #FFFFFF !important;
     border: 1px solid #000000;
     font-size: 17px;
+  }
+  .buttonCreditActive{
+    width: 100%;
+    font-family: HudsonNYSerif;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    --background: #99791C    !important;
+    border: 1px solid #000000;
+    font-size: 17px;
+  }
+  .creditStep{
+    margin-top: 50%;
+  }
+  ion-page {
+    display: block;
+  }
+  .creditTittle{
+    font-size: 16px;
+    color: #000000;
+  }
+  .creditText{
+    font-size: 14px;
+    font-family: weblysleekuil;
+    font-weight: 300;
+    color: #000000;
+  }
+
+  ion-content .scanner-container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  ion-content .scanner-container ion-button {
+    width: 160PX;
+    height: 45px;
+    --background: white;
+    font-family: "HudsonNYSerif";
+    font-size: 16px;
+    color: #000000;
+    border: 2px solid black;
+    --box-shadow: none;
+    border-radius: 5px;
+  }
+  
+  ion-content .scanner-container ion-button img {
+    padding-right: 10px;
+  }
+
+  ion-content .form-container .card-number-contaienr {
+    display: flex;
+  }
+  ion-content .form-container p{
+    font-size: 16px;
+    font-family: weblysleekuil;
+  }
+
+  ion-content .form-container .fecha-cvv-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  ion-content .form-container .fecha-cvv-container .fecha-container {
+    width: 5cm;
+  }
+  
+  ion-content .form-container .fecha-cvv-container .cvv-container {
+    width: 40%;
+  }
+
+  ion-content .form-container .card-name-container{
+    margin-top: 15px;
+  }
+  ion-content .safe-paymnet-container {
+    margin: auto 0 25px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  ion-content .safe-paymnet-container p{
+    margin: 0 0 0 10px;
+    padding: 0;
+    font-size: 17px;
+    font-family: 'weblysleekuil';
   }

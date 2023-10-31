@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: NewAddressPage
+  },
+  {
+    path: 'new-address-map',
+    loadChildren: () => import('./new-address-map/new-address-map.module').then( m => m.NewAddressMapPageModule)
+  },
+  {
+    path: 'new-address-confirm',
+    loadChildren: () => import('./new-address-confirm/new-address-confirm.module').then( m => m.NewAddressConfirmPageModule)
   }
 ];
 

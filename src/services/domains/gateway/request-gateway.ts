@@ -19,6 +19,7 @@ import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/do
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
+import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
 
 export abstract class RequestGateway {
 
@@ -46,6 +47,9 @@ export abstract class RequestGateway {
     abstract postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest) : Observable <DeletePaymentResponse>;
     abstract postPaymentMethods(token: string, data: PostPaymentMethodsRequest) : Observable <PostPaymentMethodsResponse>;
     abstract getMe(token: string): Observable<UserModel>;
+    abstract getApiLocation(token: string): Observable<any>;
+    abstract getMeLocation(token: string): Observable<any>;
+    abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
 }
 
 

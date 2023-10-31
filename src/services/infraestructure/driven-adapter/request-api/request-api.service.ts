@@ -23,6 +23,7 @@ import { LoginV2Response } from 'src/shared/domain/response/LoginV2Response';
 import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/domain/response/DeletePaymentResponse';
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
+import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -295,6 +296,52 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         // console.log(response)
         return response as UserModel
+      })
+    )
+  }
+
+  getApiLocation(param:string):Observable<UserModel> {
+    const headers = new HttpHeaders(
+      {
+        "Access-Control-Allow-Origin": '*',
+        "Access-Control-Allow-Methods": 'GET',
+        "Content-Type": "application/json",
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    );
+    return this.http.getApiGoogleMap(param).pipe(
+      map(response => {
+        // console.log(response)
+        return response as UserModel
+      })
+    )
+  }
+
+  getMeLocation(token: string):Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/me/locations').pipe(
+      map(response => {
+        // console.log(response)
+        return response as UserModel
+      })
+    )
+  }
+
+  postLocations(token: string, data: CreateLocationRequest): Observable<any> {
+    console.log("inter token:",token)
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postV2('api/v2/locations', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
       })
     )
   }
