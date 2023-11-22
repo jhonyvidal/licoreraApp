@@ -24,8 +24,6 @@ import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse'
 })
 export class UserPage implements OnInit {
 
-  // items$: Observable<DataArray[]>;
-
   myForm: FormGroup;
   readOnly: boolean = true;
   avatarImage: string;
@@ -36,32 +34,16 @@ export class UserPage implements OnInit {
   starEmpty: string = '../../../assets/icon/star-empty.svg';
   client: ClientData;
   clientPoints: ClientPointsData;
-  client_Id: string = '114136667852541';
+  client_Id: string = '123123123111';
   currentValue: any;
   btnStylesCSS: string = 'white';
+  btnBorder: string = '2px solid black';
+  btnTextColor: string = 'black';
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
   loginToken: string;
   appInjectorRef: Injector;
   numberOfcard: string;
-  // paymentMethods: any = [
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  // ];
 
   miVariableObservable: Observable<boolean>;
   paymentMethodsList: DataArray[] = [];
@@ -80,16 +62,6 @@ export class UserPage implements OnInit {
       starImage: this.starEmpty
     }
   ];
-
-  // yaConsulto: boolean = false;
-
-  // loginV2Data: LoginV2Request = {
-  //   email: "diego4@mail.com",
-  //   password: "Diego1234"
-  // }
-
-  // loginV2Token: string;
-
 
   constructor(
     public formBuilder: FormBuilder,
@@ -110,21 +82,36 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
-    this.getPaymentMethods();
-    this.getLocations();
+    // Validate if logged
+    this.userService.getUserData()
+    .then(data => {
+      // console.log('Api token logged: ', data.api_token);
+      this.loginToken = data.api_token;
 
-    this.getClientData();
+      setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
 
-    this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
-      if (response.success === true) {
+      this.getPaymentMethods();
+      this.getLocations();
 
-        this.clientPoints = response;
+      this.getClientData();
 
-      } else {
-        console.log('Body del error: ', response);
-      }
+      this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
+        if (response.success === true) {
+
+          this.clientPoints = response;
+
+        } else {
+          console.log('Body del error: ', response);
+        }
+      })
+      this.detectChanges();
+
     })
-    this.detectChanges();
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+      this.router.navigate(['/sign-in']);
+    });
+
   }
 
   ionViewWillEnter() {
@@ -182,7 +169,7 @@ export class UserPage implements OnInit {
 
     this.userService.getUserData()
     .then(data => {
-      console.log('Api token: ', data.api_token);
+      // console.log('Api token: ', data.api_token);
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
           this.paymentMethodsList = response.data;
@@ -224,7 +211,9 @@ export class UserPage implements OnInit {
     // User data logic
     if (this.ionSegment === 1 && this.btnText === 'Editar') {
       this.btnStylesCSS = '#99791C';
-      setBTNColor(this.btnStylesCSS);
+      this.btnBorder = 'none';
+      this.btnTextColor = 'white';
+      setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
       this.btnText = 'Guardar';
       this.readOnly = false;
     }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
@@ -255,7 +244,9 @@ export class UserPage implements OnInit {
       }
 
       this.btnStylesCSS = 'white';
-      setBTNColor(this.btnStylesCSS);
+      this.btnBorder = '2px solid black';
+      this.btnTextColor = 'black';
+      setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
       this.btnText = 'Editar';
       this.readOnly = true;
     }
@@ -269,7 +260,9 @@ export class UserPage implements OnInit {
 
   show(id:number){
     this.btnStylesCSS = 'white';
-    setBTNColor(this.btnStylesCSS);
+    this.btnBorder = '2px solid black';
+    this.btnTextColor = 'black';
+    setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
     this.ionSegment = id;
     this.btnText = this.ionSegment === 1 ? 'Editar' : 'Agregar';
   }

@@ -153,8 +153,9 @@ ion-content .user-profile-info-container .profile-numbers-data-container .vertic
     --background: var(--btnClientColor);
     font-family: 'HudsonNYSerif';
     font-size: 17px;
-    color: black;
-    border: 2px solid black;
+    color: var(--btnTextColor);
+    // border: 2px solid black;
+    border: var(--btnClientBorder);
     --box-shadow: none;
     border-radius: 5px;
   }
