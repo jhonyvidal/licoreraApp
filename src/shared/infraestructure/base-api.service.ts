@@ -40,10 +40,6 @@ export class BaseApiService {
     return this.http.get(`${this.urlV2}${path}`, {headers});
   }
 
-  // getLocationsV2(path: string, headers?: HttpHeaders) {
-  //   return this.http.get(`${this.urlV2}${path}`, {headers});
-  // }
-
   postV2(path: string, data: any, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
@@ -56,7 +52,7 @@ export class BaseApiService {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
-  getApiGoogleMap(path: string, headers?:HttpHeaders) {
-    return this.http.get(`${this.urlApiGoogleMap}${path}&key=${this.ApiKey}`, { headers });
-  }
+  // getApiGoogleMap(path: string, headers?:HttpHeaders) {
+  //   return this.http.get(`${this.urlApiGoogleMap}${path}&key=${this.ApiKey}`, { headers });
+  // }
 }

@@ -6,6 +6,8 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
 import { ShareObjectService } from 'src/shared/services/shareObject';
+import { Address, cartModel } from 'src/store/models/cart.model';
+import { CartService } from 'src/store/services/cart.service';
 import { UserService } from 'src/store/services/user.service';
 
 @Component({
@@ -22,6 +24,7 @@ export class NewAddressConfirmPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private userService:UserService,
     private alertController: AlertController,
+    private cartService:CartService
     ) {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
@@ -100,7 +103,14 @@ export class NewAddressConfirmPage implements OnInit {
   goToNewAddressMap(){
     this.router.navigate(['/new-address/new-address-map']);
   }
-  goCheckOut(){
+  async goCheckOut(){
+    const address:Address =   {
+      address:this.myForm.get('addressInput')?.value,
+      latitude:this.data.latitude,
+      longitude:this.data.longitude,
+      details:this.myForm.get('addressDetail')?.value,
+    }
+    this.cartService.setAddressCartData(address)
     this.router.navigate(['/home/tab3/cart-checkout']);
   }
 

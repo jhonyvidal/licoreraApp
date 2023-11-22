@@ -1,4 +1,10 @@
-export class cartModel {
+export interface cart {
+    details?:cartModel[];
+    address?:Address;
+    nombre?:string;
+}
+
+export interface cartModel {
     id: number;
     product_id: number;
     quantity: number;
@@ -17,7 +23,7 @@ export class cartModel {
     product: Product;
 }
 
-export class Product {
+export interface Product {
     id: number;
     name: string;
     serial: string;
@@ -29,4 +35,11 @@ export class Product {
     updated_at: string;
     deleted_at: string | null;
     url: string;
+}
+
+export interface Address {
+    address:string;
+    latitude:number;
+    longitude:number;
+    details:string;
 }

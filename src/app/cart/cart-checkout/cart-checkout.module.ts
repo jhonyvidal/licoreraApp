@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { CartCheckoutPageRoutingModule } from './cart-checkout-routing.module';
 
 import { CartCheckoutPage } from './cart-checkout.page';
+import { SharedModule } from 'src/shared/shared.module';
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

@@ -14,9 +14,9 @@ export class NewAddressMapPage implements OnInit {
 
   myForm: FormGroup;
 
-  @ViewChild('map')
-  mapRef: ElementRef<HTMLElement>;
+  @ViewChild('map')mapRef: ElementRef<HTMLElement>;
   newMap: GoogleMap;
+
   coordinates: any;
   latitude:number;
   longitude:number;
@@ -29,13 +29,14 @@ export class NewAddressMapPage implements OnInit {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
     });
+
+    // this.coordinates = {coords:{ latitude:7.123952,longitude:-73.116186}}
   }
 
   ionViewWillEnter() {
     this.coordinates = this.shareObjectService.getObjetoCompartido();
-    setTimeout(() => {
-      this.createMap()
-    }, 1000);
+    this.myForm.get('addressInput')?.setValue(this.coordinates?.addressInput);
+    this.createMap();
   }
 
   ngOnInit() {
@@ -47,9 +48,10 @@ export class NewAddressMapPage implements OnInit {
     this.longitude = this.coordinates.coords.longitude;
     
     this.newMap = await GoogleMap.create({
-      id: 'my-cool-map',
+      id: 'map',
       element: this.mapRef.nativeElement,
       apiKey: environment.ApiKey,
+      forceCreate:true,
       config: {
         center: {
           lat: this.coordinates.coords.latitude,
@@ -70,6 +72,10 @@ export class NewAddressMapPage implements OnInit {
       this.latitude = event.latitude;
       this.longitude = event.longitude
     });
+  }
+
+  ngAfterViewInit() {
+    this.createMap();
   }
 
   goToNewAddress(){

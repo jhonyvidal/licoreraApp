@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { cartModel } from '../models/cart.model';
+import { Address, cart, cartModel } from '../models/cart.model';
+import { debounceTime } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +18,40 @@ export class CartService {
   // Método para realizar el inicio de sesión
   setCart(cartData: cartModel): boolean {
     // Almacenar los datos del usuario en el almacenamiento local
+    let cartObject: cart = { details: [] };
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data?.details === undefined || data?.details?.length === 0 ){
+      
+        cartObject.details?.push(cartData);
+        this.storage.set('cartData', cartObject);
+        return
+      }
+      if(data?.details?.find((a: { id: number; }) => a.id === cartData.id)){
+        return
+      }else{
+        storeCartData.details.push(cartData);
+        this.storage.set('cartData', storeCartData);
+      }
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
+  setAddressCartData(address: Address){
     let storeCartData;
     this.storage.get('cartData')
     .then(data => {
       storeCartData = data;
       if(data === null){
-        this.storage.set('cartData', [cartData]);
+        return;
       }
-      if(data.find((a: { id: number; }) => a.id === cartData.id)){
-        return
-      }else{
-        storeCartData.push(cartData)
-        this.storage.set('cartData', storeCartData);
-      }
+      storeCartData.address = address;
+      this.storage.set('cartData', storeCartData);
     })
     .catch(error => {
       console.error('Error al obtener los datos del cart:', error);
@@ -52,7 +74,7 @@ export class CartService {
   }
 
   // Método para obtener los datos del usuario almacenados en el almacenamiento
-  async getCartData(): Promise<cartModel> {
+  async getCartData(): Promise<cart> {
     return await this.storage.get('cartData');
   }
 

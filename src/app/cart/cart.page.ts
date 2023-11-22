@@ -34,7 +34,7 @@ export class CartPage implements OnInit {
     this.cartService
       .getCartData()
       .then((data) => {
-        this.products = data;
+        this.products = data.details;
         this.setTotal();
       })
       .catch((error) => {

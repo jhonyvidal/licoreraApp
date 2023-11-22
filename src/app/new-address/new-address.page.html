@@ -33,34 +33,10 @@
     </div>
   </div>
   <div class="google-results-container">
-    <div class="results-list">
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
-      </div>
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
-      </div>
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
-      </div>
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
-      </div>
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
-      </div>
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
-      </div>
-      <div class="google-result">
-        <h2>Altos de cañaveral etapa 5</h2>
-        <p>Cra 24, Floridablanca, Santander, Colombia</p>
+    <div class="results-list" >
+      <div class="google-result" *ngFor="let data of googleAddress" (click)="clickAdress(data)">
+        <h2>{{data.name}}</h2>
+        <p>{{data.formatted_address}}</p>
       </div>
     </div>
     <div class="not-find" (click)="goToMap()">

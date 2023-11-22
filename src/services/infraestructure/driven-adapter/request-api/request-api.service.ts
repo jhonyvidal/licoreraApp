@@ -300,16 +300,13 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  getApiLocation(param:string):Observable<UserModel> {
+  getGoogleApi(token: string, param:string):Observable<UserModel> {
     const headers = new HttpHeaders(
       {
-        "Access-Control-Allow-Origin": '*',
-        "Access-Control-Allow-Methods": 'GET',
-        "Content-Type": "application/json",
-        'X-Requested-With': 'XMLHttpRequest'
+        'Authorization': token
       }
     );
-    return this.http.getApiGoogleMap(param).pipe(
+    return this.http.getV2(`api/v2/locations/google/${param}`,headers).pipe(
       map(response => {
         // console.log(response)
         return response as UserModel
@@ -323,7 +320,7 @@ export  class RequestApiService extends RequestGateway {
         'Authorization': token
       }
     );
-    return this.http.getV2('api/v2/me/locations').pipe(
+    return this.http.getV2('api/v2/me/locations',headers).pipe(
       map(response => {
         // console.log(response)
         return response as UserModel
@@ -339,6 +336,30 @@ export  class RequestApiService extends RequestGateway {
       }
     );
     return this.http.postV2('api/v2/locations', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+  
+
+  PostDelivery(data:any): Observable<any> {
+    return this.http.post('orders/validateDelivery', data).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  postOrder(token:string,data:any): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postV2('api/v2/orders', data, headers).pipe(
       map(response => {
         // console.log(response)
         return response as any

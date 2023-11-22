@@ -91,6 +91,10 @@ export class RequestUseCases {
     return this._requestGateWay.putClient(userid, data);
   }
 
+  PostDelivery( data: any) : Observable <any> {
+    return this._requestGateWay.PostDelivery(data);
+  }
+
   // Api v2
 
   getPaymentMethodsV2(token: string) : Observable <PaymentMethodsGetResponse> {
@@ -117,8 +121,8 @@ export class RequestUseCases {
     return this._requestGateWay.getMe(token);
   }
 
-  getApiLocation(params: string) {
-    return this._requestGateWay.getApiLocation(params);
+  getGoogleApi(token: string, params: string) {
+    return this._requestGateWay.getGoogleApi(token,params);
   }
 
   getMeLocation(token: string) {
@@ -127,6 +131,10 @@ export class RequestUseCases {
 
   postLocations(token: string, data: CreateLocationRequest) : Observable <PostPaymentMethodsResponse> {
     return this._requestGateWay.postLocations(token, data);
+  }
+
+  postOrder(token: string, data: any) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.postOrder(token, data);
   }
 
 }
