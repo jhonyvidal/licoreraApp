@@ -5,14 +5,12 @@ export async function presentAlert(
   title: string | undefined,
   text: string,
   img?: string,
-  // type?: string,
   timeAlert?: string,
   AcceptFuntion?:  () => void,
+  type?: string,
 ) {
   const imagePath = window.location.origin + img ? img : '/assets/img/cerrado.svg';
-  // const imagePathEP = window.location.origin + '/assets/img/warning.svg';
   const timeAlertText = timeAlert ? '<b>${timeAlert}</b></br>' : '';
-  // let imageAlert = type === 'exchange-products-bad' ? imagePathEP : imagePath;
 
   const dynamicContent = `
     <img src="${imagePath}" alt="img cerrado">
@@ -20,24 +18,56 @@ export async function presentAlert(
     <p class="alertSubtitle">${text}</p> </br>
     ${timeAlertText}`;
 
-  const alert = await alertController.create({
-    message: dynamicContent,
-    backdropDismiss: false,
-    buttons: [
-      {
-        text: 'ACEPTAR',
-        role: 'cancel',
-        cssClass: 'alertButton',
-        handler: () => {
-          if (AcceptFuntion) {
-            AcceptFuntion();
-          }else{
-            closeAlert(alertController);
-          }
-        },
-      },
-    ],
-  });
+    let alert:any;
+    switch (type) {
+      case "Logout":
+        alert = await alertController.create({
+          message: dynamicContent,
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: 'ACEPTAR',
+              role: 'accept',
+              cssClass: 'alertButtonExchange',
+              handler: () => {
+                if (AcceptFuntion) {
+                  AcceptFuntion();
+                }else{
+                  closeAlert(alertController);
+                }
+              },
+            },
+            {
+              text: 'CANCELAR',
+              role: 'cancel',
+              cssClass: 'alertButtonExchange',
+              handler: () => {
+                closeAlert(alertController);
+              },
+            }
+          ],
+        });
+        break;
+      default:
+        alert = await alertController.create({
+          message: dynamicContent,
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: 'ACEPTAR',
+              role: 'cancel',
+              cssClass: 'alertButton',
+              handler: () => {
+                if (AcceptFuntion) {
+                  AcceptFuntion();
+                }else{
+                  closeAlert(alertController);
+                }
+              },
+            },
+          ],
+        });
+    }
   await alert.present();
 }
 

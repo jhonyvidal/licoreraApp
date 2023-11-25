@@ -40,6 +40,7 @@ export abstract class RequestGateway {
     abstract postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse>;
     abstract putClient(userId: string, data: UpdateClientData):Observable<ClientData>;
     abstract PostDelivery(data: any):Observable<any>;
+    abstract GetInfo():Observable<any>;
     
     // Api v2
     abstract getPaymentMethodsV2(token: string): Observable<PaymentMethodsGetResponse>;

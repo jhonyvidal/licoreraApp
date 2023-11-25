@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" style="margin-top: 65px;">
+<ion-header [translucent]="true" style="margin-top: 68px;">
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="products.length === 0">
@@ -29,10 +29,10 @@
             <div class="info-exchange-container">
               <div class="product-name-jotas-container">
                 <div class="name-container">
-                  <h2 class="Product-name-exchange">{{item.product.name | customPipe: 1 }}</h2>
+                  <h2 class="Product-name-exchange">{{item.product.name }}</h2>
                 </div>
               </div>
-              <h4 class="disponible-exchange">Presentación: {{item.product.name | customPipe: 2}}</h4>
+              <h4 class="disponible-exchange" *ngIf="item.product.presentation">Presentación: {{item.product.presentation}}</h4>
             </div>
             <div class="Btns-container">
             <div>
@@ -66,7 +66,7 @@
   </div>
 
   <div class="contentPayChild">
-    <p>Obtienes por tu compra 101 J</p>
+    <p>Obtienes por tu compra {{points}} J</p>
     <p class="line"></p>
     <ion-grid class="p0">
       <ion-row>
@@ -78,7 +78,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <p class="text">Domicilio gratis por compras mayores a $ %@ IVA incluido.</p> 
+    <p class="text">Domicilio gratis por compras mayores a $ {{minimumOrderAmount}} IVA incluido.</p> 
     <ion-button  (click)="submit()" class="buttonSubmit"><span style="margin-top: -5px;">IR A PAGAR</span></ion-button>
   </div>
 

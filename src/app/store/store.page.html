@@ -9,13 +9,13 @@
 
     <ion-grid style="background-color: #ECECEC;">
       <ion-row  *ngIf="!loaded">
-          <ion-col   size="4" *ngFor="let data of ListCategories" style="padding: 20px;" >
+          <ion-col   size="4" *ngFor="let data of ListCategories" style="padding: 4px 20px;" >
             <div (click)="routerLink(data.id)"><img class="imgCategories"  [src]="data.image" alt="fondo Blanco"></div>
             <h1 class="text-center textCategories">{{data.name}}</h1>
           </ion-col>
       </ion-row>
       <ion-row  *ngIf="loaded">
-          <ion-col  size="4" *ngFor="let data of ListCategories" style="padding: 20px;" >
+          <ion-col  size="4" *ngFor="let data of ListCategories" style="padding: 5px 20px;" >
             <ion-skeleton-text [animated]="true"></ion-skeleton-text>
           </ion-col>
       </ion-row>

@@ -24,6 +24,7 @@ export class SignInPage implements OnInit {
   public activeClose = '';
   currentUser: User | null;
   idToken: string;
+  passwordFieldType:string = 'password';
 
   constructor(
     public formBuilder: FormBuilder,
@@ -197,6 +198,11 @@ export class SignInPage implements OnInit {
   routerLink(route: string) {
     this.router.navigate(['/' + route]);
   }
+
+  togglePasswordFieldType() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
 }
 
 enum SignInProvider {

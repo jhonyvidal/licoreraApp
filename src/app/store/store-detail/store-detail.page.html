@@ -28,8 +28,8 @@
           <img [src]="item.image" alt="">
         </figure>
         <div class="info-searched-container">
-          <h2 class="porduct-name">{{item.name | customPipe: 1}}</h2>
-          <p class="product-subname">{{item.name | customPipe: 2}}</p>
+          <h2 class="porduct-name">{{item.name}}</h2>
+          <p class="product-subname">{{item.presentation}}</p>
           <p class="product-description">{{item.description.slice(0,65)}}...</p>
           <h1 class="product-price">{{item.store.price | customCurrency :'.':'$ '}}</h1>
         </div>
