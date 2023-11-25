@@ -33,8 +33,9 @@ export class UserPage implements OnInit {
   starSelected: string = '../../../assets/icon/star-selected.svg';
   starEmpty: string = '../../../assets/icon/star-empty.svg';
   client: ClientData;
-  clientPoints: ClientPointsData;
-  client_Id: string = '123123123111';
+  clientPoints: '';
+  client_Id: string = '';
+  clientOrderQuantity = '';
   currentValue: any;
   btnStylesCSS: string = 'white';
   btnBorder: string = '2px solid black';
@@ -49,19 +50,6 @@ export class UserPage implements OnInit {
   paymentMethodsList: DataArray[] = [];
 
   addressList1: LocationsResponse["data"] = [];
-
-  addressList: any = [
-    {
-      name: 'Mi casa',
-      address: 'Altos de Miravalle',
-      starImage: this.starEmpty
-    },
-    {
-      name: 'Casa Mamá',
-      address: 'Cra 12 # 34 - 56',
-      starImage: this.starEmpty
-    }
-  ];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -85,25 +73,13 @@ export class UserPage implements OnInit {
     // Validate if logged
     this.userService.getUserData()
     .then(data => {
-      // console.log('Api token logged: ', data.api_token);
-      this.loginToken = data.api_token;
 
+      this.loginToken = data.api_token;
       setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
 
       this.getPaymentMethods();
       this.getLocations();
-
-      this.getClientData();
-
-      this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
-        if (response.success === true) {
-
-          this.clientPoints = response;
-
-        } else {
-          console.log('Body del error: ', response);
-        }
-      })
+      this.getMeData();
       this.detectChanges();
 
     })
@@ -115,7 +91,33 @@ export class UserPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.getPaymentMethods()
+    this.getPaymentMethods();
+    this.getLocations();
+  }
+
+  getMeData(){
+    this.requestUseCase.getMe(this.loginToken)
+    .subscribe((response) => {
+      if (response.success === true) {
+        this.client = response;
+        this.client_Id = response.data.id;
+        this.clientPoints = response.data.points;
+        this.clientOrderQuantity = response.data.order_quantity;
+        this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
+        console.log(response);
+        
+
+        this.myForm.get('name')?.setValue(this.client.data.name);
+        this.myForm.get('lastName')?.setValue(this.client.data.last_name);
+        this.myForm.get('email')?.setValue(this.client.data.email);
+        this.myForm.get('date')?.setValue(this.client.data.birthday);
+        this.myForm.get('phone')?.setValue(this.client.data.cellphone);
+
+      } else {
+        console.log('Body del error: ', response);
+      }
+      
+    });
   }
 
   getLocations() {
@@ -136,24 +138,6 @@ export class UserPage implements OnInit {
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
     });
-  }
-
-  getClientData(){
-    this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
-      if (response.success === true) {
-        this.client = response;
-        this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
-
-        this.myForm.get('name')?.setValue(this.client.data.name);
-        this.myForm.get('lastName')?.setValue(this.client.data.last_name);
-        this.myForm.get('email')?.setValue(this.client.data.email);
-        this.myForm.get('date')?.setValue(this.client.data.birthday);
-        this.myForm.get('phone')?.setValue(this.client.data.cellphone);
-
-      } else {
-        console.log('Body del error: ', response);
-      }
-    })
   }
 
   detectChanges() {
@@ -235,7 +219,7 @@ export class UserPage implements OnInit {
         this.requestUseCase.putClient(this.client_Id, this.requestDataForm).subscribe(response => {
           if (response.success === true) {
             console.log('client updated...');
-            this.getClientData();
+            this.getMeData();
           } else {
             console.log('Body del error: ', response);
           }
@@ -277,15 +261,15 @@ export class UserPage implements OnInit {
   //   }
   // }
 
-  selectAddress(index: number){
-    for (let i = 0; i < this.addressList.length; i++) {
-      if (i === index) {
-        this.addressList[i].starImage = this.starSelected;
-      }else{
-        this.addressList[i].starImage = this.starEmpty;
-      }
-    }
-  }
+  // selectAddress(index: number){
+  //   for (let i = 0; i < this.addressList.length; i++) {
+  //     if (i === index) {
+  //       this.addressList[i].starImage = this.starSelected;
+  //     }else{
+  //       this.addressList[i].starImage = this.starEmpty;
+  //     }
+  //   }
+  // }
 
   goHome(){
     this.router.navigate(['/home']);

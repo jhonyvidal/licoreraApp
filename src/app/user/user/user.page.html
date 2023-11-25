@@ -29,21 +29,21 @@
       </figure>
       <div class="jotas-container">
         <h2 class="profile-name">{{client?.data?.name}}</h2>
-        <p class="profile-jotas">{{clientPoints?.data?.points}} Jotas</p>
+        <p class="profile-jotas">{{clientPoints}} Jotas</p>
       </div>
     </div>
   </div>
   <div class="user-profile-info-container">
     <div class="profile-numbers-data-container">
       <div class="pedidos">
-        <p>999</p>
+        <p>{{client?.data?.order_quantity}}</p>
         <p>Pedidos</p>
       </div>
       <div class="vertical-divider">
 
       </div>
       <div class="canjes">
-        <p>25</p>
+        <p>{{client?.data?.exchanges_quantity}}</p>
         <p>Canjes</p>
       </div>
     </div>
@@ -65,8 +65,10 @@
     <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethodsList.length > 0">
       <ion-item-sliding *ngFor="let item of paymentMethodsList; index as i">
         <ion-item>
-          <div class="credit-card-info-container">
+          <figure>
             <img src="../../../assets/icon/credit-card.svg" alt="">
+          </figure>
+          <div class="credit-card-info-container">
             <div>
               <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2>
               <p>{{item.name}}</p>
@@ -92,11 +94,11 @@
       <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
       <ion-input formControlName="phone" class="custom" type="number" [readonly]="readOnly"></ion-input>
     </div>
-    <div class="aun-address" *ngIf="ionSegment === 3 && addressList.length <= 0">
+    <div class="aun-address" *ngIf="ionSegment === 3 && addressList1.length <= 0">
       <h2>Aún no tiene direcciones guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
-    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
+    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList1.length > 0">
       <ion-item-sliding *ngFor="let item of addressList1; index as i">
         <ion-item>
           <div class="credit-card-info-container">
