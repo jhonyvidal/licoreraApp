@@ -7,12 +7,29 @@ import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { UserService } from 'src/store/services/user.service';
 
+// Maskito for input masking
+import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
+
 @Component({
   selector: 'app-credit-card',
   templateUrl: './credit-card.page.html',
   styleUrls: ['./credit-card.page.scss'],
 })
 export class CreditCardPage implements OnInit {
+
+  readonly cardMask: MaskitoOptions = {
+    mask: [
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+    ],
+  };
+
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   myForm: FormGroup;
   requestDataPaymentMethods: PostPaymentMethodsRequest;

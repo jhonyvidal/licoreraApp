@@ -24,13 +24,14 @@
     <div [formGroup]="myForm" class="form-container">
       <p>Número de la tarjeta</p>
       <div class="card-number-contaienr">
-        <ion-input  formControlName="number" class="custom" minlength="16" maxlength="16" type="pin" placeholder="1234 5678 9101 1121" required></ion-input>
+        <ion-input formControlName="number" class="custom" placeholder="0000 0000 0000 0000" [maskito]="cardMask" [maskitoElement]="maskPredicate" required></ion-input>
+        <!-- <ion-input  formControlName="number" class="custom" minlength="16" maxlength="16" type="pin" placeholder="1234 5678 9101 1121" required></ion-input> -->
         <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
       </div>
       <div class="fecha-cvv-container">
         <div class="fecha-container">
           <p>Fecha de expiración</p>
-          <ion-input  formControlName="expirationDate"  class="custom" type="date" placeholder="10/2025" required></ion-input>
+          <ion-input  formControlName="expirationDate" data-date-format="MMMM YYYY" class="custom" type="month" placeholder="10/2025" required></ion-input>
         </div>
         <div class="cvv-container">
           <p>CVV</p>
