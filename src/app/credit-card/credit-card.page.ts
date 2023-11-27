@@ -7,6 +7,8 @@ import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { UserService } from 'src/store/services/user.service';
 
+import { AbstractControl, ValidatorFn, ValidationErrors } from "@angular/forms";
+
 // Maskito for input masking
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 
@@ -32,6 +34,8 @@ export class CreditCardPage implements OnInit {
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   myForm: FormGroup;
+  todayDate: Date;
+  minDate = '';
   requestDataPaymentMethods: PostPaymentMethodsRequest;
   isFormValid: boolean = true;
   btnCSS: string = 'btn-footer-disabled';
@@ -50,13 +54,25 @@ export class CreditCardPage implements OnInit {
     this.myForm = this.formBuilder.group({
       number: ['', [Validators.required,]],
       cvv: ['', [Validators.minLength(3), Validators.maxLength(3), Validators.required]],
-      expirationDate: ['', [Validators.required, ]],
+      expirationDate: ['', [Validators.required]],
       name: ['', [Validators.required, ]],
     });
 
   }
 
   ngOnInit() {
+
+    this.todayDate = new Date();
+    let currentYear = this.todayDate.getFullYear();
+    let currentMonth = String(this.todayDate.getMonth()+1).padStart(2,"0");
+    
+    this.minDate = `${currentYear}-${currentMonth}`;
+    // this.myForm.get('expirationDate')?.setValue(this.minDate);
+    this.detectChanges();
+
+  }
+
+  detectChanges() {
     this.myForm.valueChanges.subscribe(() => {
       if (this.myForm.valid) {
         this.isFormValid = false;
