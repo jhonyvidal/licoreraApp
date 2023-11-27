@@ -60,11 +60,13 @@ export class CartService {
   }
 
   deleteCart(id:number){
-    console.log(id)
+   
     this.storage.get('cartData')
     .then(data => {
-      const dataFilter = data.filter((a: { id: number; }) => a.id !== id)
-      this.storage.set('cartData', dataFilter);
+      const completeData = data
+      const dataFilter = data.details.filter((a: { id: number; }) => a.id !== id)
+      completeData.details = dataFilter;
+      this.storage.set('cartData', completeData);
       window.location.reload();
     })
     .catch(error => {

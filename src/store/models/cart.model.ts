@@ -35,6 +35,7 @@ export interface Product {
     updated_at: string;
     deleted_at: string | null;
     url: string;
+    presentation:string
 }
 
 export interface Address {

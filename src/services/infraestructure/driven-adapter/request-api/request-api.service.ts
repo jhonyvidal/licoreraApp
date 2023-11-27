@@ -222,6 +222,20 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  GetInfo():Observable<any> {
+    const headers = new HttpHeaders(
+      // {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.get(`tresjotasInfo`).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  
+
   // Api v2
   getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {
     const headers = new HttpHeaders(

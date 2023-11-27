@@ -14,6 +14,9 @@ export class CartPage implements OnInit {
   products: any = [];
   quantity: number = 0;
   total: number = 0;
+  points: number = 0;
+  minimumOrderAmount: number = 0;
+  minimumAmountForPoints : number = 0;
   btnAccept:boolean= false;
 
   constructor(
@@ -24,7 +27,9 @@ export class CartPage implements OnInit {
   ) {}
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getInfo();
+  }
 
   ionViewWillEnter() {
     this.getCart();
@@ -34,12 +39,28 @@ export class CartPage implements OnInit {
     this.cartService
       .getCartData()
       .then((data) => {
-        this.products = data.details;
-        this.setTotal();
+        console.log(data);
+        if(data && data.details && data.details.length > 0){
+          this.products = data.details;
+          this.setTotal();
+        }
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
       });
+  }
+
+  getInfo() {
+    this.requestUseCase.GetInfo()
+    .subscribe((response) => {
+      if(response.success === true){
+       this.minimumOrderAmount = response.data.minimumOrderAmount
+       this.minimumAmountForPoints  = response.data.minimumAmountForPoints 
+      }else{
+        console.log(response);
+      }
+     
+    });
   }
 
   addBtn(id:number) {
@@ -80,9 +101,14 @@ export class CartPage implements OnInit {
 
   setTotal(){
     this.total = 0;
-    this.products.forEach((e: { price: number, quantitySelected: number }) => {
-      this.total = this.total + (e.price * e.quantitySelected);
-    });
+    if(this.products){
+      this.products.forEach((e: { price: number, quantitySelected: number }) => {
+        this.total = this.total + (e.price * e.quantitySelected);
+      });
+    }
+    console.log(this.total , this.minimumAmountForPoints);
+    
+    this.points = this.total / this.minimumAmountForPoints;
   }
 
   submit(){

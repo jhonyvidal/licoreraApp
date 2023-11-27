@@ -95,6 +95,10 @@ export class RequestUseCases {
     return this._requestGateWay.PostDelivery(data);
   }
 
+  GetInfo() : Observable <any> {
+    return this._requestGateWay.GetInfo();
+  }
+
   // Api v2
 
   getPaymentMethodsV2(token: string) : Observable <PaymentMethodsGetResponse> {

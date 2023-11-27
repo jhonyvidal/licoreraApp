@@ -26,7 +26,8 @@ export class CartModelPipe implements PipeTransform {
         created_at: value.created_at,
         updated_at: value.updated_at,
         deleted_at: value.deleted_at ?? null,
-        url: ''
+        url: '',
+        presentation:value.presentation
     }
 
     // Reemplaza las propiedades correspondientes del objeto de entrada con las propiedades de cartModel y Product
