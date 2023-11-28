@@ -19,55 +19,6 @@ export class UsertAlerts {
     // paymentMethodsList = this.paymentMethodsList;
   }
 
-  // paymentMethodsList: DataArray[] = [];
-
-  // async getPaymentMethods(){
-
-  //   this.userService.getUserData()
-  //   .then(data => {
-  //     // console.log(data.api_token);
-
-  //     this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
-  //       if (response.success === true) {
-  //         console.log('Payment methods: ', response);
-
-  //         this.paymentMethodsList = response.data;
-  //       } else {
-  //         console.log('Body del error response: ', response);
-  //       }
-  //     })
-  //   })
-  //   .catch(error => {
-  //     console.error('Error al obtener los datos del usuario:', error);
-  //   });
-
-  //   // callback();
-  // }
-
-  // deletePaymentMethod(id: number | undefined){
-  //   const deleteJson: DeletePaymentMethodsRequest = {
-  //     'id': id
-  //   }
-
-  //   // this.showAlertDeletePaymentMethod();
-  //   this.userService.getUserData()
-  //   .then(data => {
-  //     this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
-  //       if (response.success === true) {
-  //         console.log(`Payment method ${id} was deleted...`);
-  //         this.getPaymentMethods();
-  //         // this.router.navigate(['/user']);
-  //       } else {
-  //         console.log('Body del error response: ', response);
-  //       }
-  //     });
-  //   })
-  //   .catch(error => {
-  //     console.error('Error al obtener los datos del usuario:', error);
-  //   });
-
-  // }
-
   public async presentAlertUser(
     alertController: AlertController,
     title: string | undefined,
@@ -151,6 +102,7 @@ export class UsertAlerts {
               role: 'accept',
               cssClass: 'alertButtonExchange',
               handler: () => {
+                this.userService.logout();
                 this.router.navigate(['/home']);
               },
             },

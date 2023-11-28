@@ -59,9 +59,9 @@ export class UserPage implements OnInit {
     private userService: UserService
   ) {
     this.myForm = this.formBuilder.group({
-      cardNumber: ['', [Validators.required, ]],
-      name: ['', [Validators.required, ]],
-      lastName: ['', [Validators.required, ]],
+      cardNumber: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       date: [new Date('07/02/1994').toISOString().substring(0, 10), [Validators.required, ]],
       phone: ['3153103352', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]]
@@ -71,6 +71,17 @@ export class UserPage implements OnInit {
   ngOnInit() {
 
     // Validate if logged
+    
+
+  }
+
+  ionViewWillEnter() {
+    this.getPaymentMethods();
+    this.getLocations();
+    this.getUserData();
+  }
+
+  getUserData() {
     this.userService.getUserData()
     .then(data => {
 
@@ -87,12 +98,6 @@ export class UserPage implements OnInit {
       console.error('Error al obtener los datos del usuario:', error);
       this.router.navigate(['/sign-in']);
     });
-
-  }
-
-  ionViewWillEnter() {
-    this.getPaymentMethods();
-    this.getLocations();
   }
 
   getMeData(){

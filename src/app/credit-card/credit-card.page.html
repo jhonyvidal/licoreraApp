@@ -35,7 +35,8 @@
         </div>
         <div class="cvv-container">
           <p>CVV</p>
-          <ion-input  formControlName="cvv" class="custom" minlength="3" maxlength="3" type="pin" placeholder="123" required></ion-input>
+          <!-- <ion-input  formControlName="cvv" class="custom" minlength="3" maxlength="3" type="pin" placeholder="123" required></ion-input> -->
+          <ion-input  formControlName="cvv" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" required></ion-input>
         </div>
       </div>
       <div class="card-name-container">

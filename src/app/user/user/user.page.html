@@ -20,7 +20,7 @@
   <div class="profile-header-container">
     <ion-buttons>
       <ion-button class="btn-logout" (click)="showAlertLogout()">
-        <img width="15" height="15"   src="../../assets/icon/logout-icon.svg" alt="">
+        <img width="22" height="22"   src="../../assets/icon/logout-icon.svg" alt="">
       </ion-button>
     </ion-buttons>
     <div class="profile-avatar-container">
@@ -101,8 +101,10 @@
     <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList1.length > 0">
       <ion-item-sliding *ngFor="let item of addressList1; index as i">
         <ion-item>
-          <div class="credit-card-info-container">
+          <figure>
             <img src="../../../assets/icon/location-user.svg" alt="">
+          </figure>
+          <div class="credit-card-info-container">
             <div>
               <h2>{{item.name}}</h2>
               <p>{{item.address}}</p>

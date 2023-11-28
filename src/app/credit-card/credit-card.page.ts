@@ -19,6 +19,10 @@ import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 })
 export class CreditCardPage implements OnInit {
 
+  readonly options: MaskitoOptions = {
+    mask: /^\d{0,3}$/,
+  };
+
   readonly cardMask: MaskitoOptions = {
     mask: [
       ...Array(4).fill(/\d/),
@@ -52,8 +56,8 @@ export class CreditCardPage implements OnInit {
     private alertController: AlertController,
   ) {
     this.myForm = this.formBuilder.group({
-      number: ['', [Validators.required,]],
-      cvv: ['', [Validators.minLength(3), Validators.maxLength(3), Validators.required]],
+      number: ['', [Validators.required, Validators.minLength(19)]],
+      cvv: ['', [Validators.required, Validators.minLength(3)]],
       expirationDate: ['', [Validators.required]],
       name: ['', [Validators.required, ]],
     });
@@ -67,7 +71,6 @@ export class CreditCardPage implements OnInit {
     let currentMonth = String(this.todayDate.getMonth()+1).padStart(2,"0");
     
     this.minDate = `${currentYear}-${currentMonth}`;
-    // this.myForm.get('expirationDate')?.setValue(this.minDate);
     this.detectChanges();
 
   }
@@ -89,7 +92,7 @@ export class CreditCardPage implements OnInit {
       number: this.myForm.get('number')?.value,
       cvv: this.myForm.get('cvv')?.value,
       // cvv: this.cvvInput,
-      expirationDate: this.myForm.get('expirationDate')?.value,
+      expirationDate: this.myForm.get('expirationDate')?.value + '-01',
       name: this.myForm.get('name')?.value,
       favorite: false
     }
@@ -120,7 +123,6 @@ export class CreditCardPage implements OnInit {
       undefined,
       undefined,
       () => this.createPaymentMethod(1)
-      // this.appInjectorRef
     );
   }
 
