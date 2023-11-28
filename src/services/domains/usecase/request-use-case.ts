@@ -22,6 +22,7 @@ import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/do
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { DeleteAddressResponse } from 'src/shared/domain/response/DeleteAddressResponse';
 
 @Injectable()
 export class RequestUseCases {
@@ -139,6 +140,10 @@ export class RequestUseCases {
 
   postOrder(token: string, data: any) : Observable <PostPaymentMethodsResponse> {
     return this._requestGateWay.postOrder(token, data);
+  }
+
+  deleteAddress(token: string, idAddress: string) : Observable <DeleteAddressResponse> {
+    return this._requestGateWay.deleteAddress(token, idAddress);
   }
 
 }

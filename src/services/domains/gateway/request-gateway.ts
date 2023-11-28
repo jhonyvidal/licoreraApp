@@ -20,6 +20,7 @@ import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { DeleteAddressResponse } from 'src/shared/domain/response/DeleteAddressResponse';
 
 export abstract class RequestGateway {
 
@@ -53,6 +54,7 @@ export abstract class RequestGateway {
     abstract getMeLocation(token: string): Observable<any>;
     abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
     abstract postOrder(path: string, data: any):Observable<any>;
+    abstract deleteAddress(path: string, idAddress: string):Observable<any>;
 }
 
 

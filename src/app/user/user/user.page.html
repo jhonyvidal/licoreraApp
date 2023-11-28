@@ -117,7 +117,7 @@
           </ion-buttons>
         </ion-item>
         <ion-item-options>
-          <ion-item-option color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+          <ion-item-option (click)="showAlertDeleteAddress(item.id, item.name)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>

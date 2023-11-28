@@ -381,5 +381,18 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  deleteAddress(token:string, idAddress: string): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.deleteAddress(`api/v2/locations/${idAddress}`, headers).pipe(
+      map(response => {
+        return response as any
+      })
+    )
+  }
+
 
 }

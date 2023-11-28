@@ -128,7 +128,6 @@ export class UserPage implements OnInit {
   getLocations() {
     this.userService.getUserData()
     .then(data => {
-      // console.log('Api token: ', data.api_token);
       this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
           // this.paymentMethodsList = response.data;
@@ -192,6 +191,19 @@ export class UserPage implements OnInit {
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
+    });
+
+  }
+
+  deleteAddress(idAddress: string){
+        
+    this.requestUseCase.deleteAddress(this.loginToken, idAddress).subscribe(async response => {
+      if (response.success === true) {
+        console.log(`Address ${idAddress} was deleted...`);
+        this.getLocations();
+      } else {
+        console.log('Body del error response: ', response);
+      }
     });
 
   }
@@ -303,6 +315,20 @@ export class UserPage implements OnInit {
       undefined,
       id,
       () => this.deletePaymentMethod(id)
+      // this.appInjectorRef
+    );
+  }
+
+  async showAlertDeleteAddress(idAddress: string, name: string) {
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
+    await usert_alerts.presentAlertUser(
+      this.alertController,
+      name,
+      '¿Seguro que quieres eliminar esta dirección?',
+      'areYouSure',
+      undefined,
+      idAddress,
+      () => this.deleteAddress(idAddress)
       // this.appInjectorRef
     );
   }

@@ -52,6 +52,12 @@ export class BaseApiService {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
+  deleteAddress(path: string, headers?:HttpHeaders) {
+    return this.http.delete(`${this.urlV2}${path}`, { headers } );
+  }
+
+  
+
   // getApiGoogleMap(path: string, headers?:HttpHeaders) {
   //   return this.http.get(`${this.urlApiGoogleMap}${path}&key=${this.ApiKey}`, { headers });
   // }

@@ -25,7 +25,7 @@ export class UsertAlerts {
     text: string,
     type: string,
     productImage?: string | undefined,
-    idToDelete?: number | undefined,
+    idToDelete?: any,
     deletePaymentMethod?: (id: number) => void,
     // injector?: Injector | undefined,
   ) {
