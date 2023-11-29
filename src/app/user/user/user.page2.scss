@@ -63,10 +63,23 @@ ion-content .user-profile-info-container .profile-numbers-data-container .vertic
     height: 70%;
     overflow: auto;
   }
+
+  ion-content .user-profile-info-container .payment-list-container ion-item figure{
+    margin: 0;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ion-content .user-profile-info-container .payment-list-container ion-item figure img{
+    width: 60%;
+  }
   
   ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .credit-card-info-container {
     margin: 20px 0;
-    width: 50%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
   }
@@ -84,7 +97,7 @@ ion-content .user-profile-info-container .profile-numbers-data-container .vertic
   }
   
   ion-content .user-profile-info-container .payment-list-container ion-item-sliding ion-item .star-container {
-    width: 50%;
+    width: 20%;
     display: flex;
     justify-content: flex-end;
   }
@@ -153,8 +166,9 @@ ion-content .user-profile-info-container .profile-numbers-data-container .vertic
     --background: var(--btnClientColor);
     font-family: 'HudsonNYSerif';
     font-size: 17px;
-    color: black;
-    border: 2px solid black;
+    color: var(--btnTextColor);
+    // border: 2px solid black;
+    border: var(--btnClientBorder);
     --box-shadow: none;
     border-radius: 5px;
   }

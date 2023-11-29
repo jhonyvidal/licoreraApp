@@ -5,10 +5,13 @@ export interface ClientData extends BaseResponse {
 }
 
 export interface Data {
+    id: string,
     name: string,
     last_name: string,
     photo: string,
     email: string,
     birthday: string,
-    cellphone: string
+    cellphone: string,
+    order_quantity: number,
+    exchanges_quantity: number,
 }

@@ -2,20 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
-import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
-import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
 import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
-import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
-import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { Router } from '@angular/router';
 import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/store/services/user.service';
-import { Injector } from "@angular/core";
-import { Observable } from 'rxjs';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 
 @Component({
   selector: 'app-user',
@@ -23,8 +18,6 @@ import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse'
   styleUrls: ['./user.page.scss','./user.page2.scss'],
 })
 export class UserPage implements OnInit {
-
-  // items$: Observable<DataArray[]>;
 
   myForm: FormGroup;
   readOnly: boolean = true;
@@ -35,61 +28,19 @@ export class UserPage implements OnInit {
   starSelected: string = '../../../assets/icon/star-selected.svg';
   starEmpty: string = '../../../assets/icon/star-empty.svg';
   client: ClientData;
-  clientPoints: ClientPointsData;
-  client_Id: string = '114136667852541';
+  clientPoints: '';
+  client_Id: string = '';
+  clientOrderQuantity = '';
   currentValue: any;
   btnStylesCSS: string = 'white';
+  btnBorder: string = '2px solid black';
+  btnTextColor: string = 'black';
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
   loginToken: string;
-  appInjectorRef: Injector;
-  numberOfcard: string;
-  // paymentMethods: any = [
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  //   {
-  //     cardNumber: '4513 **** **** 1234',
-  //     starImage: this.starEmpty
-  //   },
-  // ];
+  paymentMethodsList: any [] = [];
 
-  miVariableObservable: Observable<boolean>;
-  paymentMethodsList: DataArray[] = [];
-
-  addressList1: LocationsResponse["data"] = [];
-
-  addressList: any = [
-    {
-      name: 'Mi casa',
-      address: 'Altos de Miravalle',
-      starImage: this.starEmpty
-    },
-    {
-      name: 'Casa Mamá',
-      address: 'Cra 12 # 34 - 56',
-      starImage: this.starEmpty
-    }
-  ];
-
-  // yaConsulto: boolean = false;
-
-  // loginV2Data: LoginV2Request = {
-  //   email: "diego4@mail.com",
-  //   password: "Diego1234"
-  // }
-
-  // loginV2Token: string;
-
+  addressList: LocationsResponse["data"] = [];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -99,9 +50,9 @@ export class UserPage implements OnInit {
     private userService: UserService
   ) {
     this.myForm = this.formBuilder.group({
-      cardNumber: ['', [Validators.required, ]],
-      name: ['', [Validators.required, ]],
-      lastName: ['', [Validators.required, ]],
+      cardNumber: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       date: [new Date('07/02/1994').toISOString().substring(0, 10), [Validators.required, ]],
       phone: ['3153103352', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]]
@@ -110,53 +61,42 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
-    this.getPaymentMethods();
-    this.getLocations();
-
-    this.getClientData();
-
-    this.requestUseCase.getClientPoints(this.client_Id).subscribe(response => {
-      if (response.success === true) {
-
-        this.clientPoints = response;
-
-      } else {
-        console.log('Body del error: ', response);
-      }
-    })
-    this.detectChanges();
   }
 
   ionViewWillEnter() {
-    this.getPaymentMethods()
+    this.getPaymentMethods();
+    this.getLocations();
+    this.getUserData();
   }
 
-  getLocations() {
+  getUserData() {
     this.userService.getUserData()
     .then(data => {
-      // console.log('Api token: ', data.api_token);
-      this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
-        if (response.success === true) {
-          // this.paymentMethodsList = response.data;
-          this.addressList1 = response.data;
-          console.log(this.addressList1);
-          
-        } else {
-          console.log('Body del error response: ', response);
-        }
-      })
+
+      this.loginToken = data.api_token;
+      setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
+
+      this.getPaymentMethods();
+      this.getLocations();
+      this.getMeData();
+      this.detectChanges();
+
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
+      this.router.navigate(['/sign-in']);
     });
   }
 
-  getClientData(){
-    this.requestUseCase.getClient('token', this.client_Id).subscribe(response => {
+  getMeData(){
+    this.requestUseCase.getMe(this.loginToken)
+    .subscribe((response) => {
       if (response.success === true) {
         this.client = response;
+        this.client_Id = response.data.id;
+        this.clientPoints = response.data.points;
+        this.clientOrderQuantity = response.data.order_quantity;
         this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
-
         this.myForm.get('name')?.setValue(this.client.data.name);
         this.myForm.get('lastName')?.setValue(this.client.data.last_name);
         this.myForm.get('email')?.setValue(this.client.data.email);
@@ -166,7 +106,31 @@ export class UserPage implements OnInit {
       } else {
         console.log('Body del error: ', response);
       }
+      
+    });
+  }
+
+  getLocations() {
+    this.userService.getUserData()
+    .then(data => {
+      this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
+        if (response.success === true) {
+          this.addressList = response.data;
+          for (let i = 0; i < this.addressList.length; i++) {
+            if (this.addressList[i].favorite === false) {
+              this.addressList[i].starImage = this.starEmpty;
+            }else{
+              this.addressList[i].starImage = this.starSelected;
+            }
+          }
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
     })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
   }
 
   detectChanges() {
@@ -178,14 +142,21 @@ export class UserPage implements OnInit {
     this.dataChanged = false;
   }
 
-  async getPaymentMethods(){
-
+  // async getPaymentMethods(){
+  getPaymentMethods(){
     this.userService.getUserData()
     .then(data => {
-      console.log('Api token: ', data.api_token);
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
-          this.paymentMethodsList = response.data;
+          this.paymentMethodsList = response.data.cards;
+          console.log('PaymentMethods: ', response.data);
+          for (let i = 0; i < this.paymentMethodsList.length; i++) {
+            if (this.paymentMethodsList[i].favorite === false) {
+              this.paymentMethodsList[i].starImage = this.starEmpty;
+            }else{
+              this.paymentMethodsList[i].starImage = this.starSelected;
+            }
+          }
         } else {
           console.log('Body del error response: ', response);
         }
@@ -197,17 +168,16 @@ export class UserPage implements OnInit {
 
   }
 
-  deletePaymentMethod(id: number){
+  deletePaymentMethod(data: DeletePaymentMethodsRequest){
     const deleteJson: DeletePaymentMethodsRequest = {
-      'id': id
+      token: data.token,
+      franchise: data.franchise,
+      mask: data.mask,
     }
-
-    // this.showAlertDeletePaymentMethod();
     this.userService.getUserData()
     .then(data => {      
       this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
         if (response.success === true) {
-          console.log(`Payment method ${id} was deleted...`);
           this.getPaymentMethods();
         } else {
           console.log('Body del error response: ', response);
@@ -220,11 +190,25 @@ export class UserPage implements OnInit {
 
   }
 
+  deleteAddress(idAddress: string){
+        
+    this.requestUseCase.deleteAddress(this.loginToken, idAddress).subscribe(async response => {
+      if (response.success === true) {
+        this.getLocations();
+      } else {
+        console.log('Body del error response: ', response);
+      }
+    });
+
+  }
+
   btnFuntion(){
     // User data logic
     if (this.ionSegment === 1 && this.btnText === 'Editar') {
       this.btnStylesCSS = '#99791C';
-      setBTNColor(this.btnStylesCSS);
+      this.btnBorder = 'none';
+      this.btnTextColor = 'white';
+      setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
       this.btnText = 'Guardar';
       this.readOnly = false;
     }else if (this.ionSegment === 1 && this.btnText === 'Guardar') {
@@ -245,8 +229,7 @@ export class UserPage implements OnInit {
 
         this.requestUseCase.putClient(this.client_Id, this.requestDataForm).subscribe(response => {
           if (response.success === true) {
-            console.log('client updated...');
-            this.getClientData();
+            this.getMeData();
           } else {
             console.log('Body del error: ', response);
           }
@@ -255,42 +238,61 @@ export class UserPage implements OnInit {
       }
 
       this.btnStylesCSS = 'white';
-      setBTNColor(this.btnStylesCSS);
+      this.btnBorder = '2px solid black';
+      this.btnTextColor = 'black';
+      setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
       this.btnText = 'Editar';
       this.readOnly = true;
     }
 
     // Payment methods logic
     if (this.ionSegment === 2) {
-
       this.router.navigate(['/credit-card']);
     }
+
+    if (this.ionSegment === 3) {
+      this.router.navigate(['/new-address']);
+    }
+
+
   }
 
   show(id:number){
     this.btnStylesCSS = 'white';
-    setBTNColor(this.btnStylesCSS);
+    this.btnBorder = '2px solid black';
+    this.btnTextColor = 'black';
+    setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
     this.ionSegment = id;
     this.btnText = this.ionSegment === 1 ? 'Editar' : 'Agregar';
   }
 
-  // selectCard(index: number){
-  //   for (let i = 0; i < this.paymentMethods.length; i++) {
-  //     if (i === index) {
-  //       this.paymentMethods[i].starImage = this.starSelected;
-  //     }else{
-  //       this.paymentMethods[i].starImage = this.starEmpty;
-  //     }
-  //   }
-  // }
+  selectCard(index: number){
+    
+  }
 
-  selectAddress(index: number){
-    for (let i = 0; i < this.addressList.length; i++) {
-      if (i === index) {
-        this.addressList[i].starImage = this.starSelected;
-      }else{
-        this.addressList[i].starImage = this.starEmpty;
-      }
+  selectAddress(idAddress: number, favorite: boolean, index: number){
+    let body = {
+      id: idAddress,
+    }
+    
+    if (!favorite) {
+      this.requestUseCase.postFavoriteLocations(this.loginToken, body).subscribe(response => {
+        if (response.success === true) {
+          this.addressList[index].starImage = this.starSelected;
+          this.getLocations();
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
+    }else {
+      this.requestUseCase.deleteFavoriteLocations(this.loginToken, idAddress).subscribe(response => {
+        if (response.success === true) {
+          this.addressList[index].starImage = this.starEmpty;
+          this.getLocations();
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
     }
   }
 
@@ -307,21 +309,33 @@ export class UserPage implements OnInit {
       '¿Seguro que quieres cerrar sesión?',
       'logout',
       undefined,
-      // this.appInjectorRef
     );
   }
 
-  async showAlertDeletePaymentMethod(id: number, cardNumber: string) {
+  async showAlertDeletePaymentMethod(data: DeletePaymentMethodsRequest, cardNumber: string) {
     const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
     await usert_alerts.presentAlertUser(
       this.alertController,
-      `${cardNumber.substring(0, 4)} **** **** ${cardNumber.substring(12, 16)}`,
+      // `${cardNumber.substring(0, 4)} **** **** ${cardNumber.substring(12, 16)}`,
+      data.mask,
       '¿Seguro que quieres eliminar esta tarjeta?',
       'areYouSure',
       undefined,
-      id,
-      () => this.deletePaymentMethod(id)
-      // this.appInjectorRef
+      data.token,
+      () => this.deletePaymentMethod(data)
+    );
+  }
+
+  async showAlertDeleteAddress(idAddress: string, name: string) {
+    const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
+    await usert_alerts.presentAlertUser(
+      this.alertController,
+      name,
+      '¿Seguro que quieres eliminar esta dirección?',
+      'areYouSure',
+      undefined,
+      idAddress,
+      () => this.deleteAddress(idAddress)
     );
   }
 

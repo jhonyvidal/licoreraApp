@@ -47,6 +47,10 @@ ion-content .form-payment-container {
   justify-content: space-between;
 }
 
+ion-content .form-payment-container p{
+  color: black;
+}
+
 ion-content .form-container {
   width: 90%;
   margin: 30px auto 0 auto;
@@ -67,6 +71,7 @@ ion-content .form-container .custom {
   --padding-end: 10px;
   --padding-start: 10px;
   border-bottom: solid 1px;
+
 }
 
 ion-content .form-container .card-number-contaienr {

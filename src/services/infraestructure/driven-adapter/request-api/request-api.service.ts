@@ -24,6 +24,8 @@ import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/do
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { FavoriteLocationsRequest } from 'src/shared/domain/request/FavoriteLocations';
+import { FavoriteLocationResponse } from 'src/shared/domain/response/FavoriteLocationResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -356,6 +358,20 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+
+  postFavoriteLocations(token: string, data: FavoriteLocationsRequest): Observable<FavoriteLocationResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postV2('api/v2/me/locations', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as FavoriteLocationResponse
+      })
+    )
+  }
   
 
   PostDelivery(data:any): Observable<any> {
@@ -377,6 +393,32 @@ export  class RequestApiService extends RequestGateway {
       map(response => {
         // console.log(response)
         return response as any
+      })
+    )
+  }
+
+  deleteAddress(token:string, idAddress: string): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.deleteAddress(`api/v2/locations/${idAddress}`, headers).pipe(
+      map(response => {
+        return response as any
+      })
+    )
+  }
+
+  deleteFavoriteLocations(token: string, idAddress: number): Observable<FavoriteLocationResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.deleteFavoriteLocations(`api/v2/me/locations/${idAddress}`, headers).pipe(
+      map(response => {
+        return response as FavoriteLocationResponse
       })
     )
   }

@@ -22,6 +22,9 @@ import { DeletePaymentResponse, PostPaymentMethodsResponse } from 'src/shared/do
 import { UserModel } from 'src/store/models/user-model';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { DeleteAddressResponse } from 'src/shared/domain/response/DeleteAddressResponse';
+import { FavoriteLocationsRequest } from 'src/shared/domain/request/FavoriteLocations';
+import { FavoriteLocationResponse } from 'src/shared/domain/response/FavoriteLocationResponse';
 
 @Injectable()
 export class RequestUseCases {
@@ -137,8 +140,20 @@ export class RequestUseCases {
     return this._requestGateWay.postLocations(token, data);
   }
 
+  postFavoriteLocations(token: string, data: FavoriteLocationsRequest) : Observable <FavoriteLocationResponse> {
+    return this._requestGateWay.postFavoriteLocations(token, data);
+  }
+
   postOrder(token: string, data: any) : Observable <PostPaymentMethodsResponse> {
     return this._requestGateWay.postOrder(token, data);
+  }
+
+  deleteAddress(token: string, idAddress: string) : Observable <DeleteAddressResponse> {
+    return this._requestGateWay.deleteAddress(token, idAddress);
+  }
+
+  deleteFavoriteLocations(token: string, idAddress: number) : Observable <FavoriteLocationResponse> {
+    return this._requestGateWay.deleteFavoriteLocations(token, idAddress);
   }
 
 }

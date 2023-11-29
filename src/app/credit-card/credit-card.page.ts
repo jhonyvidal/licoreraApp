@@ -7,6 +7,11 @@ import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { UserService } from 'src/store/services/user.service';
 
+import { AbstractControl, ValidatorFn, ValidationErrors } from "@angular/forms";
+
+// Maskito for input masking
+import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
+
 @Component({
   selector: 'app-credit-card',
   templateUrl: './credit-card.page.html',
@@ -14,7 +19,35 @@ import { UserService } from 'src/store/services/user.service';
 })
 export class CreditCardPage implements OnInit {
 
+  readonly options: MaskitoOptions = {
+    mask: /^\d{0,3}$/,
+  };
+
+  readonly cardMask: MaskitoOptions = {
+    mask: [
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+    ],
+  };
+
+  readonly dateMask: MaskitoOptions = {
+    mask: [
+      ...Array(2).fill(/\d/),
+      '/',
+      ...Array(4).fill(/\d/),
+    ],
+  };
+
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+
   myForm: FormGroup;
+  todayDate: Date;
+  minDate = '';
   requestDataPaymentMethods: PostPaymentMethodsRequest;
   isFormValid: boolean = true;
   btnCSS: string = 'btn-footer-disabled';
@@ -31,15 +64,26 @@ export class CreditCardPage implements OnInit {
     private alertController: AlertController,
   ) {
     this.myForm = this.formBuilder.group({
-      number: ['', [Validators.required,]],
-      cvv: ['', [Validators.minLength(3), Validators.maxLength(3), Validators.required]],
-      expirationDate: ['', [Validators.required, ]],
+      number: ['', [Validators.required, Validators.minLength(19)]],
+      cvv: ['', [Validators.required, Validators.minLength(3)]],
+      expirationDate: ['', [Validators.required, Validators.minLength(7)]],
       name: ['', [Validators.required, ]],
     });
 
   }
 
   ngOnInit() {
+
+    this.todayDate = new Date();
+    let currentYear = this.todayDate.getFullYear();
+    let currentMonth = String(this.todayDate.getMonth()+1).padStart(2,"0");
+    
+    this.minDate = `${currentYear}-${currentMonth}`;
+    this.detectChanges();
+
+  }
+
+  detectChanges() {
     this.myForm.valueChanges.subscribe(() => {
       if (this.myForm.valid) {
         this.isFormValid = false;
@@ -52,13 +96,16 @@ export class CreditCardPage implements OnInit {
   }
 
   createPaymentMethod(id: number){
+    let exp_month = this.myForm.get('expirationDate')?.value.split('/')[0];
+    let exp_year = this.myForm.get('expirationDate')?.value.split('/')[1];
+
     this.requestDataPaymentMethods = {
-      number: this.myForm.get('number')?.value,
+      number: this.myForm.get('number')?.value.replace( /\s/g, ''),
       cvv: this.myForm.get('cvv')?.value,
-      // cvv: this.cvvInput,
-      expirationDate: this.myForm.get('expirationDate')?.value,
       name: this.myForm.get('name')?.value,
-      favorite: false
+      favorite: false,
+      exp_month: exp_month,
+      exp_year: exp_year,
     }
 
     this.userService.getUserData()
@@ -87,7 +134,6 @@ export class CreditCardPage implements OnInit {
       undefined,
       undefined,
       () => this.createPaymentMethod(1)
-      // this.appInjectorRef
     );
   }
 

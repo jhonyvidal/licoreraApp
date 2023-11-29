@@ -1,19 +1,12 @@
 import { BaseResponse } from "../response/base-response";
 
 export interface DeletePaymentResponse extends BaseResponse {
-    data: number
+    data: string
 }
 
 export interface PostPaymentMethodsResponse extends BaseResponse {
-  data: {
-    number: string,
-    cvv: string,
-    expirationDate: string,
-    name: string,
-    favorite: string,
-    client_id: string,
-    updated_at: string,
-    created_at: string,
-    id: string
-  }
+  exp_month: string,
+  exp_year: string,
+  name: string,
+  mask: string
 }

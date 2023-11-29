@@ -15,6 +15,12 @@ ion-header ion-toolbar ion-buttons {
   width: 56px;
 }
 
+@media (max-width: 380px){
+  ion-content {
+    overflow: auto;
+  }
+}
+
 ion-content .profile-header-container {
   position: relative;
   width: 100%;
@@ -40,15 +46,21 @@ ion-content .profile-header-container .profile-avatar-container {
 
 ion-content .profile-header-container .profile-avatar-container figure {
   margin: 0;
+  padding: auto 0;
   width: 100%;
   height: 60%;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  align-items: center;
+  
 }
 
 ion-content .profile-header-container .profile-avatar-container figure img{
-  height: 100%;
+  width: 78px;
+  height: 78px;
+  object-fit: cover;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 ion-content .profile-header-container .profile-avatar-container .jotas-container {

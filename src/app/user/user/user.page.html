@@ -10,7 +10,7 @@
         </ion-button>
         <ion-button class="btn-header">
           <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
-          <img width="15" height="15" (click)="goHome()"  src="../../assets/icon/white-x.svg" alt="">
+          <img width="24" height="24" (click)="goHome()"  src="../../assets/icon/white-x.svg" alt="">
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
@@ -20,7 +20,7 @@
   <div class="profile-header-container">
     <ion-buttons>
       <ion-button class="btn-logout" (click)="showAlertLogout()">
-        <img width="15" height="15"   src="../../assets/icon/logout-icon.svg" alt="">
+        <img width="22" height="22"   src="../../assets/icon/logout-icon.svg" alt="">
       </ion-button>
     </ion-buttons>
     <div class="profile-avatar-container">
@@ -29,21 +29,21 @@
       </figure>
       <div class="jotas-container">
         <h2 class="profile-name">{{client?.data?.name}}</h2>
-        <p class="profile-jotas">{{clientPoints?.data?.points}} Jotas</p>
+        <p class="profile-jotas">{{clientPoints}} Jotas</p>
       </div>
     </div>
   </div>
   <div class="user-profile-info-container">
     <div class="profile-numbers-data-container">
       <div class="pedidos">
-        <p>999</p>
+        <p>{{client?.data?.order_quantity}}</p>
         <p>Pedidos</p>
       </div>
       <div class="vertical-divider">
 
       </div>
       <div class="canjes">
-        <p>25</p>
+        <p>{{client?.data?.exchanges_quantity}}</p>
         <p>Canjes</p>
       </div>
     </div>
@@ -65,28 +65,31 @@
     <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethodsList.length > 0">
       <ion-item-sliding *ngFor="let item of paymentMethodsList; index as i">
         <ion-item>
-          <div class="credit-card-info-container">
+          <figure>
             <img src="../../../assets/icon/credit-card.svg" alt="">
+          </figure>
+          <div class="credit-card-info-container">
             <div>
-              <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2>
-              <p>{{item.name}}</p>
+              <!-- <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2> -->
+              <h2>{{item.mask}}</h2>
+              <p>{{item.franchise}}</p>
             </div>
           </div>
           <ion-buttons class="star-container">
             <ion-button (click)="selectCard(i)">
-              <img [src]="starSelected" alt="">
+              <img [src]="this.paymentMethodsList[i].starImage" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>
         <ion-item-options>
-          <ion-item-option (click)="showAlertDeletePaymentMethod(item.id, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+          <ion-item-option (click)="showAlertDeletePaymentMethod(item, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
     <div [formGroup]="myForm" class="info-container" *ngIf="ionSegment === 1">
       <div class="full-name-container">
         <ion-input formControlName="name" class="custom" type="text" [readonly]="readOnly"></ion-input>
-        <ion-input formControlName="lastName" class="custom" type="text"  [readonly]="readOnly"></ion-input>
+        <ion-input formControlName="lastName" class="custom" type="text" [readonly]="readOnly"></ion-input>
       </div>
       <ion-input formControlName="email" class="custom" type="email" [readonly]="readOnly"></ion-input>
       <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
@@ -97,23 +100,25 @@
       <p>Agrega una para continuar</p>
     </div>
     <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
-      <ion-item-sliding *ngFor="let item of addressList1; index as i">
+      <ion-item-sliding *ngFor="let item of addressList; index as i">
         <ion-item>
-          <div class="credit-card-info-container">
+          <figure>
             <img src="../../../assets/icon/location-user.svg" alt="">
+          </figure>
+          <div class="credit-card-info-container">
             <div>
               <h2>{{item.name}}</h2>
               <p>{{item.address}}</p>
             </div>
           </div>
           <ion-buttons class="star-container">
-            <ion-button (click)="selectAddress(i)">
-              <img [src]="starSelected" alt="">
+            <ion-button (click)="selectAddress(item.id, item.favorite, i)">
+              <img [src]="this.addressList[i].starImage" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>
         <ion-item-options>
-          <ion-item-option color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+          <ion-item-option (click)="showAlertDeleteAddress(item.id, item.name)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>

@@ -1,12 +1,17 @@
 export interface DeletePaymentMethodsRequest {
-  id: number | undefined
+  token: string,
+  franchise: string,
+  mask: string,
 }
 
 export interface PostPaymentMethodsRequest {
   number: string,
   cvv: string,
-  expirationDate: string,
   name: string,
-  favorite: boolean
+  favorite: boolean,
+  exp_month: string,
+  exp_year: string,
+
+  
 }
 

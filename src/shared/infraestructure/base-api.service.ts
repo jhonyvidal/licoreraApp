@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { LoginV2Request } from '../domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
 import { CreateLocationRequest } from '../domain/request/CreateLocation';
+import { FavoriteLocationsRequest } from '../domain/request/FavoriteLocations';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,16 @@ export class BaseApiService {
   postPaymentMethods(path: string, data: PostPaymentMethodsRequest, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
+
+  deleteAddress(path: string, headers?:HttpHeaders) {
+    return this.http.delete(`${this.urlV2}${path}`, { headers } );
+  }
+
+  deleteFavoriteLocations(path: string, headers?:HttpHeaders) {
+    return this.http.delete(`${this.urlV2}${path}`, { headers } );
+  }
+
+  
 
   // getApiGoogleMap(path: string, headers?:HttpHeaders) {
   //   return this.http.get(`${this.urlApiGoogleMap}${path}&key=${this.ApiKey}`, { headers });
