@@ -1,23 +1,15 @@
-// import { Injector} from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { UserService } from 'src/store/services/user.service';
-import { DataArray } from '../domain/response/PaymentMethodsGetResponse';
-import { DeletePaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
 
 export class UsertAlerts {
-
-  // private paymentMethodsList: DataArray[];
 
   constructor(
     private router: Router,
     private userService: UserService,
     private requestUseCase: RequestUseCases,
-    // paymentMethodsList: DataArray[]
-  ){
-    // paymentMethodsList = this.paymentMethodsList;
-  }
+  ){}
 
   public async presentAlertUser(
     alertController: AlertController,
@@ -27,7 +19,6 @@ export class UsertAlerts {
     productImage?: string | undefined,
     idToDelete?: any,
     deletePaymentMethod?: (id: number) => void,
-    // injector?: Injector | undefined,
   ) {
 
     const iconObject: any = {
@@ -36,9 +27,7 @@ export class UsertAlerts {
       congrats: 'checkGreen',
     }
 
-    // const warningImg = window.location.origin + `/assets/img/${type === 'Logout' ? 'logoutAlert' : type === 'exchange-products-success-response' ? 'checkGreen' : ''}.svg`;
     const warningImg = window.location.origin + `/assets/img/${iconObject[type]}.svg`;
-    // const timeAlertText = timeAlert ? '<b>${timeAlert}</b></br>' : '';
     let imageAlert = type === 'exchange-products-success' ? productImage :  warningImg;
     let alert: any;
 
@@ -121,8 +110,6 @@ export class UsertAlerts {
       default:
         break;
     }
-
-
     await alert.present();
   }
 

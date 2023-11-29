@@ -76,7 +76,7 @@
           </div>
           <ion-buttons class="star-container">
             <ion-button (click)="selectCard(i)">
-              <img [src]="starSelected" alt="">
+              <img [src]="star" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>
@@ -94,12 +94,12 @@
       <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
       <ion-input formControlName="phone" class="custom" type="number" [readonly]="readOnly"></ion-input>
     </div>
-    <div class="aun-address" *ngIf="ionSegment === 3 && addressList1.length <= 0">
+    <div class="aun-address" *ngIf="ionSegment === 3 && addressList.length <= 0">
       <h2>Aún no tiene direcciones guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
-    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList1.length > 0">
-      <ion-item-sliding *ngFor="let item of addressList1; index as i">
+    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
+      <ion-item-sliding *ngFor="let item of addressList; index as i">
         <ion-item>
           <figure>
             <img src="../../../assets/icon/location-user.svg" alt="">
@@ -111,8 +111,8 @@
             </div>
           </div>
           <ion-buttons class="star-container">
-            <ion-button (click)="selectAddress(i)">
-              <img [src]="starSelected" alt="">
+            <ion-button (click)="selectAddress(item.id, item.favorite, i)">
+              <img [src]="this.addressList[i].starImage" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>

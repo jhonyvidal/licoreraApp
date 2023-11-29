@@ -21,6 +21,8 @@ import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse'
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
 import { DeleteAddressResponse } from 'src/shared/domain/response/DeleteAddressResponse';
+import { FavoriteLocationsRequest } from 'src/shared/domain/request/FavoriteLocations';
+import { FavoriteLocationResponse } from 'src/shared/domain/response/FavoriteLocationResponse';
 
 export abstract class RequestGateway {
 
@@ -53,8 +55,10 @@ export abstract class RequestGateway {
     abstract getGoogleApi(token: string, param:string): Observable<any>;
     abstract getMeLocation(token: string): Observable<any>;
     abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
+    abstract postFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
     abstract postOrder(path: string, data: any):Observable<any>;
     abstract deleteAddress(path: string, idAddress: string):Observable<any>;
+    abstract deleteFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
 }
 
 

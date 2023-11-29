@@ -12,7 +12,8 @@ export interface LocationsResponse extends BaseResponse {
         created_at: string,
         updated_at: string,
         deleted_at: string,
-        favorite: number
+        favorite: boolean,
+        starImage: string,
     } []
 }
 

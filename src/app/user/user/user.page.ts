@@ -43,13 +43,9 @@ export class UserPage implements OnInit {
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
   loginToken: string;
-  appInjectorRef: Injector;
-  numberOfcard: string;
-
-  miVariableObservable: Observable<boolean>;
   paymentMethodsList: DataArray[] = [];
 
-  addressList1: LocationsResponse["data"] = [];
+  addressList: LocationsResponse["data"] = [];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -69,9 +65,6 @@ export class UserPage implements OnInit {
   }
 
   ngOnInit() {
-
-    // Validate if logged
-    
 
   }
 
@@ -130,10 +123,14 @@ export class UserPage implements OnInit {
     .then(data => {
       this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
-          // this.paymentMethodsList = response.data;
-          this.addressList1 = response.data;
-          console.log(this.addressList1);
-          
+          this.addressList = response.data;
+          for (let i = 0; i < this.addressList.length; i++) {
+            if (this.addressList[i].favorite === false) {
+              this.addressList[i].starImage = this.starEmpty;
+            }else{
+              this.addressList[i].starImage = this.starSelected;
+            }
+          }
         } else {
           console.log('Body del error response: ', response);
         }
@@ -154,13 +151,20 @@ export class UserPage implements OnInit {
   }
 
   async getPaymentMethods(){
-
     this.userService.getUserData()
     .then(data => {
-      // console.log('Api token: ', data.api_token);
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
           this.paymentMethodsList = response.data;
+          console.log('PaymentMethods: ', response.data);
+          
+          // for (let i = 0; i < this.paymentMethodsList.length; i++) {
+          //   if (this.paymentMethodsList[i].favorite === 0) {
+          //     this.star = this.starEmpty;
+          //   }else{
+          //     this.star = this.starEmpty;
+          //   }
+          // }
         } else {
           console.log('Body del error response: ', response);
         }
@@ -176,8 +180,6 @@ export class UserPage implements OnInit {
     const deleteJson: DeletePaymentMethodsRequest = {
       'id': id
     }
-
-    // this.showAlertDeletePaymentMethod();
     this.userService.getUserData()
     .then(data => {      
       this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
@@ -254,7 +256,6 @@ export class UserPage implements OnInit {
 
     // Payment methods logic
     if (this.ionSegment === 2) {
-
       this.router.navigate(['/credit-card']);
     }
   }
@@ -268,25 +269,33 @@ export class UserPage implements OnInit {
     this.btnText = this.ionSegment === 1 ? 'Editar' : 'Agregar';
   }
 
-  // selectCard(index: number){
-  //   for (let i = 0; i < this.paymentMethods.length; i++) {
-  //     if (i === index) {
-  //       this.paymentMethods[i].starImage = this.starSelected;
-  //     }else{
-  //       this.paymentMethods[i].starImage = this.starEmpty;
-  //     }
-  //   }
-  // }
+  selectCard(index: number){
+    
+  }
 
-  // selectAddress(index: number){
-  //   for (let i = 0; i < this.addressList.length; i++) {
-  //     if (i === index) {
-  //       this.addressList[i].starImage = this.starSelected;
-  //     }else{
-  //       this.addressList[i].starImage = this.starEmpty;
-  //     }
-  //   }
-  // }
+  selectAddress(idAddress: number, favorite: boolean, index: number){
+    let body = {
+      id: idAddress,
+    }
+
+    if (!favorite) {
+      this.requestUseCase.postFavoriteLocations(this.loginToken, body).subscribe(response => {
+        if (response.success === true) {
+          this.addressList[index].starImage = this.starSelected;
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
+    }else {
+      this.requestUseCase.deleteFavoriteLocations(this.loginToken, body).subscribe(response => {
+        if (response.success === true) {
+          this.addressList[index].starImage = this.starEmpty;
+        } else {
+          console.log('Body del error response: ', response);
+        }
+      })
+    }
+  }
 
   goHome(){
     this.router.navigate(['/home']);
@@ -301,7 +310,6 @@ export class UserPage implements OnInit {
       '¿Seguro que quieres cerrar sesión?',
       'logout',
       undefined,
-      // this.appInjectorRef
     );
   }
 
@@ -315,7 +323,6 @@ export class UserPage implements OnInit {
       undefined,
       id,
       () => this.deletePaymentMethod(id)
-      // this.appInjectorRef
     );
   }
 
@@ -329,7 +336,6 @@ export class UserPage implements OnInit {
       undefined,
       idAddress,
       () => this.deleteAddress(idAddress)
-      // this.appInjectorRef
     );
   }
 
