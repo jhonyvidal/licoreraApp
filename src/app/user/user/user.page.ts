@@ -155,6 +155,7 @@ export class UserPage implements OnInit {
           this.paymentMethodsList = response.data.cards;
           if (this.paymentMethodsList.length <= 0) {
             this.paymentsEmpty = true;
+            this.loadingPM = false;
           }else{
             this.loadingPM = false;
           }
