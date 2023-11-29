@@ -39,6 +39,8 @@ export class UserPage implements OnInit {
   requestDataForm: UpdateClientData;
   loginToken: string;
   paymentMethodsList: any [] = [];
+  loadingPM: boolean = true;
+  paymentsEmpty: boolean = false;
 
   addressList: LocationsResponse["data"] = [];
 
@@ -67,6 +69,8 @@ export class UserPage implements OnInit {
     this.getPaymentMethods();
     this.getLocations();
     this.getUserData();
+    this.loadingPM = true;
+    this.paymentsEmpty = false;
   }
 
   getUserData() {
@@ -149,7 +153,11 @@ export class UserPage implements OnInit {
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
           this.paymentMethodsList = response.data.cards;
-          console.log('PaymentMethods: ', response.data);
+          if (this.paymentMethodsList.length <= 0) {
+            this.paymentsEmpty = true;
+          }else{
+            this.loadingPM = false;
+          }
           for (let i = 0; i < this.paymentMethodsList.length; i++) {
             if (this.paymentMethodsList[i].favorite === false) {
               this.paymentMethodsList[i].starImage = this.starEmpty;
