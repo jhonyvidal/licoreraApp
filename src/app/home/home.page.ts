@@ -6,6 +6,8 @@ import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { AlertController } from '@ionic/angular';
 import { presentAlert } from 'src/shared/components/alert.component';
+import { InfoService } from 'src/store/services/info.service';
+import { InfoModel } from 'src/store/models/info-model';
 
 @Component({
   selector: 'app-home',
@@ -16,13 +18,18 @@ export class HomePage {
   constructor(private router: Router, 
     private requestUseCase: RequestUseCases,
     private alertController: AlertController,
-    private userService: UserService) {}
+    private userService: UserService,
+    private infoService: InfoService) {}
 
   selectedTab: string = 'tab1';
   userData: UserModel;
+  infoData:InfoModel
+  facebook:string;
+  instagram:string;
 
   ionViewWillEnter() {
     this.getUser()
+    this.getInfo()
   }
 
   changeTab(tab: string) {
@@ -31,6 +38,20 @@ export class HomePage {
 
   routerLink(route: string) {
     this.router.navigate(['/' + route]);
+  }
+
+  getInfo(){
+    this.requestUseCase.GetInfo()
+    .subscribe((response) => {
+      if(response.success === true){
+        this.infoService.setInfoData(response.data)
+        this.infoData = response.data;
+        this.facebook = `https://www.facebook.com/${this.infoData.socialNetworks.facebook}`
+        this.instagram = `https://www.instagram.com/${this.infoData.socialNetworks.instagram}`
+      }else{
+        console.log(response);
+      }
+    });
   }
 
   getUser(){
@@ -49,15 +70,6 @@ export class HomePage {
   }
 
   async singOut() {
-    // const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
-    // await usert_alerts.presentAlertUser(
-    //   this.alertController,
-    //   'INFORMACIÓN',
-    //   '¿Seguro que quieres cerrar sesión?',
-    //   'logout',
-    //   undefined,
-    //   this.logout()
-    // );
     await presentAlert(
       this.alertController,
       'INFORMACIÓN',

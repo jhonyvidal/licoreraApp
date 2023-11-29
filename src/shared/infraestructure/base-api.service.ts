@@ -32,7 +32,7 @@ export class BaseApiService {
   }
 
   delete(path: string,) {
-    return this.http.delete(`${this.url}${path}`);
+    return this.http.delete(`${this.url}${path}`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        );
   }
 
   // Api v2
