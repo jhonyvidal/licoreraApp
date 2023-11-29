@@ -2,20 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
-import { ClientPointsData } from 'src/shared/domain/response/ClientPointsData';
-import setBodyColor from 'src/shared/BTN_Color/BTN_Color';
 import setBTNColor from 'src/shared/BTN_Color/BTN_Color';
 import { UpdateClientData } from 'src/shared/domain/request/UpdateClientData';
-import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
-import { DataArray } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { Router } from '@angular/router';
 import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/store/services/user.service';
-import { Injector } from "@angular/core";
-import { Observable } from 'rxjs';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
+import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 
 @Component({
   selector: 'app-user',
@@ -43,7 +38,7 @@ export class UserPage implements OnInit {
   dataChanged: boolean = false;
   requestDataForm: UpdateClientData;
   loginToken: string;
-  paymentMethodsList: DataArray[] = [];
+  paymentMethodsList: any [] = [];
 
   addressList: LocationsResponse["data"] = [];
 
@@ -102,9 +97,6 @@ export class UserPage implements OnInit {
         this.clientPoints = response.data.points;
         this.clientOrderQuantity = response.data.order_quantity;
         this.avatarImage = this.client.data.photo ? this.client.data.photo : this.defaultAvatarImage;
-        console.log(response);
-        
-
         this.myForm.get('name')?.setValue(this.client.data.name);
         this.myForm.get('lastName')?.setValue(this.client.data.last_name);
         this.myForm.get('email')?.setValue(this.client.data.email);
@@ -150,21 +142,21 @@ export class UserPage implements OnInit {
     this.dataChanged = false;
   }
 
-  async getPaymentMethods(){
+  // async getPaymentMethods(){
+  getPaymentMethods(){
     this.userService.getUserData()
     .then(data => {
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
-          this.paymentMethodsList = response.data;
+          this.paymentMethodsList = response.data.cards;
           console.log('PaymentMethods: ', response.data);
-          
-          // for (let i = 0; i < this.paymentMethodsList.length; i++) {
-          //   if (this.paymentMethodsList[i].favorite === 0) {
-          //     this.star = this.starEmpty;
-          //   }else{
-          //     this.star = this.starEmpty;
-          //   }
-          // }
+          for (let i = 0; i < this.paymentMethodsList.length; i++) {
+            if (this.paymentMethodsList[i].favorite === false) {
+              this.paymentMethodsList[i].starImage = this.starEmpty;
+            }else{
+              this.paymentMethodsList[i].starImage = this.starSelected;
+            }
+          }
         } else {
           console.log('Body del error response: ', response);
         }
@@ -176,15 +168,16 @@ export class UserPage implements OnInit {
 
   }
 
-  deletePaymentMethod(id: number){
+  deletePaymentMethod(data: DeletePaymentMethodsRequest){
     const deleteJson: DeletePaymentMethodsRequest = {
-      'id': id
+      token: data.token,
+      franchise: data.franchise,
+      mask: data.mask,
     }
     this.userService.getUserData()
     .then(data => {      
       this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
         if (response.success === true) {
-          console.log(`Payment method ${id} was deleted...`);
           this.getPaymentMethods();
         } else {
           console.log('Body del error response: ', response);
@@ -201,7 +194,6 @@ export class UserPage implements OnInit {
         
     this.requestUseCase.deleteAddress(this.loginToken, idAddress).subscribe(async response => {
       if (response.success === true) {
-        console.log(`Address ${idAddress} was deleted...`);
         this.getLocations();
       } else {
         console.log('Body del error response: ', response);
@@ -237,7 +229,6 @@ export class UserPage implements OnInit {
 
         this.requestUseCase.putClient(this.client_Id, this.requestDataForm).subscribe(response => {
           if (response.success === true) {
-            console.log('client updated...');
             this.getMeData();
           } else {
             console.log('Body del error: ', response);
@@ -258,6 +249,12 @@ export class UserPage implements OnInit {
     if (this.ionSegment === 2) {
       this.router.navigate(['/credit-card']);
     }
+
+    if (this.ionSegment === 3) {
+      this.router.navigate(['/new-address']);
+    }
+
+
   }
 
   show(id:number){
@@ -277,19 +274,21 @@ export class UserPage implements OnInit {
     let body = {
       id: idAddress,
     }
-
+    
     if (!favorite) {
       this.requestUseCase.postFavoriteLocations(this.loginToken, body).subscribe(response => {
         if (response.success === true) {
           this.addressList[index].starImage = this.starSelected;
+          this.getLocations();
         } else {
           console.log('Body del error response: ', response);
         }
       })
     }else {
-      this.requestUseCase.deleteFavoriteLocations(this.loginToken, body).subscribe(response => {
+      this.requestUseCase.deleteFavoriteLocations(this.loginToken, idAddress).subscribe(response => {
         if (response.success === true) {
           this.addressList[index].starImage = this.starEmpty;
+          this.getLocations();
         } else {
           console.log('Body del error response: ', response);
         }
@@ -313,16 +312,17 @@ export class UserPage implements OnInit {
     );
   }
 
-  async showAlertDeletePaymentMethod(id: number, cardNumber: string) {
+  async showAlertDeletePaymentMethod(data: DeletePaymentMethodsRequest, cardNumber: string) {
     const usert_alerts = new UsertAlerts(this.router, this.userService, this.requestUseCase);
     await usert_alerts.presentAlertUser(
       this.alertController,
-      `${cardNumber.substring(0, 4)} **** **** ${cardNumber.substring(12, 16)}`,
+      // `${cardNumber.substring(0, 4)} **** **** ${cardNumber.substring(12, 16)}`,
+      data.mask,
       '¿Seguro que quieres eliminar esta tarjeta?',
       'areYouSure',
       undefined,
-      id,
-      () => this.deletePaymentMethod(id)
+      data.token,
+      () => this.deletePaymentMethod(data)
     );
   }
 

@@ -35,6 +35,14 @@ export class CreditCardPage implements OnInit {
     ],
   };
 
+  readonly dateMask: MaskitoOptions = {
+    mask: [
+      ...Array(2).fill(/\d/),
+      '/',
+      ...Array(4).fill(/\d/),
+    ],
+  };
+
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   myForm: FormGroup;
@@ -58,7 +66,7 @@ export class CreditCardPage implements OnInit {
     this.myForm = this.formBuilder.group({
       number: ['', [Validators.required, Validators.minLength(19)]],
       cvv: ['', [Validators.required, Validators.minLength(3)]],
-      expirationDate: ['', [Validators.required]],
+      expirationDate: ['', [Validators.required, Validators.minLength(7)]],
       name: ['', [Validators.required, ]],
     });
 
@@ -88,13 +96,16 @@ export class CreditCardPage implements OnInit {
   }
 
   createPaymentMethod(id: number){
+    let exp_month = this.myForm.get('expirationDate')?.value.split('/')[0];
+    let exp_year = this.myForm.get('expirationDate')?.value.split('/')[1];
+
     this.requestDataPaymentMethods = {
-      number: this.myForm.get('number')?.value,
+      number: this.myForm.get('number')?.value.replace( /\s/g, ''),
       cvv: this.myForm.get('cvv')?.value,
-      // cvv: this.cvvInput,
-      expirationDate: this.myForm.get('expirationDate')?.value + '-01',
       name: this.myForm.get('name')?.value,
-      favorite: false
+      favorite: false,
+      exp_month: exp_month,
+      exp_year: exp_year,
     }
 
     this.userService.getUserData()

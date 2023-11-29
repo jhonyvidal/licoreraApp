@@ -17,7 +17,7 @@ export class UsertAlerts {
     text: string,
     type: string,
     productImage?: string | undefined,
-    idToDelete?: any,
+    tokenToDelete?: any,
     deletePaymentMethod?: (id: number) => void,
   ) {
 
@@ -47,7 +47,7 @@ export class UsertAlerts {
               role: 'accept',
               cssClass: 'alertButtonExchange',
               handler: () => {
-                deletePaymentMethod?.(idToDelete || 0);
+                deletePaymentMethod?.(tokenToDelete || 0);
                 this.closeAlert(alertController);
               },
             },
@@ -73,7 +73,7 @@ export class UsertAlerts {
               role: 'cancel',
               cssClass: 'alertButton',
               handler: () => {
-                deletePaymentMethod?.(idToDelete || 0);
+                deletePaymentMethod?.(tokenToDelete || 0);
                 this.closeAlert(alertController);
               },
             },

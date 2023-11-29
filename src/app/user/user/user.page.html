@@ -70,18 +70,19 @@
           </figure>
           <div class="credit-card-info-container">
             <div>
-              <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2>
-              <p>{{item.name}}</p>
+              <!-- <h2>{{item.number.substring(0, 4) + ' **** **** ' + item.number.substring(12, 16) }}</h2> -->
+              <h2>{{item.mask}}</h2>
+              <p>{{item.franchise}}</p>
             </div>
           </div>
           <ion-buttons class="star-container">
             <ion-button (click)="selectCard(i)">
-              <img [src]="star" alt="">
+              <img [src]="this.paymentMethodsList[i].starImage" alt="">
             </ion-button>
           </ion-buttons>
         </ion-item>
         <ion-item-options>
-          <ion-item-option (click)="showAlertDeletePaymentMethod(item.id, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+          <ion-item-option (click)="showAlertDeletePaymentMethod(item, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>

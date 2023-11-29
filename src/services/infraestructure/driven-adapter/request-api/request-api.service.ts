@@ -410,13 +410,13 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  deleteFavoriteLocations(token: string): Observable<FavoriteLocationResponse> {
+  deleteFavoriteLocations(token: string, idAddress: number): Observable<FavoriteLocationResponse> {
     const headers = new HttpHeaders(
       {
         'Authorization': token
       }
     );
-    return this.http.deleteFavoriteLocations('api/v2/me/locations', headers).pipe(
+    return this.http.deleteFavoriteLocations(`api/v2/me/locations/${idAddress}`, headers).pipe(
       map(response => {
         return response as FavoriteLocationResponse
       })

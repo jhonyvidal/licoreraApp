@@ -152,8 +152,8 @@ export class RequestUseCases {
     return this._requestGateWay.deleteAddress(token, idAddress);
   }
 
-  deleteFavoriteLocations(token: string, data: FavoriteLocationsRequest) : Observable <FavoriteLocationResponse> {
-    return this._requestGateWay.deleteFavoriteLocations(token, data);
+  deleteFavoriteLocations(token: string, idAddress: number) : Observable <FavoriteLocationResponse> {
+    return this._requestGateWay.deleteFavoriteLocations(token, idAddress);
   }
 
 }

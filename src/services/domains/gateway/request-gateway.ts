@@ -58,7 +58,7 @@ export abstract class RequestGateway {
     abstract postFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
     abstract postOrder(path: string, data: any):Observable<any>;
     abstract deleteAddress(path: string, idAddress: string):Observable<any>;
-    abstract deleteFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
+    abstract deleteFavoriteLocations(path: string, idAddress: number):Observable<FavoriteLocationResponse>;
 }
 
 

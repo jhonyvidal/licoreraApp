@@ -1,17 +1,21 @@
 import { BaseResponse } from "../response/base-response";
 
 export interface PaymentMethodsGetResponse extends BaseResponse {
-    data: DataArray[]
-}
-
-export interface DataArray {
-    id: number,
-    client_id: string,
-    number: string,
-    cvv: string,
-    expirationDate: string,
-    name: string,
-    favorite: number,
-    created_at: string,
-    updated_at: string
+    // data: DataArray[]
+    data: {
+        id_customer: string,
+        name: string,
+        created: string,
+        email: string,
+        phone: string,
+        address: string,
+        cards: {
+            token: string,
+            franchise: string,
+            mask: string,
+            created: string,
+            default: boolean,
+            starImage: string,
+        } []
+    }
 }

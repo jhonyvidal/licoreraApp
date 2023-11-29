@@ -31,7 +31,8 @@
       <div class="fecha-cvv-container">
         <div class="fecha-container">
           <p>Fecha de expiración</p>
-          <ion-input  formControlName="expirationDate" class="custom" type="month" [min]="minDate" lang="es-ES" placeholder="11/12/2023" required></ion-input>
+          <!-- <ion-input formControlName="expirationDate" class="custom" type="month" [min]="minDate" lang="es-ES" placeholder="11/12/2023" required></ion-input> -->
+          <ion-input formControlName="expirationDate" class="custom" type="text" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="12/2023" required></ion-input>
         </div>
         <div class="cvv-container">
           <p>CVV</p>
