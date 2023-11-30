@@ -30,6 +30,7 @@ export abstract class RequestGateway {
     abstract getSuggestedProducts (token:string) : Observable <suggestedProducts>;
     abstract getPromotion(token: string): Observable<suggestedProducts> ;
     abstract getCampains(token: string): Observable<suggestedProducts> ;
+    abstract getCampainsById(id: string): Observable<suggestedProducts> ;
     abstract getNewProducts(token: string): Observable<suggestedProducts> ;
     abstract getPromotions(token:string, promotionPage: number): Observable<PromotionsData>;
     abstract getProductSearch(token:string, inputSearched: string): Observable<ProductSearch>;

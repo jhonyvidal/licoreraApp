@@ -42,8 +42,8 @@ export class CreateAccountPage implements OnInit {
         date: ['', [Validators.required,Validators.minLength(10) ]],
         phone: ['', [Validators.required, Validators.minLength(12)]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        confirPassword: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirPassword: ['', [Validators.required, Validators.minLength(6)]],
       });
       this.myForm.setValidators(this.passwordMatchValidator);
     }
@@ -94,7 +94,7 @@ export class CreateAccountPage implements OnInit {
       password:  this.myForm.get('password')?.value,
       uuid:  this.myForm.get('email')?.value,
       birthday:  this.myForm.get('date')?.value,
-      cellphone:  this.myForm.get('phone')?.value,
+      cellphone:  this.myForm.get('phone')?.value.replace(/ /g, ""),
       social_id: 3
     }
     await this.firebaseAuthenticationService.CreateAccountEmailAndPassword({
@@ -130,9 +130,8 @@ export class CreateAccountPage implements OnInit {
     }) 
     
   }
-
     // Función de validación personalizada
-    passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
       const password = control.get('password');
       const confirmPassword = control.get('confirPassword');
       if (password?.value !== confirmPassword?.value) {
@@ -140,7 +139,7 @@ export class CreateAccountPage implements OnInit {
         return { 'passwordMismatch': true };
       }
       return null;
-    }
+  }
 
   togglePasswordFieldType() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';

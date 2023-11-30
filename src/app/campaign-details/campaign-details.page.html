@@ -17,24 +17,24 @@
 <ion-content [fullscreen]="true" >
   <div style="padding: 0px 20px;">
     <div  style="border-radius: 15px; overflow: hidden;">
-      <ion-img [src]="campaignData?.mainImageUrl" alt="fondo Blanco"></ion-img>
+      <ion-img [src]="campaign?.mainImageUrl" alt="fondo Blanco"></ion-img>
     </div>
     <div>
-      <h1 class="title">{{campaignData?.name}}</h1>
+      <h1 class="title">{{campaign?.name}}</h1>
     </div>
     <div>
       <h5 >
-        <div [innerHTML]="campaignData?.description"></div>
+        <div [innerHTML]="campaign?.description"></div>
       </h5>
     </div>  
   
 
-    <ion-toolbar *ngIf="campaignData?.products.length > 0 && campaignData?.type === 'Producto'" style="height: 350px;">
+    <ion-toolbar *ngIf="campaign?.products?.length > 0 && campaign?.type === 1" style="height: 350px;">
       <ion-grid>
         <h2 class="title">PRODUCTOS</h2>
       </ion-grid>
-      <swiper-container  [spaceBetween]="10"  [freeMode]="true" [slidesPerView]="campaignData.products.length > 2.5 ? 2.5 : campaignData.products.length" >
-        <swiper-slide class="recomendados"  *ngFor="let data of campaignData.products"  (click)="getProductDetail(data)">
+      <swiper-container  [spaceBetween]="10"  [freeMode]="true" [slidesPerView]="campaign?.products?.length > 2.5 ? 2.5 : campaign.products.length" >
+        <swiper-slide class="recomendados"  *ngFor="let data of campaign.products"  (click)="getProductDetail(data)">
           <div class="swiperContainer" >
             <div class="swiperRecomendado"><ion-img [src]="data.store.product.image" alt="fondo Blanco"></ion-img></div>
             <h1 class="text-center">{{data.store.product.name | customPipe: 1}}</h1>
@@ -46,9 +46,9 @@
       </swiper-container>
     </ion-toolbar>
 
-    <div id="footer" *ngIf="campaignData?.type === 'categoria' ">
+    <div id="footer" *ngIf="campaign?.type === 2 ">
       <div class="custom-body-center" style="padding: 0px 20px;">
-        <ion-button  (click)="routerLink(campaignData?.categoryId)" class="categoryButton"><span style="margin-top: -5px;">VER PRODUCTOS</span></ion-button>
+        <ion-button  (click)="routerLink(campaign?.categoryId)" class="categoryButton"><span style="margin-top: -5px;">VER PRODUCTOS</span></ion-button>
       </div> 
     </div>
 

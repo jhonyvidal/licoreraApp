@@ -46,6 +46,10 @@ export class RequestUseCases {
     return this._requestGateWay.getCampains(token);
   }
 
+  getCampainsById(id: string): Observable<suggestedProducts> {
+    return this._requestGateWay.getCampainsById(id);
+  }
+
   getNewProducts(token: string): Observable<suggestedProducts> {
     return this._requestGateWay.getNewProducts(token);
   }

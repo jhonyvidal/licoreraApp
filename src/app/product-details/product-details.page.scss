@@ -97,9 +97,13 @@ section .features div ion-chip {
   border-radius: 10px;
 }
 
+article.features {
+  margin-bottom: 30px;
+}
+
 ion-footer ion-toolbar {
     // --border-width: 0;
-    --background: #F7F5F5;
+    // --background: #F7F5F5;
 }
 
 .Product-name {
@@ -164,8 +168,8 @@ section article .Before-price {
   border-radius: 50%
 }
 
-.Toolbar-footer {
-  padding: 0 20px 20px 20px !important;
+ion-footer .Toolbar-footer {
+  padding: 20px 20px 20px 20px;
 }
 
 .Btns-container {
@@ -196,10 +200,11 @@ section article .Before-price {
   width: 80%;
   height: 40px;
   border-radius: 5px;
-  color: white;
+  --color: white;
   font-family: 'HudsonNYSerif';
   font-size: 17px;
   background-color: #99791C;
+  --padding-bottom: 4px;
 }
 .lottie{
   position: fixed;
@@ -228,14 +233,22 @@ section article .Before-price {
 }
 .imgPromotion{
   position: fixed;
-  right: -60px;
+  right: -75px;
   top: 100px;
-  z-index: -1;
-  max-width: 360px;
+  z-index: 2;
+  max-width: 420px;
 }
 .DesPromotion{
   font-size: 26px;
   font-weight: 600;
   color: #000000;
   font-family: 'weblysleekuil';
+  margin-top: 50px;
+}
+.DesPromotionHudsonNYSerif{
+  font-size: 26px;
+  font-weight: 600;
+  color: #000000;
+  font-family: 'HudsonNYSerif';
+  margin-top: 50px;
 }

@@ -29,6 +29,9 @@ export class ProductDetailsPage implements OnInit {
   isSuccess:boolean = false;
   isPromotion:boolean = false;
   isNewProduct:boolean = false;
+  discount:number=0;
+  price:number=0;
+  features:[]=[];
   
   constructor(
     private alertController: AlertController,
@@ -49,9 +52,16 @@ export class ProductDetailsPage implements OnInit {
     this.details.origin_page === 'Promotion' ? this.isPromotion = true : null;
     this.details.origin_page === 'NewProduct' ? this.isNewProduct = true : null;
     this.product = this.details.product;
-
+    this.discount = this.details.discount
     console.log(this.details);
+    this.price = this.details.price;
+    this.features = this.details.features_string;
     
+    if(this.details.discount){
+      this.beforePrice = this.details.price
+      const porcent =  (this.details.price * this.details.discount) / 100;
+      this.price = this.details.price - porcent;
+    }
     
     if (!this.localStorageQuantity) {
       window.localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(1));

@@ -69,7 +69,14 @@ ion-footer ion-toolbar ion-buttons {
   justify-content: center;
   align-items: flex-end;
 }
-
+ion-footer ion-toolbar ion-buttons ion-button {
+  height: 45px;
+  font-size: 17px;
+  --padding-bottom: 5px;
+}
+ion-footer{
+  height: 70px;
+}
 // ion-footer ion-toolbar ion-button {
 //   width: 90%;
 //   height: 45px;
@@ -82,3 +89,4 @@ ion-footer ion-toolbar ion-buttons {
 //   --box-shadow: none;
 //   border-radius: 5px;
 // }
+
