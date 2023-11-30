@@ -24,22 +24,22 @@
   </div>
   <ion-content class="ion-content-infinite-recommended" *ngIf="products.length === 0 && inputText &&  !search; else showProductSearched">
       <ion-list [class]="listClass">
-      <div class="product-recommended" *ngFor="let item of products1; let index" (click)="getProductDetail(item)">
-        <figure class="img-container">
-          <figure class="promotion-container">
-            <h4 class="discount-number">50</h4>
-            <p class="discount-off">% off</p>
-            <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
+        <div class="product-recommended" *ngFor="let item of products1; let index" (click)="getProductDetail(item)">
+          <figure class="img-container">
+            <figure class="promotion-container">
+              <h4 class="discount-number">50</h4>
+              <p class="discount-off">% off</p>
+              <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
+            </figure>
+            <img [src]="item.product.image" alt="">
           </figure>
-          <img [src]="item.product.image" alt="">
-        </figure>
-        <div class="info-searched-container">
-          <h2 class="product-name-recommended">{{item.product.name | customPipe: 1}}</h2>
-          <p class="product-description-recommended">{{item.product.description.slice(0,70)}}...</p>
-          <h1 class="product-price-recommended">{{item.price | customCurrency :'.':'$ '}}</h1>
+          <div class="info-searched-container">
+            <h2 class="product-name-recommended">{{item.product.name | customPipe: 1}}</h2>
+            <p class="product-description-recommended">{{item.product.description.slice(0,70)}}...</p>
+            <h1 class="product-price-recommended">{{item.price | customCurrency :'.':'$ '}}</h1>
+          </div>
         </div>
-      </div>
-    </ion-list>
+      </ion-list>
       <ion-infinite-scroll (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
@@ -48,11 +48,16 @@
     </ion-infinite-scroll>
   </ion-content>
   <ng-template #showProductSearched>
-    <ion-content class="ion-content-infinite" *ngIf="inputText" >
+    <ion-content class="ion-content-infinite" *ngIf="inputText">
       <ion-list>
         <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
           <figure class="img-container">
             <img [src]="item.product.image" alt="">
+            <div class="promotion-icon" *ngIf="item.discount != null">
+              <p>{{item.discount}}</p>
+              <p>%off</p>
+              <img src="../../assets/icon/Discount.png" alt="">
+            </div>
           </figure>
           <div class="info-searched-container">
             <h2 class="Product-name-searched">{{item.product.name}}</h2>

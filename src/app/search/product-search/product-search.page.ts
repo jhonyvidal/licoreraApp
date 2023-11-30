@@ -39,16 +39,6 @@ export class ProductSearchPage implements OnInit {
 
   ngOnInit() {
 
-    // this.requestUseCase.getPromotions('token', this.pageNumber).subscribe(response => {
-    //     if (response.success === true) {
-    //       console.log('Promotions: ', response.data);
-    //       this.product = {...response.data.data[0].product}
-    //       this.products1 = response.data.data;
-    //     } else {
-    //       console.log('Body del error: ', response);
-    //     }
-    // })
-
     this.getAPIData();
 
   }
