@@ -52,8 +52,8 @@
       <ion-list>
         <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
           <figure class="img-container">
-            <img [src]="item.product.image" alt="">
-            <div class="promotion-icon" *ngIf="item.discount !== null">
+            <img class="product-img" [src]="item.product.image" alt="">
+            <div class="promotion-icon" *ngIf="item.discount > 0">
               <p>{{item.discount}}</p>
               <p>%off</p>
               <img src="../../assets/icon/Discount.png" alt="">

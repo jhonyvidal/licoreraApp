@@ -83,6 +83,10 @@ ion-content .product-searched .img-container {
   align-items: center;
   // background-color: rgb(255, 0, 0);
 }
+ion-content .product-searched .img-container .product-img {
+  width: 110px;
+  height: 110px;
+}
 
 ion-content .product-searched .img-container .promotion-icon {
   position: absolute;
