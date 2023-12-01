@@ -30,6 +30,8 @@ export class ProductSearchPage implements OnInit {
   myTimeout: any;
   search:boolean = true;
 
+  searchContainer: string = 'info-searched-container';
+
   constructor(
     private requestUseCase: RequestUseCases,
     private location: Location,
@@ -74,6 +76,14 @@ export class ProductSearchPage implements OnInit {
           console.log('Tamaño de la data: ', response.data.length);
 
           this.products = response.data;
+          for (let index = 0; index < this.products.length; index++) {
+            if (this.products[index].store_type === 2) {
+              this.products[index].searchContainer = 'info-searched-container-canjes';
+            }else{
+              this.products[index].searchContainer = 'info-searched-container';
+            }
+          }
+
         } else {
           console.log('Body del error: ', response);
         }

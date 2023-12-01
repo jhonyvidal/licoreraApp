@@ -132,6 +132,28 @@ ion-content .product-searched .info-searched-container {
   // background-color: blue;
 }
 
+ion-content .product-searched .info-searched-container-canjes {
+  padding: 10px;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-content .product-searched .info-searched-container-canjes .info-header-container {
+  display: flex;
+}
+
+ion-content .product-searched .info-searched-container-canjes .info-header-container h2:first-child{
+  width: 80%;
+}
+
+ion-content .product-searched .info-searched-container-canjes .info-header-container h2:nth-child(2){
+  width: 20%;
+  text-align: right;
+}
+
+
 ion-content .product-searched .info-searched-container .product-price-container {
   display: flex;
   justify-content: space-between;
@@ -146,6 +168,13 @@ h2 {
 
 .product-description-searched {
   margin: 0;
+  font-size: 14px;
+  font-family: 'weblysleekuil';
+  font-weight: 300;
+}
+
+ion-content .product-searched .info-searched-container-canjes .product-description-searched {
+  margin: 10px 0 0 0;
   font-size: 14px;
   font-family: 'weblysleekuil';
   font-weight: 300;

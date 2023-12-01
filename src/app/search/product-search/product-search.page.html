@@ -53,16 +53,22 @@
         <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
           <figure class="img-container">
             <img [src]="item.product.image" alt="">
-            <div class="promotion-icon" *ngIf="item.discount != null">
+            <div class="promotion-icon" *ngIf="item.discount !== null">
               <p>{{item.discount}}</p>
               <p>%off</p>
               <img src="../../assets/icon/Discount.png" alt="">
             </div>
           </figure>
-          <div class="info-searched-container">
-            <h2 class="Product-name-searched">{{item.product.name}}</h2>
+          <div [class]="item.searchContainer">
+            <div class="info-header-container" *ngIf="item.store_type === 2; else canjesElse">
+              <h2 class="Product-name-searched">{{item.product.name}}</h2>
+              <h2>{{item.points}} J</h2>
+            </div>
+            <ng-template #canjesElse>
+              <h2 class="Product-name-searched">{{item.product.name}}</h2>
+            </ng-template>
             <p class="product-description-searched">{{item.product.description.slice(0,80)}}...</p>
-            <div class="product-price-container">
+            <div class="product-price-container" *ngIf="item.store_type !== 2">
               <p class="presentation">Presentación: {{item.product.name.split(' ')[item.product.name.split(' ').length - 2]}} ml</p>
               <h2 class="Product-price-searched">{{item.price | customCurrency :'.':'$ '}}</h2>
             </div>
