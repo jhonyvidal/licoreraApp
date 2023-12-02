@@ -26,9 +26,9 @@
 </ion-content>
 <ng-template #showOrders>
   <ion-content class="orders-found-container">
-    <div class="card-orders" *ngFor="let item of orders; let index" (click)="routerLink('/recent-order')">
+    <div class="card-orders" *ngFor="let item of orders; let index" (click)="routerLink('/recent-order',item)">
       <div class="card-header">
-        <h2>Lun, 15 enero 2023, 8:42 pm</h2>
+        <h2> {{item.created_at | customDateOrders}}</h2>
       </div>
       <div class="card-info">
         <p class="address">Calle 43 # 71 - 66</p>
@@ -41,8 +41,8 @@
           <h2>total: $ 240.000</h2>
         </div>
         <div class="completed-container">
-          <img [src]="item.status === 'Completado' ? '../../../assets/img/Checkmark.svg' : '../../../assets/img/Cancel.svg'" alt="">
-          <h3 [style.color]="item.status === 'Completado' ? '#048404' : '#FF1806'">{{item.status}}</h3>
+          <img [src]="item.status.name === 'Completado' ? '../../../assets/img/Checkmark.svg' : '../../../assets/img/Cancel.svg'" alt="">
+          <h3 [style.color]="item.status.name === 'Completado' ? '#048404' : '#FF1806'">{{item.status.name}}</h3>
         </div>
       </div>
     </div>

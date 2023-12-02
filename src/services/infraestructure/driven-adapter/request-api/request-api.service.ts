@@ -247,7 +247,14 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  
+  searchCode(data:any):Observable<any> {
+    return this.http.post(`searchCode`,data).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
 
   // Api v2
   getPaymentMethodsV2(token: string):Observable<PaymentMethodsGetResponse> {
@@ -386,7 +393,7 @@ export  class RequestApiService extends RequestGateway {
   
 
   PostDelivery(data:any): Observable<any> {
-    return this.http.post('orders/validateDelivery', data).pipe(
+    return this.http.post('orders/deliveryValue', data).pipe(
       map(response => {
         // console.log(response)
         return response as any
@@ -401,6 +408,34 @@ export  class RequestApiService extends RequestGateway {
       }
     );
     return this.http.postV2('api/v2/orders', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  getOrder(token:string): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/clients/orders', headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  getOrderById(token:string, id:number): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2(`api/v2/clients/orders/${id}`, headers).pipe(
       map(response => {
         // console.log(response)
         return response as any

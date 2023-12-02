@@ -45,6 +45,8 @@ export abstract class RequestGateway {
     abstract putClient(userId: string, data: UpdateClientData):Observable<ClientData>;
     abstract PostDelivery(data: any):Observable<any>;
     abstract GetInfo():Observable<any>;
+    abstract searchCode(data: any):Observable<any>;
+    
     
     // Api v2
     abstract getPaymentMethodsV2(token: string): Observable<PaymentMethodsGetResponse>;
@@ -58,6 +60,8 @@ export abstract class RequestGateway {
     abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
     abstract postFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
     abstract postOrder(path: string, data: any):Observable<any>;
+    abstract getOrder(path: string):Observable<any>;
+    abstract getOrderById(path: string,id:number):Observable<any>;
     abstract deleteAddress(path: string, idAddress: string):Observable<any>;
     abstract deleteFavoriteLocations(path: string, idAddress: number):Observable<FavoriteLocationResponse>;
 }

@@ -135,7 +135,6 @@ export class CreateAccountPage implements OnInit {
       const password = control.get('password');
       const confirmPassword = control.get('confirPassword');
       if (password?.value !== confirmPassword?.value) {
-        console.log(password?.value,confirmPassword?.value)
         return { 'passwordMismatch': true };
       }
       return null;

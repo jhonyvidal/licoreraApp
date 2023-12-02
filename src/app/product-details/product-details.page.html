@@ -37,7 +37,7 @@
   <figure class="product-img-promotion" *ngIf="isNewProduct" style="height: 365px;">
     <!-- <img class="product-img" src="../../assets/icon/Bailles.svg" alt=""> -->
     <div>
-      <h2 class="namePromotion">{{product.name}} <br>{{details.price | customCurrency :'.':'$ '}}</h2>
+      <h2 class="namePromotion">{{product.name}} <br>{{price | customCurrency :'.':'$ '}}</h2>
     </div>
     <div>
       <img class="imgPromotion" [src]="product.image" alt="" >
@@ -54,7 +54,7 @@
     <div id="footer">
         <article class="features">
           <h3 class="DesPromotion" *ngIf="isNewProduct">Características</h3>
-          <h3 class="DesPromotionHudsonNYSerif" *ngIf="!isNewProduct">Características</h3>
+          <h3 class="DesPromotionHudsonNYSerif" *ngIf="!isNewProduct && !isPromotion">Características</h3>
           <div class="Chip-container" >
             <ion-chip *ngFor="let data of features">{{data}}</ion-chip>
           </div>

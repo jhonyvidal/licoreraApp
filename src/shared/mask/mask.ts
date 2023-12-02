@@ -14,6 +14,8 @@ export const phoneMask = {
         ' ',
         ...Array(3).fill(/\d/),
         ' ',
-        ...Array(4).fill(/\d/),
+        ...Array(2).fill(/\d/),
+        ' ',
+        ...Array(2).fill(/\d/),
     ],
 };

@@ -219,7 +219,8 @@ span.button-inner{
 .has-focus.ion-valid.sc-ion-input-md-h{
     border-bottom: solid 2px #000000;
 }
-.ng-invalid {
+
+.ng-invalid.has-value{
     color: #FF0000; 
 }
 

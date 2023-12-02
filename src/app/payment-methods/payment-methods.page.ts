@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class PaymentMethodsPage implements OnInit {
   constructor(private location: Location, 
     public formBuilder: FormBuilder,
-    private router: Router,) {
+    private router: Router,
+    ) {
     this.myForm = this.formBuilder.group({
       names: ['', [Validators.required, ]],
       lastNames: ['', [Validators.required, ]],
@@ -70,7 +71,8 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   submit() {
-    this.router.navigate(['/home/tab3/cart-checkout']);
+    let datos = { mensaje: 'EN CASA' };
+    this.router.navigate(['/home/tab3/cart-checkout',{ paymentMethod: datos.mensaje }]);
   }
 
   nextStep(id:number){

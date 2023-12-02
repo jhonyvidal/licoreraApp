@@ -8,6 +8,7 @@ import { CartCheckoutPageRoutingModule } from './cart-checkout-routing.module';
 
 import { CartCheckoutPage } from './cart-checkout.page';
 import { SharedModule } from 'src/shared/shared.module';
+import { MaskitoModule } from '@maskito/angular';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { SharedModule } from 'src/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CartCheckoutPageRoutingModule
+    CartCheckoutPageRoutingModule,
+    MaskitoModule
   ],
   declarations: [CartCheckoutPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

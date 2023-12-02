@@ -73,15 +73,16 @@ export class ProductDetailsPage implements OnInit {
 
   addBtn() {
     console.log('Presionando add...');
-
     this.quantity += this.quantity < 10 ? 1 : 0;
     localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
+    this.price = this.details.price * this.quantity;
   }
 
   subtractBtn() {
     console.log('Presionando minus...');
     this.quantity -= this.quantity > 1 ? 1 : 0;
     localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
+    this.price= this.details.price * this.quantity;
   }
 
   goBack(): void {

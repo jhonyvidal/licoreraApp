@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
 import { AlertController } from '@ionic/angular';
+import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
+import { phoneMask } from 'src/shared/mask/mask';
 import { Address, cartModel } from 'src/store/models/cart.model';
 import { CartService } from 'src/store/services/cart.service';
 import { UserService } from 'src/store/services/user.service';
@@ -17,6 +19,8 @@ import { UserService } from 'src/store/services/user.service';
 })
 export class CartCheckoutPage implements OnInit {
   myForm: FormGroup;
+  isFormValid = false;
+  buttonStyle = 'DisableButton';
   buttonWelcome = 'contentPayChild';
   contentform = 'content-form';
   myLocations:any;
@@ -25,18 +29,22 @@ export class CartCheckoutPage implements OnInit {
   delivery:number = 0;
   total:number = 0;
   products:any;
-
+  paymentMethod: any = null;
+  readonly phoneMask: MaskitoOptions = phoneMask;
+  
   constructor(public formBuilder: FormBuilder,
     private requestUseCase: RequestUseCases,
     private userService:UserService,
     private cartService:CartService,
     private alertController: AlertController,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute
+    ) {
     this.myForm = this.formBuilder.group({
-      location: ['', [Validators.required]],
+      location: ['', []],
       address: ['', [Validators.required]],
       addressDetail: ['', [Validators.required]],
-      contact: ['', [Validators.required]],
+      contact: ['', [Validators.required,Validators.minLength(13)]],
       paymentMethod: ['', [Validators.required]],
       disccount: ['', []],
     });
@@ -54,16 +62,58 @@ export class CartCheckoutPage implements OnInit {
       });
     }
   }
-
-  ngOnInit() {}
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
+  
+  ngOnInit() {
+    this.myForm.valueChanges.subscribe(() => {
+      this.isFormValid = this.myForm.valid;
+      this.classValid();
+    });
+    this.route.paramMap.subscribe(params => {
+      this.paymentMethod = params.get('paymentMethod');
+      if(this.paymentMethod !== null){
+        this.myForm.get('paymentMethod')?.setValue(this.paymentMethod)
+      }
+      if(params.get('newAddress')){
+        this.getCart();
+      }
+    });
+  }
 
   ionViewWillEnter() {
     this.getLocations();
     this.getCart();
   }
 
+  classValid() {
+    if (this.myForm.valid) {
+      this.buttonStyle = 'Activebutton';
+    } else {
+      this.buttonStyle = 'DisableButton';
+    }
+  }
+
   sendTo(router:string){
     this.router.navigate([router])
+  }
+
+  searchCode(){
+    const data= {
+      "code":this.myForm.get('disccount')?.value
+    }
+    this.requestUseCase
+    .searchCode(
+      data
+    )
+    .subscribe((response) => {
+      console.log(response);
+      if (response?.data?.length > 0) {
+        this.showAlertCode()
+      } else {
+        this.showAlertError('EL codigo no es valido.')
+      }
+    });
+    
   }
 
   async getLocations(){
@@ -96,6 +146,12 @@ export class CartCheckoutPage implements OnInit {
             this.delivery = parseInt(response.data)
             this.total = this.subtotal + this.delivery
           } else {
+            this.total = this.subtotal;
+            if(response.statusCode === 8){
+              this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
+              this.myForm.get('address')?.setValue('')
+              this.myForm.get('addressDetail')?.setValue('')
+            }
             console.log('error', response);
           }
         },
@@ -131,6 +187,7 @@ export class CartCheckoutPage implements OnInit {
 
   totalPayment(details:cartModel[]){
     this.subtotal= details.reduce((total, producto) => total + producto.price, 0);
+    this.total = this.subtotal;
   }
 
   getToken() {
@@ -141,7 +198,8 @@ export class CartCheckoutPage implements OnInit {
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
-      return 'asdasd'
+      this.router.navigate(['/sign-in']);
+      return 'Error al obtener los datos del usuario'
     });
     return response;
   }
@@ -163,6 +221,17 @@ export class CartCheckoutPage implements OnInit {
       '/assets/img/successCheckout.svg',
       '',
       () => this.goHome()
+    );
+  }
+
+  async showAlertCode() {
+    await presentAlert(
+      this.alertController,
+      'CÓDIGO VALIDO',
+      '',
+      '/assets/img/successCheckout.svg',
+      '',
+      
     );
   }
 
