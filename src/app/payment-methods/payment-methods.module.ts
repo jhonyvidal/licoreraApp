@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PaymentMethodsPageRoutingModule } from './payment-methods-routing.module';
 
 import { PaymentMethodsPage } from './payment-methods.page';
+import { MaskitoModule } from '@maskito/angular';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { PaymentMethodsPage } from './payment-methods.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    PaymentMethodsPageRoutingModule
+    PaymentMethodsPageRoutingModule,
+    MaskitoModule
   ],
   declarations: [PaymentMethodsPage]
 })

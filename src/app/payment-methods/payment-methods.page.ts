@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 
 @Component({
   selector: 'app-payment-methods',
@@ -28,9 +29,9 @@ export class PaymentMethodsPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
     });
     this.mySecondFormCreditCard = this.formBuilder.group({
-      number: ['', [Validators.required,]],
-      cvv: ['', [Validators.minLength(3), Validators.maxLength(3), Validators.required]],
-      expirationDate: ['', [Validators.required, ]],
+      number: ['', [Validators.required, Validators.minLength(19)]],
+      cvv: ['', [Validators.required, Validators.minLength(3)]],
+      expirationDate: ['', [Validators.required, Validators.minLength(7)]],
       name: ['', [Validators.required, ]],
     });
   }
@@ -46,6 +47,32 @@ export class PaymentMethodsPage implements OnInit {
   buttonSubmit = 'buttonSubmit';
   buttonDebit = 'buttonSubmit';
   segment3:string;
+
+  readonly options: MaskitoOptions = {
+    mask: /^\d{0,3}$/,
+  };
+
+  readonly cardMask: MaskitoOptions = {
+    mask: [
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+      ' ',
+      ...Array(4).fill(/\d/),
+    ],
+  };
+
+  readonly dateMask: MaskitoOptions = {
+    mask: [
+      ...Array(2).fill(/\d/),
+      '/',
+      ...Array(4).fill(/\d/),
+    ],
+  };
+
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
 
   ngOnInit() {
     this.myForm.valueChanges.subscribe(() => {

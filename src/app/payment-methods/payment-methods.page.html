@@ -113,17 +113,17 @@
         <div [formGroup]="mySecondFormCreditCard" class="form-container">
           <p>Número de la tarjeta</p>
           <div class="card-number-contaienr">
-            <ion-input  formControlName="number" class="custom" minlength="16" maxlength="16" type="pin" placeholder="1234 5678 9101 1121" required></ion-input>
+            <ion-input formControlName="number" class="custom" placeholder="0000 0000 0000 0000" [maskito]="cardMask" [maskitoElement]="maskPredicate" required></ion-input>
             <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
           </div>
           <div class="fecha-cvv-container">
             <div class="fecha-container">
               <p>Fecha de expiración</p>
-              <ion-input  formControlName="expirationDate"  class="custom" type="date" placeholder="10/2025" required></ion-input>
+              <ion-input formControlName="expirationDate" class="custom" type="text" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="12/2023" required></ion-input>
             </div>
             <div class="cvv-container">
               <p>CVV</p>
-              <ion-input  formControlName="cvv" class="custom" minlength="3" maxlength="3" type="pin" placeholder="123" required></ion-input>
+              <ion-input  formControlName="cvv" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" placeholder="123" required></ion-input>
             </div>
           </div>
           <div class="card-name-container">
@@ -131,7 +131,6 @@
             <ion-input  formControlName="name"  class="custom" type="text" placeholder="Nombres" required></ion-input>
           </div>
         </div>
-        
       </div>
     </div>
   </ion-toolbar>
