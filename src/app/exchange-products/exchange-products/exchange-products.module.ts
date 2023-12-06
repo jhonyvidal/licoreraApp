@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ExchangeProductsPageRoutingModule } from './exchange-products-routing.module';
 
 import { ExchangeProductsPage } from './exchange-products.page';
+import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ExchangeProductsPage } from './exchange-products.page';
     IonicModule,
     ExchangeProductsPageRoutingModule
   ],
-  declarations: [ExchangeProductsPage]
+  declarations: [ExchangeProductsPage],
+  providers:[CartModelPipe],
 })
 export class ExchangeProductsPageModule {}
