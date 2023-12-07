@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Product } from 'src/store/models/cart.model';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { Router } from '@angular/router';
+import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 
 @Component({
   selector: 'app-campaign-details',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CampaignDetailsPage implements OnInit {
   campaignData:any;
+  campaign:any;
   campaignList: any[] = [
     {
       price: 123123,
@@ -44,11 +46,13 @@ export class CampaignDetailsPage implements OnInit {
   constructor(
     private location: Location,
     private router:Router,
-    private shareObjectService: ShareObjectService
+    private shareObjectService: ShareObjectService,
+    private requestUseCase:RequestUseCases
   ) {}
 
   ngOnInit() {
     this.campaignData = this.shareObjectService.getObjetoCompartido();
+    this.getCampignDetail(this.campaignData.id);
   }
 
   goBack(): void {
@@ -57,6 +61,18 @@ export class CampaignDetailsPage implements OnInit {
 
   routerLink(id:number){
     this.router.navigate(['/store-detail/' + id])
+  }
+
+  getCampignDetail(id:string){
+    this.requestUseCase.getCampainsById(id).subscribe(response => {
+      if (response.success === true) {
+        this.campaign = response.data
+        console.log( this.campaign);
+        
+      } else {
+        console.log(response);
+      }
+    })
   }
 
   getProductDetail(data:any){

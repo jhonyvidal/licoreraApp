@@ -61,7 +61,7 @@ p{
 }
 .container{
   margin: 0px 15px;
-  margin-top: -30px;
+  margin-top: -10px;
 }
 .footer{
   position: fixed;
@@ -69,8 +69,9 @@ p{
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 20px;
+  padding: 0px 20px;
   color: blue;
+  background: #ECECEC;
 }
 
 .closeIcon{
@@ -83,4 +84,17 @@ p{
 .closeIcon img{
   width: 17.5px;
   height: 17.5px;
+}
+.contentForm{
+  --background:  #ECECEC;
+}
+ion-row{
+  background: white;
+  border-radius: 10px;
+}
+.iconShowPassword{
+  position: absolute;
+  z-index: 2;
+  top: 25px;
+  right: 20px;
 }

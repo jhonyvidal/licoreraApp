@@ -8,6 +8,7 @@ import { CreateAccountPageRoutingModule } from './create-account-routing.module'
 
 import { CreateAccountPage } from './create-account.page';
 import { UserService } from 'src/store/services/user.service';
+import { MaskitoModule } from '@maskito/angular';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { UserService } from 'src/store/services/user.service';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CreateAccountPageRoutingModule
+    CreateAccountPageRoutingModule,
+    MaskitoModule
   ],
   declarations: [CreateAccountPage],
   providers: [ UserService ]

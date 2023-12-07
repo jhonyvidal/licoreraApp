@@ -46,6 +46,10 @@ export class RequestUseCases {
     return this._requestGateWay.getCampains(token);
   }
 
+  getCampainsById(id: string): Observable<suggestedProducts> {
+    return this._requestGateWay.getCampainsById(id);
+  }
+
   getNewProducts(token: string): Observable<suggestedProducts> {
     return this._requestGateWay.getNewProducts(token);
   }
@@ -102,6 +106,11 @@ export class RequestUseCases {
     return this._requestGateWay.GetInfo();
   }
 
+  searchCode(data: any) : Observable <any> {
+    return this._requestGateWay.searchCode(data);
+  }
+
+
   // Api v2
 
   getPaymentMethodsV2(token: string) : Observable <PaymentMethodsGetResponse> {
@@ -146,6 +155,14 @@ export class RequestUseCases {
 
   postOrder(token: string, data: any) : Observable <PostPaymentMethodsResponse> {
     return this._requestGateWay.postOrder(token, data);
+  }
+
+  getOrder(token: string) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.getOrder(token);
+  }
+
+  getOrderById(token: string, id:number) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.getOrderById(token,id);
   }
 
   deleteAddress(token: string, idAddress: string) : Observable <DeleteAddressResponse> {

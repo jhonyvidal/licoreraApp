@@ -111,7 +111,8 @@ export class NewAddressConfirmPage implements OnInit {
       details:this.myForm.get('addressDetail')?.value,
     }
     this.cartService.setAddressCartData(address)
-    this.router.navigate(['/home/tab3/cart-checkout']);
+    let datos = { mensaje: true };
+    this.router.navigate(['/home/tab3/cart-checkout',{ newAddress: datos.mensaje }]);
   }
 
 }

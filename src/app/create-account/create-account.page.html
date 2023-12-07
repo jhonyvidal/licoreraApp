@@ -2,7 +2,7 @@
   <ion-header collapse="condense">
   
   </ion-header>
-  <ion-content [formGroup]="myForm">
+  <ion-content [formGroup]="myForm" class="contentForm">
     <div class="closeIcon" (click)="goBack()">
       <img width="15" height="15"   src="../../assets/icon/Vector.svg" alt="">
     </div>
@@ -26,10 +26,10 @@
             <ion-input  formControlName="document"  class="custom" type="number" placeholder="Número de Identificación" required></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="date"  class="custom" type="date" placeholder="Fecha de Nacimiento" required></ion-input>
+            <ion-input  formControlName="date"  class="custom" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="Fecha de nacimiento DD/MM/AAAA" required></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="phone"  class="custom" type="number" placeholder="Número de Celular" required></ion-input>
+            <ion-input  formControlName="phone"  class="custom" type="text" [maskito]="phoneMask" [maskitoElement]="maskPredicate"   placeholder="Número de Celular" required></ion-input>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -46,26 +46,23 @@
             <ion-input  formControlName="email"  class="custom" type="email" placeholder="Correo electrónico" required></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="password"  class="custom" type="password" placeholder="Contraseña" required></ion-input>
+            <ion-input  formControlName="password"  class="custom" [type]="passwordFieldType" placeholder="Contraseña" required></ion-input>
+            <img class="iconShowPassword"  src="../../assets/icon/show-password.svg"  (click)="togglePasswordFieldType()" alt="Logo empresa">
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="confirPassword"  class="custom" type="password" placeholder="Confirmar Contraseña" required></ion-input>
+            <ion-input  formControlName="confirPassword"  class="custom" [type]="passwordFieldType2" placeholder="Confirmar Contraseña" required></ion-input>
+            <img class="iconShowPassword"  src="../../assets/icon/show-password.svg"  (click)="togglePasswordFieldType2()" alt="Logo empresa">
           </ion-col>
           
         </ion-row>
       </ion-grid>
     </div>
 
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12">
-          <div class="footer">
-            <ion-button (click)="submit()" class="signButton" [disabled]="!isFormValid"  [ngClass]="buttonStyle" color="#D1D1D1">CREAR CUENTA</ion-button>
-          </div> 
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-footer>
+      <div class="footer">
+        <ion-button (click)="submit()" class="signButton" [disabled]="!isFormValid"  [ngClass]="buttonStyle" color="#D1D1D1">CREAR CUENTA</ion-button>
+      </div> 
+    </ion-footer>
    
 
   </ion-content>

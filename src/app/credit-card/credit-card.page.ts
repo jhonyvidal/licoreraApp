@@ -43,7 +43,7 @@ export class CreditCardPage implements OnInit {
     ],
   };
 
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
 
   myForm: FormGroup;
   todayDate: Date;

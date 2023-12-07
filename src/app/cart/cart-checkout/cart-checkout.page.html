@@ -20,7 +20,6 @@
           class="custom"
           type="text"
           placeholder="Selecciona una ubicación"
-          required
           label="Selecciona una ubicación" 
           label-placement="floating" 
           fill="solid" >
@@ -49,9 +48,10 @@
         <ion-input
           formControlName="contact"
           class="time"
-          type="number"
+          type="text"
           placeholder="3153103352"
           required
+          [maskito]="phoneMask" [maskitoElement]="maskPredicate"
         ></ion-input>
       </ion-col>
       <ion-col size="12" (click)="sendTo('payment-methods')">
@@ -72,11 +72,10 @@
           class="number"
           type="text"
           placeholder="Ej:DESCRESJOTAS"
-          required
         ></ion-input>
       </ion-col>
       <ion-col size="6" class="applyCol">
-        <ion-button class="buttonApply" >
+        <ion-button class="buttonApply" (click)="searchCode()">
           <span style="margin-top: -5px">APLICAR</span>
         </ion-button>
       </ion-col>
@@ -115,7 +114,7 @@
     <p class="text">
       Domicilio gratis por compras mayores a $ %@ IVA incluido.
     </p>
-    <ion-button class="buttonSubmit"
+    <ion-button  [ngClass]="buttonStyle" [disabled]="!isFormValid"
       ><span style="margin-top: -5px" (click)="submit()">CONFIRMAR</span></ion-button
     >
   </div>

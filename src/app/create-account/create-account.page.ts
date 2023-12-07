@@ -7,6 +7,8 @@ import { presentAlert } from 'src/shared/components/alert.component';
 import { CreateAccountRequest } from 'src/shared/domain/request/createAccount';
 import { UserService } from 'src/store/services/user.service';
 import { FirebaseAuthenticationService } from '../core';
+import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { dateMask, phoneMask } from 'src/shared/mask/mask';
 
 @Component({
   selector: 'app-create-account',
@@ -17,9 +19,14 @@ export class CreateAccountPage implements OnInit {
   myForm: FormGroup;
   isFormValid = false;
   buttonStyle = 'DisableButton';
+  passwordFieldType:string = 'password';
+  passwordFieldType2:string = 'password';
   public activeOpen = '';
   public activeClose = '';
-
+  readonly dateMask: MaskitoOptions = dateMask;
+  readonly phoneMask: MaskitoOptions = phoneMask;
+  
+  
   constructor(
     public formBuilder: FormBuilder,
     private alertController: AlertController,
@@ -27,19 +34,21 @@ export class CreateAccountPage implements OnInit {
     private router: Router,
     private userService: UserService,
     private readonly firebaseAuthenticationService: FirebaseAuthenticationService
-  ) {
-    this.myForm = this.formBuilder.group({
-      name: ['', [Validators.required, ]],
-      lastName: ['', [Validators.required, ]],
-      document: ['', [Validators.required, ]],
-      date: ['', [Validators.required, ]],
-      phone: ['', [Validators.required, Validators.maxLength(20)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirPassword: ['', [Validators.required]],
-    });
-    this.myForm.setValidators(this.passwordMatchValidator);
-  }
+    ) {
+      this.myForm = this.formBuilder.group({
+        name: ['', [Validators.required, ]],
+        lastName: ['', [Validators.required, ]],
+        document: ['', [Validators.required, ]],
+        date: ['', [Validators.required,Validators.minLength(10) ]],
+        phone: ['', [Validators.required, Validators.minLength(12)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirPassword: ['', [Validators.required, Validators.minLength(6)]],
+      });
+      this.myForm.setValidators(this.passwordMatchValidator);
+    }
+    
+    readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
 
   ngOnInit() {
     this.myForm.valueChanges.subscribe(() => {
@@ -85,7 +94,7 @@ export class CreateAccountPage implements OnInit {
       password:  this.myForm.get('password')?.value,
       uuid:  this.myForm.get('email')?.value,
       birthday:  this.myForm.get('date')?.value,
-      cellphone:  this.myForm.get('phone')?.value,
+      cellphone:  this.myForm.get('phone')?.value.replace(/ /g, ""),
       social_id: 3
     }
     await this.firebaseAuthenticationService.CreateAccountEmailAndPassword({
@@ -121,17 +130,22 @@ export class CreateAccountPage implements OnInit {
     }) 
     
   }
-
     // Función de validación personalizada
-    passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
       const password = control.get('password');
       const confirmPassword = control.get('confirPassword');
       if (password?.value !== confirmPassword?.value) {
-        console.log(password?.value,confirmPassword?.value)
         return { 'passwordMismatch': true };
       }
       return null;
-    }
+  }
+
+  togglePasswordFieldType() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+  togglePasswordFieldType2() {
+    this.passwordFieldType2 = this.passwordFieldType2 === 'password' ? 'text' : 'password';
+  }
 
   goBack(): void {
     this.router.navigate(['/sign-in']);

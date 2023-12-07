@@ -19,8 +19,8 @@
 <ion-content >
   <!-- Normal Flow -->
   <figure class="product-img-container" *ngIf="!isPromotion && !isNewProduct">
-    <figure class="promotion-container" >
-      <h2 class="Promotion-number">50</h2>
+    <figure class="promotion-container" *ngIf="discount !== null">
+      <h2 class="Promotion-number">{{discount}}</h2>
       <p class="Promotion-off">% off</p>
       <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
     </figure>
@@ -37,7 +37,7 @@
   <figure class="product-img-promotion" *ngIf="isNewProduct" style="height: 365px;">
     <!-- <img class="product-img" src="../../assets/icon/Bailles.svg" alt=""> -->
     <div>
-      <h2 class="namePromotion">{{product.name}} <br>{{details.price | customCurrency :'.':'$ '}}</h2>
+      <h2 class="namePromotion">{{product.name}} <br>{{price | customCurrency :'.':'$ '}}</h2>
     </div>
     <div>
       <img class="imgPromotion" [src]="product.image" alt="" >
@@ -48,23 +48,21 @@
     
     <article>
       <h2 class="Product-name" *ngIf="!isNewProduct">{{product.name}}</h2>
-      <h4 class="DesPromotion">Descripción</h4>
+      <h4 class="DesPromotion" *ngIf="isNewProduct">Descripción</h4>
       <p class="Product-description">{{product.description}}</p>
     </article>
     <div id="footer">
-        <article *ngIf="isNewProduct" class="features">
-          <h3 class="DesPromotion">Características</h3>
-          <div class="Chip-container">
-            <ion-chip>Default</ion-chip>
-            <ion-chip>Default</ion-chip>
-            <ion-chip>Default</ion-chip>
-            <ion-chip>Default</ion-chip>
+        <article class="features">
+          <h3 class="DesPromotion" *ngIf="isNewProduct">Características</h3>
+          <h3 class="DesPromotionHudsonNYSerif" *ngIf="!isNewProduct && !isPromotion">Características</h3>
+          <div class="Chip-container" >
+            <ion-chip *ngFor="let data of features">{{data}}</ion-chip>
           </div>
         </article>
-        <article>
+        <article *ngIf="!isNewProduct">
           <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
-          <h2 *ngIf="beforePrice" class="Before-price"><span class="Before">Antes: </span> $127.500</h2>
-          <h2 class="Price-now"><span class="Now">{{ isPromotion ? 'Precio:' : 'Ahora:' }} </span> $127.500</h2>
+          <h2 *ngIf="beforePrice" class="Before-price"><span class="Before">Antes: </span>{{beforePrice | customCurrency :'.':'$ '}}</h2>
+          <h2 class="Price-now"><span class="Now">{{ isPromotion ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
         </article>
     </div>
   </section>

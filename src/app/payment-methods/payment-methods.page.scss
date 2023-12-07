@@ -82,6 +82,7 @@ ion-radio::part(mark) {
     border: 1px solid #000000;
     font-size: 17px;
     border: none;
+    height: 45px;
   }
   .buttonSubmitActive{
     width: 100%;
@@ -92,6 +93,7 @@ ion-radio::part(mark) {
     --background: #FFFFFF !important;
     border: 1px solid #000000;
     font-size: 17px;
+    height: 45px;
   }
   .buttonCreditActive{
     width: 100%;
@@ -102,6 +104,7 @@ ion-radio::part(mark) {
     --background: #99791C    !important;
     border: 1px solid #000000;
     font-size: 17px;
+    height: 45px;
   }
   .creditStep{
     margin-top: 50%;
