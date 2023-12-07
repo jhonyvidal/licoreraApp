@@ -12,6 +12,8 @@
   </ion-toolbar>
 </ion-header>
 
+<app-success-lottie *ngIf="isSuccess"/>
+
 <ion-content [fullscreen]="true">
   <figure class="img-exchange-container">
     <img [src]="product.image" alt="">
@@ -32,6 +34,7 @@
       </div>
     </div>
     <div class="exchange-products-button-container">
+        <!-- <ion-button (click)="canjear()">Canjear</ion-button> -->
         <ion-button (click)="canjear()">Canjear</ion-button>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { presentAlert } from 'src/shared/components/alert.component';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { Product } from 'src/shared/domain/response/PromotionsData';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
@@ -38,7 +39,7 @@ export class ExchangeProductsPage implements OnInit {
   ngOnInit() {
 
     const productDetail = this.shareObjectService.getObjetoCompartido() 
-    console.log(productDetail)
+    console.log('Product detail', productDetail)
     this.product = productDetail.product;
     this.points = productDetail.points;
     this.quantity = productDetail.quantity;
@@ -76,7 +77,8 @@ export class ExchangeProductsPage implements OnInit {
       this.productName,
       `¿Quieres canjearlo por ${this.points} J?`,
       'exchange-products-success',
-      this.productImage
+      this.productImage,
+      () => this.setCart()
     );
   }
 
@@ -91,7 +93,7 @@ export class ExchangeProductsPage implements OnInit {
     });
   }
 
-  async setCart(){
+  setCart(){
     let shareProduct = this.shareObjectService.getObjetoCompartido();
 
     if(shareProduct?.product.store){
@@ -100,6 +102,23 @@ export class ExchangeProductsPage implements OnInit {
     const quantity = {
       quantitySelected: this.quantity,
     };
+    // id: number;
+    // product_id: number;
+    // quantity: number;
+    // quantitySelected?:number
+    // price: number;
+    // status: boolean;
+    // start_date: string | null;
+    // end_date: string | null;
+    // store_type: number;
+    // points: number | null;
+    // created_at: string;
+    // updated_at: string;
+    // deleted_at: string | null;
+    // ranking: number;
+    // recommended: boolean;
+    // product: Product;
+    
     const productDetail:cartModel = {
       ...shareProduct,
       ...quantity,
