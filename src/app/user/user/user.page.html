@@ -58,7 +58,7 @@
         <ion-label>Direcciones</ion-label>
       </ion-segment-button>
     </ion-segment>
-    <div class="aun" *ngIf="ionSegment === 2 && paymentMethodsList.length <= 0 && paymentsEmpty">
+    <div class="aun" *ngIf="ionSegment === 2 && paymentMethodsList?.length <= 0 && paymentsEmpty">
       <h2>Aún no tiene tarjetas guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
@@ -113,7 +113,7 @@
       </ion-item-sliding>
     </ion-list>
     <ng-template #paymentElse>
-      <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethodsList.length > 0">
+      <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethodsList?.length > 0">
         <ion-item-sliding *ngFor="let item of paymentMethodsList; index as i">
           <ion-item>
             <figure>
@@ -158,11 +158,11 @@
       <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
       <ion-input formControlName="phone" class="custom" type="number" [readonly]="readOnly"></ion-input>
     </div>
-    <div class="aun-address" *ngIf="ionSegment === 3 && addressList.length <= 0">
+    <div class="aun-address" *ngIf="ionSegment === 3 && addressList?.length <= 0">
       <h2>Aún no tiene direcciones guardadas</h2>
       <p>Agrega una para continuar</p>
     </div>
-    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList.length > 0">
+    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList?.length > 0">
       <ion-item-sliding *ngFor="let item of addressList; index as i">
         <ion-item>
           <figure>
