@@ -9,7 +9,7 @@ import { OrdersData } from 'src/shared/domain/response/OrdersData';
 @Component({
   selector: 'app-recent-order',
   templateUrl: './recent-order.page.html',
-  styleUrls: ['./recent-order.page.scss'],
+  styleUrls: ['./recent-order.page.scss','./recent-order.page2.scss'],
 })
 export class RecentOrderPage implements OnInit {
 
