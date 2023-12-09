@@ -6,7 +6,8 @@ export async function presentAlertExchange(
   text: string,
   type: string,
   productImage?: string | undefined,
-  AcceptFuntion?:  (id: number) => void,
+  AcceptFuntion?: (id: number | null) => void,
+  AcceptFuntionWithoutParams?: () => void,
   id?:number
 ) {
   const warningImg = window.location.origin + `/assets/img/${type === 'exchange-products-bad' ? 'warning' : type === 'exchange-products-success-response' ? 'checkGreen' : ''}.svg`;

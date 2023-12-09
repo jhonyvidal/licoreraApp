@@ -120,7 +120,7 @@ export class UserPage implements OnInit {
       this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
           this.addressList = response.data;
-          for (let i = 0; i < this.addressList.length; i++) {
+          for (let i = 0; i < this.addressList?.length; i++) {
             if (this.addressList[i].favorite === false) {
               this.addressList[i].starImage = this.starEmpty;
             }else{
@@ -152,14 +152,18 @@ export class UserPage implements OnInit {
     .then(data => {
       this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
         if (response.success === true) {
-          this.paymentMethodsList = response.data.cards;
-          if (this.paymentMethodsList.length <= 0) {
+          
+          if (response?.data && response?.data?.cards) {
+            this.paymentMethodsList = response.data.cards;
+          }
+          
+          if (this.paymentMethodsList?.length <= 0) {
             this.paymentsEmpty = true;
             this.loadingPM = false;
           }else{
             this.loadingPM = false;
           }
-          for (let i = 0; i < this.paymentMethodsList.length; i++) {
+          for (let i = 0; i < this.paymentMethodsList?.length; i++) {
             if (this.paymentMethodsList[i].favorite === false) {
               this.paymentMethodsList[i].starImage = this.starEmpty;
             }else{
