@@ -6,6 +6,7 @@ import { CategoriesOut } from 'src/shared/domain/response/Categories';
 import { CategoriesByProductOut } from 'src/shared/domain/response/CategoriesByProduct';
 import { Location } from '@angular/common'
 import { ShareObjectService } from 'src/shared/services/shareObject';
+import { ProductDetailModelPipe } from 'src/shared/pipes/productDetailModel.pipe';
 
 @Component({
   selector: 'app-store-detail',
@@ -33,6 +34,7 @@ export class StoreDetailPage implements OnInit {
     private location: Location,
     private router:Router,
     private shareObjectService:ShareObjectService,
+    private ProductDetailModelPipe:ProductDetailModelPipe
     ) {
       this.getCategories();
      }
@@ -83,8 +85,9 @@ export class StoreDetailPage implements OnInit {
   }
 
   getProductDetail(data:any){
-    console.log(data)
-    this.shareObjectService.setObjetoCompartido({product:data})
+    console.log({product:data})
+    const responseObjectTranformed = this.ProductDetailModelPipe.transform({product:data})
+    this.shareObjectService.setObjetoCompartido(responseObjectTranformed)
     this.router.navigate(['/product-details']);
   }
 

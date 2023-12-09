@@ -5,6 +5,7 @@ import { CustomPipe } from './pipes/custom.pipe';
 import { ShareObjectService } from './services/shareObject';
 import { CartModelPipe } from './pipes/cartModel.pipe';
 import { CustomDateOrders } from './pipes/customDateOrders.pipe';
+import { ProductDetailModelPipe } from './pipes/productDetailModel.pipe';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { CustomDateOrders } from './pipes/customDateOrders.pipe';
     customCurrency,
     CustomPipe,
     CartModelPipe,
+    ProductDetailModelPipe,
     CustomDateOrders
   ],
   imports: [
@@ -21,6 +23,7 @@ import { CustomDateOrders } from './pipes/customDateOrders.pipe';
     CustomPipe,
     CustomDateOrders,
     CartModelPipe,
+    ProductDetailModelPipe,
     HttpClientModule,
   ],
   providers: [
