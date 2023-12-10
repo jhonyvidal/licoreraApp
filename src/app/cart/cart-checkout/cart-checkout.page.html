@@ -1,123 +1,123 @@
 <ion-header [translucent]="true" style="margin-top: 65px"> </ion-header>
 
 <ion-content [fullscreen]="true" [formGroup]="myForm">
-  <div [ngClass]="contentform">
-    <ion-row class="ion-row">
-      <ion-col size="12"
-        ><h1 class="text-center">Dirección de entrega</h1></ion-col
-      >
-      <ion-col size="12">
-        <label class="text-center">Mis ubicaciones</label>
-        <!-- <ion-input
-          formControlName="location"
-          class="custom"
-          type="text"
-          placeholder="Selecciona una ubicación"
-          required
-        ></ion-input> -->
-        <ion-select 
-          formControlName="location"
-          class="custom"
-          type="text"
-          placeholder="Selecciona una ubicación"
-          label="Selecciona una ubicación" 
-          label-placement="floating" 
-          fill="solid" >
-          <ion-select-option *ngFor="let data of myLocations" [value]="data.id">{{data.name}}</ion-select-option>
-        </ion-select>
-      </ion-col>
-      <ion-col size="12" (click)="sendTo('new-address')">
-        <label class="text-center">Ingresa una dirección</label>
-        <ion-input
-          formControlName="address"
-          class="custom"
-          type="text"
-          placeholder="Ej: Cra 26#33-17 "
-          required
-        ></ion-input>
-        <ion-input
-          formControlName="addressDetail"
-          class="number"
-          type="text"
-          placeholder="Torre / Apto / Casa / Detalles"
-          required
-        ></ion-input>
-      </ion-col>
-      <ion-col size="12">
-        <label>Contacto</label>
-        <ion-input
-          formControlName="contact"
-          class="time"
-          type="text"
-          placeholder="3153103352"
-          required
-          [maskito]="phoneMask" [maskitoElement]="maskPredicate"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="12" (click)="sendTo('payment-methods')">
-        <label>Forma de pago</label>
-        <ion-input
-          
-          formControlName="paymentMethod"
-          class="number"
-          type="text"
-          placeholder="Selecciona un metodo de pago"
-          required
-        ></ion-input>
-      </ion-col>
-      <ion-col size="6">
-        <label>Código de descuento</label>
-        <ion-input
-          formControlName="disccount"
-          class="number"
-          type="text"
-          placeholder="Ej:DESCRESJOTAS"
-        ></ion-input>
-      </ion-col>
-      <ion-col size="6" class="applyCol">
-        <ion-button class="buttonApply" (click)="searchCode()">
-          <span style="margin-top: -5px">APLICAR</span>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </div>
+    <div [ngClass]="contentform">
+      <ion-row class="ion-row">
+        <ion-col size="12"
+          ><h1 class="text-center">Dirección de entrega</h1></ion-col
+        >
+        <ion-col size="12">
+          <label class="text-center">Mis ubicaciones</label>
+          <!-- <ion-input
+            formControlName="location"
+            class="custom"
+            type="text"
+            placeholder="Selecciona una ubicación"
+            required
+          ></ion-input> -->
+          <ion-select 
+            formControlName="location"
+            class="custom"
+            type="text"
+            placeholder="Selecciona una ubicación"
+            label="Selecciona una ubicación" 
+            label-placement="floating" 
+            fill="solid" >
+            <ion-select-option *ngFor="let data of myLocations" [value]="data.id">{{data.name}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="12" (click)="sendTo('new-address')">
+          <label class="text-center">Ingresa una dirección</label>
+          <ion-input
+            formControlName="address"
+            class="custom"
+            type="text"
+            placeholder="Ej: Cra 26#33-17 "
+            required
+          ></ion-input>
+          <ion-input
+            formControlName="addressDetail"
+            class="number"
+            type="text"
+            placeholder="Torre / Apto / Casa / Detalles"
+            required
+          ></ion-input>
+        </ion-col>
+        <ion-col size="12">
+          <label>Contacto</label>
+          <ion-input
+            formControlName="contact"
+            class="time"
+            type="text"
+            placeholder="3153103352"
+            required
+            [maskito]="phoneMask" [maskitoElement]="maskPredicate"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="12" (click)="sendTo('payment-methods')">
+          <label>Forma de pago</label>
+          <ion-input
+            
+            formControlName="paymentMethod"
+            class="number"
+            type="text"
+            placeholder="Selecciona un metodo de pago"
+            required
+          ></ion-input>
+        </ion-col>
+        <ion-col size="6">
+          <label>Código de descuento</label>
+          <ion-input
+            formControlName="disccount"
+            class="number"
+            type="text"
+            placeholder="Ej:DESCRESJOTAS"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="6" class="applyCol">
+          <ion-button class="buttonApply" (click)="searchCode()">
+            <span style="margin-top: -5px">APLICAR</span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
 
-  <div [ngClass]="buttonWelcome">
-    <p>Obtienes por tu compra 101 J</p>
-    <ion-grid class="p0">
-      <ion-row>
-        <ion-col size="6" class="heightCustom">
-          <h4 class="subtotal">SUBTOTAL:</h4>
-        </ion-col>
-        <ion-col size="6"  class="heightCustom">
-          <h4 class="paySubTotal">{{subtotal | customCurrency :'.':'$ '}}</h4>
-        </ion-col>
-        <ion-col size="6">
-          <h4 class="subtotal">DOMICILIO:</h4>
-        </ion-col>
-        <ion-col size="6">
-          <h4 class="paySubTotal">{{delivery| customCurrency :'.':'$ ' }}</h4>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <p class="line"></p>
-    <ion-grid class="p0">
-      <ion-row>
-        <ion-col>
-          <h4>Total:</h4>
-        </ion-col>
-        <ion-col>
-          <h4 class="payTotal">{{total | customCurrency :'.':'$ '}}</h4>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <p class="text">
-      Domicilio gratis por compras mayores a $ %@ IVA incluido.
-    </p>
-    <ion-button  [ngClass]="buttonStyle" [disabled]="!isFormValid"
-      ><span style="margin-top: -5px" (click)="submit()">CONFIRMAR</span></ion-button
-    >
-  </div>
+    <div [ngClass]="buttonWelcome">
+      <p>Obtienes por tu compra 101 J</p>
+      <ion-grid class="p0">
+        <ion-row>
+          <ion-col size="6" class="heightCustom">
+            <h4 class="subtotal">SUBTOTAL:</h4>
+          </ion-col>
+          <ion-col size="6"  class="heightCustom">
+            <h4 class="paySubTotal">{{subtotal | customCurrency :'.':'$ '}}</h4>
+          </ion-col>
+          <ion-col size="6">
+            <h4 class="subtotal">DOMICILIO:</h4>
+          </ion-col>
+          <ion-col size="6">
+            <h4 class="paySubTotal">{{delivery| customCurrency :'.':'$ ' }}</h4>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p class="line"></p>
+      <ion-grid class="p0">
+        <ion-row>
+          <ion-col>
+            <h4>Total:</h4>
+          </ion-col>
+          <ion-col>
+            <h4 class="payTotal">{{total | customCurrency :'.':'$ '}}</h4>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p class="text">
+        Domicilio gratis por compras mayores a $ %@ IVA incluido.
+      </p>
+      <ion-button  [ngClass]="buttonStyle" [disabled]="!isFormValid"
+        ><span style="margin-top: -5px" (click)="submit()">CONFIRMAR</span></ion-button
+      >
+    </div>
 </ion-content>
 
 

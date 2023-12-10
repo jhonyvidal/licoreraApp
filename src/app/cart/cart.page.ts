@@ -18,6 +18,7 @@ export class CartPage implements OnInit {
   minimumOrderAmount: number = 0;
   minimumAmountForPoints : number = 0;
   btnAccept:boolean= false;
+  contentHeigth:string = 'content-exchange-products1';
 
   constructor(
     private requestUseCase: RequestUseCases,
@@ -33,6 +34,14 @@ export class CartPage implements OnInit {
 
   ionViewWillEnter() {
     this.getCart();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const oneVhInPixels = viewportHeight / 100;
+    if(viewportHeight >= 914){
+      this.contentHeigth = 'content-exchange-products1';
+    }
+    else if(viewportHeight >= 600){
+      this.contentHeigth = 'content-exchange-products2';
+    }
   }
 
   getCart() {

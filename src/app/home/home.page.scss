@@ -83,3 +83,12 @@ ion-icon[name="custom-icon"] {
 ion-icon .md .hydrated{
     background-image: url('../../assets/icon/Menu.svg');
 }
+ion-badge{
+    --background: #99791C;
+    --color: aliceblue;
+    font-size: 15px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-top: -15px;
+}

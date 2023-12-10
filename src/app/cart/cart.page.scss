@@ -47,9 +47,15 @@
     text-align: center;
   }
 
-  .content-exchange-products {
+  .content-exchange-products1 {
     width: 100%;
-    height: 80vh;
+    height: 56vh;
+    overflow: auto;
+    --ion-background-color: #ECECEC;
+  }
+  .content-exchange-products2 {
+    width: 100%;
+    height: 42vh;
     overflow: auto;
     --ion-background-color: #ECECEC;
   }

@@ -137,6 +137,7 @@
       </ion-tab-button>
 
       <ion-tab-button tab="tab3" class="bg-color-primary" (click)="changeTab('tab3')">
+        <ion-badge *ngIf="selectedTab !== 'tab3'">{{cartQuantity}}</ion-badge>
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab3' ? '../../assets/icon/home-selected3.svg' : '../../assets/icon/home3.svg'"  alt="Logo empresa"></ion-label>
       </ion-tab-button>
 
