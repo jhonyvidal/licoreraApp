@@ -16,18 +16,15 @@ export class StorePage implements OnInit {
   public ListCategories:CategoriesOut[];
   elementos: CategoriesOut[] = [];
   loaded:boolean=false;
+  imageCounter: number = 0;
 
   ngOnInit() {
-    this.loaded=true;
     this.requestUseCase.getCategories('token').subscribe(response => {
       if (response.success === true) {
         response.data.forEach((elemento:any,indice:number) => {
           this.elementos.push(elemento);
         });
         this.ListCategories = this.elementos;
-        setTimeout(() => {
-          this.loaded=false;
-        }, 2000);
         console.log(this.ListCategories);
       } else {
         console.log(response);
@@ -39,6 +36,11 @@ export class StorePage implements OnInit {
     this.router.navigate(['/store-detail/' + id])
   }
 
-
+  loadImages(){
+    this.imageCounter++;
+    if (this.elementos.length === this.imageCounter) {
+      this.loaded=true;
+    }
+  }
 
 }
