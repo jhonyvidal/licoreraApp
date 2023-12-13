@@ -15,10 +15,24 @@ export class UserService {
   }
 
   // Método para realizar el inicio de sesión
-  login(userData: UserModel): boolean {
-
+  login(userData: UserModel, refresh_token?:string): boolean {
+    userData.refresh_token = refresh_token ? refresh_token : '';
     // Almacenar los datos del usuario en el almacenamiento local
     this.storage.set('userData', userData);
+
+    return true; // Indicar que el inicio de sesión fue exitoso
+  }
+
+  async refreshToken(token: string, refresh_token:string): Promise<boolean> {
+
+    const data = await this.storage.get('userData')
+    const newData = {
+      ...data,
+      token,
+      refresh_token
+    };
+    // Almacenar los datos del usuario en el almacenamiento local
+    this.storage.set('userData', newData);
 
     return true; // Indicar que el inicio de sesión fue exitoso
   }

@@ -25,6 +25,7 @@ export class SignInPage implements OnInit {
   currentUser: User | null;
   idToken: string;
   passwordFieldType:string = 'password';
+  iconShowPassword:string = '../../assets/icon/show-password.svg';
 
   constructor(
     public formBuilder: FormBuilder,
@@ -86,11 +87,11 @@ export class SignInPage implements OnInit {
     );
   }
 
-  getMe(token:string){
+  getMe(token:string, refresh_token? :string){
     this.requestUseCase.getMe(token)
     .subscribe((response) => {
       if (response.success === true) {
-        this.userService.login(response.data)
+        this.userService.login(response.data, refresh_token)
         this.router.navigate(['/home']);
       }
       else{
@@ -120,7 +121,7 @@ export class SignInPage implements OnInit {
           if (response.data === null) {
             this.showAlert();
           } else {
-            this.getMe(response.data.token)
+            this.getMe(response.data.token, response.data.refresh_token)
           }
           console.log('this:',response);
         } else {
@@ -201,6 +202,7 @@ export class SignInPage implements OnInit {
 
   togglePasswordFieldType() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    this.iconShowPassword = this.iconShowPassword === '../../assets/icon/show-password.svg' ? '../../assets/icon/hide-password.svg':'../../assets/icon/show-password.svg'
   }
 
 }

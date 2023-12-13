@@ -4,6 +4,7 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { Geolocation } from '@capacitor/geolocation';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { UserService } from 'src/store/services/user.service';
+import { animation } from '@angular/animations';
 
 @Component({
   selector: 'app-new-address',
@@ -22,6 +23,7 @@ export class NewAddressPage implements OnInit {
   myTimeout: any;
   inputText: string;
   googleAddress: []
+  navigating = false;
 
   ngOnInit() {
   }
@@ -79,7 +81,14 @@ export class NewAddressPage implements OnInit {
   }
 
   goToMap(){
-    this.router.navigate(['/new-address/new-address-map']);
+    this.navigating = true;
+    setTimeout(() => {
+      this.router.navigate(['/new-address/new-address-map'])
+      .then(() => {
+        this.navigating = false;
+      });
+    }, 100);
+   
   }
 
 }

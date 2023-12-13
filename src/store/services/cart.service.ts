@@ -59,15 +59,48 @@ export class CartService {
     return true;
   }
 
+  setPointsCartData(points: number, total: number){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.points = points;
+      storeCartData.total = total;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
+  setProductsCartData(products: any){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.details = products;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
   deleteCart(id:number){
-   
     this.storage.get('cartData')
     .then(data => {
       const completeData = data
       const dataFilter = data.details.filter((a: { id: number; }) => a.id !== id)
       completeData.details = dataFilter;
       this.storage.set('cartData', completeData);
-      window.location.reload();
     })
     .catch(error => {
       console.error('Error al obtener los datos del cart:', error);

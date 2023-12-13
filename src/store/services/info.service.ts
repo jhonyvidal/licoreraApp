@@ -15,9 +15,63 @@ export class InfoService {
   }
 
   // Método para realizar el inicio de sesión
-  async setInfoData(infoData: InfoModel) {
+  async setInfoData(Data: InfoModel) {
     // Almacenar los datos del usuario en el almacenamiento local
-    this.storage.set('InfoModel', infoData);
+    // this.storage.set('InfoModel', Data);
+    // return true; // Indicar que el inicio de sesión fue exitoso
+    let infoData;
+    this.storage.get('InfoModel')
+    .then(data => {
+      infoData = data;
+      if(data === null){
+        infoData = Data
+      }else{
+        infoData = {...infoData,...Data};
+      }
+      this.storage.set('InfoModel', infoData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del infoData:', error);
+    });
+    return true; // Indicar que el inicio de sesión fue exitoso
+  }
+
+  async setHeightData(height: number) {
+    // Almacenar los datos del usuario en el almacenamiento local
+    let infoData;
+    this.storage.get('InfoModel')
+    .then(data => {
+      if(data !== null){
+        infoData = data;
+      }else{
+        infoData = {};
+      }
+      infoData.height = height;
+      this.storage.set('InfoModel', infoData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del infoData:', error);
+    });
+    return true; // Indicar que el inicio de sesión fue exitoso
+  }
+
+  async setIsWelcome(status: boolean) {
+    // Almacenar los datos del usuario en el almacenamiento local
+    let infoData;
+    this.storage.get('InfoModel')
+    .then(data => {
+      if(data !== null){
+        infoData = data;
+      }else{
+        infoData = {};
+      }
+      infoData.isWelcome = status;
+      console.log(infoData);
+      this.storage.set('InfoModel', infoData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del infoData:', error);
+    });
     return true; // Indicar que el inicio de sesión fue exitoso
   }
 

@@ -6,6 +6,7 @@ import { Platform } from '@ionic/angular';
 import { ConfigService } from 'src/store/services/config.service';
 import { register } from 'swiper/element/bundle';
 import { FirebaseAuthenticationService } from './core';
+import { InfoService } from 'src/store/services/info.service';
 register()
 
 @Component({
@@ -19,9 +20,11 @@ export class AppComponent {
     private configService: ConfigService,
     private router: Router,
     private platform: Platform,
-    private readonly firebaseAuthenticationService: FirebaseAuthenticationService
+    private readonly firebaseAuthenticationService: FirebaseAuthenticationService,
+    private infoService:InfoService
      ) {
     this.initializeApp();   
+    this.infoService.setHeightData(this.platform.height())
   }
 
   //Firebase

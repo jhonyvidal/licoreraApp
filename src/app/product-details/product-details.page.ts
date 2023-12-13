@@ -31,6 +31,7 @@ export class ProductDetailsPage implements OnInit {
   isNewProduct:boolean = false;
   discount:number=0;
   price:number=0;
+  section:string='sectionWithBg'
   features:[]=[];
   
   constructor(
@@ -68,6 +69,9 @@ export class ProductDetailsPage implements OnInit {
       this.quantity = JSON.parse(window.localStorage.getItem('QUANTITY_PRODUCT') as string);
     }else{
       this.quantity = JSON.parse(this.localStorageQuantity);
+    }
+    if(this.isPromotion){
+      this.section = 'sectionWithoutBg';
     }
   }
 

@@ -117,6 +117,18 @@ export class RequestUseCases {
     return this._requestGateWay.getPaymentMethodsV2(token);
   }
 
+  postPaymentCreditCard(token: string, data: any) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.postPaymentCreditCard(token, data);
+  }
+
+  postPaymentPse(token: string, data: any) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.postPaymentPse(token, data);
+  }
+
+  getPaymentBanks(token: string) : Observable <PaymentMethodsGetResponse> {
+    return this._requestGateWay.getPaymentBanks(token);
+  }
+  
   getLocationsV2(token: string) : Observable <LocationsResponse> {
     return this._requestGateWay.getLocationsV2(token);
   }
@@ -157,8 +169,16 @@ export class RequestUseCases {
     return this._requestGateWay.postOrder(token, data);
   }
 
-  getOrder(token: string) : Observable <PostPaymentMethodsResponse> {
-    return this._requestGateWay.getOrder(token);
+  getOrder(token: string, page:number) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.getOrder(token, page);
+  }
+  
+  getCurrentOrder(token: string) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.getCurrentOrder(token);
+  }
+  
+  cancelCurrentOrder(token: string) : Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.cancelCurrentOrder(token);
   }
 
   getOrderById(token: string, id:number) : Observable <PostPaymentMethodsResponse> {

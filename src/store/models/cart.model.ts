@@ -2,6 +2,8 @@ export interface cart {
     details?:cartModel[];
     address?:Address;
     nombre?:string;
+    points?:number;
+    total?:number;
 }
 
 export interface cartModel {

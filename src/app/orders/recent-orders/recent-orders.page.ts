@@ -14,6 +14,8 @@ import { ShareObjectService } from 'src/shared/services/shareObject';
 export class RecentOrdersPage implements OnInit {
 
   orders: OrdersData[] = [];
+  ordersComplete: OrdersData[] = [];
+  page: number = 1;
 
   constructor(
     private location: Location,
@@ -25,28 +27,6 @@ export class RecentOrdersPage implements OnInit {
 
   ngOnInit() {
     this.getPosts();
-    this.orders.push({
-      date: 'hola',
-      address: 'string',
-      products: 6,
-      total: 100,
-      status: 'Completado'
-    },
-    {
-      date: 'hola',
-      address: 'string',
-      products: 6,
-      total: 100,
-      status: 'Cancelado'
-    },
-    {
-      date: 'hola',
-      address: 'string',
-      products: 6,
-      total: 100,
-      status: 'Rechazado'
-    },
-    )
   }
 
   goBack(): void {
@@ -62,12 +42,16 @@ export class RecentOrdersPage implements OnInit {
     const token = await this.getToken()
     this.requestUseCase
     .getOrder(
-      token
+      token,
+      this.page
     )
     .subscribe(
       (response) => {
         if (response.success === true) {
-          this.orders = response.data.data;
+          response.data.data.forEach((elemento:any,indice:number) => {
+            this.orders.push(elemento);
+          });
+          this.page++ 
           console.log('success', response);
         } else {
           console.log('success', response);
@@ -91,6 +75,13 @@ export class RecentOrdersPage implements OnInit {
       return 'Error al obtener los datos del usuario'
     });
     return response;
+  }
+
+  loadData(event: any) {
+    setTimeout(() => {
+      this.getPosts();
+     event.target.complete();
+    }, 1000);
   }
 
 

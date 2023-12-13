@@ -168,6 +168,8 @@ html, p, h1, h2, h3, a {
 .img-alert {
   width: 80px;
   height: 80px;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 .font-w300{

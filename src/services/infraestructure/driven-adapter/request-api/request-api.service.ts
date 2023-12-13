@@ -292,6 +292,49 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getPaymentBanks(token: string): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/payments/banks',headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  
+  postPaymentCreditCard(token: string, data: PostPaymentMethodsRequest): Observable<PostPaymentMethodsResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postV2('api/v2/payments/creditCard', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as PostPaymentMethodsResponse
+      })
+    )
+  }
+
+  postPaymentPse(token: string, data: PostPaymentMethodsRequest): Observable<PostPaymentMethodsResponse> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.postV2('api/v2/payments/pse', data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as PostPaymentMethodsResponse
+      })
+    )
+  }
+
   postDeletePaymentMethods(token: string, data: DeletePaymentMethodsRequest): Observable<DeletePaymentResponse> {
     const headers = new HttpHeaders(
       {
@@ -415,13 +458,41 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
-  getOrder(token:string): Observable<any> {
+  getOrder(token:string,page:number): Observable<any> {
     const headers = new HttpHeaders(
       {
         'Authorization': token
       }
     );
-    return this.http.getV2('api/v2/clients/orders', headers).pipe(
+    return this.http.getV2('api/v2/clients/orders?page=' + page, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  getCurrentOrder(token:string): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/clients/orders/current', headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
+  cancelCurrentOrder(token:string): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2('api/v2/clients/orders/current/cancel', headers).pipe(
       map(response => {
         // console.log(response)
         return response as any

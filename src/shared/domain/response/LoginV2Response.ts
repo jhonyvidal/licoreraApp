@@ -6,4 +6,5 @@ export interface LoginV2Response extends BaseResponse {
 
 export interface Data {
     token: string
+    refresh_token:string
 }

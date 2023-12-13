@@ -16,7 +16,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="!navigating">
   <div class="search-container">
     <!-- <ion-searchbar [(ngModel)]="inputText" placeholder="Old Parr, Whisky" (ngModelChange)="getProductsSearched($event)"></ion-searchbar> -->
     <ion-searchbar placeholder="Ingresa una direcciónasd" [(ngModel)]="inputText" (ngModelChange)="getLocation($event)"></ion-searchbar>

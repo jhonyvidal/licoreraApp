@@ -43,7 +43,7 @@
           </ion-col>
           <ion-col size="11">
             <div>
-            <a class="linkNumber" (click)="llamar('+6392474')" >6 39 24 74</a> - <a class="linkNumber" (click)="llamar('+6799493')" >6 79 94 93</a>
+            <a class="linkNumber" (click)="llamar('+6392474')" >{{infoData?.telephones?.main}}</a> - <a class="linkNumber" (click)="llamar('+6799493')" >{{infoData?.telephones?.secondary}}</a>
             </div>
           </ion-col>
           <ion-col size="1">
@@ -51,7 +51,7 @@
           </ion-col>
           <ion-col size="11">
             <div>
-            <a class="linkNumber" href="https://wa.me/{{infoData?.telephones?.main}}">{{infoData?.telephones?.main}}</a> - <a class="linkNumber" href="https://wa.me/{{infoData?.telephones?.secondary}}">{{infoData?.telephones?.secondary}}</a>
+            <a class="linkNumber" href="https://wa.me/{{infoData?.whatsapp?.whatsapp1}}">{{infoData?.whatsapp?.whatsapp1}}</a> - <a class="linkNumber" href="https://wa.me/{{infoData?.whatsapp?.whatsapp2}}">{{infoData?.whatsapp?.whatsapp2}}</a>
             </div>
           </ion-col>
         </ion-row>

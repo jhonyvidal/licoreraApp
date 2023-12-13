@@ -109,6 +109,10 @@ ion-radio::part(mark) {
   .creditStep{
     margin-top: 50%;
   }
+  .paymentList{
+    margin-top: -30%;
+    margin-left: -20px;
+  }
   ion-page {
     display: block;
   }
@@ -184,4 +188,60 @@ ion-radio::part(mark) {
     padding: 0;
     font-size: 17px;
     font-family: 'weblysleekuil';
+  }
+
+  ion-content  .payment-list-container {
+    padding: 0 0 50px;
+    width: 90%;
+    margin: 27px auto;
+    height: 70%;
+    overflow: auto;
+  }
+
+  ion-content  .payment-list-container ion-item figure{
+    margin: 0;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ion-content  .payment-list-container ion-item figure img{
+    width: 60%;
+  }
+  
+  ion-content  .payment-list-container ion-item-sliding ion-item .credit-card-info-container {
+    margin: 20px 0;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  ion-content  .payment-list-container ion-item-sliding ion-item .credit-card-info-container .text-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  ion-content  .payment-list-container ion-item-sliding ion-item .credit-card-info-container h2{
+    margin: 0;
+    font-size: 16px;
+    font-family: 'weblysleekuisb';
+  }
+  
+  ion-content  .payment-list-container ion-item-sliding ion-item .credit-card-info-container p{
+    margin: 0;
+    font-family: 'weblysleekuil';
+    font-size: 12px;
+  }
+  
+  ion-content  .payment-list-container ion-item-sliding ion-item .star-container {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  ion-content  .payment-list-container ion-item-sliding ion-item-options ion-item-option {
+    background-color: #FF1806;
   }

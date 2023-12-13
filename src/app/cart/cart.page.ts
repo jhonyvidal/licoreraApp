@@ -4,14 +4,18 @@ import { CartService } from 'src/store/services/cart.service';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { InfoService } from 'src/store/services/info.service';
+import { UserService } from 'src/store/services/user.service';
+import { presentAlert } from 'src/shared/components/alert.component';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
-  styleUrls: ['./cart.page.scss'],
+  styleUrls: ['./cart.page.scss','./cart.page2.scss'],
 })
 export class CartPage implements OnInit {
   products: any = [];
+  currentOrder: any = {};
   quantity: number = 0;
   total: number = 0;
   points: number = 0;
@@ -19,29 +23,45 @@ export class CartPage implements OnInit {
   minimumAmountForPoints : number = 0;
   btnAccept:boolean= false;
   contentHeigth:string = 'content-exchange-products1';
+  isCurrentOrder:boolean= false;
 
   constructor(
     private requestUseCase: RequestUseCases,
     private cartService: CartService,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private infoService : InfoService,
+    private userService : UserService
   ) {}
 
 
   ngOnInit() {
     this.getInfo();
+    
   }
 
   ionViewWillEnter() {
     this.getCart();
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-    const oneVhInPixels = viewportHeight / 100;
-    if(viewportHeight >= 914){
-      this.contentHeigth = 'content-exchange-products1';
-    }
-    else if(viewportHeight >= 600){
-      this.contentHeigth = 'content-exchange-products2';
-    }
+    this.getHeigthInfo();
+    this.getCurrentOrder();
+  }
+
+  getHeigthInfo(){
+    this.infoService.getInfoData()
+    .then(data => {
+      if(data.height > 900){
+        this.contentHeigth = 'content-exchange-products1';
+      }
+      else if(data.height > 750){
+        this.contentHeigth = 'content-exchange-products3';
+      }
+      else if(data.height > 300){
+        this.contentHeigth = 'content-exchange-products2';
+      }
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos de la info:', error);
+    });
   }
 
   getCart() {
@@ -52,7 +72,10 @@ export class CartPage implements OnInit {
         if(data && data.details && data.details.length > 0){
           this.products = data.details;
           this.setTotal();
+        }else{
+          this.products = []
         }
+       
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
@@ -72,6 +95,47 @@ export class CartPage implements OnInit {
     });
   }
 
+  async getCurrentOrder(){
+    const token = await this.getToken()
+    this.requestUseCase
+    .getCurrentOrder(
+      token
+    )
+    .subscribe(
+      (response) => {
+        if (response.success === true) {
+          if(response.data !== null){
+            this.isCurrentOrder = true;
+            this.currentOrder = response.data
+          }else{
+            this.isCurrentOrder = false;
+          }
+          console.log('success', response);
+        } else {
+          this.isCurrentOrder = false;
+          console.log('success', response);
+        }
+      },
+      (error) => {
+        console.error('Ha ocurrido un error:', error);
+      }
+    );
+  }
+
+  getToken() {
+    const response = this.userService.getUserData()
+    .then(data => {
+      console.log('Api token: ', data.api_token);
+      return data.api_token
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+      this.router.navigate(['/sign-in']);
+      return 'Error al obtener los datos del usuario'
+    });
+    return response;
+  }
+
   addBtn(id:number) {
     this.products.find((element:{id:number,quantitySelected:number}) => {
       if(element.id === id){
@@ -79,6 +143,7 @@ export class CartPage implements OnInit {
       }
     })
     this.setTotal();
+    this.cartService.setProductsCartData(this.products);
     // localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
   }
 
@@ -93,6 +158,7 @@ export class CartPage implements OnInit {
       }
     })
     this.setTotal();
+    this.cartService.setProductsCartData(this.products);
     // localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
   }
 
@@ -103,16 +169,25 @@ export class CartPage implements OnInit {
       '¿Deseas eliminar este producto de tu carrito de compras?',
       'exchange-products-success',
       item.product.image,
-      () => this.cartService.deleteCart(item.id),
+      () => this.deleteCart(item.id),
       item.id
     );
+  }
+
+  deleteCart(item:any){
+    this.cartService.deleteCart(item);
+    setTimeout(() => {
+      this.getCart();
+    }, 500);
   }
 
   setTotal(){
     this.total = 0;
     if(this.products){
       this.products.forEach((e: { price: number, quantitySelected: number }) => {
-        this.total = this.total + (e.price * e.quantitySelected);
+        if(e.price){
+          this.total = this.total + (e.price * e.quantitySelected);
+        }
       });
     }
     console.log(this.total , this.minimumAmountForPoints);
@@ -121,7 +196,55 @@ export class CartPage implements OnInit {
   }
 
   submit(){
+    this.cartService.setPointsCartData(this.points,this.total)
     this.router.navigate(['/home/tab3/cart-checkout'])
   }
 
+  async cancelAlert() {
+    await presentAlert(
+      this.alertController,
+      'INFORMACIÓN',
+      '¿Estás seguro que quieres cancelar el pedido?',
+      '/assets/img/stop.svg',
+      '',
+      () => this.cancelCurrentOrder(),
+      'Logout'
+    );
+  }
+
+  async cancelCurrentOrder(){
+      const token = await this.getToken()
+      this.requestUseCase
+      .cancelCurrentOrder(
+        token
+      )
+      .subscribe(
+        (response) => {
+          if (response.success === true) {
+            this.showAlertSuccess();
+            console.log('success', response);
+          } else {
+            console.log('success', response);
+          }
+        },
+        (error) => {
+          console.error('Ha ocurrido un error:', error);
+        }
+      );
+  }
+
+  async showAlertSuccess() {
+    await presentAlert(
+      this.alertController,
+      '¡FELICITACIONES!',
+      'Te pedido fue cancelado exitosamente. Puedes seguir comprando ahora.',
+      '/assets/img/checkGreen.svg',
+      '',
+      () => this.goToHome()
+    );
+  }
+
+  goToHome(){
+    this.router.navigate(['/home']);
+  }
 }

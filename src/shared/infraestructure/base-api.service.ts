@@ -5,6 +5,7 @@ import { LoginV2Request } from '../domain/request/LoginV2Request';
 import { DeletePaymentMethodsRequest, PostPaymentMethodsRequest } from '../domain/request/DeletePaymentRequest';
 import { CreateLocationRequest } from '../domain/request/CreateLocation';
 import { FavoriteLocationsRequest } from '../domain/request/FavoriteLocations';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class BaseApiService {
   private urlV2 = environment.apiUrlV2;
   private urlApiGoogleMap = environment.apiGoogleMap;
   private ApiKey = environment.ApiKey;
-  private http: HttpClient;
+  // private http: HttpClient;
 
-  constructor(private handler: HttpBackend) { 
-    this.http = new HttpClient(handler);
+  constructor(private http: HttpClient) { 
+    // this.http = new HttpClient(handler);
   }
 
   get(path: string, headers?:HttpHeaders) {
@@ -61,9 +62,4 @@ export class BaseApiService {
     return this.http.delete(`${this.urlV2}${path}`, { headers } );
   }
 
-  
-
-  // getApiGoogleMap(path: string, headers?:HttpHeaders) {
-  //   return this.http.get(`${this.urlApiGoogleMap}${path}&key=${this.ApiKey}`, { headers });
-  // }
 }

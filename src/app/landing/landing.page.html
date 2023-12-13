@@ -11,13 +11,13 @@
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment value="all">
-      <ion-segment-button value="all" (click)="show(1)">
+      <ion-segment-button value="all" (click)="show(1)" *ngIf="ListCampains?.length > 0" >
         <ion-label class="segmentLabel" >DESTACADOS</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="favorites" (click)="show(2)" >
+      <ion-segment-button value="favorites" (click)="show(2)" *ngIf="ListPromotions?.length > 0" >
         <ion-label  >PROMOCIONES</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="productoNuevos"  (click)="show(3)" >
+      <ion-segment-button value="productoNuevos"  (click)="show(3)"  *ngIf="ListNewProducts?.length > 0">
         <ion-label >PRODUCTOS NUEVOS</ion-label>
       </ion-segment-button>
     </ion-segment>

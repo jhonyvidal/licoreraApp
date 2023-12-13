@@ -19,7 +19,7 @@
 <ion-content >
   <!-- Normal Flow -->
   <figure class="product-img-container" *ngIf="!isPromotion && !isNewProduct">
-    <figure class="promotion-container" *ngIf="discount !== null">
+    <figure class="promotion-container" *ngIf="discount !== null && discount > 0">
       <h2 class="Promotion-number">{{discount}}</h2>
       <p class="Promotion-off">% off</p>
       <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
@@ -44,10 +44,10 @@
     </div>
   </figure>
 
-  <section>
-    
+  <section [class]="section">
     <article>
-      <h2 class="Product-name" *ngIf="!isNewProduct">{{product.name}}</h2>
+      <h2 class="Product-name" *ngIf="!isNewProduct && !isPromotion">{{product.name}}</h2>
+      <h2 class="Product-name" *ngIf="isPromotion" style="text-align: center;">{{product.name}}</h2>
       <h4 class="DesPromotion" *ngIf="isNewProduct">Descripción</h4>
       <p class="Product-description">{{product.description}}</p>
     </article>
@@ -62,7 +62,7 @@
         <article *ngIf="!isNewProduct">
           <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
           <h2 *ngIf="beforePrice" class="Before-price"><span class="Before">Antes: </span>{{beforePrice | customCurrency :'.':'$ '}}</h2>
-          <h2 class="Price-now"><span class="Now">{{ isPromotion ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
+          <h2 class="Price-now"><span class="Now">{{ isPromotion || discount === 0 ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
         </article>
     </div>
   </section>

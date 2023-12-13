@@ -73,7 +73,7 @@ ion-content .product-img-container .promotion-container h4{
     font-size: 40px;
 }
 
-section {
+.sectionWithBg {
     padding: 0px 20px 0 20px;
     width: 100%;
     height: 100%;
@@ -83,6 +83,17 @@ section {
     border-radius: 35px 35px 0 0;
     background-color: #F7F5F5;
     position: fixed;
+}
+.sectionWithoutBg {
+  padding: 0px 20px 0 20px;
+  width: 100%;
+  height: 100%;
+  /* display: flex;*/
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 35px 35px 0 0;
+  background-color: white;
+  position: fixed;
 }
 
 section .features div {
@@ -108,6 +119,7 @@ ion-footer ion-toolbar {
 
 .Product-name {
   margin: 0;
+  margin-top: 20px;
   font-size: 26px;
 }
 
