@@ -33,14 +33,15 @@
                   <h2 class="Product-name-exchange">{{item.product.name }}</h2>
                 </div>
               </div>
-              <h4 class="disponible-exchange" *ngIf="item.product.presentation">Presentación: {{item.product.presentation}}</h4>
+              <h4 class="disponible-exchange">Presentación: {{item.product.presentation}}</h4>
             </div>
             <div class="Btns-container">
             <div>
               <ion-grid class="p0" style="width: 80px;">
                 <ion-row>
                 <ion-col>
-                  <h2 class="Price-now"><span class="Now"></span>{{item.price  | customCurrency :'.':'$ '}}</h2>
+                  <h2 class="Price-now" ><span class="Now"></span>{{item.price  | customCurrency :'.':'$ '}}</h2>
+                  <h2 class="Price-now" *ngIf="item.points"><span class="Now"></span>{{item.points}} j</h2>
                 </ion-col>
                
                 <ion-col class="buttonsCol">

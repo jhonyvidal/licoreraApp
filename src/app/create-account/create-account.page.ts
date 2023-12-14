@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -10,6 +10,8 @@ import { FirebaseAuthenticationService } from '../core';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { dateMask, phoneMask } from 'src/shared/mask/mask';
 import { InfoService } from 'src/store/services/info.service';
+import { Keyboard } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-create-account',
@@ -17,6 +19,7 @@ import { InfoService } from 'src/store/services/info.service';
   styleUrls: ['./create-account.page.scss'],
 })
 export class CreateAccountPage implements OnInit {
+ 
   myForm: FormGroup;
   isFormValid = false;
   buttonStyle = 'DisableButton';
@@ -27,6 +30,7 @@ export class CreateAccountPage implements OnInit {
   contentForm:string = 'contentFormLarge';
   public activeOpen = '';
   public activeClose = '';
+  public keyboardHeight: number = 0;
   modalDateTime = false;
   readonly dateMask: MaskitoOptions = dateMask;
   readonly phoneMask: MaskitoOptions = phoneMask;
@@ -39,10 +43,22 @@ export class CreateAccountPage implements OnInit {
     private router: Router,
     private userService: UserService,
     private readonly firebaseAuthenticationService: FirebaseAuthenticationService,
-    private infoService: InfoService
+    private infoService: InfoService,
+    private ngZone: NgZone,
+    private el: ElementRef,
+    private renderer: Renderer2
     ) {
+      const platform = Capacitor.getPlatform();
+      if(platform !== "web") {
+        Keyboard.addListener('keyboardWillShow', (info) => {
+          this.ngZone.run(() => {
+            this.applyKeyboardStyle(info.keyboardHeight);
+          });
+        });
+      }
+
       this.myForm = this.formBuilder.group({
-        name: ['', [Validators.required, ]],
+        name: ['', [Validators.required]],
         lastName: ['', [Validators.required, ]],
         document: ['', [Validators.required, ]],
         date: ['', [Validators.required,Validators.minLength(10) ]],
@@ -58,6 +74,13 @@ export class CreateAccountPage implements OnInit {
           date: this.convertDateFormat(this.myForm.get('dateModal')?.value.split('T')[0])
         });
       });
+    }
+
+    private applyKeyboardStyle(keyboardHeight: number): void {
+      const contentElement = this.el.nativeElement.querySelector('contentFormLarge');
+      const maxHeight = window.innerHeight - keyboardHeight;
+      this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+      this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
     }
     
     readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
@@ -91,9 +114,12 @@ export class CreateAccountPage implements OnInit {
 
   modalDate(){
     this.modalDateTime = true;
+    console.log("click aqui")
   }
 
   convertDateFormat(dateString: string): string {
+    console.log('fecha',dateString);
+    
     const dateParts = dateString.split('-'); // Separar los componentes de la fecha
     const year = dateParts[0];
     const month = dateParts[1];

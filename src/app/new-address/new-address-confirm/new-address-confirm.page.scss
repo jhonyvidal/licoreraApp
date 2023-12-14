@@ -39,6 +39,7 @@ ion-header ion-toolbar {
     .form-container {
       margin: 0 auto;
       width: 90%;
+      padding-bottom: 20px;
       .custom {
         --background: #ffff;
         --color: #000000;
@@ -86,7 +87,7 @@ ion-checkbox::part(mark) {
 }
 
 svg .checkbox-icon{
-    border-radius: 20px !important;
+    border-radius: 50px !important;
 }
 .custom-checkbox{
     display: flex;

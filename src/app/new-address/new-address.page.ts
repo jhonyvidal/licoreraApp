@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { Geolocation } from '@capacitor/geolocation';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { UserService } from 'src/store/services/user.service';
 import { animation } from '@angular/animations';
+import { Location } from '@angular/common';
+import { Capacitor } from '@capacitor/core';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-new-address',
@@ -18,7 +21,21 @@ export class NewAddressPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private shareObjectService: ShareObjectService,
     private userService:UserService,
-  ) { }
+    private location: Location,
+    private ngZone: NgZone,
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) { 
+    const platform = Capacitor.getPlatform();
+      if(platform !== "web") {
+        Keyboard.addListener('keyboardWillShow', (info) => {
+          this.ngZone.run(() => {
+            this.applyKeyboardStyle(info.keyboardHeight);
+          });
+        });
+      }
+     
+  }
 
   myTimeout: any;
   inputText: string;
@@ -26,7 +43,38 @@ export class NewAddressPage implements OnInit {
   navigating = false;
 
   ngOnInit() {
+     // ONLY WEB TEST
+    // setTimeout(() => {
+    //   this.applyKeyboardStyleWeb(450);
+    // }, 1000);
   }
+
+  private applyKeyboardStyle(keyboardHeight: number): void {
+    const contentElement = this.el.nativeElement.querySelector('mainContent');
+    const maxHeight = window.innerHeight - keyboardHeight;
+    console.log(maxHeight, contentElement);
+    
+    this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+  }
+
+  // ONLY WEB TEST
+  // private applyKeyboardStyleWeb(keyboardHeight: number): void {
+  //   // Obtener todos los elementos con la clase 'mainContent'
+  //   const contentElements = document.getElementsByClassName('mainContent') as HTMLCollectionOf<HTMLElement>;
+  //   // Verificar si hay elementos
+  //   if (contentElements.length > 0) {
+  //     // Obtener el primer elemento con la clase 'mainContent'
+  //     const contentElement = contentElements[0];
+  //     // Calcular la altura máxima
+  //     const maxHeight = window.innerHeight - keyboardHeight;
+  //     // Utilizar 'style' en el elemento específico
+  //     contentElement.style.maxHeight = `${maxHeight}px`;
+  //     contentElement.style.overflowY = 'scroll';
+  //   } else {
+  //     console.error('No se encontraron elementos con la clase "mainContent".');
+  //   }
+  // }
 
   currentLocation = async () => {
     const coordinates = await Geolocation.getCurrentPosition();
@@ -89,6 +137,10 @@ export class NewAddressPage implements OnInit {
       });
     }, 100);
    
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

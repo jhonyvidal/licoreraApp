@@ -178,13 +178,15 @@ export class CartCheckoutPage implements OnInit {
         this.myForm.get('address')?.setValue(this.address?.address)
         this.myForm.get('addressDetail')?.setValue(this.address?.details)
         if(data.details && data.details?.length > 0){
-          this.totalPayment(data?.details)
+          // this.totalPayment(data?.details)
           this.products = data?.details;
         }
         if(data.address && data.address.latitude){
           this.validateDelivery(data.address)
         }
         this.points = data.points
+        this.subtotal = data.total || 0
+        this.total = this.subtotal;
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
@@ -203,15 +205,15 @@ export class CartCheckoutPage implements OnInit {
     });
   }
 
-  totalPayment(details:cartModel[]){
-    this.subtotal= details.reduce((total, producto) =>{
-      if(producto?.price){
-        return total + producto?.price
-      }
-      return total
-    } , 0);
-    this.total = this.subtotal;
-  }
+  // totalPayment(details:cartModel[]){
+  //   // this.subtotal= details.reduce((total, producto) =>{
+  //   //   if(producto?.price){
+  //   //     return total + producto?.price
+  //   //   }
+  //   //   return total
+  //   // } , 0);
+  //   this.total = this.subtotal;
+  // }
 
   getToken() {
     const response = this.userService.getUserData()

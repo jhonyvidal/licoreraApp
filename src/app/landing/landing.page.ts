@@ -6,6 +6,7 @@ import { suggestedProducts } from 'src/shared/domain/response/suggestedProductRe
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import Swiper from 'swiper';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
+import { CustomDateAlert } from 'src/shared/pipes/customDateAlert.pipe';
 
 @Component({
   selector: 'app-landing',
@@ -20,7 +21,9 @@ export class LandingPage implements OnInit {
     private router: Router,
     private requestUseCase: RequestUseCases,
     private shareObjectService: ShareObjectService,
-    private CartModelPipe:CartModelPipe) { }
+    private CartModelPipe:CartModelPipe,
+    private customDateAlert:CustomDateAlert
+    ) { }
     public ListSuggestedProducts:suggestedProducts[];
     public ListPromotions:suggestedProducts[];
     public ListCampains:suggestedProducts[];
@@ -92,12 +95,15 @@ export class LandingPage implements OnInit {
 
   async presentAlert() {
     const imagePath = window.location.origin + '/assets/img/cerrado.svg';
+    const active = this.customDateAlert.transform(this.activeOpen);
+    const close = this.customDateAlert.transform(this.activeClose)
+
     const dynamicContent = `
     <img src="${imagePath}" alt="img cerrado">
     <h5 class="alertFont">INFORMACIÓN</h5>
     <p class="alertSubtitle">No podemos despachar tu pedido.</br>
     Nuestro Horario de Atención</p> </br>
-    <b>${this.activeOpen} a ${this.activeClose}</b></br>`;
+    <p class="textDateAlert"><b>${active} a ${close}</b></p></br>`;
 
     const alert = await this.alertController.create({
       message: dynamicContent,

@@ -36,14 +36,18 @@ export class CartPage implements OnInit {
 
 
   ngOnInit() {
-    this.getInfo();
+   
     
   }
 
-  ionViewWillEnter() {
-    this.getCart();
+  async ionViewWillEnter() {
+    this.getInfo();
+   
     this.getHeigthInfo();
-    this.getCurrentOrder();
+    const token = await this.getToken()
+    if(token){
+      this.getCurrentOrder()
+    }
   }
 
   getHeigthInfo(){
@@ -73,7 +77,7 @@ export class CartPage implements OnInit {
           this.products = data.details;
           this.setTotal();
         }else{
-          this.products = []
+          //this.products = []
         }
        
       })
@@ -88,8 +92,10 @@ export class CartPage implements OnInit {
       if(response.success === true){
        this.minimumOrderAmount = response.data.minimumOrderAmount
        this.minimumAmountForPoints  = response.data.minimumAmountForPoints 
+       this.getCart();
       }else{
         console.log(response);
+       this.getCart();
       }
      
     });
@@ -125,8 +131,7 @@ export class CartPage implements OnInit {
   getToken() {
     const response = this.userService.getUserData()
     .then(data => {
-      console.log('Api token: ', data.api_token);
-      return data.api_token
+      return data?.api_token
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
@@ -178,7 +183,7 @@ export class CartPage implements OnInit {
     this.cartService.deleteCart(item);
     setTimeout(() => {
       this.getCart();
-    }, 500);
+    }, 600);
   }
 
   setTotal(){
@@ -193,6 +198,8 @@ export class CartPage implements OnInit {
     console.log(this.total , this.minimumAmountForPoints);
     
     this.points = this.total / this.minimumAmountForPoints;
+    console.log(this.points);
+    
   }
 
   submit(){
