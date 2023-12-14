@@ -17,9 +17,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-buttons class="scanner-container">
+  <!-- <ion-buttons class="scanner-container">
     <ion-button><img src="../../assets/icon/scan-icon.svg" alt="">escanear</ion-button>
-  </ion-buttons>
+  </ion-buttons> -->
   <div class="form-payment-container">
     <div [formGroup]="myForm" class="form-container">
       <p>Número de la tarjeta</p>
@@ -37,7 +37,7 @@
         <div class="cvv-container">
           <p>CVV</p>
           <!-- <ion-input  formControlName="cvv" class="custom" minlength="3" maxlength="3" type="pin" placeholder="123" required></ion-input> -->
-          <ion-input  formControlName="cvv" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" placeholder="123" required></ion-input>
+          <ion-input  formControlName="cvv" type="password" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" placeholder="123" required></ion-input>
         </div>
       </div>
       <div class="card-name-container">
@@ -47,7 +47,7 @@
     </div>
     <div class="safe-paymnet-container">
       <img src="../../assets/icon/padlock-icon.svg" alt="">
-      <p>Pago seguro con PayU</p>
+      <p>Pago seguro con ePayco</p>
     </div>
   </div>
 </ion-content>

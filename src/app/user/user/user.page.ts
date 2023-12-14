@@ -21,6 +21,7 @@ export class UserPage implements OnInit {
 
   myForm: FormGroup;
   readOnly: boolean = true;
+  readonlyEmail: boolean = true;
   avatarImage: string;
   defaultAvatarImage: string = '../../../assets/icon/User-profile-pic.svg';
   btnText: string = 'Editar';

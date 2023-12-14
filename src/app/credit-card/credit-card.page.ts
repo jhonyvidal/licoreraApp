@@ -11,6 +11,7 @@ import { AbstractControl, ValidatorFn, ValidationErrors } from "@angular/forms";
 
 // Maskito for input masking
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
+import { CardYearValidation } from 'src/shared/CustomValidations/CardYearValidation';
 
 @Component({
   selector: 'app-credit-card',
@@ -67,7 +68,7 @@ export class CreditCardPage implements OnInit {
       number: ['', [Validators.required, Validators.minLength(19)]],
       cvv: ['', [Validators.required, Validators.minLength(3)]],
       expirationDate: ['', [Validators.required, Validators.minLength(7)]],
-      name: ['', [Validators.required, ]],
+      name: ['', [Validators.required, CardYearValidation()]],
     });
 
   }
