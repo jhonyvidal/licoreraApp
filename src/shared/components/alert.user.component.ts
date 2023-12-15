@@ -74,7 +74,8 @@ export class UsertAlerts {
               cssClass: 'alertButton',
               handler: () => {
                 deletePaymentMethod?.(tokenToDelete || 0);
-                this.closeAlert(alertController);
+                // this.closeAlert(alertController);
+                this.router.navigate(['/user']);
               },
             },
           ],

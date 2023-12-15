@@ -6,8 +6,7 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { UsertAlerts } from 'src/shared/components/alert.user.component';
 import { PostPaymentMethodsRequest } from 'src/shared/domain/request/DeletePaymentRequest';
 import { UserService } from 'src/store/services/user.service';
-
-import { AbstractControl, ValidatorFn, ValidationErrors } from "@angular/forms";
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 
 // Maskito for input masking
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
@@ -63,6 +62,7 @@ export class CreditCardPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private userService: UserService,
     private alertController: AlertController,
+    private presentLoader: PresentLoaderComponent
   ) {
     this.myForm = this.formBuilder.group({
       number: ['', [Validators.required, Validators.minLength(19)]],
@@ -83,9 +83,10 @@ export class CreditCardPage implements OnInit {
 
   }
 
-  // get email() {
-  //   return this.myForm.controls['email'];
-  // }
+  async mostrarLoading() {
+    this.createPaymentMethod();
+    await this.presentLoader.showLoading();
+  }
 
   detectChanges() {
     this.myForm.valueChanges.subscribe(() => {
@@ -99,7 +100,8 @@ export class CreditCardPage implements OnInit {
     });
   }
 
-  createPaymentMethod(id: number){
+  // createPaymentMethod(id: number){
+  createPaymentMethod(){
     let exp_month = this.myForm.get('expirationDate')?.value.split('/')[0];
     let exp_year = this.myForm.get('expirationDate')?.value.split('/')[1];
 
@@ -116,7 +118,10 @@ export class CreditCardPage implements OnInit {
     .then(data => {
       this.requestUseCase.postPaymentMethods(data.api_token, this.requestDataPaymentMethods).subscribe(response => {
         if (response.success === true) {
-          this.router.navigate(['/user']);
+          // this.router.navigate(['/user']);
+          console.log(response);
+          this.showAlertCreatePaymentMethod();
+          
         } else {
           console.log('Body del error: ', response);
         }
@@ -137,7 +142,7 @@ export class CreditCardPage implements OnInit {
       'congrats',
       undefined,
       undefined,
-      () => this.createPaymentMethod(1)
+      undefined
     );
   }
 
