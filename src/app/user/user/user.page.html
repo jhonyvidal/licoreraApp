@@ -74,9 +74,6 @@
               <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
             </div>
           </div>
-          <ion-buttons class="star-container">
-            <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-          </ion-buttons>
         </ion-item>
       </ion-item-sliding>
       <ion-item-sliding style="padding: 10px 0">
@@ -90,9 +87,6 @@
               <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
             </div>
           </div>
-          <ion-buttons class="star-container">
-            <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-          </ion-buttons>
         </ion-item>
       </ion-item-sliding>
       <ion-item-sliding style="padding: 10px 0">
@@ -106,9 +100,6 @@
               <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
             </div>
           </div>
-          <ion-buttons class="star-container">
-            <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-          </ion-buttons>
         </ion-item>
       </ion-item-sliding>
     </ion-list>
@@ -136,11 +127,6 @@
             </div>
             <ion-buttons class="star-container">
               <ion-skeleton-text *ngIf="loadingPM; else starElse" [animated]="true" style="width: 100%"></ion-skeleton-text>
-              <ng-template #starElse>
-                <ion-button (click)="selectCard(i)">
-                  <img [src]="this.paymentMethodsList[i].starImage" alt="">
-                </ion-button>
-              </ng-template>
             </ion-buttons>
           </ion-item>
           <ion-item-options>
@@ -154,7 +140,7 @@
         <ion-input formControlName="name" class="custom" type="text" [readonly]="readOnly"></ion-input>
         <ion-input formControlName="lastName" class="custom" type="text" [readonly]="readOnly"></ion-input>
       </div>
-      <ion-input formControlName="email" class="custom" type="email" [readonly]="readOnly"></ion-input>
+      <ion-input formControlName="email" class="custom" type="email" [readonly]="readonlyEmail"></ion-input>
       <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
       <ion-input formControlName="phone" class="custom" type="number" [readonly]="readOnly"></ion-input>
     </div>
