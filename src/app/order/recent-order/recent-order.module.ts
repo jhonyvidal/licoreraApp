@@ -8,6 +8,7 @@ import { RecentOrderPageRoutingModule } from './recent-order-routing.module';
 
 import { RecentOrderPage } from './recent-order.page';
 import { SharedModule } from 'src/shared/shared.module';
+import { RecentOrderPipe } from 'src/shared/pipes/recentOrder.pipe';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/shared/shared.module';
     RecentOrderPageRoutingModule,
     SharedModule,
   ],
-  declarations: [RecentOrderPage]
+  declarations: [RecentOrderPage],
+  providers:[RecentOrderPipe],
 })
 export class RecentOrderPageModule {}

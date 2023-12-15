@@ -5,6 +5,12 @@ import { Data, DataArray } from 'src/shared/domain/response/PromotionsData';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { UserService } from 'src/store/services/user.service';
 import { OrdersData } from 'src/shared/domain/response/OrdersData';
+import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
+import { cartModel } from 'src/store/models/cart.model';
+import { CartService } from 'src/store/services/cart.service';
+import { presentAlert } from 'src/shared/components/alert.component';
+import { AlertController } from '@ionic/angular';
+import { RecentOrderPipe } from 'src/shared/pipes/recentOrder.pipe';
 
 @Component({
   selector: 'app-recent-order',
@@ -18,12 +24,17 @@ export class RecentOrderPage implements OnInit {
   productsArray: DataArray [] = [];
   OrderId:number;
   Order:any;
+  minimumOrderAmount:string
+  minimumAmountForPoints:string
 
   constructor(
     private location: Location,
     private requestUseCase: RequestUseCases,
     private shareObjectService : ShareObjectService,
     private userService:UserService,
+    private cartService:CartService,
+    private recentOrderPipe: RecentOrderPipe,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -41,7 +52,7 @@ export class RecentOrderPage implements OnInit {
         console.log('Body del error: ', response);
       }
     })
-
+    this.getInfo();
   }
 
   async getPost(id:number){
@@ -68,6 +79,19 @@ export class RecentOrderPage implements OnInit {
     );
   }
 
+  getInfo() {
+    this.requestUseCase.GetInfo()
+    .subscribe((response) => {
+      if(response.success === true){
+       this.minimumOrderAmount = response.data.minimumOrderAmount
+       this.minimumAmountForPoints  = response.data.minimumAmountForPoints ;
+      }else{
+        console.log(response);
+      }
+     
+    });
+  }
+
   getToken() {
     const response = this.userService.getUserData()
     .then(data => {
@@ -79,6 +103,29 @@ export class RecentOrderPage implements OnInit {
       return 'Error al obtener los datos del usuario'
     });
     return response;
+  }
+
+  async setCart(){
+    for(var i=0; i<this.Order.products.length; i++){
+      const shareProduct = this.recentOrderPipe.transform(this.Order.products[i]) ;
+      
+      const productDetail:any = {
+        ...shareProduct,
+      };
+      this.cartService.setCart(productDetail)
+    }
+    this.showAlertSuccess();
+  }
+
+  async showAlertSuccess() {
+    await presentAlert(
+      this.alertController,
+      'AGREGADO EXITOSAMENTE',
+      '',
+      '/assets/img/successCheckout.svg',
+      '',
+      () => null
+    );
   }
 
   goBack(): void {

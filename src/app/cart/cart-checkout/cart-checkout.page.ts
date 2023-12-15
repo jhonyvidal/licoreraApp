@@ -341,7 +341,10 @@ export class CartCheckoutPage implements OnInit {
 
   goHome(){
     this.cartService.deleteCompleteCart();
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/tab3']).then(() => {
+      this.router.navigate(['/home'])
+    })
+    ;
   }
 
 }

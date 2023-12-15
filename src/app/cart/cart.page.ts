@@ -15,7 +15,7 @@ import { presentAlert } from 'src/shared/components/alert.component';
 })
 export class CartPage implements OnInit {
   products: any = [];
-  currentOrder: any = {};
+ 
   quantity: number = 0;
   total: number = 0;
   points: number = 0;
@@ -23,7 +23,6 @@ export class CartPage implements OnInit {
   minimumAmountForPoints : number = 0;
   btnAccept:boolean= false;
   contentHeigth:string = 'content-exchange-products1';
-  isCurrentOrder:boolean= false;
 
   constructor(
     private requestUseCase: RequestUseCases,
@@ -42,12 +41,7 @@ export class CartPage implements OnInit {
 
   async ionViewWillEnter() {
     this.getInfo();
-   
     this.getHeigthInfo();
-    const token = await this.getToken()
-    if(token){
-      this.getCurrentOrder()
-    }
   }
 
   getHeigthInfo(){
@@ -77,7 +71,7 @@ export class CartPage implements OnInit {
           this.products = data.details;
           this.setTotal();
         }else{
-          //this.products = []
+          this.products = []
         }
        
       })
@@ -99,35 +93,6 @@ export class CartPage implements OnInit {
       }
      
     });
-  }
-
-  async getCurrentOrder(){
-    const token = await this.getToken()
-    this.requestUseCase
-    .getCurrentOrder(
-      token
-    )
-    .subscribe(
-      (response) => {
-        if (response.success === true) {
-          if(response.data !== null){
-            console.log("current: ",response.data);
-            
-            this.isCurrentOrder = true;
-            this.currentOrder = response.data
-          }else{
-            this.isCurrentOrder = false;
-          }
-          console.log('success', response);
-        } else {
-          this.isCurrentOrder = false;
-          console.log('success', response);
-        }
-      },
-      (error) => {
-        console.error('Ha ocurrido un error:', error);
-      }
-    );
   }
 
   getToken() {
@@ -207,7 +172,6 @@ export class CartPage implements OnInit {
   submit(){
     this.cartService.setPointsCartData(this.points,this.total)
     this.createOrder()
-   
   }
 
   async createOrder(){
@@ -258,51 +222,5 @@ export class CartPage implements OnInit {
     );
   }
 
-  async cancelAlert() {
-    await presentAlert(
-      this.alertController,
-      'INFORMACIÓN',
-      '¿Estás seguro que quieres cancelar el pedido?',
-      '/assets/img/stop.svg',
-      '',
-      () => this.cancelCurrentOrder(),
-      'Logout'
-    );
-  }
 
-  async cancelCurrentOrder(){
-      const token = await this.getToken()
-      this.requestUseCase
-      .cancelCurrentOrder(
-        token
-      )
-      .subscribe(
-        (response) => {
-          if (response.success === true) {
-            this.showAlertSuccess();
-            console.log('success', response);
-          } else {
-            console.log('success', response);
-          }
-        },
-        (error) => {
-          console.error('Ha ocurrido un error:', error);
-        }
-      );
-  }
-
-  async showAlertSuccess() {
-    await presentAlert(
-      this.alertController,
-      '¡FELICITACIONES!',
-      'Te pedido fue cancelado exitosamente. Puedes seguir comprando ahora.',
-      '/assets/img/checkGreen.svg',
-      '',
-      () => this.goToHome()
-    );
-  }
-
-  goToHome(){
-    this.router.navigate(['/home']);
-  }
 }
