@@ -2,27 +2,20 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function CardYearValidation(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-        const selectedDate = control.value;
         
-        console.log('control.value', selectedDate);
-        
+        const yearInput = control.value.substr(control.value.length - 4);
 
-        if (!selectedDate) {
-            // Si la fecha no está presente, no aplicamos la validación
-            return null;
+        if (yearInput != "") {
+
+            const currentYear = new Date().getFullYear();
+    
+            const isValid = Number(yearInput) >= currentYear;
+            
+            return isValid ? null : { dateNotInPast: true };
         }
-
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0);
-
-        const selectedDateTime = new Date(selectedDate);
-        selectedDateTime.setHours(0, 0, 0, 0);
-
-        // Comparamos las fechas
-        const isValid = selectedDateTime >= currentDate;
-
-        // Si la validación falla, devolvemos un objeto con la clave 'dateNotInPast' y el valor true
-        return isValid ? null : { dateNotInPast: true };
+        
+        return null;
+        
     };
 }
   
