@@ -2,7 +2,7 @@
   <ion-header collapse="condense">
   
   </ion-header>
-  <ion-content [formGroup]="myForm" class="contentForm">
+  <ion-content [formGroup]="myForm" class="contentFormLarge" [class.keyboard-visible]="keyboardHeight > 0">
     <div class="closeIcon" (click)="goBack()">
       <img width="15" height="15"   src="../../assets/icon/Vector.svg" alt="">
     </div>
@@ -26,7 +26,26 @@
             <ion-input  formControlName="document"  class="custom" type="number" placeholder="Número de Identificación" required></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="date"  class="custom" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="Fecha de nacimiento DD/MM/AAAA" required></ion-input>
+            <!-- <div class="custom-body-center">
+              <ion-item class="mt20 br10"> -->
+                <ion-input id="open-create-account-modal" class="custom"  expand="block" formControlName="date"  (click)="modalDate()" type="text" placeholder="Fecha de nacimiento DD/MM/AAAA" required readonly></ion-input>
+                <ion-modal #modalCrateAccount trigger="open-create-account-modal">
+                  <ng-template>
+                    <ion-content>
+                      <ion-toolbar>
+                        <ion-buttons slot="end">
+                          <ion-button color="light" (click)="modalCrateAccount.dismiss()">Cerrar</ion-button>
+                        </ion-buttons>
+                      </ion-toolbar>
+                      <ion-content>
+                        <ion-datetime presentation="date" formControlName="dateModal" *ngIf="modalDateTime"   displayFormat="DD/MM/YYYY" placeholder="Selecciona una fecha"></ion-datetime>
+                      </ion-content>
+                    </ion-content>
+                  </ng-template>
+                </ion-modal>
+              <!-- </ion-item>
+            </div> -->
+            <!-- <ion-input  formControlName="date"  class="custom" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="Fecha de nacimiento DD/MM/AAAA" required></ion-input> -->
           </ion-col>
           <ion-col size="12">
             <ion-input  formControlName="phone"  class="custom" type="text" [maskito]="phoneMask" [maskitoElement]="maskPredicate"   placeholder="Número de Celular" required></ion-input>
@@ -41,17 +60,17 @@
 
     <div class="container">
       <ion-grid class="imgWelcome">
-        <ion-row class="ion-row">
+        <ion-row class="ion-row" style="margin-bottom: 50px;">
           <ion-col size="12">
             <ion-input  formControlName="email"  class="custom" type="email" placeholder="Correo electrónico" required></ion-input>
           </ion-col>
           <ion-col size="12">
             <ion-input  formControlName="password"  class="custom" [type]="passwordFieldType" placeholder="Contraseña" required></ion-input>
-            <img class="iconShowPassword"  src="../../assets/icon/show-password.svg"  (click)="togglePasswordFieldType()" alt="Logo empresa">
+            <img class="iconShowPassword"  [src]="iconShowPassword"  (click)="togglePasswordFieldType()" alt="Logo empresa">
           </ion-col>
           <ion-col size="12">
             <ion-input  formControlName="confirPassword"  class="custom" [type]="passwordFieldType2" placeholder="Confirmar Contraseña" required></ion-input>
-            <img class="iconShowPassword"  src="../../assets/icon/show-password.svg"  (click)="togglePasswordFieldType2()" alt="Logo empresa">
+            <img class="iconShowPassword"  [src]="iconShowPassword2"  (click)="togglePasswordFieldType2()" alt="Logo empresa">
           </ion-col>
           
         </ion-row>

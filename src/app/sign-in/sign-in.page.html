@@ -22,7 +22,7 @@
           <ion-col size="12" class="customCol">
             <ion-input  formControlName="password"  class="custom" [type]="passwordFieldType" placeholder="Contraseña" required></ion-input>
             <!-- <ion-icon name="eye" (click)="togglePasswordFieldType()"></ion-icon> -->
-            <img class="iconShowPassword"  src="../../assets/icon/show-password.svg"  (click)="togglePasswordFieldType()" alt="Logo empresa">
+            <img class="iconShowPassword"  [src]="iconShowPassword"  (click)="togglePasswordFieldType()" alt="Logo empresa">
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -51,7 +51,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid>
+      <ion-grid style="width: 70%;">
         <ion-row>
             <!-- <ion-col size="4" class="ion-text-center icon">
               <div class="circle">

@@ -9,6 +9,8 @@ export interface InfoModel  extends BaseResponse {
     email: string;
     minimumOrderValueFree: string;
     maximumDeliveryValueFree: string;
+    height:number;
+    isWelcome:boolean;
 }
 interface socialNetworks {
     instagram:string;

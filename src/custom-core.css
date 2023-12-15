@@ -1,5 +1,6 @@
 :root {
   --btnClientColor: rgb(255, 255, 255);
+  --keyboard-height: 0;
 }
 
 @font-face {
@@ -91,9 +92,16 @@ html, p, h1, h2, h3, a {
     width: 90% !important;
     font-family: HudsonNYSerif;
     border-radius: 5px !important;
-    /* color:#000000 !important; */
-    --background:#FFFFFF !important;
-    /* border: 2px solid #000000 !important; */
+    color: #000000 !important;
+    --background: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+}
+.textDateAlert{
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'weblysleekuil';
+    color: #000000;
+    margin: 0px;
 }
 .alert-message.sc-ion-alert-ios {
     max-height: 280px;
@@ -168,6 +176,8 @@ html, p, h1, h2, h3, a {
 .img-alert {
   width: 80px;
   height: 80px;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 .font-w300{

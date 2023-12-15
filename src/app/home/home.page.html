@@ -20,7 +20,7 @@
     <ion-item button detail="true" lines="none">
       <ion-label class="m0">
         <ion-grid class="p0">
-          <ion-row (click)="routerLink('home')">
+          <ion-row (click)="menu('home')">
             <ion-col size="auto"><img style="width: 30px" src="../../assets/icon/home-icon.svg" alt="home"></ion-col>
             <ion-col><h3 class="mt5">INICIO</h3></ion-col>
           </ion-row>
@@ -100,7 +100,7 @@
           <ion-row  class="ion-justify-content-center">
             <ion-col size="auto"><a [href]="facebook" target="_blank"><img style="padding: 5px 10px;" src="../../assets/icon/FacebookMenu.svg" alt="home"></a></ion-col>
             <ion-col size="auto"><a [href]="instagram" target="_blank"><img style="padding: 5px 10px;" src="../../assets/icon/InstragramMenu.svg" alt="home"></a></ion-col>
-            <ion-col size="auto"><img style="padding: 5px 10px;" src="../../assets/icon/PhoneMenu.svg" alt="home"></ion-col>
+            <ion-col size="auto"><a href="https://www.google.com/maps?q=7.068565,-73.104431" target="_blank"><img style="padding: 5px 10px;" src="../../assets/icon/PhoneMenu.svg" alt="home"></a></ion-col>
           </ion-row>
         </ion-grid>
       </ion-label>
@@ -112,7 +112,7 @@
 
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar style="height: 68px;">
       <ion-buttons slot="start">
         <ion-menu-button>
           <img class="delivery-icon" src="../../assets/icon/Menu.svg" alt="Menu">
@@ -137,6 +137,7 @@
       </ion-tab-button>
 
       <ion-tab-button tab="tab3" class="bg-color-primary" (click)="changeTab('tab3')">
+        <ion-badge *ngIf="selectedTab !== 'tab3' && cartQuantity > 0">{{cartQuantity}}</ion-badge>
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab3' ? '../../assets/icon/home-selected3.svg' : '../../assets/icon/home3.svg'"  alt="Logo empresa"></ion-label>
       </ion-tab-button>
 

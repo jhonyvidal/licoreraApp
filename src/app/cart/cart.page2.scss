@@ -1,0 +1,142 @@
+  .list-container .product-exchange-container .info-exchange-container .product-description-exchange {
+    margin: 5px 0 0 0;
+    padding: 0;
+    font-family: 'weblysleekuil';
+    font-size: 12px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .disponible-exchange {
+    margin: auto 0 0 0;
+    padding: 0;
+    font-family: 'weblysleekuisb';
+    font-size: 12px;
+  }
+  .closeIcon{
+    margin-top: 10px;
+    font-size: 15px;
+    width: 20px;
+    position: absolute;
+    color: #000000;
+    right: 30px;
+  }
+
+  .Btns-container {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+  .Btn-minus {
+    --background: #FDBD00;
+    width: 26px;
+    height: 26px;
+    --border-radius: 50% !important;
+  }
+  .Btn-plus {
+    --background: #FDBD00;
+    width: 26px;
+    height: 26px;
+    --border-radius: 50% !important;
+  }
+  .icon-inner {
+    position: absolute;
+    width: 25px !important;
+  }
+  .Quantity {
+    margin: 0;
+    font-family: 'weblysleekuisb';
+    font-size: 26px;
+    padding: 5px;
+  }
+  .Price-now{
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: -8px;
+  }
+  .buttonsCol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.payTotal{
+  float: right;
+  font-family: HudsonNYSerif;
+  font-size: 18px;
+  color: #000000;
+}
+h4{
+  font-family: HudsonNYSerif;
+  font-size: 18px;
+  color: #000000;
+}
+.text{
+  font-size: 12px;
+  color:#4F4F4F;
+}
+.contentPayChild{
+  padding: 0px 20px 0 20px;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  background: #ECECEC;
+}
+.buttonSubmit{
+  width: 100%;
+  font-family: HudsonNYSerif;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  color: #000000;
+  --background: #FFFFFF !important;
+  border: 1px solid #000000;
+  font-size: 17px;
+  height: 45px;
+}
+.buttonSubmitCurrent{
+  width: 100%;
+  font-family: HudsonNYSerif;
+  border-radius: 5px;
+  color: #000000;
+  --background: #FFFFFF !important;
+  border: 1px solid #000000;
+  font-size: 17px;
+  height: 45px;
+}
+.line{
+  border-bottom: 1px solid #4F4F4F;
+  margin-bottom: -60px;
+}
+.p0{
+  margin-top: -20px;
+}
+ion-row{
+  margin-top: 50px;
+}
+ion-footer{
+  background: #ECECEC;
+  margin-top: -20px;
+  position: fixed;
+  bottom: 0;
+}
+.card{
+  background: white;
+  padding: 15px 15px;
+  margin: 5px 20px;
+  border-radius: 10px;
+}
+.heightCustom{
+  height: 25px;
+}
+.footer-md {
+  -webkit-box-shadow:none !important;
+  box-shadow:none !important;
+}
+.customeCurrentText{
+  font-family: weblysleekuil;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+.customCurrentSubtotal{
+  font-size: 14px;
+  font-weight: 400;
+}

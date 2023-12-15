@@ -10,6 +10,7 @@ import { LandingPage } from './landing.page';
 import { Config } from '@ionic/angular';
 import { SharedModule } from 'src/shared/shared.module';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
+import { CustomDateAlert } from 'src/shared/pipes/customDateAlert.pipe';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
     FormsModule,
     LandingPageRoutingModule
   ],
-  providers:[CartModelPipe],
+  providers:[CartModelPipe,CustomDateAlert],
   declarations: [LandingPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

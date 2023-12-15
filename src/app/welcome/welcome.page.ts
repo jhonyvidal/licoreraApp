@@ -8,6 +8,7 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { InitializeAppService } from 'src/store/services/initialize.app.service';
 import { SQLiteService } from 'src/store/services/sqlite.service';
 import { ConfigService } from 'src/store/services/config.service';
+import { InfoService } from 'src/store/services/info.service';
 
 @Component({
   selector: 'app-welcome',
@@ -25,17 +26,14 @@ export class WelcomePage implements OnInit {
     private toast: ToastController,
     private router: Router,
     private requestUseCase: RequestUseCases,
+    private infoService:InfoService
   ) {
     this.myForm = this.formBuilder.group({
       birthdayModal: ['', []],
       birthday: ['', [Validators.required, this.fechaNacimientoValidator]],
       condition: [false, Validators.required]
     });
-    this.configService.fetchConfigs().subscribe(data => {
-      if(data[0].name === "Welcome" && data[0].data === "true"){
-        this.router.navigate(['/home']);
-      }
-    });
+    this.getInfo();
   }
 
   @Output() toUpdateConfig = new EventEmitter<{ command: string, database: string, config: ConfigData }>();
@@ -75,6 +73,20 @@ export class WelcomePage implements OnInit {
     }
   }
 
+  getInfo(){
+    this.infoService.getInfoData()
+    .then(data => {
+      console.log(data);
+      
+      if(data?.isWelcome){
+        this.router.navigate(['/home']);
+      }
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos de la info:', error);
+    });
+  }
+
   fechaNacimientoValidator(control: any) {
 
     const partesFecha = control.value.split("/"); 
@@ -101,16 +113,18 @@ export class WelcomePage implements OnInit {
 
 
   async redirectTo() {
-    const config:ConfigData = { id: 1, name: "Welcome", data: "true" }
-    const result = this.configService.getConfig(config)
-
-    this.router.navigate(['/home']);
-    
-    if(this.sqliteService.platform === "web") {
-      await this.sqliteService.sqliteConnection.saveToStore(this.configService.databaseName);
+    // const config:ConfigData = { id: 1, name: "Welcome", data: "true" }
+    // const result = this.configService.getConfig(config)
+    const setWelcome = await this.infoService.setIsWelcome(true);
+    if(setWelcome){
+      this.router.navigate(['/home']);
     }
+    
+    // if(this.sqliteService.platform === "web") {
+    //   await this.sqliteService.sqliteConnection.saveToStore(this.configService.databaseName);
+    // }
 
-    await this.configService.updateConfig(config);
+    // await this.configService.updateConfig(config);
   }
 
   convertDateFormat(dateString: string): string {

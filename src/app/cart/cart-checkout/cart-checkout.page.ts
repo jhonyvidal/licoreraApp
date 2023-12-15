@@ -10,6 +10,7 @@ import { presentAlert } from 'src/shared/components/alert.component';
 import { phoneMask } from 'src/shared/mask/mask';
 import { Address, cartModel } from 'src/store/models/cart.model';
 import { CartService } from 'src/store/services/cart.service';
+import { InfoService } from 'src/store/services/info.service';
 import { UserService } from 'src/store/services/user.service';
 
 @Component({
@@ -28,8 +29,10 @@ export class CartCheckoutPage implements OnInit {
   subtotal: number = 0;
   delivery:number = 0;
   total:number = 0;
+  points: number | undefined = 0;
   products:any;
   paymentMethod: any = null;
+  minimumOrderAmount: string = '0';
   readonly phoneMask: MaskitoOptions = phoneMask;
   
   constructor(public formBuilder: FormBuilder,
@@ -38,7 +41,8 @@ export class CartCheckoutPage implements OnInit {
     private cartService:CartService,
     private alertController: AlertController,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private infoService:InfoService
     ) {
     this.myForm = this.formBuilder.group({
       location: ['', []],
@@ -65,6 +69,7 @@ export class CartCheckoutPage implements OnInit {
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
   
   ngOnInit() {
+    this.getInfo();
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
       this.classValid();
@@ -173,22 +178,42 @@ export class CartCheckoutPage implements OnInit {
         this.myForm.get('address')?.setValue(this.address?.address)
         this.myForm.get('addressDetail')?.setValue(this.address?.details)
         if(data.details && data.details?.length > 0){
-          this.totalPayment(data?.details)
+          // this.totalPayment(data?.details)
           this.products = data?.details;
         }
         if(data.address && data.address.latitude){
           this.validateDelivery(data.address)
         }
+        this.points = data.points
+        this.subtotal = data.total || 0
+        this.total = this.subtotal;
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
       });
   }
 
-  totalPayment(details:cartModel[]){
-    this.subtotal= details.reduce((total, producto) => total + producto.price, 0);
-    this.total = this.subtotal;
+  getInfo(){
+    this.infoService.getInfoData()
+    .then(data => {
+      console.log(data);
+      
+      this.minimumOrderAmount = data.minimumOrderAmount;
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos de la info:', error);
+    });
   }
+
+  // totalPayment(details:cartModel[]){
+  //   // this.subtotal= details.reduce((total, producto) =>{
+  //   //   if(producto?.price){
+  //   //     return total + producto?.price
+  //   //   }
+  //   //   return total
+  //   // } , 0);
+  //   this.total = this.subtotal;
+  // }
 
   getToken() {
     const response = this.userService.getUserData()
@@ -233,6 +258,12 @@ export class CartCheckoutPage implements OnInit {
       '',
       
     );
+  }
+
+  locationSelected(event: any) {
+    const location = this.myLocations.find((element: any) => element.id === event.detail.value);
+    this.myForm.get('address')?.setValue(location.address);
+    this.myForm.get('addressDetail')?.setValue(location.detail);
   }
 
   async submit(){

@@ -85,8 +85,17 @@ p{
   width: 17.5px;
   height: 17.5px;
 }
-.contentForm{
+.contentFormLarge{
   --background:  #ECECEC;
+  height: 86vh;
+  &.keyboard-visible {
+    height: 100vh;
+    overflow-y: scroll;
+  }
+}
+.contentFormSmall{
+  --background:  #ECECEC;
+  height: 90vh;
 }
 ion-row{
   background: white;
@@ -97,4 +106,14 @@ ion-row{
   z-index: 2;
   top: 25px;
   right: 20px;
+}
+ion-modal{
+  --width: 350px;
+  --height: 400px;
+}
+.button-disabled{
+  opacity: 1 !important;
+}
+ion-button {
+  background-color: #D1D1D1;
 }

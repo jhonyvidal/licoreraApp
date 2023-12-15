@@ -18,8 +18,8 @@ export class NewAddressMapPage implements OnInit {
   newMap: GoogleMap;
 
   coordinates: any;
-  latitude:number;
-  longitude:number;
+  latitude:number = 7.068565;
+  longitude:number = -73.1070059;
 
   constructor(
     private router: Router,
@@ -29,7 +29,6 @@ export class NewAddressMapPage implements OnInit {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
     });
-
     // this.coordinates = {coords:{ latitude:7.123952,longitude:-73.116186}}
   }
 
@@ -43,9 +42,10 @@ export class NewAddressMapPage implements OnInit {
   }
 
   async createMap() {
-
-    this.latitude = this.coordinates.coords.latitude;
-    this.longitude = this.coordinates.coords.longitude;
+    if(this.coordinates?.coords?.latitude && this.coordinates?.coords?.longitude){
+      this.latitude = this.coordinates.coords.latitude;
+      this.longitude = this.coordinates.coords.longitude;
+    }
     
     this.newMap = await GoogleMap.create({
       id: 'map',
@@ -54,17 +54,17 @@ export class NewAddressMapPage implements OnInit {
       forceCreate:true,
       config: {
         center: {
-          lat: this.coordinates.coords.latitude,
-          lng: this.coordinates.coords.longitude,
+          lat: this.latitude,
+          lng: this.longitude,
         },
-        zoom: 17,
+        zoom: 12,
       },
     });
 
     await this.newMap.addMarker({
       coordinate: {
-        lat: this.coordinates.coords.latitude,
-        lng: this.coordinates.coords.longitude
+        lat: this.latitude,
+        lng:  this.longitude
       },
       draggable: true,
     });

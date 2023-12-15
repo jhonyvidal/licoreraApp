@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2 } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -9,6 +9,9 @@ import { UserService } from 'src/store/services/user.service';
 import { FirebaseAuthenticationService } from '../core';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { dateMask, phoneMask } from 'src/shared/mask/mask';
+import { InfoService } from 'src/store/services/info.service';
+import { Keyboard } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-create-account',
@@ -16,13 +19,19 @@ import { dateMask, phoneMask } from 'src/shared/mask/mask';
   styleUrls: ['./create-account.page.scss'],
 })
 export class CreateAccountPage implements OnInit {
+ 
   myForm: FormGroup;
   isFormValid = false;
   buttonStyle = 'DisableButton';
   passwordFieldType:string = 'password';
   passwordFieldType2:string = 'password';
+  iconShowPassword:string ='../../assets/icon/show-password.svg';
+  iconShowPassword2:string = '../../assets/icon/show-password.svg';
+  contentForm:string = 'contentFormLarge';
   public activeOpen = '';
   public activeClose = '';
+  public keyboardHeight: number = 0;
+  modalDateTime = false;
   readonly dateMask: MaskitoOptions = dateMask;
   readonly phoneMask: MaskitoOptions = phoneMask;
   
@@ -33,10 +42,23 @@ export class CreateAccountPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private router: Router,
     private userService: UserService,
-    private readonly firebaseAuthenticationService: FirebaseAuthenticationService
+    private readonly firebaseAuthenticationService: FirebaseAuthenticationService,
+    private infoService: InfoService,
+    private ngZone: NgZone,
+    private el: ElementRef,
+    private renderer: Renderer2
     ) {
+      const platform = Capacitor.getPlatform();
+      if(platform !== "web") {
+        Keyboard.addListener('keyboardWillShow', (info) => {
+          this.ngZone.run(() => {
+            this.applyKeyboardStyle(info.keyboardHeight);
+          });
+        });
+      }
+
       this.myForm = this.formBuilder.group({
-        name: ['', [Validators.required, ]],
+        name: ['', [Validators.required]],
         lastName: ['', [Validators.required, ]],
         document: ['', [Validators.required, ]],
         date: ['', [Validators.required,Validators.minLength(10) ]],
@@ -44,8 +66,21 @@ export class CreateAccountPage implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirPassword: ['', [Validators.required, Validators.minLength(6)]],
+        dateModal: ['', []],
       });
       this.myForm.setValidators(this.passwordMatchValidator);
+      this.myForm.get('dateModal')?.valueChanges.subscribe(value => {
+        this.myForm.patchValue({
+          date: this.convertDateFormat(this.myForm.get('dateModal')?.value.split('T')[0])
+        });
+      });
+    }
+
+    private applyKeyboardStyle(keyboardHeight: number): void {
+      const contentElement = this.el.nativeElement.querySelector('contentFormLarge');
+      const maxHeight = window.innerHeight - keyboardHeight;
+      this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+      this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
     }
     
     readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
@@ -55,6 +90,18 @@ export class CreateAccountPage implements OnInit {
       this.isFormValid = this.myForm.valid;
       this.classValid();
     });
+    this.infoService.getInfoData()
+    .then(data => {
+      if(data.height > 700){
+        this.contentForm = 'contentFormLarge'
+      }
+      else if(data.height > 600){
+        this.contentForm = 'contentFormSmall'
+      }
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos de la info:', error);
+    });
   }
 
   classValid() {
@@ -63,6 +110,22 @@ export class CreateAccountPage implements OnInit {
     } else {
       this.buttonStyle = 'DisableButton';
     }
+  }
+
+  modalDate(){
+    this.modalDateTime = true;
+    console.log("click aqui")
+  }
+
+  convertDateFormat(dateString: string): string {
+    console.log('fecha',dateString);
+    
+    const dateParts = dateString.split('-'); // Separar los componentes de la fecha
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2];
+
+    return `${day}/${month}/${year}`; // Construir la fecha en formato DD/MM/AAAA
   }
 
   async showAlertError() {
@@ -142,9 +205,11 @@ export class CreateAccountPage implements OnInit {
 
   togglePasswordFieldType() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    this.iconShowPassword = this.iconShowPassword === '../../assets/icon/show-password.svg' ? '../../assets/icon/hide-password.svg':'../../assets/icon/show-password.svg'
   }
   togglePasswordFieldType2() {
     this.passwordFieldType2 = this.passwordFieldType2 === 'password' ? 'text' : 'password';
+    this.iconShowPassword2 = this.iconShowPassword2 === '../../assets/icon/show-password.svg' ? '../../assets/icon/hide-password.svg':'../../assets/icon/show-password.svg'
   }
 
   goBack(): void {

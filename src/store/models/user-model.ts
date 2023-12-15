@@ -12,7 +12,7 @@ export interface UserModel  extends BaseResponse {
     cellphone: string;
     points: number;
     uuid: string;
-    remember_token: string;
+    refresh_token: string;
     created_at: string;
     updated_at: string;
     deleted_at?: string | null;
