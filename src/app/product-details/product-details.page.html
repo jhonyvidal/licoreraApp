@@ -67,8 +67,26 @@
     </div>
   </section>
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="!isPromotion">
   <ion-toolbar class="Toolbar-footer">
+          <div class="Btns-container">
+            <ion-buttons class="buttons-left">
+              <ion-button class="Btn-minus" (click)="subtractBtn()" [disabled]="quantity <=1 ? true : false">
+                <ion-icon slot="icon-only" color="light" name="remove-outline"></ion-icon>
+              </ion-button>
+              <h4 class="Quantity">{{quantity}}</h4>
+              <ion-button class="Btn-plus" (click)="addBtn()" [disabled]="quantity >= 10 ? true : false">
+                <ion-icon  slot="icon-only" color="light" size="large" name="add-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-buttons class="buttons-right">
+              <ion-button class="Btn-add" (click)="setCart()">Agregar</ion-button>
+            </ion-buttons>
+          </div>
+  </ion-toolbar>
+</ion-footer>
+<ion-footer *ngIf="isPromotion">
+  <ion-toolbar   class="Toolbar-footer-Promotion">
           <div class="Btns-container">
             <ion-buttons class="buttons-left">
               <ion-button class="Btn-minus" (click)="subtractBtn()" [disabled]="quantity <=1 ? true : false">

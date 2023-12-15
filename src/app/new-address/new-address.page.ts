@@ -157,7 +157,9 @@ export class NewAddressPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate([this.fromAddress]);
+    if(this.fromAddress){
+      this.router.navigate([this.fromAddress]);
+    }
   }
 
 }

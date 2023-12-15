@@ -18,6 +18,7 @@ import { UserService } from 'src/store/services/user.service';
 export class NewAddressConfirmPage implements OnInit {
   myForm: FormGroup;
   data:any;
+  isCheckboxChecked:boolean = false;
   constructor( private router: Router, 
     public formBuilder: FormBuilder,
     public shareObjectService:ShareObjectService,
@@ -28,13 +29,16 @@ export class NewAddressConfirmPage implements OnInit {
     ) {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
+      addressName:['', []],
       addressDetail:['', [Validators.required,]],
       condition:[]
     });
    }
 
   ngOnInit() {
-    
+    this.myForm.get('condition')?.valueChanges.subscribe(value => {
+      this.isCheckboxChecked = value;
+    });
   }
 
   ionViewWillEnter() {
@@ -45,16 +49,17 @@ export class NewAddressConfirmPage implements OnInit {
   }
 
   async submit(){
-    const token = await this.getToken()
-    const data:CreateLocationRequest = {
-      address:this.myForm.get('addressInput')?.value,
-      name:'ejemplo',
-      latitude:this.data.latitude,
-      longitude:this.data.longitude,
-      detail:this.myForm.get('addressDetail')?.value,
-      favorite:false
-    }
-    this.requestUseCase.postLocations(token,data)
+    if(this.isCheckboxChecked){
+      const token = await this.getToken()
+      const data:CreateLocationRequest = {
+        address:this.myForm.get('addressInput')?.value,
+        name:this.myForm.get('addressName')?.value,
+        latitude:this.data.latitude,
+        longitude:this.data.longitude,
+        detail:this.myForm.get('addressDetail')?.value,
+        favorite:false
+      }
+      this.requestUseCase.postLocations(token,data)
       .subscribe((response) => {
         if (response.success === true) {
           this.showAlertSuccess();
@@ -65,6 +70,9 @@ export class NewAddressConfirmPage implements OnInit {
           console.log(response)
         }
       });
+    }else{
+      this.showAlertSuccess();
+    }
   }
 
   getToken() {
@@ -111,8 +119,8 @@ export class NewAddressConfirmPage implements OnInit {
       details:this.myForm.get('addressDetail')?.value,
     }
     this.cartService.setAddressCartData(address)
-    let datos = { mensaje: true };
-    this.router.navigate(['/home/tab3/cart-checkout',{ newAddress: datos.mensaje }]);
+    //let datos = { mensaje: true };
+    this.router.navigate(['/home/tab3/cart-checkout']);
   }
 
 }

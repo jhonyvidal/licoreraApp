@@ -39,6 +39,7 @@ export class HomePage {
 
   changeTab(tab: string) {
     this.selectedTab = tab;
+    this.getCart()
   }
 
   routerLink(route: string) {
@@ -78,9 +79,10 @@ export class HomePage {
     this.cartService
       .getCartData()
       .then((data) => {
-        console.log(data);
         if(data && data.details && data.details.length > 0){ 
           this.cartQuantity = data.details.length;
+        }else{
+          this.cartQuantity = 0;
         }
       })
       .catch((error) => {

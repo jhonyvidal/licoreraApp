@@ -35,6 +35,7 @@ export class CartCheckoutPage implements OnInit {
   delivery:number = 0;
   orderId:number;
   total:number = 0;
+  transaction:number=0;
   points: number | undefined = 0;
   products:any;
   paymentMethod: any = null;
@@ -199,6 +200,7 @@ export class CartCheckoutPage implements OnInit {
         }
         if(data?.payment){
           this.paymentType = data?.payment?.type
+          this.transaction = data?.payment?.reference
           this.myForm.get('paymentMethod')?.setValue(this.paymentType)
         }
         if(data.details && data.details?.length > 0){
@@ -302,14 +304,14 @@ export class CartCheckoutPage implements OnInit {
       longitude:this.address.longitude,
       address:this.address.address,
       addressDetails:this.address.details,
-      paymentMethod:'Efectivo',
-      pay_method:'Efectivo',
+      paymentMethod:this.myForm.get('paymentMethod')?.value,
+      pay_method:this.myForm.get('paymentMethod')?.value,
       amount:this.total,
       phone:this.myForm.get('contact')?.value,
       discountCode:this.myForm.get('disccount')?.value,
-      instructions:'test',
+      instructions:'',
       description:'',
-      transactionId:''
+      transactionId:this.transaction
     }
     const token = await this.getToken()
     this.requestUseCase
@@ -343,6 +345,7 @@ export class CartCheckoutPage implements OnInit {
     this.cartService.deleteCompleteCart();
     this.router.navigate(['/home/tab3']).then(() => {
       this.router.navigate(['/home'])
+      location.reload();
     })
     ;
   }

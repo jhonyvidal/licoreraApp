@@ -237,6 +237,51 @@ export class PaymentMethodsPage implements OnInit {
 
   }
 
+  async payCard(){
+    const dynamicContent = `
+    <p class="alertSubtitle">¿A cuántas cuotas quieres diferir tu pago?</p></br>`;
+
+    const alert = await this.alertController.create({
+      message: dynamicContent,
+      backdropDismiss: false,
+      inputs:[
+        {
+          name:'dues',
+          placeholder: 'Número de cuotas',
+          attributes: {
+            maxlength: 8,
+          },
+        },
+      ],
+      buttons: [
+        {
+          text: 'ACEPTAR',
+          role: 'accept',
+          cssClass: 'alertButtonExchange',
+          handler: (data) => {
+            if (data.dues) {
+              const enteredDues = data.dues;
+              this.createCreditPaymentMethodComplete(enteredDues);
+            } else {
+              // Handle form validation errors if needed
+              console.log('Formulario no válido');
+            }
+          }
+        },
+        {
+          text: 'CANCELAR',
+          role: 'cancel',
+          cssClass: 'alertButtonExchange',
+          handler: () => {
+            this.closeAlert();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+  }
+
   async closeAlert() {
     const modal = await this.alertController.getTop();
     if (modal) {
@@ -245,19 +290,25 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   async createCreditPaymentMethod(cardtoken:string,dues:number){
-    const total = await this.cartService
+    const reponse = await this.cartService
       .getCartData()
       .then((data) => {
-         return data.total
+        return {
+          total:data.total,
+          idOrder:data.idOrder
+        }
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
-        return 0;
+        return {
+          total:0,
+          idOrder:0
+        }
       });
 
     const data = {
-      value: total,
-      orderId:"33",
+      value: reponse.total  ,
+      orderId: reponse.idOrder,
       cardNumber:"",
       cardExpYear:"",
       cardExpMonth:"",
@@ -268,10 +319,62 @@ export class PaymentMethodsPage implements OnInit {
     const token = await this.getToken()
     this.requestUseCase. postPaymentCreditCard(token, data).subscribe(response => {
       if (response.success === true) {
-        response.data.ref_payco
-        response.data.cod_respuesta
-        response.data.estado
-        response.data.respuesta
+        const payment = {
+          type:"Credit Card",
+          reference: response.data.ref_payco,
+          status:response.data.estado,
+          code: response.data.cod_respuesta,
+          response: response.data.respuesta
+        }
+        this.cartService.setPaymentCartData(payment)
+        this.showAlertSuccess();
+      } else {
+        console.log('Body del error response: ', response);
+      }
+    })
+  }
+
+  async createCreditPaymentMethodComplete(dues:number){
+    const reponse = await this.cartService
+      .getCartData()
+      .then((data) => {
+        return {
+          total:data.total,
+          idOrder:data.idOrder
+        }
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos del cart:', error);
+        return {
+          total:0,
+          idOrder:0
+        }
+      });
+
+    const cardNumber = this.mySecondFormCreditCard.get('number')?.value.replaceAll(" ","");
+
+    const data = {
+      value: reponse.total,
+      orderId: reponse.idOrder,
+      cardNumber: cardNumber,
+      cardExpYear:this.mySecondFormCreditCard.get('expirationDate')?.value.split("/")[1],
+      cardExpMonth:this.mySecondFormCreditCard.get('expirationDate')?.value.split("/")[0],
+      cardCvc:this.mySecondFormCreditCard.get('cvv')?.value,
+      dues:dues,
+      _cardTokenId:""
+    }
+
+    const token = await this.getToken()
+    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(response => {
+      if (response.success === true) {
+        const payment = {
+          type:"Credit Card",
+          reference: response.data.ref_payco,
+          status:response.data.estado,
+          code: response.data.cod_respuesta,
+          response: response.data.respuesta
+        }
+        this.cartService.setPaymentCartData(payment)
         this.showAlertSuccess();
       } else {
         console.log('Body del error response: ', response);
@@ -281,18 +384,24 @@ export class PaymentMethodsPage implements OnInit {
 
   async createPsePayment(){
 
-    const total = await this.cartService
+    const reponse = await this.cartService
     .getCartData()
     .then((data) => {
-       return data.total
+      return {
+        total:data.total,
+        idOrder:data.idOrder
+      }
     })
     .catch((error) => {
       console.error('Error al obtener los datos del cart:', error);
-      return 0;
+      return {
+        total:0,
+        idOrder:0
+      }
     });
     const data = {
-      value: total,
-      order_id:"35",
+      value: reponse.total,
+      order_id: reponse.idOrder,
       bank:this.myForm.get('bankSelect')?.value,
       doc_type: this.myForm.get('documentType')?.value,
       doc_number:"123456",

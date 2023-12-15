@@ -106,14 +106,13 @@ export class RecentOrderPage implements OnInit {
   }
 
   async setCart(){
+    console.log(this.Order.products.length);
+    let products = []
     for(var i=0; i<this.Order.products.length; i++){
       const shareProduct = this.recentOrderPipe.transform(this.Order.products[i]) ;
-      
-      const productDetail:any = {
-        ...shareProduct,
-      };
-      this.cartService.setCart(productDetail)
+      products.push(shareProduct)
     }
+    this.cartService.setProductsByOneData(products)
     this.showAlertSuccess();
   }
 

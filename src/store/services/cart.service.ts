@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { Address, cart, cartModel } from '../models/cart.model';
 import { debounceTime } from 'rxjs';
+import { RecentOrderPipe } from 'src/shared/pipes/recentOrder.pipe'
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ export class CartService {
         return
       }
       if(data?.details?.find((a: { id: number; }) => a.id === cartData.id)){
+        const index = data.details.findIndex((detail: { id: number }) => detail.id === cartData.id);
+        if (index !== -1) {
+          data.details.splice(index, 1);
+        }
+        storeCartData.details.push(cartData);
+        this.storage.set('cartData', storeCartData);
         return
       }else{
         storeCartData.details.push(cartData);
@@ -83,10 +90,45 @@ export class CartService {
     .then(data => {
       storeCartData = data;
       if(data === null){
-        return;
+        storeCartData={
+          details:products
+        }
+      }else{
+        storeCartData.details = products;
       }
-      storeCartData.details = products;
       this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
+  setProductsByOneData(products: any){
+    let cartObject: cart = { details: [] };
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        console.log("null");
+        cartObject.details = products
+        this.storage.set('cartData', cartObject);
+      }else{
+        console.log("details");
+        for(var i=0; i<products.length; i++){
+          if(storeCartData?.details?.find((a: { id: number; }) => a.id === products[i].id)){
+            const index = storeCartData.details.findIndex((detail: { id: number }) => detail.id === products[i].id);
+            if (index !== -1) {
+              storeCartData.details.splice(index, 1);
+            }
+            storeCartData.details.push(products[i]);
+          }else{
+            storeCartData.details.push(products[i]);
+          }
+        }
+        this.storage.set('cartData', storeCartData);
+      }
     })
     .catch(error => {
       console.error('Error al obtener los datos del cart:', error);

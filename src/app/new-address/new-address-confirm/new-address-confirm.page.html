@@ -29,6 +29,10 @@
       <ion-label>Dirección</ion-label>
       <ion-input  formControlName="addressInput" class="custom" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
     </div>
+    <div class="mb-10" *ngIf="isCheckboxChecked">
+      <ion-label >Nombre de la dirección</ion-label>
+      <ion-input  formControlName="addressName" class="custom" type="text" placeholder="Mi casa"></ion-input>
+    </div>
     <div>
       <ion-label>Detalles</ion-label>
       <ion-input  formControlName="addressDetail" class="custom" type="text" placeholder="Torre / apto / casa / detalles" required></ion-input>

@@ -151,9 +151,9 @@
       </ion-grid>
     </div>
     <div *ngIf="creditStep === 3"> 
-      <ion-buttons class="scanner-container">
+      <!-- <ion-buttons class="scanner-container">
         <ion-button><img src="../../assets/icon/scan-icon.svg" alt="">escanear</ion-button>
-      </ion-buttons>
+      </ion-buttons> -->
       <div class="form-payment-container">
         <div [formGroup]="mySecondFormCreditCard" class="form-container">
           <p>Número de la tarjeta</p>
@@ -202,7 +202,7 @@
       <img src="../../assets/icon/padlock-icon.svg" alt="">
       <p>Pago seguro con PayU</p>
     </div>
-    <ion-button  (click)="nextStep(3)" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
+    <ion-button  (click)="payCard()" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
   </div>
  
   <div class="footer" *ngIf="ionSegment === 3">

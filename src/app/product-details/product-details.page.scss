@@ -112,9 +112,10 @@ article.features {
   margin-bottom: 30px;
 }
 
-ion-footer ion-toolbar {
-    // --border-width: 0;
-    // --background: #F7F5F5;
+ion-footer  {
+    -webkit-box-shadow:none !important;
+    box-shadow:none !important;
+    background: #BBBBBB;
 }
 
 .Product-name {
@@ -180,7 +181,11 @@ section article .Before-price {
 }
 
 ion-footer .Toolbar-footer {
-  padding: 20px 20px 20px 20px;
+  padding: 20px ;
+  --background: #F7F5F5;
+}
+ion-footer .Toolbar-footer-Promotion{
+  padding: 20px;
 }
 
 .Btns-container {
