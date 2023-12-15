@@ -8,6 +8,7 @@ import { animation } from '@angular/animations';
 import { Location } from '@angular/common';
 import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
+import { CartService } from 'src/store/services/cart.service';
 
 @Component({
   selector: 'app-new-address',
@@ -24,7 +25,8 @@ export class NewAddressPage implements OnInit {
     private location: Location,
     private ngZone: NgZone,
     private el: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private cartService:CartService
   ) { 
     const platform = Capacitor.getPlatform();
       if(platform !== "web") {
@@ -41,8 +43,10 @@ export class NewAddressPage implements OnInit {
   inputText: string;
   googleAddress: []
   navigating = false;
+  fromAddress: string;
 
   ngOnInit() {
+      this.getCart()
      // ONLY WEB TEST
     // setTimeout(() => {
     //   this.applyKeyboardStyleWeb(450);
@@ -139,8 +143,21 @@ export class NewAddressPage implements OnInit {
    
   }
 
+  getCart() {
+    this.cartService
+      .getCartData()
+      .then((data) => {
+        if(data.fromAddress){
+          this.fromAddress = data.fromAddress;
+        }
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos del cart:', error);
+      });
+  }
+
   goBack(): void {
-    this.location.back();
+    this.router.navigate([this.fromAddress]);
   }
 
 }

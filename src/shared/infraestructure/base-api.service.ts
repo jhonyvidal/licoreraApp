@@ -46,6 +46,10 @@ export class BaseApiService {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
+  putv2(path: string, data: any, headers?:HttpHeaders) {
+    return this.http.put(`${this.urlV2}${path}`, data, { headers });
+  }
+
   postDelete(path: string, data: DeletePaymentMethodsRequest, headers?:HttpHeaders) {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }

@@ -94,6 +94,57 @@ export class CartService {
     return true;
   }
 
+  setIdOrderCartData(idOrder: any){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.idOrder = idOrder;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
+  setPaymentCartData(payment: any){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.payment = payment;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
+  setFromAddres(FromAddress: string){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.fromAddress = FromAddress;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
   deleteCart(id:number){
     this.storage.get('cartData')
     .then(data => {
@@ -101,6 +152,17 @@ export class CartService {
       const dataFilter = data.details.filter((a: { id: number; }) => a.id !== id)
       completeData.details = dataFilter;
       this.storage.set('cartData', completeData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    // return true;
+  }
+
+  deleteCompleteCart(){
+    this.storage.get('cartData')
+    .then(data => {
+      this.storage.set('cartData', {});
     })
     .catch(error => {
       console.error('Error al obtener los datos del cart:', error);

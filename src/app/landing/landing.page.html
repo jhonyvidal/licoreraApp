@@ -66,9 +66,9 @@
       <swiper-slide (click)="getProductDetail(data,'NewProduct')" *ngFor="let data of ListNewProducts" >
         <div class="div-swiper-slide">
           <div class="mainImage">
-            <ion-img [src]="data.product.image" alt="fondo Blanco" ></ion-img>
+            <ion-img [src]="data.bannerImage" alt="fondo Blanco" ></ion-img>
           </div>
-          <h1>{{data.product.name}}<span style="float: right">{{data.price  | customCurrency :'.':'$ '}}</span></h1>
+          <h1>{{data.product.name.slice(0,20)}}<span style="float: right">{{data.price  | customCurrency :'.':'$ '}}</span></h1>
           <p style="color: #000000;"  class="PromotionDescription">{{data.product.description.slice(0,50)}}</p>
         </div>
       </swiper-slide>
@@ -99,9 +99,16 @@
 
 
     <swiper-container  [spaceBetween]="10"  [freeMode]="true" [slidesPerView]="ListSuggestedProducts.length > 2.5 ? 2.5 : ListSuggestedProducts.length" >
-      <swiper-slide class="recomendados"  *ngFor="let data of ListSuggestedProducts" >
+      <swiper-slide class="recomendados"  *ngFor="let data of ListSuggestedProducts"  (click)="getProductDetailById(data)">
         <div class="swiperContainer" >
-          <div class="swiperRecomendado"><ion-img [src]="data.product.image" alt="fondo Blanco"></ion-img></div>
+          <div class="swiperRecomendado">
+            <figure class="promotion-container" *ngIf="data.discount > 0">
+              <h4 class="discount-number">{{data.discount}}</h4>
+              <p class="discount-off">% off</p>
+              <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
+            </figure>
+            <ion-img [src]="data.product.image" alt="fondo Blanco"></ion-img>
+          </div>
           <h1 class="text-center">{{data.product.name | customPipe: 1}}</h1>
           <p class="font-w300 text-center">{{data.product.name | customPipe: 2}}</p>
           <p class="text-center description">{{data.product.description.slice(0,50)}}...</p>

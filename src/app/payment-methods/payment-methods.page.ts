@@ -9,6 +9,7 @@ import { CartService } from 'src/store/services/cart.service';
 import { AlertController } from '@ionic/angular';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ObserveObjectService } from 'src/shared/services/observeObject';
 
 @Component({
   selector: 'app-payment-methods',
@@ -24,7 +25,8 @@ export class PaymentMethodsPage implements OnInit {
     private requestUseCase:RequestUseCases,
     private userService:UserService,
     private cartService: CartService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private observeObjectService:ObserveObjectService
     ) {
     this.myForm = this.formBuilder.group({
       names: ['', [Validators.required, ]],
@@ -126,11 +128,9 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   submit() {
-    let datos;
-    if(this.segment3){
-      datos = { mensaje:this.segment3 };
-    }
-    this.router.navigate(['/home/tab3/cart-checkout',{ paymentMethod: datos?.mensaje }]);
+    this.observeObjectService.setObjetoCompartido(this.segment3)
+    this.cartService.setPaymentCartData({type:this.segment3})
+    this.router.navigate(['/home/tab3/cart-checkout']);
   }
 
   getPaymentMethods(){

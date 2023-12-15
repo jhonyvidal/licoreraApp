@@ -4,6 +4,9 @@ export interface cart {
     nombre?:string;
     points?:number;
     total?:number;
+    idOrder?:number;
+    payment?:any;
+    fromAddress?:string
 }
 
 export interface cartModel {

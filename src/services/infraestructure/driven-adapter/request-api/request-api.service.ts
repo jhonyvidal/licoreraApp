@@ -458,6 +458,20 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  updateOrder(token:string,idOrden:number, data:any): Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.putv2(`api/v2/orders/${idOrden}`, data, headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+
   getOrder(token:string,page:number): Observable<any> {
     const headers = new HttpHeaders(
       {

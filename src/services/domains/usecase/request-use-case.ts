@@ -169,6 +169,10 @@ export class RequestUseCases {
     return this._requestGateWay.postOrder(token, data);
   }
 
+  updateOrder(token:string, idOrden:number, data:any): Observable <PostPaymentMethodsResponse> {
+    return this._requestGateWay.updateOrder(token,idOrden,data);
+  }
+
   getOrder(token: string, page:number) : Observable <PostPaymentMethodsResponse> {
     return this._requestGateWay.getOrder(token, page);
   }

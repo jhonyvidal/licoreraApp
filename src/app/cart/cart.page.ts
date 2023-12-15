@@ -111,6 +111,8 @@ export class CartPage implements OnInit {
       (response) => {
         if (response.success === true) {
           if(response.data !== null){
+            console.log("current: ",response.data);
+            
             this.isCurrentOrder = true;
             this.currentOrder = response.data
           }else{
@@ -204,7 +206,56 @@ export class CartPage implements OnInit {
 
   submit(){
     this.cartService.setPointsCartData(this.points,this.total)
-    this.router.navigate(['/home/tab3/cart-checkout'])
+    this.createOrder()
+   
+  }
+
+  async createOrder(){
+    const resultado = this.products.reduce((acumulador:any, producto:any) => {
+      if (acumulador !== '') {
+        acumulador += ',';
+      }
+      acumulador += `${producto.id}:${producto.quantitySelected}`;
+      return acumulador;
+    }, '');
+    const payload = {
+      products:resultado,
+      amount:this.total,
+      instructions:'test',
+      source:"mobile"
+    }
+    const token = await this.getToken()
+    this.requestUseCase
+    .postOrder(
+      token,
+      payload
+    )
+    .subscribe(
+      (response) => {
+        if (response.success === true) {
+          this.cartService.setIdOrderCartData(response.data.id)
+          this.router.navigate(['/home/tab3/cart-checkout'])
+        }else{
+          this.errorAlert(response.message) 
+        }
+      },
+      (error) => {
+      
+        console.error('Ha ocurrido un error:', error);
+      }
+    );
+  }
+
+  async errorAlert(data:string) {
+    await presentAlert(
+      this.alertController,
+      'INFORMACIÓN',
+       data,
+      '/assets/img/warning.svg',
+      '',
+      ()=>null,
+      'Logout'
+    );
   }
 
   async cancelAlert() {

@@ -63,6 +63,7 @@ export abstract class RequestGateway {
     abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
     abstract postFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
     abstract postOrder(path: string, data: any):Observable<any>;
+    abstract updateOrder(path: string, idOrden:number, data: any):Observable<any>;
     abstract getOrder(path: string, page: number):Observable<any>;
     abstract getCurrentOrder(path: string):Observable<any>;
     abstract cancelCurrentOrder(path: string):Observable<any>;

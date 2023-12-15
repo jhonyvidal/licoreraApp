@@ -143,6 +143,11 @@ export class LandingPage implements OnInit {
     this.router.navigate(['/campaign-details']);
   }
 
+  getProductDetailById(data:any){
+    this.shareObjectService.setObjetoCompartido(data)
+    this.router.navigate(['/product-details']);
+  }
+
   getProductDetail(data:any, type:string){
     
     const newObject = this.CartModelPipe.transform(data);

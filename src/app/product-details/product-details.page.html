@@ -52,7 +52,7 @@
       <p class="Product-description">{{product.description}}</p>
     </article>
     <div id="footer">
-        <article class="features" *ngIf="features.length > 0">
+        <article class="features" *ngIf="features?.length > 0">
           <h3 class="DesPromotion" *ngIf="isNewProduct">Características</h3>
           <h3 class="DesPromotionHudsonNYSerif" *ngIf="!isNewProduct && !isPromotion">Características</h3>
           <div class="Chip-container" >

@@ -26,11 +26,11 @@
     <ion-list [class]="listClass">
       <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
         <figure class="img-container">
-          <!-- <figure class="promotion-container"> Todo, cuando pasen la API
-            <h4 class="discount-number">50</h4>
+          <figure class="promotion-container" *ngIf="item.discount > 0">
+            <h4 class="discount-number">{{item.discount}}</h4>
             <p class="discount-off">% off</p>
             <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
-          </figure> -->
+          </figure>
           <img [src]="item.product.image" alt="">
         </figure>
         <div class="info-searched-container">

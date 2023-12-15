@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" style="margin-top: 68px;">
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="products.length === 0">
+<ion-content [fullscreen]="true" *ngIf="products.length === 0 && !isCurrentOrder">
   <ion-header collapse="condense">
   </ion-header>
   <div class="title-jotas-container">
@@ -87,7 +87,7 @@
 </ion-content>
 
 <!-- CURRENT ORDER -->
-<ion-content [fullscreen]="true" *ngIf="products.length > 0 && isCurrentOrder">
+<ion-content [fullscreen]="true" *ngIf="isCurrentOrder">
   <div class="cart-container">
     <h2 class="title-jotas">PEDIDO EN CURSO</h2>
   </div>
