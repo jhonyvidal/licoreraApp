@@ -56,7 +56,8 @@
   <ion-toolbar>
     <ion-buttons>
       <div class="btn-footer-container">
-        <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="showAlertCreatePaymentMethod()">Agregar</ion-button>
+        <!-- <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="showAlertCreatePaymentMethod()">Agregar</ion-button> -->
+        <ion-button [class]="btnCSS" [disabled]="isFormValid" (click)="mostrarLoading()">Agregar</ion-button>
       </div>
     </ion-buttons>
   </ion-toolbar>
