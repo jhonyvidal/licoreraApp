@@ -58,6 +58,8 @@ export class CurrentOrderPage implements OnInit {
 
   async getCurrentOrder(){
     const token = await this.getToken()
+    console.log(token);
+    
     this.requestUseCase
     .getCurrentOrder(
       token

@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { Subscription } from 'rxjs';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { phoneMask } from 'src/shared/mask/mask';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
@@ -51,7 +52,8 @@ export class CartCheckoutPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private infoService:InfoService,
-    private observeObjectService:ObserveObjectService
+    private observeObjectService:ObserveObjectService,
+    private presentLoader:PresentLoaderComponent
     ) {
     this.myForm = this.formBuilder.group({
       location: ['', []],
@@ -75,8 +77,14 @@ export class CartCheckoutPage implements OnInit {
       });
     }
     this.subscription = this.observeObjectService.shareObject$.subscribe(data => {
-      this.paymentType = data;
-      this.myForm.get('paymentMethod')?.setValue(data)
+      if(data === "isPaymentSelected"){
+        setTimeout(() => {
+          this.getCart();
+        }, 600);
+      }else{
+        this.paymentType = data;
+        this.myForm.get('paymentMethod')?.setValue(data)
+      }
     });
   }
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
@@ -194,7 +202,7 @@ export class CartCheckoutPage implements OnInit {
         if(data.idOrder){
           this.orderId = data.idOrder
         }
-        if(data?.address){
+        if(data?.address){     
           this.myForm.get('address')?.setValue(data?.address?.address)
           this.myForm.get('addressDetail')?.setValue(data?.address?.details)
         }
@@ -299,6 +307,7 @@ export class CartCheckoutPage implements OnInit {
   }
 
   async submit(){
+    await this.presentLoader.showHandleLoading();
     const payload = {
       latitude:this.address.latitude,
       longitude:this.address.longitude,
@@ -311,7 +320,7 @@ export class CartCheckoutPage implements OnInit {
       discountCode:this.myForm.get('disccount')?.value,
       instructions:'',
       description:'',
-      transactionId:this.transaction
+      transactionId:this.transaction || ''
     }
     const token = await this.getToken()
     this.requestUseCase
@@ -321,9 +330,10 @@ export class CartCheckoutPage implements OnInit {
       payload,
     )
     .subscribe(
-      (response) => {
+      async (response) => {
         if (response.success === true) {
           console.log('success', response);
+          await this.presentLoader.hideHandleLoading();
           this.showAlertSuccess();
         } else {
           if(response.message.includes('El producto')){

@@ -6,7 +6,7 @@ import { LoadingController } from '@ionic/angular';
 })
 
 export class PresentLoaderComponent {
-
+    private loadingHandle: HTMLIonLoadingElement;
     constructor(
         private loadingCtrl: LoadingController
     ){}
@@ -19,5 +19,19 @@ export class PresentLoaderComponent {
 
         loading.present();
     }
+
+    async showHandleLoading() {
+        this.loadingHandle = await this.loadingCtrl.create({
+          duration: null || 10000, // Duración nula para que el cargador no se cierre automáticamente
+        });
+    
+        await this.loadingHandle.present();
+      }
+    
+      async hideHandleLoading() {
+        if (this.loadingHandle) {
+          await this.loadingHandle.dismiss();
+        }
+      }
 
 }

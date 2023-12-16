@@ -26,10 +26,12 @@ export class UserService {
   async refreshToken(token: string, refresh_token:string): Promise<boolean> {
 
     const data = await this.storage.get('userData')
+    const api_token  = token;
     const newData = {
       ...data,
       token,
-      refresh_token
+      refresh_token,
+      api_token
     };
     // Almacenar los datos del usuario en el almacenamiento local
     this.storage.set('userData', newData);

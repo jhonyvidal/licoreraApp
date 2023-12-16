@@ -327,6 +327,7 @@ export class PaymentMethodsPage implements OnInit {
           response: response.data.respuesta
         }
         this.cartService.setPaymentCartData(payment)
+        this.observeObjectService.setObjetoCompartido("Credit Card")
         this.showAlertSuccess();
       } else {
         console.log('Body del error response: ', response);
@@ -375,6 +376,7 @@ export class PaymentMethodsPage implements OnInit {
           response: response.data.respuesta
         }
         this.cartService.setPaymentCartData(payment)
+        this.observeObjectService.setObjetoCompartido("Credit Card")
         this.showAlertSuccess();
       } else {
         console.log('Body del error response: ', response);

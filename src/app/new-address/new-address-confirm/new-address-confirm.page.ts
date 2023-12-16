@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { ObserveObjectService } from 'src/shared/services/observeObject';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { Address, cartModel } from 'src/store/models/cart.model';
 import { CartService } from 'src/store/services/cart.service';
@@ -25,7 +26,8 @@ export class NewAddressConfirmPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private userService:UserService,
     private alertController: AlertController,
-    private cartService:CartService
+    private cartService:CartService,
+    private observeObjectService:ObserveObjectService
     ) {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
@@ -119,6 +121,7 @@ export class NewAddressConfirmPage implements OnInit {
       details:this.myForm.get('addressDetail')?.value,
     }
     this.cartService.setAddressCartData(address)
+    this.observeObjectService.setObjetoCompartido('isPaymentSelected')
     //let datos = { mensaje: true };
     this.router.navigate(['/home/tab3/cart-checkout']);
   }
