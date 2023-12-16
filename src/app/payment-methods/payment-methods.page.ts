@@ -10,6 +10,7 @@ import { AlertController } from '@ionic/angular';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 
 @Component({
   selector: 'app-payment-methods',
@@ -26,7 +27,8 @@ export class PaymentMethodsPage implements OnInit {
     private userService:UserService,
     private cartService: CartService,
     private sanitizer: DomSanitizer,
-    private observeObjectService:ObserveObjectService
+    private observeObjectService:ObserveObjectService,
+    private presentLoader: PresentLoaderComponent
     ) {
     this.myForm = this.formBuilder.group({
       names: ['', [Validators.required, ]],
@@ -290,6 +292,7 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   async createCreditPaymentMethod(cardtoken:string,dues:number){
+    await this.presentLoader.showHandleLoading();
     const reponse = await this.cartService
       .getCartData()
       .then((data) => {
@@ -317,7 +320,7 @@ export class PaymentMethodsPage implements OnInit {
       _cardTokenId:cardtoken
     }
     const token = await this.getToken()
-    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(response => {
+    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(async response => {
       if (response.success === true) {
         const payment = {
           type:"Credit Card",
@@ -328,6 +331,7 @@ export class PaymentMethodsPage implements OnInit {
         }
         this.cartService.setPaymentCartData(payment)
         this.observeObjectService.setObjetoCompartido("Credit Card")
+        await this.presentLoader.hideHandleLoading();
         this.showAlertSuccess();
       } else {
         console.log('Body del error response: ', response);
@@ -336,6 +340,7 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   async createCreditPaymentMethodComplete(dues:number){
+    await this.presentLoader.showHandleLoading();
     const reponse = await this.cartService
       .getCartData()
       .then((data) => {
@@ -366,7 +371,7 @@ export class PaymentMethodsPage implements OnInit {
     }
 
     const token = await this.getToken()
-    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(response => {
+    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(async response => {
       if (response.success === true) {
         const payment = {
           type:"Credit Card",
@@ -377,6 +382,7 @@ export class PaymentMethodsPage implements OnInit {
         }
         this.cartService.setPaymentCartData(payment)
         this.observeObjectService.setObjetoCompartido("Credit Card")
+        await this.presentLoader.hideHandleLoading();
         this.showAlertSuccess();
       } else {
         console.log('Body del error response: ', response);
