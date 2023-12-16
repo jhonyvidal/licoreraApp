@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="toolbar-detail-container">
+        <ion-button class="btn-header">
+        </ion-button>
+        <ion-button class="btn-header">
+          <img width="40" height="40" class="delivery-icon" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+        </ion-button>
+        <ion-button class="btn-header">
+          <img width="24" height="24" (click)="goHome()" src="../../assets/icon/white-x.svg" alt="">
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h1>productos canjeados</h1>
+  <div class="exchange-products-list">
+    <div class="exchange-history-container">
+      <figure>
+        <img src="../../assets/img/Buchanans.png" alt="">
+      </figure>
+      <div class="info-container">
+        <div class="title-container">
+          <h2>Buchanan’s Deluxe</h2>
+          <h2>323 J</h2>
+        </div>
+        <p class="description">Product description</p>
+        <p>Canjeado: Lun, 23 Enero de 2023</p>
+      </div>
+    </div>
+    <div class="exchange-history-container">
+      <figure>
+        <img src="../../assets/img/Buchanans.png" alt="">
+      </figure>
+      <div class="info-container">
+        <div class="title-container">
+          <h2>Buchanan’s Deluxe</h2>
+          <h2>323 J</h2>
+        </div>
+        <p class="description">Product description</p>
+        <p>Canjeado: Lun, 23 Enero de 2023</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

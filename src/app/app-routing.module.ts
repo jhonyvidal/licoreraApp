@@ -82,7 +82,12 @@ const routes: Routes = [
   {
     path: 'payment-methods',
     loadChildren: () => import('./payment-methods/payment-methods.module').then( m => m.PaymentMethodsPageModule)
+  },
+  {
+    path: 'exchange-history',
+    loadChildren: () => import('./exchange-history/exchange-history.module').then( m => m.ExchangeHistoyrPageModule)
   }
+
 
 
 
