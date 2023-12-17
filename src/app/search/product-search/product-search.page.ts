@@ -113,7 +113,11 @@ export class ProductSearchPage implements OnInit {
 
   getProductDetail(data:any){
     this.shareObjectService.setObjetoCompartido(data)
-    this.router.navigate(['/product-details']);
+    if (data.store_type === 2) {
+      this.router.navigate(['/exchange-products']);
+    }else{
+      this.router.navigate(['/product-details']);
+    }
   }
 
 }
