@@ -110,7 +110,7 @@ export class ExchangeProductsPage implements OnInit {
     });
   }
 
-  setCart(){
+  async setCart(){
     let shareProduct = this.shareObjectService.getObjetoCompartido();
 
     if(shareProduct?.product.store){
@@ -119,23 +119,6 @@ export class ExchangeProductsPage implements OnInit {
     const quantity = {
       quantitySelected: this.quantity,
     };
-    // id: number;
-    // product_id: number;
-    // quantity: number;
-    // quantitySelected?:number
-    // price: number;
-    // status: boolean;
-    // start_date: string | null;
-    // end_date: string | null;
-    // store_type: number;
-    // points: number | null;
-    // created_at: string;
-    // updated_at: string;
-    // deleted_at: string | null;
-    // ranking: number;
-    // recommended: boolean;
-    // product: Product;
-    
     const productDetail:cartModel = {
       ...shareProduct,
       ...quantity,
