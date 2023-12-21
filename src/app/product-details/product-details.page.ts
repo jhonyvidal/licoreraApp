@@ -78,12 +78,12 @@ export class ProductDetailsPage implements OnInit {
       if(platform !== "web") {
         setTimeout(() => {
           this.applyStyle(this.section);
-        }, 3000);
+        }, 500);
       }
     }else{
       setTimeout(() => {
         this.applyStyle(this.section);
-      }, 3000);
+      }, 500);
     }
     
   }

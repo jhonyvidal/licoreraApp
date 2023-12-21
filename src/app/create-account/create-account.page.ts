@@ -52,7 +52,7 @@ export class CreateAccountPage implements OnInit {
       if(platform !== "web") {
         setTimeout(() => {
           this.applyStyle();
-        }, 3000);
+        }, 500);
         Keyboard.addListener('keyboardWillShow', (info) => {
           this.ngZone.run(() => {
             this.applyKeyboardStyle(info.keyboardHeight);

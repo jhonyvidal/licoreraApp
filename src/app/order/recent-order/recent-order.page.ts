@@ -43,11 +43,11 @@ export class RecentOrderPage implements OnInit {
       if(platform !== "web") {
         setTimeout(() => {
           this.applyStyle();
-        }, 3000);
+        }, 500);
       }else{
         setTimeout(() => {
           this.applyStyleWeb();
-        }, 3000);
+        }, 500);
       }
   }
 
