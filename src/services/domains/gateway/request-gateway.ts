@@ -42,6 +42,7 @@ export abstract class RequestGateway {
     abstract postLogin(token:string, email:string, password:string) : Observable <LoginResponse>;
     abstract postForgotPassword(token:string, email:string):Observable<LoginResponse>;
     abstract postCreateAccount(token:string, data:CreateAccountRequest):Observable<LoginResponse>;
+    abstract postDevices(data:any):Observable<LoginResponse>;
     abstract putClient(userId: string, data: UpdateClientData):Observable<ClientData>;
     abstract PostDelivery(data: any):Observable<any>;
     abstract GetInfo():Observable<any>;
@@ -59,6 +60,7 @@ export abstract class RequestGateway {
     abstract postPaymentMethods(token: string, data: PostPaymentMethodsRequest) : Observable <PostPaymentMethodsResponse>;
     abstract getMe(token: string): Observable<UserModel>;
     abstract getGoogleApi(token: string, param:string): Observable<any>;
+    abstract getGoogleReverseApi(token: string, latitud:number, longitude:number): Observable<any>;
     abstract getMeLocation(token: string): Observable<any>;
     abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
     abstract postFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;

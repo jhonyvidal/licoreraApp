@@ -15,8 +15,8 @@
 
 <ion-content [fullscreen]="true"> 
   
-  <ion-header collapse="condense" class="h60">
-  </ion-header>
+  <!-- <ion-header collapse="condense" class="h60">
+  </ion-header> -->
   
   <ion-toolbar>
     <ion-segment value="all">
@@ -192,15 +192,67 @@
   </div>
 
   <div class="footer" *ngIf="ionSegment === 2 && creditStep === 1">
-    <ion-button  (click)="nextStep(3)" class="buttonSubmitActive"><span style="margin-top: -5px;">AGREGAR TARJETA</span></ion-button>
+    <ion-button  class="buttonSubmitActive" id="open-modal-creditCard" expand="block"><span style="margin-top: -5px;">AGREGAR TARJETA</span></ion-button>
+    <ion-modal trigger="open-modal-creditCard">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons class="toolbar-detail-container">
+              <ion-button (click)="cancel()">
+                <img src="../../assets/icon/backIcon.svg" alt="Back" />
+              </ion-button>
+              <div class="dev-logo-header">
+                <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+              </div>
+              <ion-button>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <div class="form-payment-container">
+            <div [formGroup]="mySecondFormCreditCard" class="form-container">
+              <p>Número de la tarjeta</p>
+              <div class="card-number-contaienr">
+                <ion-input formControlName="number" class="custom" placeholder="0000 0000 0000 0000" [maskito]="cardMask" [maskitoElement]="maskPredicate" required></ion-input>
+                <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
+              </div>
+              <div class="fecha-cvv-container">
+                <div class="fecha-container">
+                  <p>Fecha de expiración</p>
+                  <ion-input formControlName="expirationDate" class="custom" type="text" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="12/2023" required></ion-input>
+                </div>
+                <div class="cvv-container">
+                  <p>CVV</p>
+                  <ion-input  formControlName="cvv" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" placeholder="123" required></ion-input>
+                </div>
+              </div>
+              <div class="card-name-container">
+                <p>Nombre en la tarjeta</p>
+                <ion-input  formControlName="name"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="safe-paymnet-container">
+              <img src="../../assets/icon/padlock-icon.svg" alt="">
+              <p>Pago seguro con Epayco</p>
+            </div>
+            <ion-button  (click)="payCard()" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
+          </div>
+        </ion-content>
+        
+      </ng-template>
+    </ion-modal>
   </div>
+
   <div class="footer" *ngIf="ionSegment === 2 && creditStep === 2">
     <ion-button  (click)="nextStep(3)" [disabled]="!isFormCreditValid" [ngClass]="buttonSubmit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
   </div>
   <div class="footer" *ngIf="ionSegment === 2 && creditStep === 3">
     <div class="safe-paymnet-container">
       <img src="../../assets/icon/padlock-icon.svg" alt="">
-      <p>Pago seguro con PayU</p>
+      <p>Pago seguro con Epayco</p>
     </div>
     <ion-button  (click)="payCard()" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
   </div>
@@ -208,5 +260,7 @@
   <div class="footer" *ngIf="ionSegment === 3">
     <ion-button  (click)="submit()" [ngClass]="buttonDebit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
   </div>
+
+
 
 </ion-content>

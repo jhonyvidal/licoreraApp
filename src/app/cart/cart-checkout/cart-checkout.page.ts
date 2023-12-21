@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
@@ -53,7 +53,9 @@ export class CartCheckoutPage implements OnInit {
     private route: ActivatedRoute,
     private infoService:InfoService,
     private observeObjectService:ObserveObjectService,
-    private presentLoader:PresentLoaderComponent
+    private presentLoader:PresentLoaderComponent,
+    private el: ElementRef,
+    private renderer: Renderer2
     ) {
     this.myForm = this.formBuilder.group({
       location: ['', []],
@@ -90,6 +92,13 @@ export class CartCheckoutPage implements OnInit {
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
   
   ngOnInit() {
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      setTimeout(() => {
+        this.applyStyle();
+      }, 3000);
+    }
+    
     this.getInfo();
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
@@ -109,6 +118,13 @@ export class CartCheckoutPage implements OnInit {
   ionViewWillEnter() {
     this.getLocations();
     this.getCart();
+  }
+
+  private applyStyle(): void {
+    const contentElement = this.el.nativeElement.querySelector('content-form');
+    const maxHeight = window.innerHeight - 444
+    this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
   }
 
   classValid() {

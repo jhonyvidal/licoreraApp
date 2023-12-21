@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { GoogleMap } from '@capacitor/google-maps';
 import { environment } from 'src/environments/environment';
 import { ShareObjectService } from 'src/shared/services/shareObject';
+import { HttpClient } from '@angular/common/http';
+import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { UserService } from 'src/store/services/user.service';
 
 @Component({
   selector: 'app-new-address-map',
@@ -24,7 +27,9 @@ export class NewAddressMapPage implements OnInit {
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
-    private shareObjectService: ShareObjectService
+    private shareObjectService: ShareObjectService,
+    private requestUseCase: RequestUseCases,
+    private userService:UserService
   ) {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
@@ -32,19 +37,20 @@ export class NewAddressMapPage implements OnInit {
     // this.coordinates = {coords:{ latitude:7.123952,longitude:-73.116186}}
   }
 
-  ionViewWillEnter() {
-    this.coordinates = this.shareObjectService.getObjetoCompartido();
+  async ionViewWillEnter() {
+    this.coordinates = await this.shareObjectService.getObjetoCompartido();
     this.myForm.get('addressInput')?.setValue(this.coordinates?.addressInput);
-    this.createMap();
+    this.createMap(this.coordinates);
   }
 
   ngOnInit() {
   }
 
-  async createMap() {
-    if(this.coordinates?.coords?.latitude && this.coordinates?.coords?.longitude){
-      this.latitude = this.coordinates.coords.latitude;
-      this.longitude = this.coordinates.coords.longitude;
+  async createMap(coordinate?:any) {
+    if(coordinate?.coords?.latitude && coordinate?.coords?.longitude){
+      console.log(this.coordinates);
+      this.latitude = coordinate.coords.latitude;
+      this.longitude = coordinate.coords.longitude;
     }
     
     this.newMap = await GoogleMap.create({
@@ -62,21 +68,57 @@ export class NewAddressMapPage implements OnInit {
     });
 
     await this.newMap.addMarker({
+      // iconUrl:'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
       coordinate: {
         lat: this.latitude,
         lng:  this.longitude
       },
       draggable: true,
     });
-    await this.newMap.setOnMarkerDragEndListener((event) => {
+    
+    await this.newMap.setOnMarkerDragEndListener(async (event) => {
       this.latitude = event.latitude;
-      this.longitude = event.longitude
+      this.longitude = event.longitude;
+
+      // Obtener la dirección/nomenclatura
+      this.getGoogleReverseApi(event.latitude,event.longitude)
     });
   }
 
-  ngAfterViewInit() {
-    this.createMap();
+
+  async getGoogleReverseApi(latitud:number,longitude:number){
+    const token = await this.getToken()
+      this.requestUseCase.getGoogleReverseApi(token,latitud,longitude)
+      .subscribe((response) => {
+        if (response.success === true) {
+          this.myForm.get('addressInput')?.setValue(response.data.results[0].formatted_address);
+          this.latitude = response.data.results[0].geometry.location.lat
+          this.longitude = response.data.results[0].geometry.location.lng
+          console.log(response.data.results)
+        }
+        else{
+          console.log(response)
+        }
+      });
+
   }
+
+  getToken() {
+    const response = this.userService.getUserData()
+    .then(data => {
+      console.log('Api token: ', data.api_token);
+      return data.api_token
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+      return 'asdasd'
+    });
+    return response;
+  }
+
+  // ngAfterViewInit() {
+  //   this.createMap();
+  // }
 
   goToNewAddress(){
     this.router.navigate(['/new-address']);

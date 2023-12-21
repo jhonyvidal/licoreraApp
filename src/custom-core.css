@@ -139,6 +139,12 @@ html, p, h1, h2, h3, a {
     font-family: HudsonNYSerif;
     color: #000000;
 }
+.alertFontNotifications{
+    margin: 55px 0 0 0;
+    font-size: 16px;
+    font-family: HudsonNYSerif;
+    color: #000000;
+}
 .alertButton{
     padding: 6px 0 12px 0 !important;
     margin: 0 auto 0 auto !important;
@@ -233,5 +239,21 @@ span.button-inner{
 .ng-invalid.has-value{
     color: #FF0000; 
 }
+.imgNotifications{
+    position: fixed;
+    top: -60px;
+    transform: translateX(-50%);
+}
+.imgQualify{
+    position: fixed;
+    top: -80px;
+    transform: translateX(-50%);
+    width: 140px;
+}
 
-
+ion-alert .alert-wrapper{
+    contain: none !important;
+}
+#starRating{
+    margin-bottom: 20px;
+}

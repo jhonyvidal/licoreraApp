@@ -74,26 +74,26 @@ ion-content .product-img-container .promotion-container h4{
 }
 
 .sectionWithBg {
-    padding: 0px 20px 0 20px;
+    padding: 20px 20px 0 20px;
     width: 100%;
-    height: 100%;
+    height: auto;
     /* display: flex;*/
     flex-direction: column;
     justify-content: space-around;
     border-radius: 35px 35px 0 0;
     background-color: #F7F5F5;
-    position: fixed;
+    // position: fixed;
 }
 .sectionWithoutBg {
   padding: 0px 20px 0 20px;
   width: 100%;
-  height: 100%;
+  height: auto;
   /* display: flex;*/
   flex-direction: column;
   justify-content: space-around;
   border-radius: 35px 35px 0 0;
   background-color: white;
-  position: fixed;
+  // position: fixed;
 }
 
 section .features div {
@@ -115,7 +115,7 @@ article.features {
 ion-footer  {
     -webkit-box-shadow:none !important;
     box-shadow:none !important;
-    background: #BBBBBB;
+    background: #F7F5F5;
 }
 
 .Product-name {
@@ -231,14 +231,12 @@ ion-footer .Toolbar-footer-Promotion{
   justify-content: center;
   align-items: center;
 }
-
+.firstArticle{
+  height: 150px;
+}
 #footer {
-  position: fixed;
   margin-top: 10px;
-  left: 0;
-  bottom: 100px;
   width: 100%;
-  padding: 0px 20px;
 }
 .namePromotion{
   position: fixed;

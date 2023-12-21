@@ -203,7 +203,7 @@ export  class RequestApiService extends RequestGateway {
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
       );
-    return this.http.post('clients/rememberPassword', data , headers).pipe(
+    return this.http.ResetPassword('https://applicorera3jjjs.com/clients/rememberPassword', data , headers).pipe(
       map(response => {
         // console.log(response)
         return response as LoginResponse
@@ -216,6 +216,15 @@ export  class RequestApiService extends RequestGateway {
       // {'Authorization': 'Bearer '+ token}
       );
     return this.http.post('clients', data , headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as LoginResponse
+      })
+    )
+  }
+
+  postDevices(data:any):Observable<LoginResponse> {
+    return this.http.post('devices', data ).pipe(
       map(response => {
         // console.log(response)
         return response as LoginResponse
@@ -384,6 +393,20 @@ export  class RequestApiService extends RequestGateway {
       }
     );
     return this.http.getV2(`api/v2/locations/google/${param}`,headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as UserModel
+      })
+    )
+  }
+
+  getGoogleReverseApi(token:string, latitude: number, longitude: number):Observable<UserModel> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2(`api/v2/locations/google/${latitude}/${longitude}`,headers).pipe(
       map(response => {
         // console.log(response)
         return response as UserModel

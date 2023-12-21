@@ -140,7 +140,7 @@ export class CurrentOrderPage implements OnInit {
   }
 
   goToHome(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/tab3']);
   }
 
   goBack(): void {

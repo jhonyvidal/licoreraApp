@@ -58,6 +58,10 @@ export class BaseApiService {
     return this.http.post(`${this.urlV2}${path}`, data , { headers } );
   }
 
+  ResetPassword(path: string, data: any, headers?:HttpHeaders) {
+    return this.http.post(`${path}`, data , { headers } );
+  }
+
   deleteAddress(path: string, headers?:HttpHeaders) {
     return this.http.delete(`${this.urlV2}${path}`, { headers } );
   }

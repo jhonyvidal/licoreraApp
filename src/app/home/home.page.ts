@@ -9,6 +9,10 @@ import { presentAlert } from 'src/shared/components/alert.component';
 import { InfoService } from 'src/store/services/info.service';
 import { InfoModel } from 'src/store/models/info-model';
 import { CartService } from 'src/store/services/cart.service';
+import { PushNotification, PushNotificationActionPerformed, PushNotificationToken, PushNotifications } from '@capacitor/push-notifications';
+import { Capacitor } from '@capacitor/core';
+import { AlertNotifications } from 'src/shared/components/alert.notifications';
+// import { StarRatingComponent } from '../../shared/components/StarRatingComponent'; 
 
 @Component({
   selector: 'app-home',
@@ -22,7 +26,9 @@ export class HomePage {
     private userService: UserService,
     private cartService:CartService,
     private infoService: InfoService,
-    private menuController: MenuController) {}
+    private menuController: MenuController) {
+     
+    }
 
   selectedTab: string = 'tab1';
   userData: UserModel;
@@ -30,6 +36,134 @@ export class HomePage {
   facebook:string;
   instagram:string;
   cartQuantity:number = 0;
+  tokenPush:string;
+ 
+
+  async ngOnInit(){
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      this.createNotificationPush();
+    }
+    //this.showSuccessAlert('Tu pedido ya fue entregado. Por favor califica nuestro servicio.')
+    //this.showInformationAlert('Tu pedido ha sido cancelado. Te invitamos a seguir comprando para que acumules puntos.')
+  }
+
+  async createNotificationPush(){
+    
+    // Solicitar permisos para notificaciones push (generalmente solo necesario en iOS).
+    await PushNotifications.requestPermissions();
+
+    // Obtener el token del dispositivo para recibir notificaciones.
+    const response = await PushNotifications.register();
+
+    // Escuchar eventos de notificación.
+    PushNotifications.addListener('registration', (token: PushNotificationToken) => {
+      this.tokenPush = token.value;
+      this.createDevice('15DC8E4D-0006-4986-970A-49674C7E04A1',token.value)
+      console.log('Token de registro:', token.value);
+    });
+
+    PushNotifications.addListener('registrationError', (error: any) => {
+      console.error('Error al registrar el token:', error);
+    });
+
+    PushNotifications.addListener('pushNotificationReceived', (notification: PushNotification) => {
+      this.createModalNotifications(notification.data.op,notification.data.valud)
+    });
+
+    PushNotifications.addListener('pushNotificationActionPerformed', (notification: PushNotificationActionPerformed) => {
+      const actionId = notification.actionId;
+      if(actionId === "tap"){
+        this.createModalNotifications(notification.notification.data.op,notification.notification.data.value)
+      }
+    });
+  }
+
+  createDevice(uuid:string,pushkey:string){
+    const data = {
+      uuid,
+      pushkey
+    }
+    this.requestUseCase
+    .postDevices(
+      data
+    )
+    .subscribe((response) => {
+      if (response.success === true) {
+        console.log(response);
+      } else {
+        console.log(response);
+      }
+    });  
+  }
+
+  createModalNotifications(op:string, body:string){
+    if(op === "1"){
+      // general
+      this.showInformationAlert(body || '')
+    }
+    if(op === "2"){
+      // birthday
+      this.showInformationAlert(body|| '')
+    }
+    if(op === "3"){
+      // rateOrder
+      this.showInformationAlert(body || '')
+    }
+    if(op === "4"){
+      // orderCancelled
+      this.showInformationAlert(body|| '')
+    }
+    if(op === "5"){
+      // orderIsComing
+      this.showSuccessAlert(body || '')
+    }
+    if(op=== "6"){
+      // adjustPoints
+      this.showInformationAlert(body || '')
+    }
+    if(op === "7"){
+      // recommendedProduct
+      this.showInformationTwoButtonsAlert(body || '')
+    }
+  }
+
+  async showInformationAlert(message:string) {
+    await AlertNotifications(
+      this.alertController,
+      'INFORMACIÓN',
+      message,
+      '/assets/img/Icon_tres_jotas.svg',
+      '',
+      () => null
+    );
+  }
+
+  async showInformationTwoButtonsAlert(message:string) {
+    await AlertNotifications(
+      this.alertController,
+      'INFORMACIÓN',
+      message,
+      '/assets/img/Icon_tres_jotas.svg',
+      '',
+      () => null,
+      'withTwoButtons'
+    );
+  }
+
+  async showSuccessAlert(message:string) {
+    await AlertNotifications(
+      this.alertController,
+      '',
+      message,
+      '/assets/img/checkGreen.svg',
+      '',
+      () => null,
+      'Qualification'
+    );
+  }
+
+ 
 
   ionViewWillEnter() {
     this.getUser()

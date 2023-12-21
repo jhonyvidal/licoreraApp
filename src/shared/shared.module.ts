@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { customCurrency } from './pipes/customCurrency.pipe';
 import { CustomPipe } from './pipes/custom.pipe';
@@ -7,6 +7,8 @@ import { CartModelPipe } from './pipes/cartModel.pipe';
 import { CustomDateOrders } from './pipes/customDateOrders.pipe';
 import { ProductDetailModelPipe } from './pipes/productDetailModel.pipe';
 import { CustomDateAlert } from './pipes/customDateAlert.pipe';
+import { StarRatingComponent } from './components/StarRatingComponent';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -16,9 +18,11 @@ import { CustomDateAlert } from './pipes/customDateAlert.pipe';
     CartModelPipe,
     ProductDetailModelPipe,
     CustomDateOrders,
-    CustomDateAlert
+    CustomDateAlert,
+    StarRatingComponent
   ],
   imports: [
+    CommonModule
   ],
   exports: [
     customCurrency,
@@ -28,9 +32,11 @@ import { CustomDateAlert } from './pipes/customDateAlert.pipe';
     CartModelPipe,
     ProductDetailModelPipe,
     HttpClientModule,
+    StarRatingComponent
   ],
   providers: [
     
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule { }

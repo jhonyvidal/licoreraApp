@@ -6,11 +6,12 @@ import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { UserService } from 'src/store/services/user.service';
 import { CartService } from 'src/store/services/cart.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonModal } from '@ionic/angular';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
 import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-payment-methods',
@@ -76,7 +77,7 @@ export class PaymentMethodsPage implements OnInit {
   paymentsEmpty: boolean = false;
   isIframeReady:boolean = false;
   urlIframe:SafeResourceUrl = 'https://www.ejemplo.com';
-
+  @ViewChild(IonModal) modal: IonModal;
 
   readonly options: MaskitoOptions = {
     mask: /^\d{0,3}$/,
@@ -121,6 +122,30 @@ export class PaymentMethodsPage implements OnInit {
     this.getPaymentMethods();
   }
 
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name: string;
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  formatCreditCardNumber(input: string): string {
+    let inputFormated:string = '';
+    for (let i = 0; i < input.length; i++) {
+      if(i === 3 || i === 7 || i === 11 ){
+        inputFormated = inputFormated +' ' + input[i]
+      }else{
+        inputFormated = inputFormated + input[i]
+      }
+    }
+    return inputFormated;
+  }
+
+
   goBack(): void {
     this.location.back();
   }
@@ -142,6 +167,9 @@ export class PaymentMethodsPage implements OnInit {
         if (response.success === true) {
           
           if (response?.data && response?.data?.cards) {
+            for(var i=0;i<response.data.cards.length; i++){
+              response.data.cards[i].mask = this.formatCreditCardNumber(response.data.cards[i].mask)
+            }
             this.paymentMethodsList = response.data.cards;
           }
           

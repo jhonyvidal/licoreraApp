@@ -54,7 +54,8 @@
           </div>
           <div class="subtotal-domicilio">
             <h2 class="invoice-resume-header-text">domicilio:</h2>
-            <h2 class="invoice-resume-header-text">{{Order?.delivery_value | customCurrency :'.':'$ '}}</h2>
+            <h2 class="invoice-resume-header-text" *ngIf="Order?.delivery_value">{{Order?.delivery_value | customCurrency :'.':'$ ' || 0}}</h2>
+            <h2 class="invoice-resume-header-text" *ngIf="!Order?.delivery_value">{{ 0 | customCurrency :'.':'$ ' || 0}}</h2>
           </div>
         </div>
         <hr>

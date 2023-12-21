@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Location } from '@angular/common';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { Data, DataArray } from 'src/shared/domain/response/PromotionsData';
@@ -11,6 +11,7 @@ import { CartService } from 'src/store/services/cart.service';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { AlertController } from '@ionic/angular';
 import { RecentOrderPipe } from 'src/shared/pipes/recentOrder.pipe';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-recent-order',
@@ -34,8 +35,21 @@ export class RecentOrderPage implements OnInit {
     private userService:UserService,
     private cartService:CartService,
     private recentOrderPipe: RecentOrderPipe,
-    private alertController: AlertController
-  ) { }
+    private alertController: AlertController,
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) { 
+    const platform = Capacitor.getPlatform();
+      if(platform !== "web") {
+        setTimeout(() => {
+          this.applyStyle();
+        }, 3000);
+      }else{
+        setTimeout(() => {
+          this.applyStyleWeb();
+        }, 3000);
+      }
+  }
 
   ngOnInit() {
     this.OrderId = this.shareObjectService.getObjetoCompartido().id; 
@@ -125,6 +139,32 @@ export class RecentOrderPage implements OnInit {
       '',
       () => null
     );
+  }
+
+  private applyStyle(): void {
+    const contentElement = this.el.nativeElement.querySelector('list-container');
+
+    const maxHeight = window.innerHeight - 533
+    this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+  }
+
+  private applyStyleWeb(): void {
+    console.log(window.innerHeight);
+    const contentElements = document.getElementsByClassName('list-container') as HTMLCollectionOf<HTMLElement>;
+    // Verificar si hay elementos
+    if (contentElements.length > 0) {
+      // Obtener el primer elemento con la clase 'mainContent'
+      const contentElement = contentElements[0];
+      // Calcular la altura máxima
+      const maxHeight = window.innerHeight -533;
+      
+      // Utilizar 'style' en el elemento específico
+      contentElement.style.height = `${maxHeight}px`;
+      contentElement.style.overflowY = 'scroll';
+    } else {
+      console.error('No se encontraron elementos con la clase "mainContent".');
+    }
   }
 
   goBack(): void {

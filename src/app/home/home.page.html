@@ -100,7 +100,7 @@
           <ion-row  class="ion-justify-content-center">
             <ion-col size="auto"><a [href]="facebook" target="_blank"><img style="padding: 5px 10px;" src="../../assets/icon/FacebookMenu.svg" alt="home"></a></ion-col>
             <ion-col size="auto"><a [href]="instagram" target="_blank"><img style="padding: 5px 10px;" src="../../assets/icon/InstragramMenu.svg" alt="home"></a></ion-col>
-            <ion-col size="auto"><a href="https://www.google.com/maps?q=7.068565,-73.104431" target="_blank"><img style="padding: 5px 10px;" src="../../assets/icon/PhoneMenu.svg" alt="home"></a></ion-col>
+            <ion-col size="auto" (click)="routerLink('how-to-get')"><img style="padding: 5px 10px;" src="../../assets/icon/PhoneMenu.svg" alt="home"></ion-col>
           </ion-row>
         </ion-grid>
       </ion-label>
@@ -145,7 +145,7 @@
         <ion-label><img style="width: 50px;" [src]="selectedTab === 'tab4' ? '../../assets/icon/home-selected4.svg' : '../../assets/icon/home4.svg'"  alt="Logo empresa"></ion-label>
       </ion-tab-button>
     </ion-tab-bar>
-
+    
   </ion-tabs>
   <!-- finish section tabs -->
 </div>

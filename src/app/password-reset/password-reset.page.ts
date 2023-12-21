@@ -6,6 +6,7 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { UserService } from 'src/store/services/user.service';
 
+
 @Component({
   selector: 'app-password-reset',
   templateUrl: './password-reset.page.html',
@@ -53,6 +54,17 @@ export class PasswordResetPage implements OnInit {
     );
   }
 
+  async showAlertSuccess() {
+    await presentAlert(
+      this.alertController,
+      'FELICITACIONES!',
+      'Se ha enviado un correo con las instrucciones para recuperar tu contraseña. Revisa tu bandeja de entrada e incluso en no deseados.</b>',
+      '/assets/img/checkGreen.svg',
+      '',
+      () => this.goHome()
+    );
+  }
+
   submit() {
     this.requestUseCase
       .postForgotPassword(
@@ -64,7 +76,7 @@ export class PasswordResetPage implements OnInit {
           if(response.data === null){
             this.showAlert()
           }else{
-            this.router.navigate(['/home']);
+            this.showAlertSuccess()
           }
           console.log(response);
         } else {
@@ -72,6 +84,10 @@ export class PasswordResetPage implements OnInit {
           console.log(response);
         }
       });
+  }
+
+  goHome():void {
+    this.router.navigate(['/home']);
   }
 
   goBack(): void {

@@ -45,7 +45,7 @@
   </figure>
 
   <section [class]="section">
-    <article>
+    <article class="">
       <h2 class="Product-name" *ngIf="!isNewProduct && !isPromotion">{{product.name}}</h2>
       <h2 class="Product-name" *ngIf="isPromotion" style="text-align: center;">{{product.name}}</h2>
       <h4 class="DesPromotion" *ngIf="isNewProduct">Descripción</h4>
@@ -59,16 +59,16 @@
             <ion-chip *ngFor="let data of features">{{data}}</ion-chip>
           </div>
         </article>
-        <article *ngIf="!isNewProduct">
-          <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
-          <h2 *ngIf="beforePrice" class="Before-price"><span class="Before">Antes: </span><span style="text-decoration: line-through;">{{beforePrice | customCurrency :'.':'$ '}}</span></h2>
-          <h2 class="Price-now"><span class="Now">{{ isPromotion || discount === 0 || discount === null ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
-        </article>
     </div>
   </section>
 </ion-content>
 <ion-footer *ngIf="!isPromotion">
   <ion-toolbar class="Toolbar-footer">
+          <article *ngIf="!isNewProduct" style="margin-bottom: 30px;">
+            <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
+            <h2 *ngIf="beforePrice" class="Before-price" style="margin-bottom: 0px;"><span class="Before">Antes: </span><span style="text-decoration: line-through;">{{beforePrice | customCurrency :'.':'$ '}}</span></h2>
+            <h2 class="Price-now"><span class="Now">{{ isPromotion || discount === 0 || discount === null ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
+          </article>
           <div class="Btns-container">
             <ion-buttons class="buttons-left">
               <ion-button class="Btn-minus" (click)="subtractBtn()" [disabled]="quantity <=1 ? true : false">
@@ -87,6 +87,11 @@
 </ion-footer>
 <ion-footer *ngIf="isPromotion">
   <ion-toolbar   class="Toolbar-footer-Promotion">
+          <article *ngIf="!isNewProduct" style="margin-bottom: 30px;">
+            <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
+            <h2 *ngIf="beforePrice" class="Before-price" style="margin-bottom: 0px;"><span class="Before">Antes: </span><span style="text-decoration: line-through;">{{beforePrice | customCurrency :'.':'$ '}}</span></h2>
+            <h2 class="Price-now"><span class="Now">{{ isPromotion || discount === 0 || discount === null ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
+          </article>
           <div class="Btns-container">
             <ion-buttons class="buttons-left">
               <ion-button class="Btn-minus" (click)="subtractBtn()" [disabled]="quantity <=1 ? true : false">

@@ -94,6 +94,10 @@ export class RequestUseCases {
     return this._requestGateWay.postCreateAccount(token, data);
   }
 
+  postDevices(data:any):Observable<LoginResponse> {
+    return this._requestGateWay.postDevices( data);
+  }
+
   putClient(userid: string, data: UpdateClientData):Observable<ClientData> {
     return this._requestGateWay.putClient(userid, data);
   }
@@ -151,6 +155,10 @@ export class RequestUseCases {
 
   getGoogleApi(token: string, params: string) {
     return this._requestGateWay.getGoogleApi(token,params);
+  }
+
+  getGoogleReverseApi(token:string, latitude: number, longitude: number){
+    return this._requestGateWay.getGoogleReverseApi(token, latitude, longitude);
   }
 
   getMeLocation(token: string) {

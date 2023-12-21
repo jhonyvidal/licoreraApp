@@ -14,7 +14,8 @@ export class CartModelPipe implements PipeTransform {
     if(data?.product){
       value = data.product
     }
-   
+    console.log(data);
+    
     const newProduct : Product =  {
         id: value.id,
         name: value.name,

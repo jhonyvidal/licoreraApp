@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { CartService } from 'src/store/services/cart.service';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { InfoService } from 'src/store/services/info.service';
 import { UserService } from 'src/store/services/user.service';
 import { presentAlert } from 'src/shared/components/alert.component';
+import { Capacitor } from '@capacitor/core';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +24,6 @@ export class CartPage implements OnInit {
   minimumOrderAmount: number = 0;
   minimumAmountForPoints : number = 0;
   btnAccept:boolean= false;
-  contentHeigth:string = 'content-exchange-products1';
 
   constructor(
     private requestUseCase: RequestUseCases,
@@ -30,36 +31,52 @@ export class CartPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private infoService : InfoService,
-    private userService : UserService
-  ) {}
-
-
-  ngOnInit() {
-   
-    
+    private userService : UserService,
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private presentLoader:PresentLoaderComponent,
+  ) {
+    const platform = Capacitor.getPlatform();
+      if(platform !== "web") {;
+        setTimeout(() => {
+          this.applyStyle();
+        }, 3000);
+      }else{
+        setTimeout(() => {
+          this.applyStyleWeb();
+        }, 3000);
+      }
   }
+
+  private applyStyle(): void {
+    const contentElement = this.el.nativeElement.querySelector('contentHeigth');
+    const maxHeight = window.innerHeight - 402
+    this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+  }
+
+  private applyStyleWeb(): void {
+    const contentElements = document.getElementsByClassName('contentHeigth') as HTMLCollectionOf<HTMLElement>;
+    // Verificar si hay elementos
+    if (contentElements.length > 0) {
+      // Obtener el primer elemento con la clase 'mainContent'
+      const contentElement = contentElements[0];
+      // Calcular la altura máxima
+      const maxHeight = window.innerHeight - 402;
+      
+      // Utilizar 'style' en el elemento específico
+      contentElement.style.height = `${maxHeight}px`;
+      contentElement.style.overflowY = 'scroll';
+    } else {
+      console.error('No se encontraron elementos con la clase "mainContent".');
+    }
+  }
+
+
+  ngOnInit() {}
 
   async ionViewWillEnter() {
     this.getInfo();
-    this.getHeigthInfo();
-  }
-
-  getHeigthInfo(){
-    this.infoService.getInfoData()
-    .then(data => {
-      if(data.height > 900){
-        this.contentHeigth = 'content-exchange-products1';
-      }
-      else if(data.height > 750){
-        this.contentHeigth = 'content-exchange-products3';
-      }
-      else if(data.height > 300){
-        this.contentHeigth = 'content-exchange-products2';
-      }
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos de la info:', error);
-    });
   }
 
   getCart() {
@@ -175,6 +192,7 @@ export class CartPage implements OnInit {
   }
 
   async createOrder(){
+    await this.presentLoader.showHandleLoading();
     const resultado = this.products.reduce((acumulador:any, producto:any) => {
       if (acumulador !== '') {
         acumulador += ',';
@@ -188,6 +206,8 @@ export class CartPage implements OnInit {
       instructions:'test',
       source:"mobile"
     }
+    console.log(payload);
+    
     const token = await this.getToken()
     this.requestUseCase
     .postOrder(
@@ -195,16 +215,17 @@ export class CartPage implements OnInit {
       payload
     )
     .subscribe(
-      (response) => {
-        if (response.success === true) {
+      async (response) => {
+        await this.presentLoader.hideHandleLoading();
+        if (response?.success === true) {
           this.cartService.setIdOrderCartData(response.data.id)
           this.router.navigate(['/home/tab3/cart-checkout'])
         }else{
-          this.errorAlert(response.message) 
+          this.errorAlert(response?.message) 
         }
       },
-      (error) => {
-      
+      async (error) => {
+        await this.presentLoader.hideHandleLoading();
         console.error('Ha ocurrido un error:', error);
       }
     );
