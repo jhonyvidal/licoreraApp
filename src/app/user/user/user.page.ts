@@ -156,6 +156,8 @@ export class UserPage implements OnInit {
           
           if (response?.data && response?.data?.cards) {
             this.paymentMethodsList = response.data.cards;
+            console.log(response.data.cards);
+            
           }
           
           if (this.paymentMethodsList?.length <= 0) {
