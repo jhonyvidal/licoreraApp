@@ -104,7 +104,7 @@ export class NewAddressPage implements OnInit {
           console.log(response)
         }
       });
-    }, 3000);
+    }, 600);
   }
 
   clickAdress(address:any){
@@ -133,6 +133,14 @@ export class NewAddressPage implements OnInit {
   }
 
   goToMap(){
+    const newAddress = {
+      coords:{
+        latitude:7.068565,
+        longitude:-73.1070059
+      },
+      addressInput: '3V9W+C6G Floridablanca, Santander' 
+    }
+    this.shareObjectService.setObjetoCompartido(newAddress);
     this.navigating = true;
     setTimeout(() => {
       this.router.navigate(['/new-address/new-address-map'])
@@ -157,7 +165,9 @@ export class NewAddressPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate([this.fromAddress]);
+    if(this.fromAddress){
+      this.router.navigate([this.fromAddress]);
+    }
   }
 
 }

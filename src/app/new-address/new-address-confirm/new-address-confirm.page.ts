@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { ObserveObjectService } from 'src/shared/services/observeObject';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { Address, cartModel } from 'src/store/models/cart.model';
 import { CartService } from 'src/store/services/cart.service';
@@ -18,23 +19,28 @@ import { UserService } from 'src/store/services/user.service';
 export class NewAddressConfirmPage implements OnInit {
   myForm: FormGroup;
   data:any;
+  isCheckboxChecked:boolean = false;
   constructor( private router: Router, 
     public formBuilder: FormBuilder,
     public shareObjectService:ShareObjectService,
     private requestUseCase: RequestUseCases,
     private userService:UserService,
     private alertController: AlertController,
-    private cartService:CartService
+    private cartService:CartService,
+    private observeObjectService:ObserveObjectService
     ) {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
+      addressName:['', []],
       addressDetail:['', [Validators.required,]],
       condition:[]
     });
    }
 
   ngOnInit() {
-    
+    this.myForm.get('condition')?.valueChanges.subscribe(value => {
+      this.isCheckboxChecked = value;
+    });
   }
 
   ionViewWillEnter() {
@@ -45,16 +51,17 @@ export class NewAddressConfirmPage implements OnInit {
   }
 
   async submit(){
-    const token = await this.getToken()
-    const data:CreateLocationRequest = {
-      address:this.myForm.get('addressInput')?.value,
-      name:'ejemplo',
-      latitude:this.data.latitude,
-      longitude:this.data.longitude,
-      detail:this.myForm.get('addressDetail')?.value,
-      favorite:false
-    }
-    this.requestUseCase.postLocations(token,data)
+    if(this.isCheckboxChecked){
+      const token = await this.getToken()
+      const data:CreateLocationRequest = {
+        address:this.myForm.get('addressInput')?.value,
+        name:this.myForm.get('addressName')?.value,
+        latitude:this.data.latitude,
+        longitude:this.data.longitude,
+        detail:this.myForm.get('addressDetail')?.value,
+        favorite:false
+      }
+      this.requestUseCase.postLocations(token,data)
       .subscribe((response) => {
         if (response.success === true) {
           this.showAlertSuccess();
@@ -65,6 +72,9 @@ export class NewAddressConfirmPage implements OnInit {
           console.log(response)
         }
       });
+    }else{
+      this.showAlertSuccess();
+    }
   }
 
   getToken() {
@@ -111,8 +121,9 @@ export class NewAddressConfirmPage implements OnInit {
       details:this.myForm.get('addressDetail')?.value,
     }
     this.cartService.setAddressCartData(address)
-    let datos = { mensaje: true };
-    this.router.navigate(['/home/tab3/cart-checkout',{ newAddress: datos.mensaje }]);
+    this.observeObjectService.setObjetoCompartido('isPaymentSelected')
+    //let datos = { mensaje: true };
+    this.router.navigate(['/home/tab3/cart-checkout']);
   }
 
 }

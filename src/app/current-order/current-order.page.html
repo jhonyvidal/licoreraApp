@@ -1,0 +1,100 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons class="toolbar-detail-container">
+      <!-- <ion-back-button>
+        <img class="delivery-icon" src="../../assets/icon/about-icon.svg" alt="back arrow">
+      </ion-back-button> -->
+      <ion-button (click)="goBack()">
+        <img src="../../assets/icon/backIcon.svg" alt="Back" />
+      </ion-button>
+      <div class="dev-logo-header">
+        <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+      </div>
+      <ion-button>
+       
+      </ion-button>
+    </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+<!-- CURRENT ORDER -->
+<ion-content [fullscreen]="true">
+  <div class="cart-container">
+    <h2 class="title-jotas">PEDIDO EN CURSO</h2>
+  </div>
+  <div [class]="contentHeigth">
+    <ion-content class="">
+        <ion-list class="list-container">
+          <div class="product-exchange-container" *ngFor="let item of currentOrder?.products; let index" style="height:110px">
+            <figure class="img-container">
+              <img [src]="item.store.product.image" alt="">
+            </figure>
+            <div class="info-exchange-container" style="padding: 20px 20px 15px 20px">
+              <div class="product-name-jotas-container">
+                <div class="name-container">
+                  <h2 class="Product-name-exchange" style="font-family: 'weblysleekuil';font-weight: 600;">{{item.store.product.name}}</h2>
+                </div>
+              </div>
+              <h4 class="disponible-exchange" style="font-family: 'weblysleekuil';margin-top: 5px; font-weight: 300;">Presentación: {{item.store.presentation}}</h4>
+              <h4 class="disponible-exchange" style="font-family: 'weblysleekuil';font-weight: 600;">Cantidad: {{item.quantity}}</h4>
+            </div>
+            <div class="Btns-container">
+            <div>
+              <ion-grid class="p0" style="width: 80px;margin-top: -60px;">
+                <ion-row style="margin-top: 0px;">
+                  <ion-col>
+                    <h2 class="Price-now"><span class="Now"></span>{{item.price  | customCurrency :'.':'$ '}}</h2>
+                  </ion-col>
+                </ion-row>
+              </ion-grid> 
+            </div>
+            </div>
+            <!-- <div class="closeIcon">
+              <img width="15" height="15"  (click)="deleteProduct(item)"  src="../../assets/icon/Vector.svg" alt="">
+            </div> -->
+          </div>
+        </ion-list>
+    </ion-content>
+  </div>
+
+  <ion-footer>
+    <p class="customeCurrentText">Obtienes por tu compra {{currentOrder.earned_points}} J</p>
+    <div>
+      <div class="card">
+        <ion-grid class="p0" style="margin-top: -70px;">
+          <ion-row style="background:none;">
+            <ion-col size="6" class="heightCustom">
+              <h4 class="subtotal customCurrentSubtotal" style="">SUBTOTAL:</h4>
+            </ion-col>
+            <ion-col size="6"  class="heightCustom " style="text-align: right;">
+              <h4 class="paySubTotal customCurrentSubtotal">{{currentOrder.amount | customCurrency :'.':'$ '}}</h4>
+            </ion-col>
+            <ion-col size="6">
+              <h4 class="subtotal customCurrentSubtotal">DOMICILIO:</h4>
+            </ion-col>
+            <ion-col size="6" style="text-align: right;">
+              <h4 class="paySubTotal customCurrentSubtotal">{{currentOrder.delivery_value | customCurrency :'.':'$ ' }}</h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <p class="line"></p>
+        <ion-grid class="p0">
+          <ion-row>
+            <ion-col>
+              <h4>Total:</h4>
+            </ion-col>
+            <ion-col>
+              <h4 class="payTotal">{{currentOrder.total | customCurrency :'.':'$ '}}</h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <p class="text">
+          Domicilio gratis por compras mayores a $ {{minimumOrderAmount}} IVA incluido.
+        </p>
+        <ion-button   class="buttonSubmitCurrent" (click)="cancelAlert()"
+          ><span style="margin-top: -5px" >CANCELAR PEDIDO</span></ion-button
+        >
+      </div>
+    </div>
+  </ion-footer>
+</ion-content>

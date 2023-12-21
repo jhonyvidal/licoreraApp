@@ -353,4 +353,8 @@ export class UserPage implements OnInit {
     );
   }
 
+  goToOrders(){
+    this.router.navigate(['/recent-orders']);
+  }
+
 }

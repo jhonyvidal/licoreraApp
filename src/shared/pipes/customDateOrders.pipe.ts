@@ -9,6 +9,7 @@ export class CustomDateOrders implements PipeTransform {
   }
 }
 function convertirFormatoFecha(cadenaFecha:string) {
+  
   // Parsear la cadena de fecha
   const fecha = new Date(cadenaFecha);
 
@@ -17,12 +18,12 @@ function convertirFormatoFecha(cadenaFecha:string) {
   const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
   // Obtener información de la fecha
-  const diaSemana = diasSemana[fecha.getUTCDay()];
-  const dia = fecha.getUTCDate();
-  const mes = meses[fecha.getUTCMonth()];
-  const año = fecha.getUTCFullYear();
-  let horas = fecha.getUTCHours();
-  const minutos = fecha.getUTCMinutes();
+  const diaSemana = diasSemana[fecha.getDay()];
+  const dia = fecha.getDate();
+  const mes = meses[fecha.getMonth()];
+  const año = fecha.getFullYear();
+  let horas = fecha.getHours();
+  const minutos = fecha.getMinutes();
   const ampm = horas >= 12 ? 'pm' : 'am';
 
   // Ajustar el formato de las horas (formato de 12 horas)

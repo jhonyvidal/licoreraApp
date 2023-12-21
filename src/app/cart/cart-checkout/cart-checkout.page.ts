@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { Subscription } from 'rxjs';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { phoneMask } from 'src/shared/mask/mask';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
@@ -35,6 +36,7 @@ export class CartCheckoutPage implements OnInit {
   delivery:number = 0;
   orderId:number;
   total:number = 0;
+  transaction:number=0;
   points: number | undefined = 0;
   products:any;
   paymentMethod: any = null;
@@ -50,7 +52,10 @@ export class CartCheckoutPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private infoService:InfoService,
-    private observeObjectService:ObserveObjectService
+    private observeObjectService:ObserveObjectService,
+    private presentLoader:PresentLoaderComponent,
+    private el: ElementRef,
+    private renderer: Renderer2
     ) {
     this.myForm = this.formBuilder.group({
       location: ['', []],
@@ -74,13 +79,26 @@ export class CartCheckoutPage implements OnInit {
       });
     }
     this.subscription = this.observeObjectService.shareObject$.subscribe(data => {
-      this.paymentType = data;
-      this.myForm.get('paymentMethod')?.setValue(data)
+      if(data === "isPaymentSelected"){
+        setTimeout(() => {
+          this.getCart();
+        }, 600);
+      }else{
+        this.paymentType = data;
+        this.myForm.get('paymentMethod')?.setValue(data)
+      }
     });
   }
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
   
   ngOnInit() {
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      setTimeout(() => {
+        this.applyStyle();
+      }, 3000);
+    }
+    
     this.getInfo();
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
@@ -100,6 +118,13 @@ export class CartCheckoutPage implements OnInit {
   ionViewWillEnter() {
     this.getLocations();
     this.getCart();
+  }
+
+  private applyStyle(): void {
+    const contentElement = this.el.nativeElement.querySelector('content-form');
+    const maxHeight = window.innerHeight - 444
+    this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
   }
 
   classValid() {
@@ -193,12 +218,13 @@ export class CartCheckoutPage implements OnInit {
         if(data.idOrder){
           this.orderId = data.idOrder
         }
-        if(data?.address){
+        if(data?.address){     
           this.myForm.get('address')?.setValue(data?.address?.address)
           this.myForm.get('addressDetail')?.setValue(data?.address?.details)
         }
         if(data?.payment){
           this.paymentType = data?.payment?.type
+          this.transaction = data?.payment?.reference
           this.myForm.get('paymentMethod')?.setValue(this.paymentType)
         }
         if(data.details && data.details?.length > 0){
@@ -297,19 +323,20 @@ export class CartCheckoutPage implements OnInit {
   }
 
   async submit(){
+    await this.presentLoader.showHandleLoading();
     const payload = {
       latitude:this.address.latitude,
       longitude:this.address.longitude,
       address:this.address.address,
       addressDetails:this.address.details,
-      paymentMethod:'Efectivo',
-      pay_method:'Efectivo',
+      paymentMethod:this.myForm.get('paymentMethod')?.value,
+      pay_method:this.myForm.get('paymentMethod')?.value,
       amount:this.total,
       phone:this.myForm.get('contact')?.value,
       discountCode:this.myForm.get('disccount')?.value,
-      instructions:'test',
+      instructions:'',
       description:'',
-      transactionId:''
+      transactionId:this.transaction || ''
     }
     const token = await this.getToken()
     this.requestUseCase
@@ -319,9 +346,10 @@ export class CartCheckoutPage implements OnInit {
       payload,
     )
     .subscribe(
-      (response) => {
+      async (response) => {
         if (response.success === true) {
           console.log('success', response);
+          await this.presentLoader.hideHandleLoading();
           this.showAlertSuccess();
         } else {
           if(response.message.includes('El producto')){
@@ -341,7 +369,11 @@ export class CartCheckoutPage implements OnInit {
 
   goHome(){
     this.cartService.deleteCompleteCart();
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/tab3']).then(() => {
+      this.router.navigate(['/home'])
+      location.reload();
+    })
+    ;
   }
 
 }

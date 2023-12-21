@@ -6,10 +6,12 @@ import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { UserService } from 'src/store/services/user.service';
 import { CartService } from 'src/store/services/cart.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonModal } from '@ionic/angular';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-payment-methods',
@@ -26,7 +28,8 @@ export class PaymentMethodsPage implements OnInit {
     private userService:UserService,
     private cartService: CartService,
     private sanitizer: DomSanitizer,
-    private observeObjectService:ObserveObjectService
+    private observeObjectService:ObserveObjectService,
+    private presentLoader: PresentLoaderComponent
     ) {
     this.myForm = this.formBuilder.group({
       names: ['', [Validators.required, ]],
@@ -74,7 +77,7 @@ export class PaymentMethodsPage implements OnInit {
   paymentsEmpty: boolean = false;
   isIframeReady:boolean = false;
   urlIframe:SafeResourceUrl = 'https://www.ejemplo.com';
-
+  @ViewChild(IonModal) modal: IonModal;
 
   readonly options: MaskitoOptions = {
     mask: /^\d{0,3}$/,
@@ -119,6 +122,30 @@ export class PaymentMethodsPage implements OnInit {
     this.getPaymentMethods();
   }
 
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name: string;
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  formatCreditCardNumber(input: string): string {
+    let inputFormated:string = '';
+    for (let i = 0; i < input.length; i++) {
+      if(i === 3 || i === 7 || i === 11 ){
+        inputFormated = inputFormated +' ' + input[i]
+      }else{
+        inputFormated = inputFormated + input[i]
+      }
+    }
+    return inputFormated;
+  }
+
+
   goBack(): void {
     this.location.back();
   }
@@ -140,6 +167,9 @@ export class PaymentMethodsPage implements OnInit {
         if (response.success === true) {
           
           if (response?.data && response?.data?.cards) {
+            for(var i=0;i<response.data.cards.length; i++){
+              response.data.cards[i].mask = this.formatCreditCardNumber(response.data.cards[i].mask)
+            }
             this.paymentMethodsList = response.data.cards;
           }
           
@@ -237,6 +267,51 @@ export class PaymentMethodsPage implements OnInit {
 
   }
 
+  async payCard(){
+    const dynamicContent = `
+    <p class="alertSubtitle">¿A cuántas cuotas quieres diferir tu pago?</p></br>`;
+
+    const alert = await this.alertController.create({
+      message: dynamicContent,
+      backdropDismiss: false,
+      inputs:[
+        {
+          name:'dues',
+          placeholder: 'Número de cuotas',
+          attributes: {
+            maxlength: 8,
+          },
+        },
+      ],
+      buttons: [
+        {
+          text: 'ACEPTAR',
+          role: 'accept',
+          cssClass: 'alertButtonExchange',
+          handler: (data) => {
+            if (data.dues) {
+              const enteredDues = data.dues;
+              this.createCreditPaymentMethodComplete(enteredDues);
+            } else {
+              // Handle form validation errors if needed
+              console.log('Formulario no válido');
+            }
+          }
+        },
+        {
+          text: 'CANCELAR',
+          role: 'cancel',
+          cssClass: 'alertButtonExchange',
+          handler: () => {
+            this.closeAlert();
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+  }
+
   async closeAlert() {
     const modal = await this.alertController.getTop();
     if (modal) {
@@ -245,19 +320,26 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   async createCreditPaymentMethod(cardtoken:string,dues:number){
-    const total = await this.cartService
+    await this.presentLoader.showHandleLoading();
+    const reponse = await this.cartService
       .getCartData()
       .then((data) => {
-         return data.total
+        return {
+          total:data.total,
+          idOrder:data.idOrder
+        }
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
-        return 0;
+        return {
+          total:0,
+          idOrder:0
+        }
       });
 
     const data = {
-      value: total,
-      orderId:"33",
+      value: reponse.total  ,
+      orderId: reponse.idOrder,
       cardNumber:"",
       cardExpYear:"",
       cardExpMonth:"",
@@ -266,12 +348,69 @@ export class PaymentMethodsPage implements OnInit {
       _cardTokenId:cardtoken
     }
     const token = await this.getToken()
-    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(response => {
+    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(async response => {
       if (response.success === true) {
-        response.data.ref_payco
-        response.data.cod_respuesta
-        response.data.estado
-        response.data.respuesta
+        const payment = {
+          type:"Credit Card",
+          reference: response.data.ref_payco,
+          status:response.data.estado,
+          code: response.data.cod_respuesta,
+          response: response.data.respuesta
+        }
+        this.cartService.setPaymentCartData(payment)
+        this.observeObjectService.setObjetoCompartido("Credit Card")
+        await this.presentLoader.hideHandleLoading();
+        this.showAlertSuccess();
+      } else {
+        console.log('Body del error response: ', response);
+      }
+    })
+  }
+
+  async createCreditPaymentMethodComplete(dues:number){
+    await this.presentLoader.showHandleLoading();
+    const reponse = await this.cartService
+      .getCartData()
+      .then((data) => {
+        return {
+          total:data.total,
+          idOrder:data.idOrder
+        }
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos del cart:', error);
+        return {
+          total:0,
+          idOrder:0
+        }
+      });
+
+    const cardNumber = this.mySecondFormCreditCard.get('number')?.value.replaceAll(" ","");
+
+    const data = {
+      value: reponse.total,
+      orderId: reponse.idOrder,
+      cardNumber: cardNumber,
+      cardExpYear:this.mySecondFormCreditCard.get('expirationDate')?.value.split("/")[1],
+      cardExpMonth:this.mySecondFormCreditCard.get('expirationDate')?.value.split("/")[0],
+      cardCvc:this.mySecondFormCreditCard.get('cvv')?.value,
+      dues:dues,
+      _cardTokenId:""
+    }
+
+    const token = await this.getToken()
+    this.requestUseCase. postPaymentCreditCard(token, data).subscribe(async response => {
+      if (response.success === true) {
+        const payment = {
+          type:"Credit Card",
+          reference: response.data.ref_payco,
+          status:response.data.estado,
+          code: response.data.cod_respuesta,
+          response: response.data.respuesta
+        }
+        this.cartService.setPaymentCartData(payment)
+        this.observeObjectService.setObjetoCompartido("Credit Card")
+        await this.presentLoader.hideHandleLoading();
         this.showAlertSuccess();
       } else {
         console.log('Body del error response: ', response);
@@ -281,18 +420,24 @@ export class PaymentMethodsPage implements OnInit {
 
   async createPsePayment(){
 
-    const total = await this.cartService
+    const reponse = await this.cartService
     .getCartData()
     .then((data) => {
-       return data.total
+      return {
+        total:data.total,
+        idOrder:data.idOrder
+      }
     })
     .catch((error) => {
       console.error('Error al obtener los datos del cart:', error);
-      return 0;
+      return {
+        total:0,
+        idOrder:0
+      }
     });
     const data = {
-      value: total,
-      order_id:"35",
+      value: reponse.total,
+      order_id: reponse.idOrder,
       bank:this.myForm.get('bankSelect')?.value,
       doc_type: this.myForm.get('documentType')?.value,
       doc_number:"123456",

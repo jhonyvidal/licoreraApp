@@ -43,7 +43,7 @@
   </ion-list>
   <div class="invoice-container">
     <div class="points-earned">
-      <h2>Obtuviste por tu compra {{Order?.points}} J</h2>
+      <h2>Obtuviste por tu compra {{Order?.earned_points}} J</h2>
     </div>
     <div class="invoice-resume-container">
       <div class="invoice-resume">
@@ -54,7 +54,8 @@
           </div>
           <div class="subtotal-domicilio">
             <h2 class="invoice-resume-header-text">domicilio:</h2>
-            <h2 class="invoice-resume-header-text">{{Order?.delivery_value | customCurrency :'.':'$ '}}</h2>
+            <h2 class="invoice-resume-header-text" *ngIf="Order?.delivery_value">{{Order?.delivery_value | customCurrency :'.':'$ ' || 0}}</h2>
+            <h2 class="invoice-resume-header-text" *ngIf="!Order?.delivery_value">{{ 0 | customCurrency :'.':'$ ' || 0}}</h2>
           </div>
         </div>
         <hr>
@@ -63,9 +64,9 @@
             <h2>Total:</h2>
             <h2>{{Order?.total | customCurrency :'.':'$ '}}</h2>
           </div>
-          <p>Domicilio gratis por compras mayores a $ %@ IVA incluido.</p>
+          <p>Domicilio gratis por compras mayores a $ {{minimumOrderAmount}} IVA incluido.</p>
           <div class="btn-container">
-            <ion-button>Agregar de nuevo</ion-button>
+            <ion-button (click)="setCart()">Agregar de nuevo</ion-button>
           </div>
         </div>
       </div>

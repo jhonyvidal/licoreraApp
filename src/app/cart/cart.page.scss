@@ -48,27 +48,10 @@
     color: #000000;
     text-align: center;
   }
-
-  .content-exchange-products1 {
-    width: 100%;
-    height: 56vh;
-    overflow: auto;
+  .contentHeigth{
+    height: 70%;
     --ion-background-color: #ECECEC;
   }
-  .content-exchange-products2 {
-    width: 100%;
-    height: 42vh;
-    overflow: auto;
-    --ion-background-color: #ECECEC;
-  }
-
-  .content-exchange-products3 {
-    width: 100%;
-    height: 55vh;
-    overflow: auto;
-    --ion-background-color: #ECECEC;
-  }
-  
   .list-container {
     margin: 0;
     padding: 20px 20px 0 20px;
@@ -147,4 +130,8 @@
   
   .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .product-jotas {
     margin: 0 0 auto 0;
+  }
+  .line{
+    border-bottom: 1px solid #4F4F4F;
+    margin-bottom: -10px;
   }

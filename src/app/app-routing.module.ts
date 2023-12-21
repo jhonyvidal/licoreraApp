@@ -56,10 +56,6 @@ const routes: Routes = [
     loadChildren: () => import('./suggestions/suggestions/suggestions.module').then( m => m.SeggestionsPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },
-  {
     path: 'user',
     loadChildren: () => import('./user/user/user.module').then( m => m.UserPageModule)
   },
@@ -82,10 +78,19 @@ const routes: Routes = [
   {
     path: 'payment-methods',
     loadChildren: () => import('./payment-methods/payment-methods.module').then( m => m.PaymentMethodsPageModule)
+  },
+  {
+    path: 'current-order',
+    loadChildren: () => import('./current-order/current-order.module').then( m => m.CurrentOrderPageModule)
+  },
+  {
+    path: 'exchange-history',
+    loadChildren: () => import('./exchange-history/exchange-history.module').then( m => m.ExchangeHistoyrPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
   }
-
-
-
 
 ];
 @NgModule({

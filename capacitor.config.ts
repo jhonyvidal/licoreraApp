@@ -10,9 +10,9 @@ const config: CapacitorConfig = {
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 3000,
+      launchShowDuration: 1000,
       launchAutoHide: true,
-      launchFadeOutDuration: 3000,
+      launchFadeOutDuration: 1000,
       // backgroundColor: "#ffffffff",
       androidSplashResourceName: "splash",
       // androidScaleType: "CENTER_CROP",
@@ -24,6 +24,9 @@ const config: CapacitorConfig = {
       splashImmersive: true,
       // layoutName: "launch_screen",
       // useDialog: true,
+    },
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
     },
     FirebaseAuthentication: {
       skipNativeAuth: false,
@@ -41,7 +44,7 @@ const config: CapacitorConfig = {
       FadeSplashScreenDuration: '300',
       SplashShowOnlyFirstTime: 'false',
       SplashScreen: 'screen',
-      SplashScreenDelay: '3000'
+      SplashScreenDelay: '1000'
     }
   }
 };

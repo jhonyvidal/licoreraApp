@@ -50,6 +50,9 @@ export class CreateAccountPage implements OnInit {
     ) {
       const platform = Capacitor.getPlatform();
       if(platform !== "web") {
+        setTimeout(() => {
+          this.applyStyle();
+        }, 500);
         Keyboard.addListener('keyboardWillShow', (info) => {
           this.ngZone.run(() => {
             this.applyKeyboardStyle(info.keyboardHeight);
@@ -80,6 +83,13 @@ export class CreateAccountPage implements OnInit {
       const contentElement = this.el.nativeElement.querySelector('contentFormLarge');
       const maxHeight = window.innerHeight - keyboardHeight;
       this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+      this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+    }
+
+    private applyStyle(): void {
+      const contentElement = this.el.nativeElement.querySelector('contentFormLarge');
+      const maxHeight = window.innerHeight - 105;
+      this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
       this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
     }
     
