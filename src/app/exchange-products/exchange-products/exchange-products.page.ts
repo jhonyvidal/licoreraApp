@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
@@ -26,6 +27,7 @@ export class ExchangeProductsPage implements OnInit {
   productImage: string | undefined;
   userPoint:number;
   isSuccess:boolean = false;
+  api_token:string = '';
 
   constructor(
     private requestUseCase: RequestUseCases,
@@ -34,6 +36,7 @@ export class ExchangeProductsPage implements OnInit {
     private shareObjectService:ShareObjectService,
     private CartModelPipe: CartModelPipe,
     private cartService: CartService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -46,20 +49,34 @@ export class ExchangeProductsPage implements OnInit {
     this.productName = productDetail.product.name;
     this.productImage = productDetail.product.image;
     this.getUser();
+    this.getApiToken();
   }
 
   canjear(){
+
+      if (this.api_token !== '') {
+        this.puedeCanjear =this.userPoint  >= this.points ? true : false;
     
-    this.puedeCanjear =this.userPoint  >= this.points  ? true : false;
+        if (this.puedeCanjear) {
+          this.showAlertSuccess();
+        }else{
+          this.showAlertBad();
+        }
+      }else{
+        this.router.navigate(['/sign-in']);
+      }
 
-    console.log('puede canjear: ',this.puedeCanjear);
-    console.log('Points: ', this.points);
+  }
 
-    if (this.puedeCanjear) {
-      this.showAlertSuccess();
-    }else{
-      this.showAlertBad();
-    }
+  getApiToken(){
+    this.userService.getUserData()
+    .then(data => {
+
+      if (data.api_token) {
+        this.api_token = data.api_token;
+      }
+
+    })
   }
 
   async showAlertBad() {
@@ -93,7 +110,7 @@ export class ExchangeProductsPage implements OnInit {
     });
   }
 
-  setCart(){
+  async setCart(){
     let shareProduct = this.shareObjectService.getObjetoCompartido();
 
     if(shareProduct?.product.store){
@@ -102,23 +119,6 @@ export class ExchangeProductsPage implements OnInit {
     const quantity = {
       quantitySelected: this.quantity,
     };
-    // id: number;
-    // product_id: number;
-    // quantity: number;
-    // quantitySelected?:number
-    // price: number;
-    // status: boolean;
-    // start_date: string | null;
-    // end_date: string | null;
-    // store_type: number;
-    // points: number | null;
-    // created_at: string;
-    // updated_at: string;
-    // deleted_at: string | null;
-    // ranking: number;
-    // recommended: boolean;
-    // product: Product;
-    
     const productDetail:cartModel = {
       ...shareProduct,
       ...quantity,

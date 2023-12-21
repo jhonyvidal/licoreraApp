@@ -69,7 +69,8 @@
             </ng-template>
             <p class="product-description-searched">{{item.product.description.slice(0,80)}}...</p>
             <div class="product-price-container" *ngIf="item.store_type !== 2">
-              <p class="presentation">Presentación: {{item.product.name.split(' ')[item.product.name.split(' ').length - 2]}} ml</p>
+              <!-- <p class="presentation">Presentación: {{item.product.name.split(' ')[item.product.name.split(' ').length - 2]}} ml hola</p> -->
+              <p class="presentation">Presentación: {{item.presentation}}</p>
               <h2 class="Product-price-searched">{{item.price | customCurrency :'.':'$ '}}</h2>
             </div>
           </div>
