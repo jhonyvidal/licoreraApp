@@ -12,6 +12,7 @@ import { CartService } from 'src/store/services/cart.service';
 import { PushNotification, PushNotificationActionPerformed, PushNotificationToken, PushNotifications } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 import { AlertNotifications } from 'src/shared/components/alert.notifications';
+import { ShareObjectService } from 'src/shared/services/shareObject';
 // import { StarRatingComponent } from '../../shared/components/StarRatingComponent'; 
 
 @Component({
@@ -26,8 +27,10 @@ export class HomePage {
     private userService: UserService,
     private cartService:CartService,
     private infoService: InfoService,
-    private menuController: MenuController) {
-     
+    private menuController: MenuController,
+    private shareObjectService:ShareObjectService
+    ) {
+   
     }
 
   selectedTab: string = 'tab1';
@@ -46,6 +49,12 @@ export class HomePage {
     }
     //this.showSuccessAlert('Tu pedido ya fue entregado. Por favor califica nuestro servicio.')
     //this.showInformationAlert('Tu pedido ha sido cancelado. Te invitamos a seguir comprando para que acumules puntos.')
+  }
+
+  ionViewDidEnter(){
+    if( this.shareObjectService.getObjetoCompartido() === 'tab3'){
+      this.selectedTab = 'tab3';
+    }
   }
 
   async createNotificationPush(){

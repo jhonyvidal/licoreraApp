@@ -12,6 +12,7 @@ import { dateMask, phoneMask } from 'src/shared/mask/mask';
 import { InfoService } from 'src/store/services/info.service';
 import { Keyboard } from '@capacitor/keyboard';
 import { Capacitor } from '@capacitor/core';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 
 @Component({
   selector: 'app-create-account',
@@ -46,7 +47,8 @@ export class CreateAccountPage implements OnInit {
     private infoService: InfoService,
     private ngZone: NgZone,
     private el: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private presentLoader:PresentLoaderComponent,
     ) {
       const platform = Capacitor.getPlatform();
       if(platform !== "web") {
@@ -138,27 +140,28 @@ export class CreateAccountPage implements OnInit {
     return `${day}/${month}/${year}`; // Construir la fecha en formato DD/MM/AAAA
   }
 
-  async showAlertError() {
+  async showAlertError(data:string) {
     await presentAlert(
       this.alertController,
       'INFORMACIÓN',
-      'Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.',
+      data,
       '/assets/img/warning.svg'
     );
   }
 
-  async showAlertSuccess() {
+  async showAlertSuccess(data:any, refreshToken:string) {
     await presentAlert(
       this.alertController,
       '¡FELICITACIONES!',
       'Tu cuenta se ha creado exitosamente. Ahora puedes empezar a hacer pedidos y acumular puntos.',
       '/assets/img/checkGreen.svg',
       '',
-      () => this.goBack()
+      () => this.goHome(data,refreshToken)
     );
   }
 
   async submit() {
+    await this.presentLoader.showHandleLoading();
     const data: CreateAccountRequest={
       id:  this.myForm.get('document')?.value,
       name: this.myForm.get('name')?.value,
@@ -181,25 +184,36 @@ export class CreateAccountPage implements OnInit {
           'token',
           data
         )
-        .subscribe((response) => {
+        .subscribe(async (response) => {
+          await this.presentLoader.hideHandleLoading();
           if (response.success === true) {
             if(response.data === null){
-              this.showAlertError()
+                this.showAlertError('Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.')
             }else{
-              this.showAlertSuccess();
+              this.showAlertSuccess(response.data, response.data.refresh_token);
               // this.router.navigate(['/home']);
             }
             console.log(response);
           } else {
-            this.showAlertError()
+            if(response.message){
+              this.showAlertError(response.message)
+            }else{
+              this.showAlertError('Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.')
+            }
             console.log(response);
           }
         });
       }
-     
     })
     .catch(async (err)=>{
-      this.showAlertError()
+      await this.presentLoader.hideHandleLoading();
+      if (err.code === 'auth/email-already-in-use') {
+        this.showAlertError('El Correo ya existe, intenta usar uno nuevo.');
+      } else {
+        this.showAlertError(
+          'Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.'
+        );
+      }
     }) 
     
   }
@@ -224,5 +238,10 @@ export class CreateAccountPage implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/sign-in']);
+  }
+
+  goHome(data:any, refreshToken:string):void{
+    this.userService.login(data, refreshToken)
+    this.router.navigate(['/home']);
   }
 }

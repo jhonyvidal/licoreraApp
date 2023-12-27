@@ -182,7 +182,9 @@ ion-radio::part(mark) {
     justify-content: center;
     align-items: center;
   }
-  
+  .form-payment-container{
+    margin-bottom: 20px;
+  }
   ion-content .safe-paymnet-container p{
     margin: 0 0 0 10px;
     padding: 0;

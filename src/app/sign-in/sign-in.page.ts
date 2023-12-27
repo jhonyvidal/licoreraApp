@@ -10,6 +10,7 @@ import { DialogService, FirebaseAuthenticationService } from '../core';
 import { User } from '@capacitor-firebase/authentication';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { catchError, throwError } from 'rxjs';
+import { SignInObjectService } from 'src/shared/services/signInObject';
 
 @Component({
   selector: 'app-sign-in',
@@ -34,7 +35,8 @@ export class SignInPage implements OnInit {
     private router: Router,
     private userService: UserService,
     private readonly dialogService: DialogService,
-    private readonly firebaseAuthenticationService: FirebaseAuthenticationService
+    private readonly firebaseAuthenticationService: FirebaseAuthenticationService,
+    private signInObjectService:SignInObjectService
   ) {
     this.myForm = this.formBuilder.group({
       password: ['', [Validators.required]],
@@ -203,6 +205,11 @@ export class SignInPage implements OnInit {
   togglePasswordFieldType() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     this.iconShowPassword = this.iconShowPassword === '../../assets/icon/show-password.svg' ? '../../assets/icon/hide-password.svg':'../../assets/icon/show-password.svg'
+  }
+
+  goBack(): void {
+    const backRouter = this.signInObjectService.getObjetoCompartido()
+    this.router.navigate([backRouter]);
   }
 
 }

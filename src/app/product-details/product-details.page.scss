@@ -76,7 +76,7 @@ ion-content .product-img-container .promotion-container h4{
 .sectionWithBg {
     padding: 20px 20px 0 20px;
     width: 100%;
-    height: auto;
+    height: 350px;
     /* display: flex;*/
     flex-direction: column;
     justify-content: space-around;
@@ -246,11 +246,14 @@ ion-footer .Toolbar-footer-Promotion{
   font-size: 36px;
 }
 .imgPromotion{
-  position: fixed;
-  right: -75px;
-  top: 100px;
-  z-index: 2;
+  // position: fixed;
+  // right: -75px;
+  // top: 100px;
+  // z-index: 2;
+  // max-width: 420px;
   max-width: 420px;
+  margin-right: -150px;
+  margin-top: 150px;
 }
 .DesPromotion{
   font-size: 26px;

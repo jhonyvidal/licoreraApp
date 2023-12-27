@@ -10,6 +10,7 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { phoneMask } from 'src/shared/mask/mask';
+import { AddressObjectService } from 'src/shared/services/addressObject';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
 import { Address, cartModel } from 'src/store/models/cart.model';
 import { CartService } from 'src/store/services/cart.service';
@@ -55,7 +56,8 @@ export class CartCheckoutPage implements OnInit {
     private observeObjectService:ObserveObjectService,
     private presentLoader:PresentLoaderComponent,
     private el: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private addressObjectService:AddressObjectService
     ) {
     this.myForm = this.formBuilder.group({
       location: ['', []],
@@ -137,7 +139,7 @@ export class CartCheckoutPage implements OnInit {
 
   sendTo(router:string){
     if(router === "new-address"){
-      this.cartService.setFromAddres('home/tab3/cart-checkout')
+      const address = this.addressObjectService.setObjetoCompartido('/home/tab3/cart-checkout')
     }
     this.router.navigate([router])
   }
@@ -153,9 +155,12 @@ export class CartCheckoutPage implements OnInit {
     .subscribe((response) => {
       console.log(response);
       if (response?.data?.length > 0) {
-        this.showAlertCode()
+        this.showAlertCode(response.data[0].discount)
       } else {
-        this.showAlertError('EL codigo no es valido.')
+        this.showAlertError(
+          'El código que ingresaste no es válido. Revísalo e intenta nuevamente.',
+          'LO SENTIMOS',
+          '/assets/img/warningWithX.svg')
       }
     });
     
@@ -279,12 +284,14 @@ export class CartCheckoutPage implements OnInit {
     return response;
   }
 
-  async showAlertError(message:string) {
+  async showAlertError(message:string, title?:string, img?:string) {
+    title !== undefined ? null : title =  'INFORMACIÓN';
+    img !== undefined ? null : img =  '/assets/img/warning.svg';
     await presentAlert(
       this.alertController,
-      'INFORMACIÓN',
-       message,
-      '/assets/img/warning.svg'
+      title,
+      message,
+      img
     );
   }
 
@@ -299,14 +306,13 @@ export class CartCheckoutPage implements OnInit {
     );
   }
 
-  async showAlertCode() {
+  async showAlertCode(discount:number) {
     await presentAlert(
       this.alertController,
-      'CÓDIGO VALIDO',
+      '¡FELICITACIONES!',
+      `Recibirás ${discount}% de descuento sobre tu pedido.`,
+      '/assets/img/checkGreen.svg',
       '',
-      '/assets/img/successCheckout.svg',
-      '',
-      
     );
   }
 
