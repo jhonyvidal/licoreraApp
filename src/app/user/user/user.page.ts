@@ -13,6 +13,8 @@ import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse'
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
 import { AddressObjectService } from 'src/shared/services/addressObject';
 import { SignInObjectService } from 'src/shared/services/signInObject';
+import { Keyboard } from '@capacitor/keyboard';
+import setPaddingKeyboard from 'src/shared/BTN_Color/paddingKeyboard';
 
 @Component({
   selector: 'app-user',
@@ -68,6 +70,18 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ionViewDidEnter() {
+    // Suscribirse al evento keyboardDidShow
+    Keyboard.addListener('keyboardDidShow', () => {
+      setPaddingKeyboard('400px');
+    });
+
+    // Suscribirse al evento keyboardDidHide
+    Keyboard.addListener('keyboardDidHide', () => {
+      setPaddingKeyboard('none');
+    });
   }
 
   ionViewWillEnter() {

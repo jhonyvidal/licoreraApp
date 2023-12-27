@@ -115,6 +115,7 @@ ion-content .user-profile-info-container .profile-numbers-data-container .vertic
   ion-content .user-profile-info-container .info-container {
     margin: 30px auto 0 auto;
     width: 90%;
+    padding-bottom: var(--keyboardPadding);
   }
   
   ion-content .user-profile-info-container .info-container .full-name-container {
