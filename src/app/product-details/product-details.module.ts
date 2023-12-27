@@ -19,7 +19,7 @@ import { successLottieComponent } from 'src/shared/components/animations/success
     IonicModule,
     ProductDetailsPageRoutingModule,
   ],
-  declarations: [ProductDetailsPage,successLottieComponent],
+  declarations: [ProductDetailsPage],
   providers:[CartModelPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

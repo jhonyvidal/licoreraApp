@@ -9,6 +9,7 @@ import { UserService } from 'src/store/services/user.service';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { Capacitor } from '@capacitor/core';
 import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
+import { SignInObjectService } from 'src/shared/services/signInObject';
 
 @Component({
   selector: 'app-cart',
@@ -24,6 +25,7 @@ export class CartPage implements OnInit {
   minimumOrderAmount: number = 0;
   minimumAmountForPoints : number = 0;
   btnAccept:boolean= false;
+  userPoints:number = 0;
 
   constructor(
     private requestUseCase: RequestUseCases,
@@ -35,34 +37,30 @@ export class CartPage implements OnInit {
     private el: ElementRef,
     private renderer: Renderer2,
     private presentLoader:PresentLoaderComponent,
+    private signInObjectService:SignInObjectService
   ) {
-    const platform = Capacitor.getPlatform();
-      if(platform !== "web") {;
-        setTimeout(() => {
-          this.applyStyle();
-        }, 500);
-      }else{
-        setTimeout(() => {
-          this.applyStyleWeb();
-        }, 500);
-      }
   }
 
   private applyStyle(): void {
-    const contentElement = this.el.nativeElement.querySelector('contentHeigth');
-    const maxHeight = window.innerHeight - 402
-    this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
-    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+    const contentElement = this.el.nativeElement.querySelector('.contentHeigth');
+  
+    if (contentElement) {
+      const maxHeight = window.innerHeight - 401
+      this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
+      this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+    } else {
+      console.error('Los elementos no fueron encontrados en el DOM.');
+    }
   }
 
   private applyStyleWeb(): void {
-    const contentElements = document.getElementsByClassName('contentHeigth') as HTMLCollectionOf<HTMLElement>;
+    const contentElements = document.getElementsByClassName('.contentHeigth') as HTMLCollectionOf<HTMLElement>;
     // Verificar si hay elementos
     if (contentElements.length > 0) {
       // Obtener el primer elemento con la clase 'mainContent'
       const contentElement = contentElements[0];
       // Calcular la altura máxima
-      const maxHeight = window.innerHeight - 402;
+      const maxHeight = window.innerHeight - 404;
       
       // Utilizar 'style' en el elemento específico
       contentElement.style.height = `${maxHeight}px`;
@@ -77,6 +75,35 @@ export class CartPage implements OnInit {
 
   async ionViewWillEnter() {
     this.getInfo();
+    this.getUserPoints();
+    this.signInObjectService.setObjetoCompartido("/home/tab3")
+  }
+  
+  async ionViewDidEnter(){
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {;
+      setTimeout(() => {
+        this.applyStyle();
+      }, 500);
+    }else{
+      setTimeout(() => {
+        this.applyStyleWeb();
+      }, 100);
+    }
+    console.log("windows Inner:",window.innerHeight);
+  }
+  
+  getUserPoints(){
+    const response = this.userService.getUserData()
+    .then(data => {
+      this.userPoints =  data?.points
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+      this.router.navigate(['/sign-in']);
+      return 'Error al obtener los datos del usuario'
+    });
+    return response;
   }
 
   getCart() {
@@ -126,9 +153,19 @@ export class CartPage implements OnInit {
   }
 
   addBtn(id:number) {
-    this.products.find((element:{id:number,quantitySelected:number}) => {
+    this.products.find((element:{id:number,quantitySelected:number,store_type?:number,points:number}) => {
       if(element.id === id){
-        element.quantitySelected += element.quantitySelected < 10 ? 1 : 0;
+        if(element?.store_type !== 1){
+          const totalpoints = element.points * (element.quantitySelected + 1);
+          if(this.userPoints < totalpoints){
+            this.PointAlert();
+            return;
+          }else{
+            element.quantitySelected += element.quantitySelected < 10 ? 1 : 0;
+          }
+        }else{
+          element.quantitySelected += element.quantitySelected < 10 ? 1 : 0;
+        }
       }
     })
     this.setTotal();
@@ -206,9 +243,11 @@ export class CartPage implements OnInit {
       instructions:'test',
       source:"mobile"
     }
-    console.log(payload);
     
     const token = await this.getToken()
+    if(!token){
+      this.router.navigate(['/sign-in'])
+    }
     this.requestUseCase
     .postOrder(
       token,
@@ -221,7 +260,21 @@ export class CartPage implements OnInit {
           this.cartService.setIdOrderCartData(response.data.id)
           this.router.navigate(['/home/tab3/cart-checkout'])
         }else{
-          this.errorAlert(response?.message) 
+          if(response.statusCode === 9){
+            const cadena = response.message.split(' ')[2]
+            const numero = parseInt(cadena);
+
+            const product = this.products.find((element:{id:number}) => {
+              if(element.id === numero){
+                return element
+              }else{
+                return null
+              }
+            })
+           this.errorAlert(product) 
+          }else{
+            this.genericErrorAlert(response.message)
+          }
         }
       },
       async (error) => {
@@ -231,17 +284,34 @@ export class CartPage implements OnInit {
     );
   }
 
-  async errorAlert(data:string) {
-    await presentAlert(
+  async errorAlert(item:any) {
+    await presentAlertExchange(
       this.alertController,
-      'INFORMACIÓN',
-       data,
-      '/assets/img/warning.svg',
-      '',
-      ()=>null,
-      'Logout'
+      item.product.name,
+      'Lo sentimos. Se nos agotó este producto. Cámbialo por otro para generar la orden.',
+      'exchange-products-success',
+      item.product.image,
+      () => null
     );
   }
 
+  async genericErrorAlert(data:string) {
+    await presentAlert(
+      this.alertController,
+      'LO SENTIMOS',
+      data,
+      '/assets/img/warning.svg'
+    );
+  }
+  
+
+  async PointAlert() {
+    await presentAlert(
+      this.alertController,
+      'LO SENTIMOS',
+      'No tienes suficientes puntos para este canje. Compra y acumula más puntos.',
+      '/assets/img/warning.svg'
+    );
+  }
 
 }

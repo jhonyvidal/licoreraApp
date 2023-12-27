@@ -34,6 +34,7 @@ export class ProductDetailsPage implements OnInit {
   price:number=0;
   section:string='sectionWithBg'
   features:[]=[];
+  isReadyDone:boolean=false;
   
   constructor(
     private alertController: AlertController,
@@ -49,6 +50,7 @@ export class ProductDetailsPage implements OnInit {
 
   ionViewWillEnter() {
     this.quantity = 1;
+    this.isReadyDone=false;
   }
 
   ngOnInit() {
@@ -100,6 +102,9 @@ export class ProductDetailsPage implements OnInit {
     } else {
       console.error('Los elementos no fueron encontrados en el DOM.');
     }
+    setTimeout(() => {
+      this.isReadyDone = true
+    }, 1000);
   }
 
   addBtn() {

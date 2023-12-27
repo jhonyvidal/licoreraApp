@@ -7,6 +7,7 @@ import { presentAlertExchange } from 'src/shared/components/alert.exchange.compo
 import { Product } from 'src/shared/domain/response/PromotionsData';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
 import { ShareObjectService } from 'src/shared/services/shareObject';
+import { SignInObjectService } from 'src/shared/services/signInObject';
 import { cartModel } from 'src/store/models/cart.model';
 import { CartService } from 'src/store/services/cart.service';
 import { UserService } from 'src/store/services/user.service';
@@ -37,6 +38,7 @@ export class ExchangeProductsPage implements OnInit {
     private CartModelPipe: CartModelPipe,
     private cartService: CartService,
     private router: Router,
+    private signInObjectService:SignInObjectService
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,7 @@ export class ExchangeProductsPage implements OnInit {
           this.showAlertBad();
         }
       }else{
+        this.signInObjectService.setObjetoCompartido("/exchange-products")
         this.router.navigate(['/sign-in']);
       }
 
@@ -72,8 +75,8 @@ export class ExchangeProductsPage implements OnInit {
     this.userService.getUserData()
     .then(data => {
 
-      if (data.api_token) {
-        this.api_token = data.api_token;
+      if (data?.api_token) {
+        this.api_token = data?.api_token;
       }
 
     })
@@ -102,8 +105,8 @@ export class ExchangeProductsPage implements OnInit {
   getUser(){
     this.userService.getUserData()
     .then(data => {
-      console.log(data.points)
-      this.userPoint = data.points;
+      console.log(data?.points)
+      this.userPoint = data?.points;
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
@@ -125,6 +128,7 @@ export class ExchangeProductsPage implements OnInit {
     };
     this.cartService.setCart(productDetail)
     this.isSuccess = true;
+    
     setTimeout(() => {
       this.isSuccess = false;
     }, 3200); 

@@ -47,7 +47,7 @@
     font-size: 14px;
     font-weight: 400;
   }
-  .content-exchange-products1 {
+  .contentHeigth {
     width: 100%;
     height: 56vh;
     overflow: auto;
@@ -233,4 +233,32 @@
     color: white;
     display: flex;
     justify-content: space-between;
+  }
+  .title-jotas-container {
+    width: 100%;
+    height: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #99791C;
+    color: #FFFFFF;
+  }
+  .title-jotas-container .title-jotas {
+    margin: 0;
+    font-size: 17px;
+    margin-top: -5px;
+  }
+  .cart-container .title-jotas {
+    margin: 0;
+    font-size: 20px;
+    color: #FFFFFF;
+  }
+  .childContainer{
+    text-align: center;
+  }
+  .containerCurrent{
+    height: 88%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

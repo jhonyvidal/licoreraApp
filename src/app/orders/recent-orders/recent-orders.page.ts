@@ -5,6 +5,7 @@ import { OrdersData } from 'src/shared/domain/response/OrdersData';
 import { UserService } from 'src/store/services/user.service';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ShareObjectService } from 'src/shared/services/shareObject';
+import { SignInObjectService } from 'src/shared/services/signInObject';
 
 @Component({
   selector: 'app-recent-orders',
@@ -22,7 +23,8 @@ export class RecentOrdersPage implements OnInit {
     private router: Router,
     private userService:UserService,
     private requestUseCase: RequestUseCases,
-    private shareObjectService: ShareObjectService
+    private shareObjectService: ShareObjectService,
+    private signInObjectService:SignInObjectService
   ) { }
 
   ngOnInit() {
@@ -71,6 +73,7 @@ export class RecentOrdersPage implements OnInit {
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
+      this.signInObjectService.setObjetoCompartido("/recent-orders")
       this.router.navigate(['/sign-in']);
       return 'Error al obtener los datos del usuario'
     });

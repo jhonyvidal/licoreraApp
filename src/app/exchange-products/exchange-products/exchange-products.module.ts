@@ -9,16 +9,18 @@ import { ExchangeProductsPageRoutingModule } from './exchange-products-routing.m
 import { ExchangeProductsPage } from './exchange-products.page';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
 import { successLottieComponent } from 'src/shared/components/animations/success.lottie.component';
+import { SharedModule } from 'src/shared/shared.module';
 
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     IonicModule,
     ExchangeProductsPageRoutingModule
   ],
-  declarations: [ExchangeProductsPage,successLottieComponent],
+  declarations: [ExchangeProductsPage],
   providers:[CartModelPipe],
 })
 export class ExchangeProductsPageModule {}

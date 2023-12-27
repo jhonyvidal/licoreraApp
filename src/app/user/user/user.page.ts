@@ -11,6 +11,8 @@ import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/store/services/user.service';
 import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse';
 import { PaymentMethodsGetResponse } from 'src/shared/domain/response/PaymentMethodsGetResponse';
+import { AddressObjectService } from 'src/shared/services/addressObject';
+import { SignInObjectService } from 'src/shared/services/signInObject';
 
 @Component({
   selector: 'app-user',
@@ -50,7 +52,9 @@ export class UserPage implements OnInit {
     private requestUseCase: RequestUseCases,
     private router: Router,
     private alertController: AlertController,
-    private userService: UserService
+    private userService: UserService,
+    private addressObjectService:AddressObjectService,
+    private signInObjectService:SignInObjectService
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required]],
@@ -74,6 +78,18 @@ export class UserPage implements OnInit {
     this.paymentsEmpty = false;
   }
 
+  formatCreditCardNumber(input: string): string {
+    let inputFormated:string = '';
+    for (let i = 0; i < input.length; i++) {
+      if(i === 4 || i === 8 || i === 12 ){
+        inputFormated = inputFormated +' ' + input[i]
+      }else{
+        inputFormated = inputFormated + input[i]
+      }
+    }
+    return inputFormated;
+  }
+
   getUserData() {
     this.userService.getUserData()
     .then(data => {
@@ -89,6 +105,7 @@ export class UserPage implements OnInit {
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
+      this.signInObjectService.setObjetoCompartido("/user")
       this.router.navigate(['/sign-in']);
     });
   }
@@ -155,6 +172,9 @@ export class UserPage implements OnInit {
         if (response.success === true) {
           
           if (response?.data && response?.data?.cards) {
+            for(var i=0;i<response.data.cards.length; i++){
+              response.data.cards[i].mask = this.formatCreditCardNumber(response.data.cards[i].mask)
+            }
             this.paymentMethodsList = response.data.cards;
             console.log(response.data.cards);
             
@@ -267,6 +287,7 @@ export class UserPage implements OnInit {
     }
 
     if (this.ionSegment === 3) {
+      this.addressObjectService.setObjetoCompartido('/user')
       this.router.navigate(['/new-address']);
     }
 

@@ -9,6 +9,8 @@ import { Location } from '@angular/common';
 import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
 import { CartService } from 'src/store/services/cart.service';
+import { Subscription } from 'rxjs';
+import { AddressObjectService } from 'src/shared/services/addressObject';
 
 @Component({
   selector: 'app-new-address',
@@ -16,6 +18,9 @@ import { CartService } from 'src/store/services/cart.service';
   styleUrls: ['./new-address.page.scss'],
 })
 export class NewAddressPage implements OnInit {
+  
+  private subscription: Subscription;
+  fromAddress: string;
 
   constructor(
     private router: Router,
@@ -26,7 +31,8 @@ export class NewAddressPage implements OnInit {
     private ngZone: NgZone,
     private el: ElementRef,
     private renderer: Renderer2,
-    private cartService:CartService
+    private cartService:CartService,
+    private addressObjectService:AddressObjectService
   ) { 
     const platform = Capacitor.getPlatform();
       if(platform !== "web") {
@@ -36,17 +42,15 @@ export class NewAddressPage implements OnInit {
           });
         });
       }
-     
   }
 
   myTimeout: any;
   inputText: string;
   googleAddress: []
   navigating = false;
-  fromAddress: string;
+  
 
   ngOnInit() {
-      this.getCart()
      // ONLY WEB TEST
     // setTimeout(() => {
     //   this.applyKeyboardStyleWeb(450);
@@ -83,7 +87,13 @@ export class NewAddressPage implements OnInit {
   currentLocation = async () => {
     const coordinates = await Geolocation.getCurrentPosition();
     this.shareObjectService.setObjetoCompartido(coordinates)
-    this.router.navigate(['/new-address/new-address-map']);
+    this.navigating = true;
+    setTimeout(() => {
+      this.router.navigate(['/new-address/new-address-map'])
+      .then(() => {
+        this.navigating = false;
+      });
+    }, 100);
   };
 
   async getLocation(params:any){
@@ -108,6 +118,7 @@ export class NewAddressPage implements OnInit {
   }
 
   clickAdress(address:any){
+    this.navigating = true;
     const newAddress = {
       coords:{
         latitude:address.geometry.location.lat,
@@ -116,7 +127,13 @@ export class NewAddressPage implements OnInit {
       addressInput: address.formatted_address 
     }
     this.shareObjectService.setObjetoCompartido(newAddress);
-    this.router.navigate(['/new-address/new-address-map']);
+    setTimeout(() => {
+      this.router.navigate(['/new-address/new-address-map'])
+      .then(() => {
+        this.navigating = false;
+      });
+    }, 100);
+   
   }
 
   getToken() {
@@ -151,23 +168,9 @@ export class NewAddressPage implements OnInit {
    
   }
 
-  getCart() {
-    this.cartService
-      .getCartData()
-      .then((data) => {
-        if(data.fromAddress){
-          this.fromAddress = data.fromAddress;
-        }
-      })
-      .catch((error) => {
-        console.error('Error al obtener los datos del cart:', error);
-      });
-  }
-
   goBack(): void {
-    if(this.fromAddress){
-      this.router.navigate([this.fromAddress]);
-    }
+    const address = this.addressObjectService.getObjetoCompartido()
+    this.router.navigate([address]);
   }
 
 }
