@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">licoreraApp</string>
-    <string name="title_activity_main">licoreraApp</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
-    <string name="facebook_app_id">288163334886248</string>
-    <string name="fb_login_protocol_scheme">fb288163334886248</string>
-    <string name="facebook_client_token">988af5a0ad9e5caed0e6d2a1bc789488</string>
+  <string name="app_name">licoreraApp</string>
+  <string name="title_activity_main">licoreraApp</string>
+  <string name="package_name">io.ionic.starter</string>
+  <string name="custom_url_scheme">io.ionic.starter</string>
+  <string name="facebook_app_id">288163334886248</string>
+  <string name="fb_login_protocol_scheme">fb288163334886248</string>
+  <string name="facebook_client_token">988af5a0ad9e5caed0e6d2a1bc789488</string>
 </resources>

@@ -68,18 +68,17 @@ export class NewAddressMapPage implements OnInit {
     });
 
     await this.newMap.addMarker({
-      // iconUrl:'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+      iconUrl:'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
       coordinate: {
         lat: this.latitude,
         lng:  this.longitude
       },
       draggable: true,
     });
-    
+
     await this.newMap.setOnMarkerDragEndListener(async (event) => {
       this.latitude = event.latitude;
       this.longitude = event.longitude;
-
       // Obtener la dirección/nomenclatura
       this.getGoogleReverseApi(event.latitude,event.longitude)
     });

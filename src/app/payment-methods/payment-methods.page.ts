@@ -124,7 +124,7 @@ export class PaymentMethodsPage implements OnInit {
     if (this.modalContainer && this.modalContainer.nativeElement) {
       const contentElement = this.modalContainer.nativeElement;
       console.log(contentElement);
-      const maxHeight = window.innerHeight - (keyboardHeight);
+      const maxHeight = window.innerHeight - (keyboardHeight - 50);
       this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
       this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
     } else {
