@@ -11,6 +11,7 @@ import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent
 // Maskito for input masking
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 import { CardYearValidation } from 'src/shared/CustomValidations/CardYearValidation';
+import { presentAlert } from 'src/shared/components/alert.component';
 
 @Component({
   selector: 'app-credit-card',
@@ -85,7 +86,6 @@ export class CreditCardPage implements OnInit {
 
   async mostrarLoading() {
     this.createPaymentMethod();
-    await this.presentLoader.showLoading();
   }
 
   detectChanges() {
@@ -102,6 +102,7 @@ export class CreditCardPage implements OnInit {
 
   // createPaymentMethod(id: number){
   createPaymentMethod(){
+    this.presentLoader.showHandleLoading()
     let exp_month = this.myForm.get('expirationDate')?.value.split('/')[0];
     let exp_year = this.myForm.get('expirationDate')?.value.split('/')[1];
 
@@ -117,12 +118,17 @@ export class CreditCardPage implements OnInit {
     this.userService.getUserData()
     .then(data => {
       this.requestUseCase.postPaymentMethods(data.api_token, this.requestDataPaymentMethods).subscribe(response => {
+        this.presentLoader.hideHandleLoading()
         if (response.success === true) {
           // this.router.navigate(['/user']);
           console.log(response);
           this.showAlertCreatePaymentMethod();
           
         } else {
+          if(response.statusCode === 0){
+            this.showAlertError(response.message.description)
+          }
+          
           console.log('Body del error: ', response);
         }
       })
@@ -143,6 +149,17 @@ export class CreditCardPage implements OnInit {
       undefined,
       undefined,
       undefined
+    );
+  }
+
+  async showAlertError(message:string, title?:string, img?:string) {
+    title !== undefined ? null : title =  'INFORMACIÓN';
+    img !== undefined ? null : img =  '/assets/img/warning.svg';
+    await presentAlert(
+      this.alertController,
+      title,
+      message,
+      img
     );
   }
 

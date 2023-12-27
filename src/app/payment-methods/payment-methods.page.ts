@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
 import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { Capacitor } from '@capacitor/core';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-payment-methods',
@@ -29,7 +31,10 @@ export class PaymentMethodsPage implements OnInit {
     private cartService: CartService,
     private sanitizer: DomSanitizer,
     private observeObjectService:ObserveObjectService,
-    private presentLoader: PresentLoaderComponent
+    private presentLoader: PresentLoaderComponent,
+    private ngZone: NgZone,
+    private el: ElementRef,
+    private renderer: Renderer2,
     ) {
     this.myForm = this.formBuilder.group({
       names: ['', [Validators.required, ]],
@@ -55,6 +60,15 @@ export class PaymentMethodsPage implements OnInit {
     this.myFormAlert = this.formBuilder.group({
       dues: ['',Validators.required]  // asegúrate de tener este campo en tu FormGroup
     });
+    const platform = Capacitor.getPlatform();
+      if(platform !== "web") {
+        Keyboard.addListener('keyboardWillShow', (info) => {
+          console.log("se activo teclado");
+          this.ngZone.run(() => {
+            this.applyKeyboardStyle(info.keyboardHeight);
+          });
+        });
+      }
   }
   public ionSegment: number = 1;
   myForm: FormGroup;
@@ -103,6 +117,21 @@ export class PaymentMethodsPage implements OnInit {
     ],
   };
 
+  @ViewChild('modalContainer', { static: false }) modalContainer: ElementRef;
+
+
+  private applyKeyboardStyle(keyboardHeight: number): void {
+    if (this.modalContainer && this.modalContainer.nativeElement) {
+      const contentElement = this.modalContainer.nativeElement;
+      console.log(contentElement);
+      const maxHeight = window.innerHeight - (keyboardHeight);
+      this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+      this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+    } else {
+      console.error('El elemento modalContainer no existe o no se ha inicializado correctamente.');
+    }
+  }
+
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
 
   ngOnInit() {
@@ -136,7 +165,7 @@ export class PaymentMethodsPage implements OnInit {
   formatCreditCardNumber(input: string): string {
     let inputFormated:string = '';
     for (let i = 0; i < input.length; i++) {
-      if(i === 3 || i === 7 || i === 11 ){
+      if(i === 4 || i === 8 || i === 12 ){
         inputFormated = inputFormated +' ' + input[i]
       }else{
         inputFormated = inputFormated + input[i]

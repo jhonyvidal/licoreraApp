@@ -32,14 +32,14 @@
           <h2> {{item.created_at | customDateOrders}}</h2>
         </div>
         <div class="card-info">
-          <p class="address">Calle 43 # 71 - 66</p>
-          <p>Torre 3 apto 302</p>
-          <p>Productos: 6</p>
+          <p class="address">{{item.address}}</p>
+          <p>{{item.instructions}}</p>
+          <p>Productos: {{item.products_quantity}}</p>
         </div>
         <hr>
         <div class="card-footer">
           <div>
-            <h2>total: $ 240.000</h2>
+            <h2>total: {{item.total | customCurrency :'.':'$ '}}</h2>
           </div>
           <div class="completed-container">
             <img [src]="item.status.name === 'Completado' ? '../../../assets/img/Checkmark.svg' : '../../../assets/img/Cancel.svg'" alt="">

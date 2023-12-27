@@ -9,6 +9,7 @@ import { ProductDetailModelPipe } from './pipes/productDetailModel.pipe';
 import { CustomDateAlert } from './pipes/customDateAlert.pipe';
 import { StarRatingComponent } from './components/StarRatingComponent';
 import { CommonModule } from '@angular/common';
+import { successLottieComponent } from './components/animations/success.lottie.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CommonModule } from '@angular/common';
     ProductDetailModelPipe,
     CustomDateOrders,
     CustomDateAlert,
-    StarRatingComponent
+    StarRatingComponent,
+    successLottieComponent
   ],
   imports: [
     CommonModule
@@ -32,7 +34,8 @@ import { CommonModule } from '@angular/common';
     CartModelPipe,
     ProductDetailModelPipe,
     HttpClientModule,
-    StarRatingComponent
+    StarRatingComponent,
+    successLottieComponent
   ],
   providers: [
     

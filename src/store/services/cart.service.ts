@@ -170,23 +170,6 @@ export class CartService {
     return true;
   }
 
-  setFromAddres(FromAddress: string){
-    let storeCartData;
-    this.storage.get('cartData')
-    .then(data => {
-      storeCartData = data;
-      if(data === null){
-        return;
-      }
-      storeCartData.fromAddress = FromAddress;
-      this.storage.set('cartData', storeCartData);
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos del cart:', error);
-    });
-    return true;
-  }
-
   deleteCart(id:number){
     this.storage.get('cartData')
     .then(data => {

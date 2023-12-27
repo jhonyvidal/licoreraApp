@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
@@ -6,6 +6,9 @@ import { presentAlert } from 'src/shared/components/alert.component';
 import { InfoService } from 'src/store/services/info.service';
 import { UserService } from 'src/store/services/user.service';
 import { Location } from '@angular/common'
+import { Capacitor } from '@capacitor/core';
+import { ShareObjectService } from 'src/shared/services/shareObject';
+import { SignInObjectService } from 'src/shared/services/signInObject';
 
 @Component({
   selector: 'app-current-order',
@@ -21,40 +24,62 @@ export class CurrentOrderPage implements OnInit {
     private router:Router,
     private alertController:AlertController,
     private infoService:InfoService,
-    private location:Location
+    private location:Location,
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private shareObjectService:ShareObjectService,
+    private signInObjectService: SignInObjectService
     ) { }
 
   currentOrder: any = {};
   minimumOrderAmount: number = 0;
   contentHeigth:string = 'content-exchange-products1';
   buttonWelcome:string = 'buttonWelcome';
-
+  isCurrentEmpty:boolean = true;
 
   async ngOnInit() {
     const token = await this.getToken()
     if(token){
       this.getCurrentOrder()
     }
-    this.getHeigthInfo()
+    // this.getHeigthInfo()
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {;
+      setTimeout(() => {
+        this.applyStyle();
+      }, 500);
+    }
   }
 
-  getHeigthInfo(){
-    this.infoService.getInfoData()
-    .then(data => {
-      if(data.height > 900){
-        this.contentHeigth = 'content-exchange-products1';
-      }
-      else if(data.height > 750){
-        this.contentHeigth = 'content-exchange-products3';
-      }
-      else if(data.height > 300){
-        this.contentHeigth = 'content-exchange-products2';
-      }
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos de la info:', error);
-    });
+  private applyStyle(): void {
+    const contentElement = this.el.nativeElement.querySelector('.contentHeigth');
+  
+    if (contentElement) {
+      const maxHeight = window.innerHeight - 435
+      this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
+      this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
+    } else {
+      console.error('Los elementos no fueron encontrados en el DOM.');
+    }
   }
+
+  // getHeigthInfo(){
+  //   this.infoService.getInfoData()
+  //   .then(data => {
+  //     if(data.height > 900){
+  //       this.contentHeigth = 'content-exchange-products1';
+  //     }
+  //     else if(data.height > 750){
+  //       this.contentHeigth = 'content-exchange-products3';
+  //     }
+  //     else if(data.height > 300){
+  //       this.contentHeigth = 'content-exchange-products2';
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.error('Error al obtener los datos de la info:', error);
+  //   });
+  // }
 
   async getCurrentOrder(){
     const token = await this.getToken()
@@ -68,11 +93,13 @@ export class CurrentOrderPage implements OnInit {
       (response) => {
         if (response.success === true) {
           if(response.data !== null){
+            this.isCurrentEmpty = false;
             console.log("current: ",response.data);
             this.currentOrder = response.data
           }
           console.log('success', response);
         } else {
+          this.isCurrentEmpty = true;
           console.log('success', response);
         }
       },
@@ -89,6 +116,7 @@ export class CurrentOrderPage implements OnInit {
     })
     .catch(error => {
       console.error('Error al obtener los datos del usuario:', error);
+      this.signInObjectService.setObjetoCompartido("/current-order")
       this.router.navigate(['/sign-in']);
       return 'Error al obtener los datos del usuario'
     });
@@ -140,6 +168,7 @@ export class CurrentOrderPage implements OnInit {
   }
 
   goToHome(){
+    this.shareObjectService.setObjetoCompartido('tab3')
     this.router.navigate(['/home/tab3']);
   }
 

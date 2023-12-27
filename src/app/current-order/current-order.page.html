@@ -17,12 +17,27 @@
 </ion-toolbar>
 </ion-header>
 
+<!-- EMPTY ORDER -->
+<ion-content [fullscreen]="true" *ngIf="isCurrentEmpty">
+  <ion-header collapse="condense">
+  </ion-header>
+  <div class="title-jotas-container">
+    <h2 class="title-jotas">¿QUE ESPERAS PARA HACER TU PEDIDO?</h2>
+  </div>
+  <div class="containerCurrent">
+    <div class="childContainer">
+      <img src="../../assets/img/phone-hand.svg" alt="phone-hand" />
+      <div><p>Todo lo que necesitas en un solo lugar</p></div>
+    </div>
+  </div>
+</ion-content>
+
 <!-- CURRENT ORDER -->
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="!isCurrentEmpty">
   <div class="cart-container">
     <h2 class="title-jotas">PEDIDO EN CURSO</h2>
   </div>
-  <div [class]="contentHeigth">
+  <div class="contentHeigth">
     <ion-content class="">
         <ion-list class="list-container">
           <div class="product-exchange-container" *ngFor="let item of currentOrder?.products; let index" style="height:110px">
