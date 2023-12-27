@@ -8,7 +8,6 @@ import { ExchangeProductsPageRoutingModule } from './exchange-products-routing.m
 
 import { ExchangeProductsPage } from './exchange-products.page';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
-import { successLottieComponent } from 'src/shared/components/animations/success.lottie.component';
 
 
 @NgModule({
@@ -16,9 +15,9 @@ import { successLottieComponent } from 'src/shared/components/animations/success
     CommonModule,
     FormsModule,
     IonicModule,
-    ExchangeProductsPageRoutingModule
+    ExchangeProductsPageRoutingModule,
   ],
-  declarations: [ExchangeProductsPage,successLottieComponent],
+  declarations: [ExchangeProductsPage],
   providers:[CartModelPipe],
 })
 export class ExchangeProductsPageModule {}
