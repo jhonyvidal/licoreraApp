@@ -9,7 +9,7 @@ import { ProductDetailsPageRoutingModule } from './product-details-routing.modul
 import { ProductDetailsPage } from './product-details.page';
 import { SharedModule } from 'src/shared/shared.module';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
-import { successLottieComponent } from 'src/shared/components/animations/success.lottie.component';
+// import { successLottieComponent } from 'src/shared/components/animations/success.lottie.component';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { successLottieComponent } from 'src/shared/components/animations/success
     IonicModule,
     ProductDetailsPageRoutingModule,
   ],
-  declarations: [ProductDetailsPage,successLottieComponent],
+  declarations: [ProductDetailsPage],
   providers:[CartModelPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
