@@ -17,160 +17,162 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="profile-header-container">
-    <ion-buttons>
-      <ion-button class="btn-logout" (click)="showAlertLogout()">
-        <img width="22" height="22"   src="../../assets/icon/logout-icon.svg" alt="">
-      </ion-button>
-    </ion-buttons>
-    <div class="profile-avatar-container">
-      <figure>
-        <img [src]="avatarImage" alt="">
-      </figure>
-      <div class="jotas-container">
-        <h2 class="profile-name">{{client?.data?.name}}</h2>
-        <p class="profile-jotas">{{clientPoints}} Jotas</p>
+  <div class="userContent">
+    <div class="profile-header-container">
+      <ion-buttons>
+        <ion-button class="btn-logout" (click)="showAlertLogout()">
+          <img width="22" height="22"   src="../../assets/icon/logout-icon.svg" alt="">
+        </ion-button>
+      </ion-buttons>
+      <div class="profile-avatar-container">
+        <figure>
+          <img [src]="avatarImage" alt="" (error)="handleImageError()">
+        </figure>
+        <div class="jotas-container">
+          <h2 class="profile-name">{{client?.data?.name}}</h2>
+          <p class="profile-jotas">{{clientPoints}} Jotas</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="user-profile-info-container">
-    <div class="profile-numbers-data-container">
-      <div class="pedidos" (click)="goToOrders()">
-        <p>{{client?.data?.order_quantity}}</p>
-        <p>Pedidos</p>
-      </div>
-      <div class="vertical-divider">
+    <div class="user-profile-info-container">
+      <div class="profile-numbers-data-container">
+        <div class="pedidos" (click)="goToOrders()">
+          <p>{{client?.data?.order_quantity}}</p>
+          <p>Pedidos</p>
+        </div>
+        <div class="vertical-divider">
 
+        </div>
+        <div class="canjes">
+          <p>{{client?.data?.exchanges_quantity}}</p>
+          <p>Canjes</p>
+        </div>
       </div>
-      <div class="canjes">
-        <p>{{client?.data?.exchanges_quantity}}</p>
-        <p>Canjes</p>
+      <ion-segment value="info">
+        <ion-segment-button value="info" (click)="show(1)">
+          <ion-label>Información</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="payment" (click)="show(2)">
+          <ion-label>Métodos de pago</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="address" (click)="show(3)">
+          <ion-label>Direcciones</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <div class="aun" *ngIf="ionSegment === 2 && paymentMethodsList?.length <= 0 && paymentsEmpty">
+        <h2>Aún no tiene tarjetas guardadas</h2>
+        <p>Agrega una para continuar</p>
       </div>
-    </div>
-    <ion-segment value="info">
-      <ion-segment-button value="info" (click)="show(1)">
-        <ion-label>Información</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="payment" (click)="show(2)">
-        <ion-label>Métodos de pago</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="address" (click)="show(3)">
-        <ion-label>Direcciones</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-    <div class="aun" *ngIf="ionSegment === 2 && paymentMethodsList?.length <= 0 && paymentsEmpty">
-      <h2>Aún no tiene tarjetas guardadas</h2>
-      <p>Agrega una para continuar</p>
-    </div>
-    <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && loadingPM; else paymentElse">
-      <ion-item-sliding style="padding: 10px 0">
-        <ion-item>
-          <figure>
-            <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-          </figure>
-          <div class="credit-card-info-container">
-            <div class="text-container">
-              <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-              <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
-            </div>
-          </div>
-        </ion-item>
-      </ion-item-sliding>
-      <ion-item-sliding style="padding: 10px 0">
-        <ion-item>
-          <figure>
-            <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-          </figure>
-          <div class="credit-card-info-container">
-            <div class="text-container">
-              <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-              <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
-            </div>
-          </div>
-        </ion-item>
-      </ion-item-sliding>
-      <ion-item-sliding style="padding: 10px 0">
-        <ion-item>
-          <figure>
-            <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-          </figure>
-          <div class="credit-card-info-container">
-            <div class="text-container">
-              <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-              <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
-            </div>
-          </div>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
-    <ng-template #paymentElse>
-      <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethodsList?.length > 0">
-        <ion-item-sliding *ngFor="let item of paymentMethodsList; index as i">
+      <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && loadingPM; else paymentElse">
+        <ion-item-sliding style="padding: 10px 0">
           <ion-item>
             <figure>
-              <ion-skeleton-text *ngIf="loadingPM; else imgElse" [animated]="true" style="width: 100%"></ion-skeleton-text>
-              <ng-template #imgElse>
-                <img src="../../../assets/icon/credit-card.svg" alt="">
-              </ng-template>
+              <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
             </figure>
             <div class="credit-card-info-container">
-              <div class="text-container" *ngIf="loadingPM; else textElse">
+              <div class="text-container">
                 <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
                 <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
               </div>
-              <ng-template #textElse>
-                <div class="text-container">
-                  <h2>{{item.mask}}</h2>
-                  <p>{{item.franchise}}</p>
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+        <ion-item-sliding style="padding: 10px 0">
+          <ion-item>
+            <figure>
+              <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+            </figure>
+            <div class="credit-card-info-container">
+              <div class="text-container">
+                <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+                <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
+              </div>
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+        <ion-item-sliding style="padding: 10px 0">
+          <ion-item>
+            <figure>
+              <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+            </figure>
+            <div class="credit-card-info-container">
+              <div class="text-container">
+                <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+                <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
+              </div>
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+      <ng-template #paymentElse>
+        <ion-list class="payment-list-container" *ngIf="ionSegment === 2 && paymentMethodsList?.length > 0">
+          <ion-item-sliding *ngFor="let item of paymentMethodsList; index as i">
+            <ion-item>
+              <figure>
+                <ion-skeleton-text *ngIf="loadingPM; else imgElse" [animated]="true" style="width: 100%"></ion-skeleton-text>
+                <ng-template #imgElse>
+                  <img src="../../../assets/icon/credit-card.svg" alt="">
+                </ng-template>
+              </figure>
+              <div class="credit-card-info-container">
+                <div class="text-container" *ngIf="loadingPM; else textElse">
+                  <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+                  <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
                 </div>
-              </ng-template>
+                <ng-template #textElse>
+                  <div class="text-container">
+                    <h2>{{item.mask}}</h2>
+                    <p>{{item.franchise}}</p>
+                  </div>
+                </ng-template>
+              </div>
+              <ion-buttons class="star-container">
+                <ion-skeleton-text *ngIf="loadingPM; else starElse" [animated]="true" style="width: 100%"></ion-skeleton-text>
+              </ion-buttons>
+            </ion-item>
+            <ion-item-options>
+              <ion-item-option (click)="showAlertDeletePaymentMethod(item, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ng-template>
+      <div [formGroup]="myForm" class="info-container" *ngIf="ionSegment === 1">
+        <div class="full-name-container">
+          <ion-input formControlName="name" class="custom" type="text" [readonly]="readOnly"></ion-input>
+          <ion-input formControlName="lastName" class="custom" type="text" [readonly]="readOnly"></ion-input>
+        </div>
+        <ion-input formControlName="email" class="custom" type="email" [readonly]="readonlyEmail"></ion-input>
+        <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
+        <ion-input formControlName="phone" class="custom" type="number" [readonly]="readOnly"></ion-input>
+      </div>
+      <div class="aun-address" *ngIf="ionSegment === 3 && addressList?.length <= 0">
+        <h2>Aún no tiene direcciones guardadas</h2>
+        <p>Agrega una para continuar</p>
+      </div>
+      <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList?.length > 0">
+        <ion-item-sliding *ngFor="let item of addressList; index as i">
+          <ion-item>
+            <figure>
+              <img src="../../../assets/icon/location-user.svg" alt="">
+            </figure>
+            <div class="credit-card-info-container">
+              <div>
+                <h2>{{item.name}}</h2>
+                <p>{{item.address}}</p>
+              </div>
             </div>
             <ion-buttons class="star-container">
-              <ion-skeleton-text *ngIf="loadingPM; else starElse" [animated]="true" style="width: 100%"></ion-skeleton-text>
+              <ion-button (click)="selectAddress(item.id, item.favorite, i)">
+                <img [src]="this.addressList[i].starImage" alt="">
+              </ion-button>
             </ion-buttons>
           </ion-item>
           <ion-item-options>
-            <ion-item-option (click)="showAlertDeletePaymentMethod(item, item.number)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
+            <ion-item-option (click)="showAlertDeleteAddress(item.id, item.name)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
-    </ng-template>
-    <div [formGroup]="myForm" class="info-container" *ngIf="ionSegment === 1">
-      <div class="full-name-container">
-        <ion-input formControlName="name" class="custom" type="text" [readonly]="readOnly"></ion-input>
-        <ion-input formControlName="lastName" class="custom" type="text" [readonly]="readOnly"></ion-input>
-      </div>
-      <ion-input formControlName="email" class="custom" type="email" [readonly]="readonlyEmail"></ion-input>
-      <ion-input formControlName="date" class="custom" type="date" [readonly]="readOnly"></ion-input>
-      <ion-input formControlName="phone" class="custom" type="number" [readonly]="readOnly"></ion-input>
     </div>
-    <div class="aun-address" *ngIf="ionSegment === 3 && addressList?.length <= 0">
-      <h2>Aún no tiene direcciones guardadas</h2>
-      <p>Agrega una para continuar</p>
-    </div>
-    <ion-list class="payment-list-container" *ngIf="ionSegment === 3 && addressList?.length > 0">
-      <ion-item-sliding *ngFor="let item of addressList; index as i">
-        <ion-item>
-          <figure>
-            <img src="../../../assets/icon/location-user.svg" alt="">
-          </figure>
-          <div class="credit-card-info-container">
-            <div>
-              <h2>{{item.name}}</h2>
-              <p>{{item.address}}</p>
-            </div>
-          </div>
-          <ion-buttons class="star-container">
-            <ion-button (click)="selectAddress(item.id, item.favorite, i)">
-              <img [src]="this.addressList[i].starImage" alt="">
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-        <ion-item-options>
-          <ion-item-option (click)="showAlertDeleteAddress(item.id, item.name)" color="danger"><img style="padding: 15px;" src="../../../assets/icon/Trash.svg"></ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border">

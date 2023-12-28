@@ -40,6 +40,7 @@ export class PaymentMethodsPage implements OnInit {
       names: ['', [Validators.required, ]],
       lastNames: ['', [Validators.required, ]],
       bankSelect: ['', [Validators.required, ]],
+      document:['', [Validators.required ]],
       documentType: ['', [Validators.required, ]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.maxLength(20)]],
@@ -387,7 +388,7 @@ export class PaymentMethodsPage implements OnInit {
           response: response.data.respuesta
         }
         this.cartService.setPaymentCartData(payment)
-        this.observeObjectService.setObjetoCompartido("Credit Card")
+        this.observeObjectService.setObjetoCompartido("Tarjeta de credito")
         await this.presentLoader.hideHandleLoading();
         this.showAlertSuccess();
       } else {
@@ -469,7 +470,7 @@ export class PaymentMethodsPage implements OnInit {
       order_id: reponse.idOrder,
       bank:this.myForm.get('bankSelect')?.value,
       doc_type: this.myForm.get('documentType')?.value,
-      doc_number:"123456",
+      doc_number:this.myForm.get('document')?.value,
       cell_phone: this.myForm.get('phone')?.value,
       name: this.myForm.get('names')?.value,
       last_name:this.myForm.get('lastNames')?.value,
@@ -482,9 +483,9 @@ export class PaymentMethodsPage implements OnInit {
     this.requestUseCase.postPaymentPse(token, data).subscribe(response => {
       if (response.success === true) {
         console.log(response);
-       
-        this.urlIframe =  this.sanitizer.bypassSecurityTrustResourceUrl(response.data.data.urlbanco) ;
-        this.isIframeReady = true
+        this.openLink(response.data.data.urlbanco)
+        // this.urlIframe =  this.sanitizer.bypassSecurityTrustResourceUrl(response.data.data.urlbanco) ;
+        // this.isIframeReady = true
 
       } else {
         console.log('Body del error response: ', response);
@@ -493,6 +494,9 @@ export class PaymentMethodsPage implements OnInit {
 
   }
   
+  openLink(url:string){
+    open(url)
+  }
 
   async showAlertSuccess() {
     await presentAlert(

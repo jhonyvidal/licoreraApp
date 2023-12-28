@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
@@ -22,11 +22,10 @@ import setPaddingKeyboard from 'src/shared/BTN_Color/paddingKeyboard';
   styleUrls: ['./user.page.scss','./user.page2.scss'],
 })
 export class UserPage implements OnInit {
-
+  @ViewChild('avatarImg') avatarImage: string;
   myForm: FormGroup;
   readOnly: boolean = true;
   readonlyEmail: boolean = true;
-  avatarImage: string;
   defaultAvatarImage: string = '../../../assets/icon/User-profile-pic.svg';
   btnText: string = 'Editar';
   ionSegment:number = 1;
@@ -56,7 +55,10 @@ export class UserPage implements OnInit {
     private alertController: AlertController,
     private userService: UserService,
     private addressObjectService:AddressObjectService,
-    private signInObjectService:SignInObjectService
+    private signInObjectService:SignInObjectService,
+    private el: ElementRef,
+    private ngZone:NgZone,
+    private renderer: Renderer2,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required]],
@@ -73,15 +75,25 @@ export class UserPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    // Suscribirse al evento keyboardDidShow
-    Keyboard.addListener('keyboardDidShow', () => {
-      setPaddingKeyboard('400px');
+    Keyboard.addListener('keyboardDidShow', (info) => {
+      this.ngZone.run(() => {
+        this.applyKeyboardStyle(info.keyboardHeight);
+      });
     });
+  }
 
-    // Suscribirse al evento keyboardDidHide
-    Keyboard.addListener('keyboardDidHide', () => {
-      setPaddingKeyboard('none');
-    });
+  handleImageError() {
+    this.avatarImage = '../../../assets/icon/User-profile-pic.svg';
+    console.log('Error al cargar la imagen');
+    // Puedes realizar otras acciones aquí si lo deseas
+  }
+
+  private applyKeyboardStyle(keyboardHeight: number): void {
+    const contentElement = this.el.nativeElement.querySelector('userContent');
+    const maxHeight = window.innerHeight - (keyboardHeight + 10);
+    
+    this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
   }
 
   ionViewWillEnter() {

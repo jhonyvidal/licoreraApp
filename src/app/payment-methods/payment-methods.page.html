@@ -43,7 +43,7 @@
           <ion-col size="12">
             <!-- <ion-input  formControlName="bankSelect"  class="custom" type="text" placeholder="Selecciona tu banco" required></ion-input> -->
             <ion-item>
-              <ion-select formControlName="bankSelect" class="custom" label="Selecciona tu banco" required>
+              <ion-select formControlName="bankSelect" interface="popover" class="custom" label="Selecciona tu banco" required>
                 <ion-select-option *ngFor="let data of bankList" [value]="data.bankCode">{{data.bankName}}</ion-select-option>
               </ion-select>
             </ion-item>
@@ -51,12 +51,15 @@
           <p>Datos Personales</p>
           <ion-col size="12">
             <ion-item>
-              <ion-select formControlName="documentType" class="custom" label="Tipo de documento" required>
+              <ion-select formControlName="documentType" class="custom" interface="popover" label="Tipo de documento" required>
                 <ion-select-option value="CC">Cedula</ion-select-option>
                 <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
                 <ion-select-option value="TI">Tarjeta de identidad</ion-select-option>
               </ion-select>
             </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input  formControlName="document"  class="custom" type="number" placeholder="Documento" required></ion-input>
           </ion-col>
           <ion-col size="12">
             <ion-input  formControlName="names"  class="custom" type="text" placeholder="Nombres" required></ion-input>
@@ -128,7 +131,7 @@
           <p>Datos Personales</p>
           <ion-col size="12">
             <ion-item>
-              <ion-select formControlName="documentType" class="custom" label="Tipo de documento" required>
+              <ion-select formControlName="documentType"  interface="popover" class="custom" label="Tipo de documento" required>
                 <ion-select-option value="Cedula">Cedula</ion-select-option>
                 <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
                 <ion-select-option value="Tarjeta de identidad">Tarjeta de identidad</ion-select-option>

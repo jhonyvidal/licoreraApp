@@ -23,7 +23,7 @@
     <!-- {{latitude}} , {{longitude}} -->
   </div>
  
-  <div style="padding: 0 20px;margin-top: -20px;">
+  <div style="padding: 0 20px;margin-top: -12px;">
     <capacitor-google-map #map></capacitor-google-map>
   </div>
   <div class="thumbnail-container">
@@ -31,7 +31,7 @@
     <p>Agrega la nomenclaruta que haga falta</p>
   </div>
   <div [formGroup]="myForm" class="form-container">
-    <ion-input  formControlName="addressInput" class="custom" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
+    <ion-input  formControlName="addressInput" class="custom textSecondary" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
   </div>
   <ion-buttons>
     <div class="btn-footer-container">
