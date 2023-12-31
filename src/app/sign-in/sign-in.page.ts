@@ -11,6 +11,7 @@ import { User } from '@capacitor-firebase/authentication';
 import { LoginV2Request } from 'src/shared/domain/request/LoginV2Request';
 import { catchError, throwError } from 'rxjs';
 import { SignInObjectService } from 'src/shared/services/signInObject';
+import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
 
 @Component({
   selector: 'app-sign-in',
@@ -36,7 +37,8 @@ export class SignInPage implements OnInit {
     private userService: UserService,
     private readonly dialogService: DialogService,
     private readonly firebaseAuthenticationService: FirebaseAuthenticationService,
-    private signInObjectService:SignInObjectService
+    private signInObjectService:SignInObjectService,
+    private presentLoaderComponent:PresentLoaderComponent
   ) {
     this.myForm = this.formBuilder.group({
       password: ['', [Validators.required]],
@@ -103,6 +105,7 @@ export class SignInPage implements OnInit {
   }
 
   submit() {
+    this.presentLoaderComponent.showHandleLoading()
     const data:LoginV2Request={
       email:this.myForm.get('email')?.value,
       password:this.myForm.get('password')?.value
@@ -119,6 +122,7 @@ export class SignInPage implements OnInit {
         })
       )
       .subscribe((response) => {
+        this.presentLoaderComponent.hideHandleLoading()
         if (response.success === true) {
           if (response.data === null) {
             this.showAlert();

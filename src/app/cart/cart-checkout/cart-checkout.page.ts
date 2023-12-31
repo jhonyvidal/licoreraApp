@@ -92,15 +92,8 @@ export class CartCheckoutPage implements OnInit {
     });
   }
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
-  
+
   ngOnInit() {
-    const platform = Capacitor.getPlatform();
-    if(platform !== "web") {
-      setTimeout(() => {
-        this.applyStyle();
-      }, 3000);
-    }
-    
     this.getInfo();
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
@@ -122,9 +115,18 @@ export class CartCheckoutPage implements OnInit {
     this.getCart();
   }
 
+  ionViewDidEnter(){
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      setTimeout(() => {
+        this.applyStyle();
+      }, 3000);
+    }
+  }
+
   private applyStyle(): void {
-    const contentElement = this.el.nativeElement.querySelector('content-form');
-    const maxHeight = window.innerHeight - 444
+    const contentElement = this.el.nativeElement.querySelector('.content-form');
+    const maxHeight = window.innerHeight - 450
     this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
     this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
   }
@@ -377,7 +379,8 @@ export class CartCheckoutPage implements OnInit {
     this.cartService.deleteCompleteCart();
     this.router.navigate(['/home/tab3']).then(() => {
       this.router.navigate(['/home'])
-      location.reload();
+      this.getCart();
+      // location.reload();
     })
     ;
   }

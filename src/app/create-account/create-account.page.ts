@@ -137,7 +137,7 @@ export class CreateAccountPage implements OnInit {
     const month = dateParts[1];
     const day = dateParts[2];
 
-    return `${day}/${month}/${year}`; // Construir la fecha en formato DD/MM/AAAA
+    return `${day}-${month}-${year}`; // Construir la fecha en formato DD/MM/AAAA
   }
 
   async showAlertError(data:string) {

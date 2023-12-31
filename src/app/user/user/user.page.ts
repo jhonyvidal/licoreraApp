@@ -90,7 +90,7 @@ export class UserPage implements OnInit {
 
   private applyKeyboardStyle(keyboardHeight: number): void {
     const contentElement = this.el.nativeElement.querySelector('userContent');
-    const maxHeight = window.innerHeight - (keyboardHeight + 10);
+    const maxHeight = window.innerHeight - (keyboardHeight + 20);
     
     this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
     this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');

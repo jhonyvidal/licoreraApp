@@ -185,6 +185,7 @@ export class CartService {
   }
 
   deleteCompleteCart(){
+    console.log("BORRANDO TODO");
     this.storage.get('cartData')
     .then(data => {
       this.storage.set('cartData', {});
@@ -192,6 +193,15 @@ export class CartService {
     .catch(error => {
       console.error('Error al obtener los datos del cart:', error);
     });
+
+    this.storage.get('cartData')
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    
     // return true;
   }
 
