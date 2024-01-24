@@ -15,6 +15,7 @@ import { AddressObjectService } from 'src/shared/services/addressObject';
 import { SignInObjectService } from 'src/shared/services/signInObject';
 import { Keyboard } from '@capacitor/keyboard';
 import setPaddingKeyboard from 'src/shared/BTN_Color/paddingKeyboard';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-user',
@@ -75,11 +76,14 @@ export class UserPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    Keyboard.addListener('keyboardDidShow', (info) => {
-      this.ngZone.run(() => {
-        this.applyKeyboardStyle(info.keyboardHeight);
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      Keyboard.addListener('keyboardDidShow', (info) => {
+        this.ngZone.run(() => {
+          this.applyKeyboardStyle(info.keyboardHeight);
+        });
       });
-    });
+    }
   }
 
   handleImageError() {
@@ -119,8 +123,10 @@ export class UserPage implements OnInit {
   getUserData() {
     this.userService.getUserData()
     .then(data => {
-
-      this.loginToken = data.api_token;
+      if(data?.api_token){
+        data.token = data.api_token
+      }
+      this.loginToken = data.token;
       setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
 
       this.getPaymentMethods();
@@ -140,6 +146,8 @@ export class UserPage implements OnInit {
     this.requestUseCase.getMe(this.loginToken)
     .subscribe((response) => {
       if (response.success === true) {
+        console.log(response);
+        
         this.client = response;
         this.client_Id = response.data.id;
         this.clientPoints = response.data.points;
@@ -161,7 +169,10 @@ export class UserPage implements OnInit {
   getLocations() {
     this.userService.getUserData()
     .then(data => {
-      this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
+      if(data?.api_token){
+        data.token = data.api_token
+      }
+      this.requestUseCase.getLocationsV2(data.token).subscribe(response => {
         if (response.success === true) {
           this.addressList = response.data;
           for (let i = 0; i < this.addressList?.length; i++) {
@@ -194,7 +205,10 @@ export class UserPage implements OnInit {
   getPaymentMethods(){
     this.userService.getUserData()
     .then(data => {
-      this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
+      if(data?.api_token){
+        data.token = data.api_token
+      }
+      this.requestUseCase.getPaymentMethodsV2(data.token).subscribe(response => {
         if (response.success === true) {
           
           if (response?.data && response?.data?.cards) {
@@ -237,8 +251,11 @@ export class UserPage implements OnInit {
       mask: data.mask,
     }
     this.userService.getUserData()
-    .then(data => {      
-      this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
+    .then(data => {    
+      if(data?.api_token){
+        data.token = data.api_token
+      }  
+      this.requestUseCase.postDeletePaymentMethods(data.token, deleteJson).subscribe(async response => {
         if (response.success === true) {
           this.getPaymentMethods();
         } else {

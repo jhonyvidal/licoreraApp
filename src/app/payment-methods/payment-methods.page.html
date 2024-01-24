@@ -1,106 +1,204 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons class="toolbar-detail-container">
-        <ion-button (click)="goBack()">
-          <img src="../../assets/icon/backIcon.svg" alt="Back" />
-        </ion-button>
-        <div class="dev-logo-header">
-          <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
-        </div>
-        <ion-button>
-        </ion-button>
-      </ion-buttons>
+    <ion-buttons class="toolbar-detail-container">
+      <ion-button (click)="goBack()">
+        <img src="../../assets/icon/backIcon.svg" alt="Back" />
+      </ion-button>
+      <div class="dev-logo-header">
+        <img
+          class="delivery-icon"
+          width="50"
+          src="../../assets/icon/Icon_tres_jotas.svg"
+          alt="Logo empresa"
+        />
+      </div>
+      <ion-button> </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true"> 
-  
+<ion-content [fullscreen]="true">
   <!-- <ion-header collapse="condense" class="h60">
   </ion-header> -->
-  
+
   <ion-toolbar>
     <ion-segment value="all">
       <ion-segment-button value="all" (click)="show(1)">
-        <img class="payment-icon" width="50" src="../../assets/icon/pse.svg" alt="PSE">
+        <img
+          class="payment-icon"
+          width="50"
+          src="../../assets/icon/pse.svg"
+          alt="PSE"
+        />
         <ion-label class="segmentLabel">PAGO PSE</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="favorites" (click)="show(2)" >
-        <img class="payment-icon" width="50" src="../../assets/icon/credit.svg" alt="PSE">
-        <ion-label  class="segmentLabel">T. CREDITO</ion-label>
+      <ion-segment-button value="favorites" (click)="show(2)">
+        <img
+          class="payment-icon"
+          width="50"
+          src="../../assets/icon/credit.svg"
+          alt="PSE"
+        />
+        <ion-label class="segmentLabel">T. CREDITO</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="productoNuevos"  (click)="show(3)" >
-        <img  *ngIf="ionSegment !== 3" class="payment-icon" width="50" src="../../assets/icon/contado.svg" alt="PSE">
-        <img  *ngIf="ionSegment === 3" class="payment-icon" width="50" src="../../assets/icon/contado-blanco.svg" alt="PSE">
+      <ion-segment-button value="productoNuevos" (click)="show(3)">
+        <img
+          *ngIf="ionSegment !== 3"
+          class="payment-icon"
+          width="50"
+          src="../../assets/icon/contado.svg"
+          alt="PSE"
+        />
+        <img
+          *ngIf="ionSegment === 3"
+          class="payment-icon"
+          width="50"
+          src="../../assets/icon/contado-blanco.svg"
+          alt="PSE"
+        />
         <ion-label class="segmentLabel">EN CASA</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
   <ion-toolbar *ngIf="ionSegment === 1" class="customContent">
-    <div [formGroup]="myForm" *ngIf="!isIframeReady"> 
+    <div [formGroup]="myForm" *ngIf="!isIframeReady">
       <ion-grid class="imgWelcome">
         <ion-row class="ion-row">
           <ion-col size="12">
             <!-- <ion-input  formControlName="bankSelect"  class="custom" type="text" placeholder="Selecciona tu banco" required></ion-input> -->
             <ion-item>
-              <ion-select formControlName="bankSelect" interface="popover" class="custom" label="Selecciona tu banco" required>
-                <ion-select-option *ngFor="let data of bankList" [value]="data.bankCode">{{data.bankName}}</ion-select-option>
+              <ion-select
+                formControlName="bankSelect"
+                interface="popover"
+                class="custom"
+                label="Selecciona tu banco"
+                required
+              >
+                <ion-select-option
+                  *ngFor="let data of bankList"
+                  [value]="data.bankCode"
+                  >{{data.bankName}}</ion-select-option
+                >
               </ion-select>
             </ion-item>
           </ion-col>
           <p>Datos Personales</p>
           <ion-col size="12">
             <ion-item>
-              <ion-select formControlName="documentType" class="custom" interface="popover" label="Tipo de documento" required>
+              <ion-select
+                formControlName="documentType"
+                class="custom"
+                interface="popover"
+                label="Tipo de documento"
+                required
+              >
                 <ion-select-option value="CC">Cedula</ion-select-option>
-                <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
-                <ion-select-option value="TI">Tarjeta de identidad</ion-select-option>
+                <ion-select-option value="Pasaporte"
+                  >Pasaporte</ion-select-option
+                >
+                <ion-select-option value="TI"
+                  >Tarjeta de identidad</ion-select-option
+                >
               </ion-select>
             </ion-item>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="document"  class="custom" type="number" placeholder="Documento" required></ion-input>
+            <ion-input
+              formControlName="document"
+              class="custom"
+              type="number"
+              placeholder="Documento"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="names"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+            <ion-input
+              formControlName="names"
+              class="custom"
+              type="text"
+              placeholder="Nombres"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="lastNames"  class="custom" type="text" placeholder="Apellidos" required></ion-input>
+            <ion-input
+              formControlName="lastNames"
+              class="custom"
+              type="text"
+              placeholder="Apellidos"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="email"  class="custom" type="text" placeholder="Correo electrónico" required></ion-input>
+            <ion-input
+              formControlName="email"
+              class="custom"
+              type="text"
+              placeholder="Correo electrónico"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="phone"  class="custom" type="number" placeholder="Número de Celular" required></ion-input>
+            <ion-input
+              formControlName="phone"
+              class="custom"
+              type="number"
+              placeholder="Número de Celular"
+              required
+            ></ion-input>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
-    <iframe *ngIf="isIframeReady" width="100" style="height:70vh;" [src]="urlIframe" width="100%" height="300px"></iframe>
+    <iframe
+      *ngIf="isIframeReady"
+      width="100"
+      style="height: 70vh"
+      [src]="urlIframe"
+      width="100%"
+      height="300px"
+    ></iframe>
   </ion-toolbar>
 
   <ion-toolbar *ngIf="ionSegment === 2" class="customContent">
-    <div  *ngIf="creditStep === 1" class="text-center creditStep" >
+    <div *ngIf="creditStep === 1" class="text-center creditStep">
       <div *ngIf="paymentMethodsList?.length === 0">
         <h1 class="creditTittle">AUN NO TIENES TARJETAS GUARDADAS</h1>
-        <P class="creditText">agrega una para continuar</P>
+        <p class="creditText">agrega una para continuar</p>
       </div>
     </div>
     <!-- <ng-template> -->
-    <div  *ngIf="creditStep === 1" class="text-center paymentList" >
-      <ion-list class="payment-list-container " *ngIf="paymentMethodsList?.length > 0">
-        <ion-item-sliding *ngFor="let item of paymentMethodsList; index as i"  (click)="selectCard(item)">
+    <div *ngIf="creditStep === 1" class="text-center paymentList">
+      <ion-list
+        class="payment-list-container"
+        *ngIf="paymentMethodsList?.length > 0"
+      >
+        <ion-item-sliding
+          *ngFor="let item of paymentMethodsList; index as i"
+          (click)="selectCard(item)"
+        >
           <ion-item>
             <figure>
-              <ion-skeleton-text *ngIf="loadingPM; else imgElse" [animated]="true" style="width: 100%"></ion-skeleton-text>
+              <ion-skeleton-text
+                *ngIf="loadingPM; else imgElse"
+                [animated]="true"
+                style="width: 100%"
+              ></ion-skeleton-text>
               <ng-template #imgElse>
-                <img src="../../../assets/icon/credit-card.svg" alt="">
+                <img src="../../../assets/icon/credit-card.svg" alt="" />
               </ng-template>
             </figure>
             <div class="credit-card-info-container">
               <div class="text-container" *ngIf="loadingPM; else textElse">
-                <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
-                <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 100%"
+                ></ion-skeleton-text>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 30%"
+                ></ion-skeleton-text>
               </div>
               <ng-template #textElse>
                 <div class="text-container">
@@ -125,35 +223,69 @@
       </ion-list>
     </div>
     <!-- </ng-template> -->
-    <div *ngIf="creditStep === 2" [formGroup]="myFormCreditCard"> 
+    <div *ngIf="creditStep === 2" [formGroup]="myFormCreditCard">
       <ion-grid class="imgWelcome">
         <ion-row class="ion-row">
           <p>Datos Personales</p>
           <ion-col size="12">
             <ion-item>
-              <ion-select formControlName="documentType"  interface="popover" class="custom" label="Tipo de documento" required>
+              <ion-select
+                formControlName="documentType"
+                interface="popover"
+                class="custom"
+                label="Tipo de documento"
+                required
+              >
                 <ion-select-option value="Cedula">Cedula</ion-select-option>
-                <ion-select-option value="Pasaporte">Pasaporte</ion-select-option>
-                <ion-select-option value="Tarjeta de identidad">Tarjeta de identidad</ion-select-option>
+                <ion-select-option value="Pasaporte"
+                  >Pasaporte</ion-select-option
+                >
+                <ion-select-option value="Tarjeta de identidad"
+                  >Tarjeta de identidad</ion-select-option
+                >
               </ion-select>
             </ion-item>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="names"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+            <ion-input
+              formControlName="names"
+              class="custom"
+              type="text"
+              placeholder="Nombres"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="lastNames"  class="custom" type="text" placeholder="Apellidos" required></ion-input>
+            <ion-input
+              formControlName="lastNames"
+              class="custom"
+              type="text"
+              placeholder="Apellidos"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="email"  class="custom" type="email" placeholder="Correo electrónico" required></ion-input>
+            <ion-input
+              formControlName="email"
+              class="custom"
+              type="email"
+              placeholder="Correo electrónico"
+              required
+            ></ion-input>
           </ion-col>
           <ion-col size="12">
-            <ion-input  formControlName="phone"  class="custom" type="number" placeholder="Número de Celular" required></ion-input>
+            <ion-input
+              formControlName="phone"
+              class="custom"
+              type="number"
+              placeholder="Número de Celular"
+              required
+            ></ion-input>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
-    <div *ngIf="creditStep === 3"> 
+    <div *ngIf="creditStep === 3">
       <!-- <ion-buttons class="scanner-container">
         <ion-button><img src="../../assets/icon/scan-icon.svg" alt="">escanear</ion-button>
       </ion-buttons> -->
@@ -161,22 +293,51 @@
         <div [formGroup]="mySecondFormCreditCard" class="form-container">
           <p>Número de la tarjeta</p>
           <div class="card-number-contaienr">
-            <ion-input formControlName="number" class="custom" placeholder="0000 0000 0000 0000" [maskito]="cardMask" [maskitoElement]="maskPredicate" required></ion-input>
-            <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
+            <ion-input
+              formControlName="number"
+              class="custom"
+              placeholder="0000 0000 0000 0000"
+              [maskito]="cardMask"
+              [maskitoElement]="maskPredicate"
+              required
+            ></ion-input>
+            <img src="../../assets/icon/not-valid-card-icon.svg" alt="" />
           </div>
           <div class="fecha-cvv-container">
             <div class="fecha-container">
               <p>Fecha de expiración</p>
-              <ion-input formControlName="expirationDate" class="custom" type="text" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="12/2023" required></ion-input>
+              <ion-input
+                formControlName="expirationDate"
+                class="custom"
+                type="text"
+                [maskito]="dateMask"
+                [maskitoElement]="maskPredicate"
+                placeholder="12/2023"
+                required
+              ></ion-input>
             </div>
             <div class="cvv-container">
               <p>CVV</p>
-              <ion-input  formControlName="cvv" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" placeholder="123" required></ion-input>
+              <ion-input
+                formControlName="cvv"
+                type="password"
+                class="custom"
+                [maskito]="options"
+                [maskitoElement]="maskPredicate"
+                placeholder="123"
+                required
+              ></ion-input>
             </div>
           </div>
           <div class="card-name-container">
             <p>Nombre en la tarjeta</p>
-            <ion-input  formControlName="name"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+            <ion-input
+              formControlName="name"
+              class="custom"
+              type="text"
+              placeholder="Nombres"
+              required
+            ></ion-input>
           </div>
         </div>
       </div>
@@ -184,19 +345,33 @@
   </ion-toolbar>
 
   <ion-toolbar *ngIf="ionSegment === 3" class="customContent">
-    <ion-radio-group  [(ngModel)]="segment3" >
-      <ion-radio value="Efectivo" (click)="validateSelectDebit()">Efectivo</ion-radio><br />
-      <ion-radio value="Tarjeta débito/crédito" (click)="validateSelectDebit()">Tarjeta débito/crédito</ion-radio>
+    <ion-radio-group [(ngModel)]="segment3">
+      <ion-radio value="Efectivo" (click)="validateSelectDebit()"
+        >Efectivo</ion-radio
+      ><br />
+      <ion-radio value="Tarjeta débito/crédito" (click)="validateSelectDebit()"
+        >Tarjeta débito/crédito</ion-radio
+      >
     </ion-radio-group>
   </ion-toolbar>
 
   <div class="footer" *ngIf="ionSegment === 1">
-    <ion-button  (click)="createPsePayment()"  [disabled]="!isFormValid" [ngClass]="buttonSubmit"><span style="margin-top: -5px;">PAGAR CON PSE</span></ion-button>
+    <ion-button
+      (click)="createPsePayment()"
+      [disabled]="!isFormValid"
+      [ngClass]="buttonSubmit"
+      ><span style="margin-top: -5px">PAGAR CON PSE</span></ion-button
+    >
   </div>
 
   <div class="footer" *ngIf="ionSegment === 2 && creditStep === 1">
-    <ion-button class="buttonSubmitActive" id="open-modal-creditCard" expand="block"><span style="margin-top: -5px;">AGREGAR TARJETA</span></ion-button>
-    <ion-modal  trigger="open-modal-creditCard">
+    <ion-button
+      class="buttonSubmitActive"
+      id="open-modal-creditCard"
+      expand="block"
+      ><span style="margin-top: -5px">AGREGAR TARJETA</span></ion-button
+    >
+    <ion-modal trigger="open-modal-creditCard">
       <ng-template>
         <ion-header>
           <ion-toolbar>
@@ -205,66 +380,112 @@
                 <img src="../../assets/icon/backIcon.svg" alt="Back" />
               </ion-button>
               <div class="dev-logo-header">
-                <img class="delivery-icon" width="50" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
+                <img
+                  class="delivery-icon"
+                  width="50"
+                  src="../../assets/icon/Icon_tres_jotas.svg"
+                  alt="Logo empresa"
+                />
               </div>
-              <ion-button>
-              </ion-button>
+              <ion-button> </ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
 
-        <ion-content class="ion-padding ">
-            <div #modalContainer class="form-payment-container modalContainer">
-              <div [formGroup]="mySecondFormCreditCard" class="form-container">
-                <p>Número de la tarjeta</p>
-                <div class="card-number-contaienr">
-                  <ion-input formControlName="number" class="custom" placeholder="0000 0000 0000 0000" [maskito]="cardMask" [maskitoElement]="maskPredicate" required></ion-input>
-                  <img src="../../assets/icon/not-valid-card-icon.svg" alt="">
+        <ion-content class="ion-padding">
+          <div #modalContainer class="form-payment-container modalContainer">
+            <div [formGroup]="mySecondFormCreditCard" class="form-container">
+              <p>Número de la tarjeta</p>
+              <div class="card-number-contaienr">
+                <ion-input
+                  formControlName="number"
+                  class="custom"
+                  placeholder="0000 0000 0000 0000"
+                  [maskito]="cardMask"
+                  [maskitoElement]="maskPredicate"
+                  required
+                ></ion-input>
+                <img src="../../assets/icon/not-valid-card-icon.svg" alt="" />
+              </div>
+              <div class="fecha-cvv-container">
+                <div class="fecha-container">
+                  <p>Fecha de expiración</p>
+                  <ion-input
+                    formControlName="expirationDate"
+                    class="custom"
+                    type="text"
+                    [maskito]="dateMask"
+                    [maskitoElement]="maskPredicate"
+                    placeholder="12/2023"
+                    required
+                  ></ion-input>
                 </div>
-                <div class="fecha-cvv-container">
-                  <div class="fecha-container">
-                    <p>Fecha de expiración</p>
-                    <ion-input formControlName="expirationDate" class="custom" type="text" [maskito]="dateMask" [maskitoElement]="maskPredicate" placeholder="12/2023" required></ion-input>
-                  </div>
-                  <div class="cvv-container">
-                    <p>CVV</p>
-                    <ion-input  formControlName="cvv" class="custom" [maskito]="options" [maskitoElement]="maskPredicate" placeholder="123" required></ion-input>
-                  </div>
-                </div>
-                <div class="card-name-container">
-                  <p>Nombre en la tarjeta</p>
-                  <ion-input  formControlName="name"  class="custom" type="text" placeholder="Nombres" required></ion-input>
+                <div class="cvv-container">
+                  <p>CVV</p>
+                  <ion-input
+                    formControlName="cvv"
+                    type="password"
+                    class="custom"
+                    [maskito]="options"
+                    [maskitoElement]="maskPredicate"
+                    placeholder="123"
+                    required
+                  ></ion-input>
                 </div>
               </div>
-            </div>
-            <div class="footer">
-              <div class="safe-paymnet-container">
-                <img src="../../assets/icon/padlock-icon.svg" alt="">
-                <p>Pago seguro con Epayco</p>
+              <div class="card-name-container">
+                <p>Nombre en la tarjeta</p>
+                <ion-input
+                  formControlName="name"
+                  class="custom"
+                  type="text"
+                  placeholder="Nombres"
+                  required
+                ></ion-input>
               </div>
-              <ion-button  (click)="payCard()" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
             </div>
+          </div>
+          <div class="footer">
+            <div class="safe-paymnet-container">
+              <img src="../../assets/icon/padlock-icon.svg" alt="" />
+              <p>Pago seguro con Epayco</p>
+            </div>
+            <ion-button
+              (click)="payCard()"
+              [disabled]="!isSecondFormCreditCard"
+              [ngClass]="buttonCredit"
+              ><span style="margin-top: -5px">PAGAR</span></ion-button
+            >
+          </div>
         </ion-content>
-        
       </ng-template>
     </ion-modal>
   </div>
 
   <div class="footer" *ngIf="ionSegment === 2 && creditStep === 2">
-    <ion-button  (click)="nextStep(3)" [disabled]="!isFormCreditValid" [ngClass]="buttonSubmit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
+    <ion-button
+      (click)="nextStep(3)"
+      [disabled]="!isFormCreditValid"
+      [ngClass]="buttonSubmit"
+      ><span style="margin-top: -5px">CONTINUAR</span></ion-button
+    >
   </div>
   <div class="footer" *ngIf="ionSegment === 2 && creditStep === 3">
     <div class="safe-paymnet-container">
-      <img src="../../assets/icon/padlock-icon.svg" alt="">
+      <img src="../../assets/icon/padlock-icon.svg" alt="" />
       <p>Pago seguro con Epayco</p>
     </div>
-    <ion-button  (click)="payCard()" [disabled]="!isSecondFormCreditCard" [ngClass]="buttonCredit" ><span style="margin-top: -5px;">PAGAR</span></ion-button>
+    <ion-button
+      (click)="payCard()"
+      [disabled]="!isSecondFormCreditCard"
+      [ngClass]="buttonCredit"
+      ><span style="margin-top: -5px">PAGAR</span></ion-button
+    >
   </div>
- 
+
   <div class="footer" *ngIf="ionSegment === 3">
-    <ion-button  (click)="submit()" [ngClass]="buttonDebit"><span style="margin-top: -5px;">CONTINUAR</span></ion-button>
+    <ion-button (click)="submit()" [ngClass]="buttonDebit"
+      ><span style="margin-top: -5px">CONTINUAR</span></ion-button
+    >
   </div>
-
-
-
 </ion-content>

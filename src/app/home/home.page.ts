@@ -228,9 +228,7 @@ export class HomePage {
             .subscribe((response) => {
               if(response.success === true){
                 if(response.data.status_id === 1){
-                  this.pseAlert()
-                }else{
-                  this.pseAlert()
+                  this.redirecToCart()
                 }
               }else{
                 console.log(response);
@@ -273,17 +271,6 @@ export class HomePage {
     this.router.navigate(['/home/tab3/cart-checkout']);
   }
 
-  async pseAlert() {
-    await presentAlert(
-      this.alertController,
-      'INFORMACIÓN',
-      'Pedido en curso, deseas continuar',
-      '/assets/img/warning.svg',
-      '',
-      () => this.redirecToCart(),
-      ''
-    );
-  }
 
   async singOut() {
     await presentAlert(

@@ -132,12 +132,12 @@ export class CreateAccountPage implements OnInit {
   convertDateFormat(dateString: string): string {
     console.log('fecha',dateString);
     
-    const dateParts = dateString.split('-'); // Separar los componentes de la fecha
+    const dateParts = dateString.split('-'); 
     const year = dateParts[0];
     const month = dateParts[1];
     const day = dateParts[2];
 
-    return `${day}-${month}-${year}`; // Construir la fecha en formato DD/MM/AAAA
+    return `${day}-${month}-${year}`; 
   }
 
   async showAlertError(data:string) {

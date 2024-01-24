@@ -220,7 +220,6 @@ export class CartCheckoutPage implements OnInit {
     this.cartService
       .getCartData()
       .then((data) => {
-        console.log(data);
         this.address = data.address;
         if(data.idOrder){
           this.orderId = data.idOrder
@@ -240,6 +239,9 @@ export class CartCheckoutPage implements OnInit {
         }
         if(data.address && data.address.latitude){
           this.validateDelivery(data.address)
+        }
+        if(data.number){
+          this.myForm.get('contact')?.setValue(data?.number)
         }
         this.points = data.points
         this.subtotal = data.total || 0
@@ -271,6 +273,10 @@ export class CartCheckoutPage implements OnInit {
   //   // } , 0);
   //   this.total = this.subtotal;
   // }
+
+  updateNumber(){
+    this.cartService.setNumberCartData(this.myForm.get('contact')?.value)
+  }
 
   getToken() {
     const response = this.userService.getUserData()
@@ -328,6 +334,14 @@ export class CartCheckoutPage implements OnInit {
       longitude:location.longitude
     }
     this.validateDelivery(location);
+
+    const address:Address =   {
+      address: location.address,
+      latitude:location.latitude,
+      longitude:location.longitude,
+      details:location.detail
+    }
+    this.cartService.setAddressCartData(address)
   }
 
   async submit(){

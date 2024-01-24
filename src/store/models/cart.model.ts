@@ -6,6 +6,7 @@ export interface cart {
     total?:number;
     idOrder?:number;
     payment?:any;
+    number?:number;
     fromAddress?:string
 }
 

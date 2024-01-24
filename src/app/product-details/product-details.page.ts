@@ -95,7 +95,8 @@ export class ProductDetailsPage implements OnInit {
     console.log(contentElement);
     
     if (contentElement) {
-      const maxHeight = window.innerHeight - 470;
+      //const maxHeight = window.innerHeight - 470;
+      const maxHeight = window.innerHeight - 526;
       console.log("redisign", window.innerHeight , maxHeight);
 
       this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
@@ -136,10 +137,14 @@ export class ProductDetailsPage implements OnInit {
     const quantity = {
       quantitySelected: this.quantity,
     };
+    
     const productDetail:cartModel = {
       ...shareProduct,
       ...quantity,
     };
+
+    productDetail.price = this.price;
+
     this.cartService.setCart(productDetail)
     this.isSuccess = true;
     setTimeout(() => {

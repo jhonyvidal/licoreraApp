@@ -66,6 +66,23 @@ export class CartService {
     return true;
   }
 
+  setNumberCartData(number: number){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.number = number;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
   setPointsCartData(points: number, total: number){
     let storeCartData;
     this.storage.get('cartData')

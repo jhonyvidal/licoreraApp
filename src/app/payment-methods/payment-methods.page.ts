@@ -21,6 +21,7 @@ import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
+import { CardYearValidation } from 'src/shared/CustomValidations/CardYearValidation';
 
 @Component({
   selector: 'app-payment-methods',
@@ -62,7 +63,7 @@ export class PaymentMethodsPage implements OnInit {
     this.mySecondFormCreditCard = this.formBuilder.group({
       number: ['', [Validators.required, Validators.minLength(19)]],
       cvv: ['', [Validators.required, Validators.minLength(3)]],
-      expirationDate: ['', [Validators.required, Validators.minLength(7)]],
+      expirationDate: ['', [Validators.required, Validators.minLength(7), CardYearValidation()]],
       name: ['', [Validators.required]],
     });
     this.myFormAlert = this.formBuilder.group({
@@ -128,14 +129,14 @@ export class PaymentMethodsPage implements OnInit {
 
   private applykeyboarHide() {
     const contentElement = this.modalContainer.nativeElement;
-    this.renderer.setStyle(contentElement, 'max-height', `auto`);
+    this.renderer.setStyle(contentElement, 'max-height', `100%`);
   }
 
   private applyKeyboardStyle(keyboardHeight: number): void {
     if (this.modalContainer && this.modalContainer.nativeElement) {
       const contentElement = this.modalContainer.nativeElement;
       console.log(contentElement);
-      const maxHeight = window.innerHeight - (keyboardHeight - 60);
+      const maxHeight = window.innerHeight - (keyboardHeight - 50);
       this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
       this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
     } else {
@@ -163,13 +164,22 @@ export class PaymentMethodsPage implements OnInit {
     });
     this.getBanks();
     this.getPaymentMethods();
+    this.clearAll()
   }
 
   message =
     'This modal example uses triggers to automatically open a modal when the button is clicked.';
   name: string;
 
+  clearAll() {
+    this.mySecondFormCreditCard.get('number')?.setValue(null);
+    this.mySecondFormCreditCard.get('cvv')?.setValue(null);
+    this.mySecondFormCreditCard.get('expirationDate')?.setValue(null);
+    this.mySecondFormCreditCard.get('name')?.setValue(null);
+  }
+
   cancel() {
+    this.clearAll()
     this.modal.dismiss(null, 'cancel');
   }
 
