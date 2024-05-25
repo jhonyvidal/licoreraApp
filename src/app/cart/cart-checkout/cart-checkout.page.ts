@@ -227,6 +227,9 @@ export class CartCheckoutPage implements OnInit {
         if(data?.address){     
           this.myForm.get('address')?.setValue(data?.address?.address)
           this.myForm.get('addressDetail')?.setValue(data?.address?.details)
+          if(data?.address?.id){
+            this.myForm.get('location')?.setValue(data?.address?.id)
+          }
         }
         if(data?.payment){
           this.paymentType = data?.payment?.type
@@ -325,6 +328,7 @@ export class CartCheckoutPage implements OnInit {
   }
 
   locationSelected(event: any) {
+
     const location = this.myLocations.find((element: any) => element.id === event.detail.value);
     this.myForm.get('address')?.setValue(location.address);
     this.myForm.get('addressDetail')?.setValue(location.detail);
@@ -336,6 +340,7 @@ export class CartCheckoutPage implements OnInit {
     this.validateDelivery(location);
 
     const address:Address =   {
+      id: location.id,
       address: location.address,
       latitude:location.latitude,
       longitude:location.longitude,

@@ -49,4 +49,5 @@ export interface Address {
     latitude:number;
     longitude:number;
     details:string;
+    id?:number
 }
