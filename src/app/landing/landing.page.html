@@ -10,7 +10,7 @@
     <ion-searchbar (click)="search()" placeholder="Old parr, Whisky, Cervezas" class="ionSearchbar"></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment value="all">
+    <ion-segment value="all" mode="md">
       <ion-segment-button value="all" (click)="show(1)" *ngIf="ListCampains?.length > 0" >
         <ion-label class="segmentLabel" >DESTACADOS</ion-label>
       </ion-segment-button>
