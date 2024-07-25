@@ -124,6 +124,10 @@ export class UserPage implements OnInit {
     });
   }
 
+  goToUserExchanges(){
+    this.router.navigate(['/user-exchanges']);
+  }
+
   getMeData(){
     this.requestUseCase.getMe(this.loginToken)
     .subscribe((response) => {

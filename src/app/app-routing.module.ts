@@ -90,7 +90,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },  {
+    path: 'user-exchanges',
+    loadChildren: () => import('./user-exchanges/user-exchanges.module').then( m => m.UserExchangesPageModule)
   }
+
 
 ];
 @NgModule({
