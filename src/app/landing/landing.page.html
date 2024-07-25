@@ -55,7 +55,7 @@
           </div>
           <h1>{{data.name}}<span style="float: right">{{data.price  | customCurrency :'.':'$ '}}</span></h1>
           <p style="color: #000000;"  class="PromotionDescription">{{data.description.slice(0,50)}}</p>
-          <p style="padding-bottom: 5px;">Válido hasta: {{data.end_date}}</p>
+          <p style="padding-bottom: 5px;">Válido hasta: {{data.end_date | promotionDate }}</p>
         </div>
       </swiper-slide>
     </swiper-container>

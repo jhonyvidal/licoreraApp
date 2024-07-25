@@ -16,7 +16,6 @@ import { DepartmentEmployeesService } from 'src/store/services/department-employ
 import { AuthorPostsService } from 'src/store/services/author-posts.service';
 import { register } from 'swiper/element/bundle';
 
-
 register();
 import { FormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage-angular';
