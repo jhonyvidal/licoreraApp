@@ -68,7 +68,7 @@ export class NewAddressMapPage implements OnInit {
     });
 
     await this.newMap.addMarker({
-      iconUrl:'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+      iconUrl:'../../assets/icon/locationIcon.png',
       coordinate: {
         lat: this.latitude,
         lng:  this.longitude
@@ -84,8 +84,16 @@ export class NewAddressMapPage implements OnInit {
     });
   }
 
+  
+
 
   async getGoogleReverseApi(latitud:number,longitude:number){
+    await this.newMap.setCamera({
+      coordinate: {
+        lat: latitud,
+        lng: longitude
+      }
+    });
     const token = await this.getToken()
       this.requestUseCase.getGoogleReverseApi(token,latitud,longitude)
       .subscribe((response) => {

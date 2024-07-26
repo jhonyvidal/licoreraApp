@@ -68,7 +68,7 @@ export class HomePage {
     // Escuchar eventos de notificación.
     PushNotifications.addListener('registration', (token: PushNotificationToken) => {
       this.tokenPush = token.value;
-      this.createDevice('15DC8E4D-0006-4986-970A-49674C7E04A1',token.value)
+      this.createDevice(this.userData.uuid,token.value)
       console.log('Token de registro:', token.value);
     });
 
@@ -222,7 +222,22 @@ export class HomePage {
   getCart() {
     this.cartService
       .getCartData()
-      .then((data) => {
+      .then(async (data) => {
+        if(data.payment &&  data.payment.type === "PSE" && data.idOrder){
+          const token = await this.getToken()
+          this.requestUseCase.getConfirmation(token, data.idOrder)
+            .subscribe((response) => {
+              if(response.success === true){
+                if(response.data.status_id === 1){
+                  this.redirecToCart()
+                }
+              }else{
+                console.log(response);
+              }
+          });
+         
+          data.payment.ref_payco
+        }
         if(data && data.details && data.details.length > 0){ 
           this.cartQuantity = data.details.length;
         }else{
@@ -234,10 +249,29 @@ export class HomePage {
       });
   }
 
+  getToken() {
+    const response = this.userService.getUserData()
+    .then(data => {
+      console.log('Api token: ', data.api_token);
+      return data.api_token
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+      this.router.navigate(['/sign-in']);
+      return 'Error al obtener los datos del usuario'
+    });
+    return response;
+  }
+
   logout(){
     this.userService.logout();
     this.getUser();
   }
+
+  redirecToCart(){
+    this.router.navigate(['/home/tab3/cart-checkout']);
+  }
+
 
   async singOut() {
     await presentAlert(

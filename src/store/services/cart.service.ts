@@ -66,6 +66,23 @@ export class CartService {
     return true;
   }
 
+  setNumberCartData(number: number){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.number = number;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    return true;
+  }
+
   setPointsCartData(points: number, total: number){
     let storeCartData;
     this.storage.get('cartData')
@@ -185,6 +202,7 @@ export class CartService {
   }
 
   deleteCompleteCart(){
+    console.log("BORRANDO TODO");
     this.storage.get('cartData')
     .then(data => {
       this.storage.set('cartData', {});
@@ -192,6 +210,15 @@ export class CartService {
     .catch(error => {
       console.error('Error al obtener los datos del cart:', error);
     });
+
+    this.storage.get('cartData')
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart:', error);
+    });
+    
     // return true;
   }
 

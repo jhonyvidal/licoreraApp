@@ -62,6 +62,7 @@ export abstract class RequestGateway {
     abstract getGoogleApi(token: string, param:string): Observable<any>;
     abstract getGoogleReverseApi(token: string, latitud:number, longitude:number): Observable<any>;
     abstract getMeLocation(token: string): Observable<any>;
+    abstract getConfirmation(token: string, id:number): Observable<any>;
     abstract postLocations(path: string, data: CreateLocationRequest):Observable<any>;
     abstract postFavoriteLocations(path: string, data: FavoriteLocationsRequest):Observable<FavoriteLocationResponse>;
     abstract postOrder(path: string, data: any):Observable<any>;

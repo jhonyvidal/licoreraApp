@@ -92,15 +92,8 @@ export class CartCheckoutPage implements OnInit {
     });
   }
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
-  
+
   ngOnInit() {
-    const platform = Capacitor.getPlatform();
-    if(platform !== "web") {
-      setTimeout(() => {
-        this.applyStyle();
-      }, 3000);
-    }
-    
     this.getInfo();
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
@@ -122,9 +115,18 @@ export class CartCheckoutPage implements OnInit {
     this.getCart();
   }
 
+  ionViewDidEnter(){
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      setTimeout(() => {
+        this.applyStyle();
+      }, 3000);
+    }
+  }
+
   private applyStyle(): void {
-    const contentElement = this.el.nativeElement.querySelector('content-form');
-    const maxHeight = window.innerHeight - 444
+    const contentElement = this.el.nativeElement.querySelector('.content-form');
+    const maxHeight = window.innerHeight - 450
     this.renderer.setStyle(contentElement, 'height', `${maxHeight}px`);
     this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
   }
@@ -218,7 +220,6 @@ export class CartCheckoutPage implements OnInit {
     this.cartService
       .getCartData()
       .then((data) => {
-        console.log(data);
         this.address = data.address;
         if(data.idOrder){
           this.orderId = data.idOrder
@@ -226,6 +227,9 @@ export class CartCheckoutPage implements OnInit {
         if(data?.address){     
           this.myForm.get('address')?.setValue(data?.address?.address)
           this.myForm.get('addressDetail')?.setValue(data?.address?.details)
+          if(data?.address?.id){
+            this.myForm.get('location')?.setValue(data?.address?.id)
+          }
         }
         if(data?.payment){
           this.paymentType = data?.payment?.type
@@ -238,6 +242,9 @@ export class CartCheckoutPage implements OnInit {
         }
         if(data.address && data.address.latitude){
           this.validateDelivery(data.address)
+        }
+        if(data.number){
+          this.myForm.get('contact')?.setValue(data?.number)
         }
         this.points = data.points
         this.subtotal = data.total || 0
@@ -269,6 +276,10 @@ export class CartCheckoutPage implements OnInit {
   //   // } , 0);
   //   this.total = this.subtotal;
   // }
+
+  updateNumber(){
+    this.cartService.setNumberCartData(this.myForm.get('contact')?.value)
+  }
 
   getToken() {
     const response = this.userService.getUserData()
@@ -317,6 +328,7 @@ export class CartCheckoutPage implements OnInit {
   }
 
   locationSelected(event: any) {
+
     const location = this.myLocations.find((element: any) => element.id === event.detail.value);
     this.myForm.get('address')?.setValue(location.address);
     this.myForm.get('addressDetail')?.setValue(location.detail);
@@ -326,6 +338,15 @@ export class CartCheckoutPage implements OnInit {
       longitude:location.longitude
     }
     this.validateDelivery(location);
+
+    const address:Address =   {
+      id: location.id,
+      address: location.address,
+      latitude:location.latitude,
+      longitude:location.longitude,
+      details:location.detail
+    }
+    this.cartService.setAddressCartData(address)
   }
 
   async submit(){
@@ -377,7 +398,8 @@ export class CartCheckoutPage implements OnInit {
     this.cartService.deleteCompleteCart();
     this.router.navigate(['/home/tab3']).then(() => {
       this.router.navigate(['/home'])
-      location.reload();
+      this.getCart();
+      // location.reload();
     })
     ;
   }

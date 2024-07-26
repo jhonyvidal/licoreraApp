@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
@@ -15,6 +15,7 @@ import { AddressObjectService } from 'src/shared/services/addressObject';
 import { SignInObjectService } from 'src/shared/services/signInObject';
 import { Keyboard } from '@capacitor/keyboard';
 import setPaddingKeyboard from 'src/shared/BTN_Color/paddingKeyboard';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-user',
@@ -22,11 +23,10 @@ import setPaddingKeyboard from 'src/shared/BTN_Color/paddingKeyboard';
   styleUrls: ['./user.page.scss','./user.page2.scss'],
 })
 export class UserPage implements OnInit {
-
+  @ViewChild('avatarImg') avatarImage: string;
   myForm: FormGroup;
   readOnly: boolean = true;
   readonlyEmail: boolean = true;
-  avatarImage: string;
   defaultAvatarImage: string = '../../../assets/icon/User-profile-pic.svg';
   btnText: string = 'Editar';
   ionSegment:number = 1;
@@ -56,7 +56,10 @@ export class UserPage implements OnInit {
     private alertController: AlertController,
     private userService: UserService,
     private addressObjectService:AddressObjectService,
-    private signInObjectService:SignInObjectService
+    private signInObjectService:SignInObjectService,
+    private el: ElementRef,
+    private ngZone:NgZone,
+    private renderer: Renderer2,
   ) {
     this.myForm = this.formBuilder.group({
       cardNumber: ['', [Validators.required]],
@@ -73,15 +76,28 @@ export class UserPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    // Suscribirse al evento keyboardDidShow
-    Keyboard.addListener('keyboardDidShow', () => {
-      setPaddingKeyboard('400px');
-    });
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      Keyboard.addListener('keyboardDidShow', (info) => {
+        this.ngZone.run(() => {
+          this.applyKeyboardStyle(info.keyboardHeight);
+        });
+      });
+    }
+  }
 
-    // Suscribirse al evento keyboardDidHide
-    Keyboard.addListener('keyboardDidHide', () => {
-      setPaddingKeyboard('none');
-    });
+  handleImageError() {
+    this.avatarImage = '../../../assets/icon/User-profile-pic.svg';
+    console.log('Error al cargar la imagen');
+    // Puedes realizar otras acciones aquí si lo deseas
+  }
+
+  private applyKeyboardStyle(keyboardHeight: number): void {
+    const contentElement = this.el.nativeElement.querySelector('userContent');
+    const maxHeight = window.innerHeight - (keyboardHeight + 20);
+    
+    this.renderer.setStyle(contentElement, 'max-height', `${maxHeight}px`);
+    this.renderer.setStyle(contentElement, 'overflow-y', 'scroll');
   }
 
   ionViewWillEnter() {
@@ -107,8 +123,10 @@ export class UserPage implements OnInit {
   getUserData() {
     this.userService.getUserData()
     .then(data => {
-
-      this.loginToken = data.api_token;
+      if(data?.api_token){
+        data.token = data.api_token
+      }
+      this.loginToken = data.token;
       setBTNColor(this.btnStylesCSS, this.btnBorder, this.btnTextColor);
 
       this.getPaymentMethods();
@@ -132,6 +150,8 @@ export class UserPage implements OnInit {
     this.requestUseCase.getMe(this.loginToken)
     .subscribe((response) => {
       if (response.success === true) {
+        console.log(response);
+        
         this.client = response;
         this.client_Id = response.data.id;
         this.clientPoints = response.data.points;
@@ -153,7 +173,10 @@ export class UserPage implements OnInit {
   getLocations() {
     this.userService.getUserData()
     .then(data => {
-      this.requestUseCase.getLocationsV2(data.api_token).subscribe(response => {
+      if(data?.api_token){
+        data.token = data.api_token
+      }
+      this.requestUseCase.getLocationsV2(data.token).subscribe(response => {
         if (response.success === true) {
           this.addressList = response.data;
           for (let i = 0; i < this.addressList?.length; i++) {
@@ -186,7 +209,10 @@ export class UserPage implements OnInit {
   getPaymentMethods(){
     this.userService.getUserData()
     .then(data => {
-      this.requestUseCase.getPaymentMethodsV2(data.api_token).subscribe(response => {
+      if(data?.api_token){
+        data.token = data.api_token
+      }
+      this.requestUseCase.getPaymentMethodsV2(data.token).subscribe(response => {
         if (response.success === true) {
           
           if (response?.data && response?.data?.cards) {
@@ -229,8 +255,11 @@ export class UserPage implements OnInit {
       mask: data.mask,
     }
     this.userService.getUserData()
-    .then(data => {      
-      this.requestUseCase.postDeletePaymentMethods(data.api_token, deleteJson).subscribe(async response => {
+    .then(data => {    
+      if(data?.api_token){
+        data.token = data.api_token
+      }  
+      this.requestUseCase.postDeletePaymentMethods(data.token, deleteJson).subscribe(async response => {
         if (response.success === true) {
           this.getPaymentMethods();
         } else {

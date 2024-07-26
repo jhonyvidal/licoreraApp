@@ -158,6 +158,20 @@ ion-radio::part(mark) {
     font-size: 16px;
     font-family: weblysleekuil;
   }
+  ion-content .form-container .custom {
+    --background: #ffff;
+    --color: #000000;
+    --placeholder-color: #ddd;
+    --placeholder-opacity: 0.8;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    border-bottom: solid 1px;
+  }
+
+  .custom {
+    border-bottom: solid 1px;
+  }
+
 
   ion-content .form-container .fecha-cvv-container {
     margin-top: 15px;

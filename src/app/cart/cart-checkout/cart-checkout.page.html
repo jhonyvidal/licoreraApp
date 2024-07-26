@@ -53,6 +53,7 @@
             type="text"
             placeholder="3153521966"
             required
+            (change)="updateNumber()"
             [maskito]="phoneMask" [maskitoElement]="maskPredicate"
           ></ion-input>
         </ion-col>

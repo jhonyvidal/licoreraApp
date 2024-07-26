@@ -17,7 +17,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true"  [formGroup]="myForm">
-  <div class="header-container">
+  <div style="text-align: center;">
+    <img width="80" height="80" src="../../assets/icon/confirmAddressIcon.svg" alt="Back" style="margin-top: 20px; margin-bottom: -40px;"/>
+  </div>
+  <div class="header-container" style="text-align: center;">
     <h1>CONFIRMA LOS DETALLES DE LA DIRECCIÓN</h1>
   </div>
   <!-- <div class="thumbnail-container">
@@ -27,15 +30,15 @@
   <div class="form-container">
     <div class="mb-10">
       <ion-label>Dirección</ion-label>
-      <ion-input  formControlName="addressInput" class="custom" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
+      <ion-input  formControlName="addressInput" class="custom textSecondary" type="text" placeholder="Cra 26 # 33 - 17" required></ion-input>
     </div>
     <div class="mb-10" *ngIf="isCheckboxChecked">
       <ion-label >Nombre de la dirección</ion-label>
-      <ion-input  formControlName="addressName" class="custom" type="text" placeholder="Mi casa"></ion-input>
+      <ion-input  formControlName="addressName" class="custom textSecondary" type="text" placeholder="Mi casa"></ion-input>
     </div>
     <div>
       <ion-label>Detalles</ion-label>
-      <ion-input  formControlName="addressDetail" class="custom" type="text" placeholder="Torre / apto / casa / detalles" required></ion-input>
+      <ion-input  formControlName="addressDetail" class="custom textSecondary" type="text" placeholder="Torre / apto / casa / detalles" required></ion-input>
     </div>
   </div>
   <div class="custom-checkbox mb10">

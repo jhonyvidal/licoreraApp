@@ -6,6 +6,7 @@ export interface cart {
     total?:number;
     idOrder?:number;
     payment?:any;
+    number?:number;
     fromAddress?:string
 }
 
@@ -48,4 +49,5 @@ export interface Address {
     latitude:number;
     longitude:number;
     details:string;
+    id?:number
 }

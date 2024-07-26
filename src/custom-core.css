@@ -110,9 +110,7 @@ html, p, h1, h2, h3, a {
 .alert-wrapper.ion-overlay-wrapper.sc-ion-alert-md {
     padding: 16px 20px 20px 20px;
     background: #FFFFFF;
-    border-radius: 10px;
-    --max-width: 90%;
-    --width: 80%
+    border-radius: 10px; 
 }
 
 .alert-head.sc-ion-alert-md {
@@ -258,4 +256,9 @@ ion-alert .alert-wrapper{
 }
 #starRating{
     margin-bottom: 20px;
+}
+.textSecondary{
+    font-family: weblysleekuisl;
+    color: #000000;
+    font-weight: 300;
 }

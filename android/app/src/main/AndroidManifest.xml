@@ -10,10 +10,10 @@
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
+    android:label="Tres Jotas"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme.SplashTheme">
+    android:theme="@style/AppTheme">
     <activity
       android:name=".MainActivity"
       android:exported="false" />
@@ -24,6 +24,12 @@
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="tresjotas" />
       </intent-filter>
     </activity>
 

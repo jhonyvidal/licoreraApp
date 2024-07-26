@@ -428,6 +428,20 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getConfirmation(token: string,id:number):Observable<any> {
+    const headers = new HttpHeaders(
+      {
+        'Authorization': token
+      }
+    );
+    return this.http.getV2(`api/v2/payments/confirmation/${id}`,headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as UserModel
+      })
+    )
+  }
+
   postLocations(token: string, data: CreateLocationRequest): Observable<any> {
     console.log("inter token:",token)
     const headers = new HttpHeaders(

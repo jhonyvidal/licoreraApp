@@ -88,11 +88,12 @@ const routes: Routes = [
     loadChildren: () => import('./exchange-history/exchange-history.module').then( m => m.ExchangeHistoyrPageModule)
   },
   {
-    path: '',
+    path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
-  },  {
-    path: 'user-exchanges',
-    loadChildren: () => import('./user-exchanges/user-exchanges.module').then( m => m.UserExchangesPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./point-entry/point-entry.module').then( m => m.PointEntryPageModule)
   }
 
 

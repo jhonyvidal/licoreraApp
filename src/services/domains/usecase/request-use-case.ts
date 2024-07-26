@@ -165,6 +165,10 @@ export class RequestUseCases {
     return this._requestGateWay.getMeLocation(token);
   }
 
+  getConfirmation(token: string, id:number) {
+    return this._requestGateWay.getConfirmation(token, id);
+  }
+
   postLocations(token: string, data: CreateLocationRequest) : Observable <PostPaymentMethodsResponse> {
     return this._requestGateWay.postLocations(token, data);
   }
