@@ -74,6 +74,7 @@ export abstract class RequestGateway {
     abstract deleteAddress(path: string, idAddress: string):Observable<any>;
     abstract deleteFavoriteLocations(path: string, idAddress: number):Observable<FavoriteLocationResponse>;
     abstract getUserExchangeProducts(token:string, page: string): Observable<UserExchangeResponse>;
+    abstract postSuggest(data: any):Observable<any>;
 }
 
 

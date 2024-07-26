@@ -149,7 +149,9 @@ export class LandingPage implements OnInit {
   }
 
   getProductDetail(data:any, type:string){
-    
+    if(type === "Promotion"){
+      data.id = data.store_product_id
+    }
     const newObject = this.CartModelPipe.transform(data);
     let product = {...newObject,origin_page:type};
     this.shareObjectService.setObjetoCompartido(product);

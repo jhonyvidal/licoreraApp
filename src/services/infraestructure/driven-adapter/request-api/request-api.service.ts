@@ -43,6 +43,7 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+  
 
   getSuggestedProducts(token: string): Observable<suggestedProducts> {
     const headers = new HttpHeaders(
@@ -603,5 +604,15 @@ export  class RequestApiService extends RequestGateway {
       })
     )
   }
+
+  postSuggest(data:any): Observable<any> {
+    return this.http.post('emailsuggest', data).pipe(
+      map(response => {
+        // console.log(response)
+        return response as any
+      })
+    )
+  }
+  
 
 }
