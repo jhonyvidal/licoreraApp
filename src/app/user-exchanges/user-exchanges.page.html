@@ -22,29 +22,32 @@
       <h2 class="tittle-user-exchange">Productos canjeados</h2>
     </div>
     <ion-content class="ion-content-infinite">
-      <!-- <ion-list [class]="listClass">
-        <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
-          <figure class="img-container">
-            <figure class="promotion-container" *ngIf="item.discount > 0">
-              <h4 class="discount-number">{{item.discount}}</h4>
-              <p class="discount-off">% off</p>
-              <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
+      <ion-list class="list-container">
+          <div class="product-exchange-container" *ngFor="let item of exchangeProducts; let index">
+            <figure class="img-container">
+              <img [src]="item.order_products[0].store.product.image" alt="">
             </figure>
-            <img [src]="item.product.image" alt="">
-          </figure>
-          <div class="info-searched-container">
-            <h2 class="porduct-name">{{item.product.name}}</h2>
-            <p class="product-description">{{item.product.description.slice(0,80)}}...</p>
-            <h1 class="product-price">{{item.price | customCurrency :'.':'$ '}}</h1>
+            <div class="info-exchange-container">
+              <div class="product-name-jotas-container">
+                <div class="name-container">
+                  <h2 class="Product-name-exchange">{{item.order_products[0].store.product.name}}</h2>
+                </div>
+                <div class="jotas-container">
+                  <h2 class="product-jotas">{{item.order_products[0].store.points}} J</h2>
+                </div>
+              </div>
+              <!-- <p class="product-description-searched">{{item.product.description.slice(0,80)}}...</p> -->
+              <p class="product-description-exchange">{{item.order_products[0].store.product.description.slice(0,100)}}...</p>
+              <h4 class="disponible-exchange">Canjeado: {{item.order_products[0].created_at | exchangeDate }}</h4>
+            </div>
           </div>
-        </div>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="loadData($event)">
         <ion-infinite-scroll-content
           loadingSpinner="bubbles"
         >
         </ion-infinite-scroll-content>
-      </ion-infinite-scroll> -->
+      </ion-infinite-scroll>
     </ion-content>
   </div>
 </ion-content>
