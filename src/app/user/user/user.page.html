@@ -43,12 +43,12 @@
         <div class="vertical-divider">
 
         </div>
-        <div class="canjes">
+        <div class="canjes" (click)="goToUserExchanges()">
           <p>{{client?.data?.exchanges_quantity}}</p>
           <p>Canjes</p>
         </div>
       </div>
-      <ion-segment value="info">
+      <ion-segment value="info" mode="md">
         <ion-segment-button value="info" (click)="show(1)">
           <ion-label>Información</ion-label>
         </ion-segment-button>

@@ -8,7 +8,7 @@
       <ion-button class="btn-header">
         <img width="40" height="40" class="delivery-icon" src="../../assets/icon/Icon_tres_jotas.svg" alt="Logo empresa">
       </ion-button>
-      <ion-button class="btn-header" >
+      <ion-button class="btn-header" (click)="goToUser()">
         <!-- <img class="delivery-icon" src="../../assets/icon/right-arrow.svg" alt="right arrow"> -->
         <img width="24" height="24"  src="../../assets/icon/white-x.svg" alt="">
       </ion-button>
@@ -17,9 +17,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user-exchanges</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="user-exchange-container">
+    <div class="tittle-container">
+      <h2 class="tittle-user-exchange">Productos canjeados</h2>
+    </div>
+    <ion-content class="ion-content-infinite">
+      <!-- <ion-list [class]="listClass">
+        <div class="product-searched" *ngFor="let item of products; let index" (click)="getProductDetail(item)">
+          <figure class="img-container">
+            <figure class="promotion-container" *ngIf="item.discount > 0">
+              <h4 class="discount-number">{{item.discount}}</h4>
+              <p class="discount-off">% off</p>
+              <img class="promotion-icon" src="../../assets/icon/DiscountIcon.svg" alt="">
+            </figure>
+            <img [src]="item.product.image" alt="">
+          </figure>
+          <div class="info-searched-container">
+            <h2 class="porduct-name">{{item.product.name}}</h2>
+            <p class="product-description">{{item.product.description.slice(0,80)}}...</p>
+            <h1 class="product-price">{{item.price | customCurrency :'.':'$ '}}</h1>
+          </div>
+        </div>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+        >
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+    </ion-content>
+  </div>
 </ion-content>

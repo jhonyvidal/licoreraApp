@@ -1,0 +1,38 @@
+ion-header ion-toolbar {
+    --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-header {
+    margin: 0;
+    padding: 0;
+    width: 56px;
+}
+
+.user-exchange-container {
+    width: 100%;
+    height: 100%;
+}
+
+.user-exchange-container .tittle-container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-exchange-container .tittle-container .tittle {
+    font-size: 20px;
+    font-family: 'HudsonNYSerif';
+}
+
+.user-exchange-container .ion-content-infinite {
+    width: 100%;
+    height: 90%;
+}
