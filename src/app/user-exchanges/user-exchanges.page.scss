@@ -1,0 +1,134 @@
+ion-header ion-toolbar {
+    --background: #272727;
+}
+
+ion-header ion-toolbar ion-buttons {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-header {
+    margin: 0;
+    padding: 0;
+    width: 56px;
+}
+
+.user-exchange-container {
+    width: 100%;
+    height: 100%;
+}
+
+.user-exchange-container .tittle-container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-exchange-container .tittle-container .tittle {
+    font-size: 20px;
+    font-family: 'HudsonNYSerif';
+}
+
+.user-exchange-container .ion-content-infinite {
+    width: 100%;
+    height: 90%;
+}
+
+.list-container {
+    margin: 0;
+    padding: 20px 20px 0 20px;
+    // width: 100%;
+    // height: 100%;
+  }
+  
+  .list-container .product-exchange-container {
+    margin-bottom: 16px;
+    display: flex;
+    height: 150px;
+    border: 1px solid #BBBBBB;
+    border-radius: 10px;
+    background-color: white;
+  }
+  
+  .list-container .product-exchange-container .img-container {
+    margin: 0;
+    padding: 0;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .list-container .product-exchange-container .img-container img {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container {
+    margin: 0;
+    padding: 20px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container {
+    display: flex;
+    // justify-content: space-between;
+    align-items: baseline;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container > * {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .name-container {
+    width: 80%;
+    height: 100%;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .jotas-container {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: start;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container > div > * {
+    margin: 0;
+    padding: auto;
+    font-size: 14px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .Product-name-exchange {
+    width: 80%;
+    font-family: 'weblysleekuisb';
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-name-jotas-container .product-jotas {
+    margin: 0 0 auto 0;
+    // padding-bottom: 3px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .product-description-exchange {
+    margin: 5px 0 0 0;
+    padding: 0;
+    font-family: 'weblysleekuil';
+    font-size: 12px;
+  }
+  
+  .list-container .product-exchange-container .info-exchange-container .disponible-exchange {
+    margin: auto 0 0 0;
+    padding: 0;
+    font-family: 'weblysleekuisb';
+    font-size: 12px;
+  }

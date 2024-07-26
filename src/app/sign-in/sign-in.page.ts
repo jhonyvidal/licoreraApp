@@ -213,7 +213,8 @@ export class SignInPage implements OnInit {
 
   goBack(): void {
     const backRouter = this.signInObjectService.getObjetoCompartido()
-    this.router.navigate([backRouter]);
+    // this.router.navigate([backRouter]);
+    this.router.navigate(['/home']);
   }
 
 }

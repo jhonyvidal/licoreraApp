@@ -187,6 +187,7 @@ export class HomePage {
 
   routerLink(route: string) {
     this.router.navigate(['/' + route]);
+    this.menuController.close();
   }
 
   menu(route: string){

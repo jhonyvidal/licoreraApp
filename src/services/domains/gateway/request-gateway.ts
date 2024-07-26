@@ -23,6 +23,7 @@ import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation'
 import { DeleteAddressResponse } from 'src/shared/domain/response/DeleteAddressResponse';
 import { FavoriteLocationsRequest } from 'src/shared/domain/request/FavoriteLocations';
 import { FavoriteLocationResponse } from 'src/shared/domain/response/FavoriteLocationResponse';
+import { UserExchangeResponse } from 'src/shared/domain/response/UserExchangeResponse';
 
 export abstract class RequestGateway {
 
@@ -46,8 +47,7 @@ export abstract class RequestGateway {
     abstract putClient(userId: string, data: UpdateClientData):Observable<ClientData>;
     abstract PostDelivery(data: any):Observable<any>;
     abstract GetInfo():Observable<any>;
-    abstract searchCode(data: any):Observable<any>;
-    
+    abstract searchCode(data: any):Observable<any>;    
     
     // Api v2
     abstract getPaymentMethodsV2(token: string): Observable<PaymentMethodsGetResponse>;
@@ -73,6 +73,7 @@ export abstract class RequestGateway {
     abstract getOrderById(path: string,id:number):Observable<any>;
     abstract deleteAddress(path: string, idAddress: string):Observable<any>;
     abstract deleteFavoriteLocations(path: string, idAddress: number):Observable<FavoriteLocationResponse>;
+    abstract getUserExchangeProducts(token:string, page: string): Observable<UserExchangeResponse>;
 }
 
 

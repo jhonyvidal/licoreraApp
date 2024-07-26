@@ -10,6 +10,8 @@ import { CustomDateAlert } from './pipes/customDateAlert.pipe';
 import { StarRatingComponent } from './components/StarRatingComponent';
 import { CommonModule } from '@angular/common';
 import { successLottieComponent } from './components/animations/success.lottie.component';
+import { PromotionDatePipe } from './pipes/promotionDate.pipe';
+import { ExchangeDatePipe } from './pipes/exchangeDate.pipe';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { successLottieComponent } from './components/animations/success.lottie.c
     CustomDateOrders,
     CustomDateAlert,
     StarRatingComponent,
-    successLottieComponent
+    successLottieComponent,
+    PromotionDatePipe,
+    ExchangeDatePipe
   ],
   imports: [
     CommonModule
@@ -35,7 +39,9 @@ import { successLottieComponent } from './components/animations/success.lottie.c
     ProductDetailModelPipe,
     HttpClientModule,
     StarRatingComponent,
-    successLottieComponent
+    successLottieComponent,
+    PromotionDatePipe,
+    ExchangeDatePipe
   ],
   providers: [
     

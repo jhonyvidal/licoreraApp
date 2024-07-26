@@ -11,6 +11,7 @@ import { Config } from '@ionic/angular';
 import { SharedModule } from 'src/shared/shared.module';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
 import { CustomDateAlert } from 'src/shared/pipes/customDateAlert.pipe';
+import { PromotionDatePipe } from 'src/shared/pipes/promotionDate.pipe';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { CustomDateAlert } from 'src/shared/pipes/customDateAlert.pipe';
     FormsModule,
     LandingPageRoutingModule
   ],
-  providers:[CartModelPipe,CustomDateAlert],
+  providers:[CartModelPipe,CustomDateAlert,PromotionDatePipe],
   declarations: [LandingPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

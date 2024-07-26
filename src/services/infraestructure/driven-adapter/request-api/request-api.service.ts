@@ -26,6 +26,7 @@ import { LocationsResponse } from 'src/shared/domain/response/LocationsResponse'
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
 import { FavoriteLocationsRequest } from 'src/shared/domain/request/FavoriteLocations';
 import { FavoriteLocationResponse } from 'src/shared/domain/response/FavoriteLocationResponse';
+import { UserExchangeResponse } from 'src/shared/domain/response/UserExchangeResponse';
 
 @Injectable()
 export  class RequestApiService extends RequestGateway {
@@ -591,5 +592,16 @@ export  class RequestApiService extends RequestGateway {
     )
   }
 
+  getUserExchangeProducts(token: string, page: string): Observable<UserExchangeResponse> {
+    const headers = new HttpHeaders(
+      {'Authorization': 'Bearer '+ token}
+      );
+    return this.http.getV2('api/v2/me/exchanges?page=' + page,headers).pipe(
+      map(response => {
+        // console.log(response)
+        return response as BasicDataOut
+      })
+    )
+  }
 
 }

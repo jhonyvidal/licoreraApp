@@ -25,6 +25,7 @@ import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation'
 import { DeleteAddressResponse } from 'src/shared/domain/response/DeleteAddressResponse';
 import { FavoriteLocationsRequest } from 'src/shared/domain/request/FavoriteLocations';
 import { FavoriteLocationResponse } from 'src/shared/domain/response/FavoriteLocationResponse';
+import { UserExchangeResponse } from 'src/shared/domain/response/UserExchangeResponse';
 
 @Injectable()
 export class RequestUseCases {
@@ -207,6 +208,10 @@ export class RequestUseCases {
 
   deleteFavoriteLocations(token: string, idAddress: number) : Observable <FavoriteLocationResponse> {
     return this._requestGateWay.deleteFavoriteLocations(token, idAddress);
+  }
+
+  getUserExchangeProducts (token:string, page: string) : Observable <UserExchangeResponse> {
+    return this._requestGateWay.getUserExchangeProducts(token, page);
   }
 
 }

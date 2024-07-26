@@ -74,7 +74,7 @@
 <ion-footer *ngIf="!isPromotion">
   <ion-toolbar class="Toolbar-footer">
           <article *ngIf="!isNewProduct" style="margin-bottom: 30px;">
-            <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
+            <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date | promotionDate }} </span></h2>
             <h2 *ngIf="beforePrice" class="Before-price" style="margin-bottom: 0px;"><span class="Before">Antes: </span><span style="text-decoration: line-through;">{{beforePrice | customCurrency :'.':'$ '}}</span></h2>
             <h2 class="Price-now"><span class="Now">{{ isPromotion || discount === 0 || discount === null ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
           </article>
@@ -98,7 +98,7 @@
 <ion-footer *ngIf="isPromotion">
   <ion-toolbar   class="Toolbar-footer-Promotion">
           <article *ngIf="!isNewProduct" style="margin-bottom: 30px;">
-            <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date}} </span></h2>
+            <h2 *ngIf="isPromotion" class="Now"><span class="Before">Válido hasta: {{details.end_date | promotionDate }} </span></h2>
             <h2 *ngIf="beforePrice" class="Before-price" style="margin-bottom: 0px;"><span class="Before">Antes: </span><span style="text-decoration: line-through;">{{beforePrice | customCurrency :'.':'$ '}}</span></h2>
             <h2 class="Price-now"><span class="Now">{{ isPromotion || discount === 0 || discount === null ? 'Precio:' : 'Ahora:' }} </span>{{price | customCurrency :'.':'$ '}}</h2>
           </article>
