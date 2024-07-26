@@ -143,7 +143,20 @@ export class UserPage implements OnInit {
   }
 
   goToUserExchanges(){
-    this.router.navigate(['/user-exchanges']);
+    this.userService.getUserData().then(data => {
+      if(data?.api_token){
+        this.requestUseCase.getUserExchangeProducts(data.api_token, '1').subscribe( response => {
+          if (response.success === true) {
+            if (response.data.data.length > 0) {
+              this.router.navigate(['/user-exchanges']);
+            }
+          }
+        })
+      }
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del usuario:', error);
+    });
   }
 
   getMeData(){
