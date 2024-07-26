@@ -1,17 +1,18 @@
 ion-header ion-toolbar {
-    --background: #272727;
+  --background: #272727;
 }
 
 ion-header ion-toolbar ion-buttons {
-    color: white;
-    display: flex;
-    justify-content: space-between;
+  // padding: 10px 10px 10px 0px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .btn-header {
-    margin: 0;
-    padding: 0;
-    width: 56px;
+  margin: 0;
+  padding: 0;
+  width: 56px;
 }
 
 .user-exchange-container {
