@@ -218,7 +218,7 @@ export class CartPage implements OnInit {
     }
     console.log(this.total , this.minimumAmountForPoints);
     
-    this.points = this.total / this.minimumAmountForPoints;
+    this.points = Math.floor(this.total / this.minimumAmountForPoints);
     console.log(this.points);
     
   }

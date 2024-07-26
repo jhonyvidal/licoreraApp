@@ -41,6 +41,7 @@ export class ExchangePage implements OnInit {
   }
 
   async setProduct(item:cartModel){
+    item.quantity = 1;
     this.shareObjectService.setObjetoCompartido(item) 
     this.router.navigate(['/exchange-products'])
   }

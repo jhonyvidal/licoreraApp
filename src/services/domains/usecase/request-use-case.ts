@@ -214,4 +214,7 @@ export class RequestUseCases {
     return this._requestGateWay.getUserExchangeProducts(token, page);
   }
 
+  postSuggest(data: any) : Observable <any> {
+    return this._requestGateWay.postSuggest(data);
+  }
 }
