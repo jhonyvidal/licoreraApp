@@ -25,9 +25,11 @@ export class SuggestionsPage implements OnInit {
       title: ['', [Validators.required]],
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      message: ['', [Validators.required]],
+      suggest: ['', [Validators.required]],
     });
   }
+
+  
 
   ngOnInit() {
     this.myForm.valueChanges.subscribe(() => {
