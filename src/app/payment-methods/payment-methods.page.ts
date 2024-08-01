@@ -512,6 +512,7 @@ export class PaymentMethodsPage implements OnInit {
       email: this.myForm.get('email')?.value,
       tax: '0',
       reference: 'PSE',
+      isWeb:false
     };
 
     const token = await this.getToken();

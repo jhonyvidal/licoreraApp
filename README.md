@@ -41,3 +41,7 @@ ng generate module <module-name>: Generates a new Angular module.
 ng build: Compiles the app for production (this is also used internally by ionic build).
 ng test: Runs the unit tests for the project.
 ng e2e: Runs the end-to-end tests for the project.
+
+npx cap update
+npx cap sync android
+npx cap open android
