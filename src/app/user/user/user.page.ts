@@ -104,6 +104,7 @@ export class UserPage implements OnInit {
     this.getPaymentMethods();
     this.getLocations();
     this.getUserData();
+    this.getMeData();
     this.loadingPM = true;
     this.paymentsEmpty = false;
   }
