@@ -97,6 +97,8 @@ export class RecentOrderPage implements OnInit {
     this.requestUseCase.GetInfo()
     .subscribe((response) => {
       if(response.success === true){
+        console.log('response.data: ', response.data);
+        
        this.minimumOrderAmount = response.data.minimumOrderAmount
        this.minimumAmountForPoints  = response.data.minimumAmountForPoints ;
       }else{

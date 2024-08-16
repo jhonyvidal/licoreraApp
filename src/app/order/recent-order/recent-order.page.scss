@@ -78,13 +78,13 @@ ion-content .list-container .card-container .img-container {
   width: 30%;
   height: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 
 ion-content .list-container .card-container .img-container img{
-  width: 90px;
-  height: 90px;
+  width: 90%;
+  // height: 90px;
 }
 
 ion-content .list-container .card-container .info-container {
