@@ -57,6 +57,12 @@ export class HomePage {
     }
   }
 
+  openMenu(){
+    this.getUser();  
+    console.log('user data: ', this.userData);
+      
+  }
+
   async createNotificationPush(){
     
     // Solicitar permisos para notificaciones push (generalmente solo necesario en iOS).
