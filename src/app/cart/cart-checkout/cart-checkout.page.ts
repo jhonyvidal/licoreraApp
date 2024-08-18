@@ -64,7 +64,7 @@ export class CartCheckoutPage implements OnInit {
       address: ['', [Validators.required]],
       addressDetail: ['', [Validators.required]],
       contact: ['', [Validators.required,Validators.minLength(13)]],
-      paymentMethod: ['', [Validators.required]],
+      // paymentMethod: ['', [Validators.required]],
       disccount: ['', []],
     });
     const platform = Capacitor.getPlatform();
