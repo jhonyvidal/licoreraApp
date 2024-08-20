@@ -143,6 +143,14 @@ export class CartCheckoutPage implements OnInit {
     if(router === "new-address"){
       const address = this.addressObjectService.setObjetoCompartido('/home/tab3/cart-checkout')
     }
+    if (router === "payment-methods") {
+      this.router.navigate([router], {
+        state: {
+          contact: this.myForm.get('contact')?.value,
+          disccount: this.myForm.get('disccount')?.value, 
+        }
+      })
+    }
     this.router.navigate([router])
   }
 
