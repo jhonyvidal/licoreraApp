@@ -118,7 +118,8 @@
         <p class="text">
           Domicilio gratis por compras mayores a $ {{minimumOrderAmount}} IVA incluido.
         </p>
-        <ion-button [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="submit()"
+        <!-- <ion-button [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="submit()" -->
+        <ion-button [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="sendTo('payment-methods')"
           ><span style="margin-top: -5px" >CONFIRMAR</span></ion-button
         >
       </div>

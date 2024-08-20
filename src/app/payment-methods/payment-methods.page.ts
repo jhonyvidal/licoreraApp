@@ -69,6 +69,9 @@ export class PaymentMethodsPage implements OnInit {
     this.myFormAlert = this.formBuilder.group({
       dues: ['', Validators.required], // asegúrate de tener este campo en tu FormGroup
     });
+    this.myFormCash = this.formBuilder.group({
+      cash: ['', Validators.required],
+    });
     const platform = Capacitor.getPlatform();
     if (platform !== 'web') {
       Keyboard.addListener('keyboardWillShow', (info) => {
@@ -87,6 +90,7 @@ export class PaymentMethodsPage implements OnInit {
   myFormCreditCard: FormGroup;
   mySecondFormCreditCard: FormGroup;
   myFormAlert: FormGroup;
+  myFormCash: FormGroup;
   isFormValid = false;
   isFormCreditValid = false;
   isSecondFormCreditCard = false;
@@ -103,6 +107,8 @@ export class PaymentMethodsPage implements OnInit {
   paymentsEmpty: boolean = false;
   isIframeReady: boolean = false;
   urlIframe: SafeResourceUrl = 'https://www.ejemplo.com';
+  delivery:number = 0;
+  total: number = 0;
   @ViewChild(IonModal) modal: IonModal;
 
   readonly options: MaskitoOptions = {
@@ -207,11 +213,92 @@ export class PaymentMethodsPage implements OnInit {
     this.ionSegment = id;
   }
 
-  submit() {
-    this.observeObjectService.setObjetoCompartido(this.segment3);
-    this.cartService.setPaymentCartData({ type: this.segment3 });
-    this.router.navigate(['/home/tab3/cart-checkout']);
+  // This method changed because the flow to update order is must be here now
+  async submit() {
+    const subtotal = (await this.getDataFromCart()).total;
+    const address = (await this.getDataFromCart()).address;
+    const payload = await {
+      latitude: address?.latitude,
+      longitude: address?.longitude,
+      orderValue: subtotal || 0
+    }
+    await this.requestUseCase
+      .PostDelivery(
+        payload
+      )
+      .subscribe(
+        (response) => {
+          if (response.success === true) {
+            this.delivery = parseInt(response.data)
+            this.total = subtotal || 0 + this.delivery
+          }else {
+            this.total = subtotal || 0;
+            if(response.statusCode === 8){
+              this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
+            }
+            console.log('error', response);
+          }
+        },
+        (error) => {
+          if(error.error.statusCode === 0){
+            this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
+          }
+          console.error('Ha ocurrido un error:', error);
+        }
+      );
+    // await this.presentLoader.showHandleLoading();
+    // this.observeObjectService.setObjetoCompartido(this.segment3);
+    // this.cartService.setPaymentCartData({ type: this.segment3 });
+    // // this.router.navigate(['/home/tab3/cart-checkout']);
+
+    // let payload;
+    // await this.cartService
+    // .getCartData()
+    // .then((data) => {
+    //   payload = {
+    //     latitude: data?.address?.latitude,
+    //     longitude: data?.address?.longitude,
+    //     address: data?.address?.address,
+    //     addressDetails: data?.address?.details,
+    //     paymentMethod: this.segment3,
+    //     pay_method: this.segment3,
+    //     amount:this.total,
+    //     phone:this.myForm.get('contact')?.value,
+    //     discountCode:this.myForm.get('disccount')?.value,
+    //     instructions:'',
+    //     description:'',
+    //     transactionId:this.transaction || ''
+    //   }
+    // });
+    // const token = await this.getToken()
+    // this.requestUseCase
+    // .updateOrder(
+    //   token,
+    //   this.orderId,
+    //   payload,
+    // )
+    // .subscribe(
+    //   async (response) => {
+    //     if (response.success === true) {
+    //       console.log('success', response);
+    //       await this.presentLoader.hideHandleLoading();
+    //       this.showAlertSuccess();
+    //     } else {
+    //       if(response.message.includes('El producto')){
+    //         this.showAlertError(response.message);
+    //       }else{
+    //         this.showAlertError('Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.')
+    //       }
+    //     }
+    //   },
+    //   (error) => {
+      
+    //     console.error('Ha ocurrido un error:', error);
+    //   }
+    // );
   }
+
+  
 
   getPaymentMethods() {
     this.userService
@@ -548,6 +635,17 @@ export class PaymentMethodsPage implements OnInit {
     );
   }
 
+  async showAlertError(message:string, title?:string, img?:string) {
+    title !== undefined ? null : title =  'INFORMACIÓN';
+    img !== undefined ? null : img =  '/assets/img/warning.svg';
+    await presentAlert(
+      this.alertController,
+      title,
+      message,
+      img
+    );
+  }
+
   nextStep(id: number) {
     this.creditStep = id;
   }
@@ -570,4 +668,12 @@ export class PaymentMethodsPage implements OnInit {
   validateSelectDebit() {
     this.buttonDebit = 'buttonSubmitActive';
   }
+
+  async getDataFromCart(){
+    const response = await this.cartService.
+    getCartData();
+    return response;
+  }
+
+
 }
