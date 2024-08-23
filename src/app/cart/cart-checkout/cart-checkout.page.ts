@@ -64,7 +64,7 @@ export class CartCheckoutPage implements OnInit {
       address: ['', [Validators.required]],
       addressDetail: ['', [Validators.required]],
       contact: ['', [Validators.required,Validators.minLength(13)]],
-      paymentMethod: ['', [Validators.required]],
+      // paymentMethod: ['', [Validators.required]],
       disccount: ['', []],
     });
     const platform = Capacitor.getPlatform();
@@ -142,6 +142,14 @@ export class CartCheckoutPage implements OnInit {
   sendTo(router:string){
     if(router === "new-address"){
       const address = this.addressObjectService.setObjetoCompartido('/home/tab3/cart-checkout')
+    }
+    if (router === "payment-methods") {
+      this.router.navigate([router], {
+        state: {
+          contact: this.myForm.get('contact')?.value,
+          disccount: this.myForm.get('disccount')?.value, 
+        }
+      })
     }
     this.router.navigate([router])
   }

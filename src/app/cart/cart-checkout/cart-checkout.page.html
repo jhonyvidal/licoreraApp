@@ -58,21 +58,18 @@
           ></ion-input>
         </ion-col>
       </ion-row>
-      <h1 class="text-center">Forma de pago</h1>
+      <h1 class="text-center">¿Tienes un código de descuento?</h1>
       <ion-row class="ion-row">
-        <ion-col size="12" (click)="sendTo('payment-methods')">
-          <!-- <label>Forma de pago</label> -->
+        <!-- <ion-col size="12" (click)="sendTo('payment-methods')">
           <ion-input
-            
             formControlName="paymentMethod"
             class="number"
             type="text"
             placeholder="Selecciona un metodo de pago"
             required
           ></ion-input>
-        </ion-col>
+        </ion-col> -->
         <ion-col size="6">
-          <label>Código de descuento</label>
           <ion-input
             formControlName="disccount"
             class="number"
@@ -121,7 +118,8 @@
         <p class="text">
           Domicilio gratis por compras mayores a $ {{minimumOrderAmount}} IVA incluido.
         </p>
-        <ion-button  [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="submit()"
+        <!-- <ion-button [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="submit()" -->
+        <ion-button [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="sendTo('payment-methods')"
           ><span style="margin-top: -5px" >CONFIRMAR</span></ion-button
         >
       </div>

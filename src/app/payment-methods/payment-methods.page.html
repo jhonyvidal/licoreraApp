@@ -346,10 +346,10 @@
 
   <ion-toolbar *ngIf="ionSegment === 3" class="customContent">
     <ion-radio-group [(ngModel)]="segment3">
-      <ion-radio value="Efectivo" (click)="validateSelectDebit()"
+      <ion-radio formControlName="cash" value="Efectivo" (click)="validateSelectDebit()"
         >Efectivo</ion-radio
       ><br />
-      <ion-radio value="Tarjeta débito/crédito" (click)="validateSelectDebit()"
+      <ion-radio formControlName="cash" value="Tarjeta débito/crédito" (click)="validateSelectDebit()"
         >Tarjeta débito/crédito</ion-radio
       >
     </ion-radio-group>
