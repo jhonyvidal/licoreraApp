@@ -218,10 +218,10 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   // This method changed because the flow to update order is must be here now
-  async submit() {
+  async submit() {    
     await this.presentLoader.showLoading();
     const orderId = (await this.getDataFromCart()).idOrder || 0;
-    const transaction = (await this.getDataFromCart()).payment.reference;
+    const transaction = this.myFormCash.get('cash')?.value;
     const subtotal = (await this.getDataFromCart()).total;
     const address = (await this.getDataFromCart()).address;
     const payloadDelivery = await {
@@ -230,9 +230,8 @@ export class PaymentMethodsPage implements OnInit {
       orderValue: subtotal || 0
     }
     await this.validateDelivery(payloadDelivery, subtotal || 0);
-    // this.observeObjectService.setObjetoCompartido(this.segment3);
-    // this.cartService.setPaymentCartData({ type: this.segment3 });
-    // // this.router.navigate(['/home/tab3/cart-checkout']);
+    this.observeObjectService.setObjetoCompartido(this.segment3);
+    this.cartService.setPaymentCartData({ type: this.segment3 });
 
     const payload = {
       latitude: address?.latitude,

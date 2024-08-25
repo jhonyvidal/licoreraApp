@@ -49,6 +49,7 @@ export class CurrentOrderPage implements OnInit {
         this.applyStyle();
       }, 500);
     }
+    this.getInfo();
   }
 
   private applyStyle(): void {
@@ -63,23 +64,20 @@ export class CurrentOrderPage implements OnInit {
     }
   }
 
-  // getHeigthInfo(){
-  //   this.infoService.getInfoData()
-  //   .then(data => {
-  //     if(data.height > 900){
-  //       this.contentHeigth = 'content-exchange-products1';
-  //     }
-  //     else if(data.height > 750){
-  //       this.contentHeigth = 'content-exchange-products3';
-  //     }
-  //     else if(data.height > 300){
-  //       this.contentHeigth = 'content-exchange-products2';
-  //     }
-  //   })
-  //   .catch(error => {
-  //     console.error('Error al obtener los datos de la info:', error);
-  //   });
-  // }
+  getInfo() {
+    this.requestUseCase.GetInfo()
+    .subscribe((response) => {
+      if(response.success === true){
+        console.log('response.data: ', response.data);
+        
+       this.minimumOrderAmount = response.data.minimumOrderAmount
+      //  this.minimumAmountForPoints  = response.data.minimumAmountForPoints ;
+      }else{
+        console.log(response);
+      }
+     
+    });
+  }
 
   async getCurrentOrder(){
     const token = await this.getToken()
