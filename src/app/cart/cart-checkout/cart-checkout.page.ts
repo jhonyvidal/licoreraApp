@@ -112,7 +112,7 @@ export class CartCheckoutPage implements OnInit {
 
   ionViewWillEnter() {
     this.getLocations();
-    this.getCart();
+    this.getCart();    
   }
 
   ionViewDidEnter(){
@@ -191,43 +191,48 @@ export class CartCheckoutPage implements OnInit {
   }
 
   validateDelivery(data:any){
-    const payload = {
-      latitude:data.latitude,
-      longitude: data.longitude,
-      orderValue:this.subtotal
-    }
-    this.requestUseCase
-      .PostDelivery(
-        payload
-      )
-      .subscribe(
-        (response) => {
-          if (response.success === true) {
-            this.delivery = parseInt(response.data)
-            this.total = this.subtotal + this.delivery
-          } else {
-            this.total = this.subtotal;
-            if(response.statusCode === 8){
-              this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
-              // this.myForm.get('address')?.setValue('')
-              // this.myForm.get('addressDetail')?.setValue('')
+    if (this.subtotal > 0) {
+      const payload = {
+        latitude:data.latitude,
+        longitude: data.longitude,
+        orderValue:this.subtotal
+      }
+      this.requestUseCase
+        .PostDelivery(
+          payload
+        )
+        .subscribe(
+          (response) => {
+            if (response.success === true) {
+              this.delivery = parseInt(response.data)
+              this.total = this.subtotal + this.delivery
+            } else {
+              this.total = this.subtotal;
+              if(response.statusCode === 8){
+                this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
+                // this.myForm.get('address')?.setValue('')
+                // this.myForm.get('addressDetail')?.setValue('')
+              }
+              console.log('error', response);
             }
-            console.log('error', response);
+          },
+          (error) => {
+            if(error.error.statusCode === 0){
+              this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
+            }
+            console.error('Ha ocurrido un error:', error);
           }
-        },
-        (error) => {
-          if(error.error.statusCode === 0){
-            this.showAlertError('Lo sentimos. En el momento no tenemos cobertura por esta zona.')
-          }
-          console.error('Ha ocurrido un error:', error);
-        }
-      );
+        );
+    }
   }
 
   getCart() {
     this.cartService
       .getCartData()
       .then((data) => {
+        console.log('dataaaaaa: ', data);
+        
+
         this.address = data.address;
         if(data.idOrder){
           this.orderId = data.idOrder
@@ -249,6 +254,8 @@ export class CartCheckoutPage implements OnInit {
           this.products = data?.details;
         }
         if(data.address && data.address.latitude){
+          console.log('data.address', data.address);
+          
           this.validateDelivery(data.address)
         }
         if(data.number){
@@ -257,6 +264,7 @@ export class CartCheckoutPage implements OnInit {
         this.points = data.points
         this.subtotal = data.total || 0
         this.total = this.subtotal;
+        this.validateDelivery(data.address);
       })
       .catch((error) => {
         console.error('Error al obtener los datos del cart:', error);
@@ -338,6 +346,8 @@ export class CartCheckoutPage implements OnInit {
   locationSelected(event: any) {
 
     const location = this.myLocations.find((element: any) => element.id === event.detail.value);
+    console.log('Location selected: ', location);
+    
     this.myForm.get('address')?.setValue(location.address);
     this.myForm.get('addressDetail')?.setValue(location.detail);
      

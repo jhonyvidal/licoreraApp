@@ -179,6 +179,7 @@ export class SignInPage implements OnInit {
   private async signInWith(provider: SignInProvider): Promise<any> {
     const loadingElement = await this.dialogService.showLoading();
     try {
+      console.log('Y esto?', provider);      
       switch (provider) {
         case SignInProvider.apple:
           await this.firebaseAuthenticationService.signInWithApple();
@@ -187,7 +188,9 @@ export class SignInPage implements OnInit {
           await this.firebaseAuthenticationService.signInWithFacebook();
           break;
         case SignInProvider.google:
+          console.log("Attempting to sign in with Google");
           await this.firebaseAuthenticationService.signInWithGoogle();
+          console.log("Google sign-in completed");
           break;
         case SignInProvider.email:
           return await this.firebaseAuthenticationService.signInWithEmailAndPassword({
@@ -196,8 +199,11 @@ export class SignInPage implements OnInit {
           });
           break;
       }
-      // await this.router.navigate(['/home']);
-    } finally {
+      await this.router.navigate(['/home']);
+    }catch(error){
+      console.log('Error in sign-in: ', error);
+      
+    }finally {
       await loadingElement.dismiss();
     }
   }

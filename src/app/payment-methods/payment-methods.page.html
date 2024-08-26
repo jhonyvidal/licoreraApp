@@ -484,7 +484,7 @@
   </div>
 
   <div class="footer" *ngIf="ionSegment === 3">
-    <ion-button (click)="submit()" [ngClass]="buttonDebit"
+    <ion-button (click)="submit(transationEnum.credit)" [ngClass]="buttonDebit"
       ><span style="margin-top: -5px">CONTINUAR</span></ion-button
     >
   </div>

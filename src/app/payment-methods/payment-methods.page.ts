@@ -23,11 +23,17 @@ import { Capacitor } from '@capacitor/core';
 import { Keyboard } from '@capacitor/keyboard';
 import { CardYearValidation } from 'src/shared/CustomValidations/CardYearValidation';
 
+enum transationEnum {
+  cash = 'Efectivo',
+  credit = 'Tarjeta débito/crédito'
+}
+
 @Component({
   selector: 'app-payment-methods',
   templateUrl: './payment-methods.page.html',
   styleUrls: ['./payment-methods.page.scss'],
 })
+
 export class PaymentMethodsPage implements OnInit {
   constructor(
     private location: Location,
@@ -209,19 +215,19 @@ export class PaymentMethodsPage implements OnInit {
     return inputFormated;
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   show(id: number) {
     this.ionSegment = id;
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   // This method changed because the flow to update order is must be here now
-  async submit() {    
+  async submit(transactionType: transationEnum) {    
     await this.presentLoader.showLoading();
     const orderId = (await this.getDataFromCart()).idOrder || 0;
-    const transaction = this.myFormCash.get('cash')?.value;
+    const transaction = transactionType;
     const subtotal = (await this.getDataFromCart()).total;
     const address = (await this.getDataFromCart()).address;
     const payloadDelivery = await {
@@ -635,7 +641,7 @@ export class PaymentMethodsPage implements OnInit {
       'Tu pago fue procesado exitosamente. Procederemos con tu pedido.',
       '/assets/img/checkGreen.svg',
       '',
-      () => this.goBack()
+      () => this.submit(transationEnum.credit)
     );
   }
 
@@ -699,6 +705,8 @@ export class PaymentMethodsPage implements OnInit {
     getCartData();
     return response;
   }
+
+
 
 
 }
