@@ -40,6 +40,7 @@ export class HomePage {
   instagram:string;
   cartQuantity:number = 0;
   tokenPush:string;
+  jotasPoints: number = 0;
  
 
   async ngOnInit(){
@@ -58,9 +59,7 @@ export class HomePage {
   }
 
   openMenu(){
-    this.getUser();  
-    console.log('user data: ', this.userData);
-      
+    this.getMeData();
   }
 
   async createNotificationPush(){
@@ -215,9 +214,25 @@ export class HomePage {
     });
   }
 
+  getMeData(){
+    this.requestUseCase.getMe(this.userData.api_token)
+    .subscribe((response) => {
+      if (response.success === true) {
+        console.log(response);
+        this.jotasPoints = response.data.points;
+      } else {
+        console.log('Body del error: ', response);
+      }
+    });
+  }
+
   getUser(){
+    console.log('Consultando getUser()');
+    
     this.userService.getUserData()
     .then(data => {
+      console.log('Data: ', data);
+      
       this.userData = data;
     })
     .catch(error => {
