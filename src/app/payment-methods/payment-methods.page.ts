@@ -225,6 +225,9 @@ export class PaymentMethodsPage implements OnInit {
 
   // This method changed because the flow to update order is must be here now
   async submit(transactionType: transationEnum) {    
+    if (this.myFormCash.get('cash')?.value) {
+      transactionType = this.myFormCash.get('cash')?.value;
+    }
     await this.presentLoader.showLoading();
     const orderId = (await this.getDataFromCart()).idOrder || 0;
     const transaction = transactionType;
