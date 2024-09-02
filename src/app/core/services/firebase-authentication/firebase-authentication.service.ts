@@ -57,6 +57,7 @@ export class FirebaseAuthenticationService {
     });
   }
 
+
   public get currentUser$(): Observable<User | null> {
     return this.currentUserSubject.asObservable();
   }
@@ -122,9 +123,9 @@ export class FirebaseAuthenticationService {
   }
 
   public async signInWithGoogle(): Promise<void> {
-    await FirebaseAuthentication.signInWithGoogle({
-      mode: 'redirect',
-    });
+      await FirebaseAuthentication.signInWithGoogle({
+        mode: 'redirect',
+      });
   }
 
   public async signInWithMicrosoft(): Promise<void> {
@@ -168,4 +169,5 @@ export class FirebaseAuthenticationService {
   public async useAppLanguage(): Promise<void> {
     await FirebaseAuthentication.useAppLanguage();
   }
+  
 }

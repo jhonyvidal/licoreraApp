@@ -47,7 +47,10 @@ export class SignInPage implements OnInit {
   }
 
   ngOnInit() {
-    this.firebaseAuthenticationService.getRedirectResult().then((result) => {
+    this.checkAuthState();
+    this.firebaseAuthenticationService.getRedirectResult()
+    .then((result) => {
+      console.log("redirect Result", result);
       if (result?.user) {
         this.getMe(result?.credential?.idToken || '');
       }
@@ -58,12 +61,33 @@ export class SignInPage implements OnInit {
     });
   }
 
+  async checkAuthState(): Promise<void> {
+    const user = await this.firebaseAuthenticationService.getCurrentUser();
+
+    if (user) {
+      const token = await this.firebaseAuthenticationService.getIdToken();
+      this.getMe(token);
+    } else {
+      console.log('No user is currently logged in');
+    }
+  }
+
   public async signInWithGoogle(): Promise<void> {
-    await this.signInWith(SignInProvider.google);
+    await this.signInWith(SignInProvider.google).then(async (res)=>{
+      console.log("resultado de google:", res);
+      const token = await this.firebaseAuthenticationService.getIdToken()
+      this.getMe(token);
+    })
+   
   }
 
   public async signInWithFacebook(): Promise<void> {
-    await this.signInWith(SignInProvider.facebook);
+    var result = await this.signInWith(SignInProvider.facebook);
+    console.log("resultado de facebook:", result);
+    if (result) {
+      const token = await this.firebaseAuthenticationService.getIdToken()
+      this.getMe(token);
+    }
   }
 
   public async signInWithEmail(): Promise<void> {
@@ -179,18 +203,16 @@ export class SignInPage implements OnInit {
   private async signInWith(provider: SignInProvider): Promise<any> {
     const loadingElement = await this.dialogService.showLoading();
     try {
-      console.log('Y esto?', provider);      
+      console.log('provider', provider);      
       switch (provider) {
         case SignInProvider.apple:
           await this.firebaseAuthenticationService.signInWithApple();
           break;
         case SignInProvider.facebook:
-          await this.firebaseAuthenticationService.signInWithFacebook();
+          return await this.firebaseAuthenticationService.signInWithFacebook();
           break;
         case SignInProvider.google:
-          console.log("Attempting to sign in with Google");
-          await this.firebaseAuthenticationService.signInWithGoogle();
-          console.log("Google sign-in completed");
+          return await this.firebaseAuthenticationService.signInWithGoogle();
           break;
         case SignInProvider.email:
           return await this.firebaseAuthenticationService.signInWithEmailAndPassword({
@@ -199,7 +221,7 @@ export class SignInPage implements OnInit {
           });
           break;
       }
-      await this.router.navigate(['/home']);
+      //await this.router.navigate(['/home']);
     }catch(error){
       console.log('Error in sign-in: ', error);
       
