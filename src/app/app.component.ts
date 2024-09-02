@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 // import { FacebookLogin } from '@capacitor-community/facebook-login';
 // import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Platform } from '@ionic/angular';
-import { ConfigService } from 'src/store/services/config.service';
+// import { ConfigService } from 'src/store/services/config.service';
 import { register } from 'swiper/element/bundle';
 import { FirebaseAuthenticationService } from './core';
 import { InfoService } from 'src/store/services/info.service';
@@ -17,7 +17,7 @@ register()
 export class AppComponent {
 
   constructor(
-    private configService: ConfigService,
+    // private configService: ConfigService,
     private router: Router,
     private platform: Platform,
     private readonly firebaseAuthenticationService: FirebaseAuthenticationService,

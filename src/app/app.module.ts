@@ -7,13 +7,13 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { SQLiteService } from 'src/store/services/sqlite.service';
-import { InitializeAppService } from 'src/store/services/initialize.app.service';
+// import { SQLiteService } from 'src/store/services/sqlite.service';
+// import { InitializeAppService } from 'src/store/services/initialize.app.service';
 import { DbnameVersionService } from 'src/store/services/dbname-version.service';
 import { ServicesModule } from 'src/services/services.module';
-import { ConfigService } from 'src/store/services/config.service';
-import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
-import { AuthorPostsService } from 'src/store/services/author-posts.service';
+// import { ConfigService } from 'src/store/services/config.service';
+// import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
+// import { AuthorPostsService } from 'src/store/services/author-posts.service';
 import { register } from 'swiper/element/bundle';
 
 register();
@@ -22,9 +22,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { AuthInterceptor } from 'src/services/interceptors/interceptor';
 import { BaseApiService } from 'src/shared/infraestructure/base-api.service';
 
-export function initializeFactory(init: InitializeAppService) {
-  return () => init.initializeApp();
-}
+// export function initializeFactory() {
+//   return () => init.initializeApp();
+// }
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,18 +38,18 @@ export function initializeFactory(init: InitializeAppService) {
     ServicesModule,
     FormsModule],
   providers: [
-    SQLiteService, 
-    InitializeAppService,
-    DepartmentEmployeesService,
-    ConfigService,
-    AuthorPostsService,
+    // SQLiteService, 
+    // InitializeAppService,
+    // DepartmentEmployeesService,
+    // ConfigService,
+    // AuthorPostsService,
     DbnameVersionService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: APP_INITIALIZER,
-      useFactory: initializeFactory,
-      deps: [InitializeAppService],
-      multi: true
-    },
+    // { provide: APP_INITIALIZER,
+    //   useFactory: initializeFactory,
+    //   deps: [InitializeAppService],
+    //   multi: true
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

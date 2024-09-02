@@ -2,12 +2,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
-import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
+// import { DepartmentEmployeesService } from 'src/store/services/department-employees.service';
 import { ConfigData, Department } from 'src/store/models/employee-dept';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
-import { InitializeAppService } from 'src/store/services/initialize.app.service';
-import { SQLiteService } from 'src/store/services/sqlite.service';
-import { ConfigService } from 'src/store/services/config.service';
+// import { InitializeAppService } from 'src/store/services/initialize.app.service';
+// import { SQLiteService } from 'src/store/services/sqlite.service';
+// import { ConfigService } from 'src/store/services/config.service';
 import { InfoService } from 'src/store/services/info.service';
 
 @Component({
@@ -18,11 +18,11 @@ import { InfoService } from 'src/store/services/info.service';
 export class WelcomePage implements OnInit {
 
   constructor(
-    private initAppService: InitializeAppService,
-    private sqliteService: SQLiteService,
+    // private initAppService: InitializeAppService,
+    // private sqliteService: SQLiteService,
     public formBuilder: FormBuilder,
-    private departmentEmployeesService: DepartmentEmployeesService,
-    private configService: ConfigService,
+    // private departmentEmployeesService: DepartmentEmployeesService,
+    // private configService: ConfigService,
     private toast: ToastController,
     private router: Router,
     private requestUseCase: RequestUseCases,

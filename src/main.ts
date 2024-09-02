@@ -5,7 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { Capacitor } from '@capacitor/core';
 import { defineCustomElements as pwaElements} from '@ionic/pwa-elements/loader';
-import { defineCustomElements as jeepSqlite} from 'jeep-sqlite/loader';
+// import { defineCustomElements as jeepSqlite} from 'jeep-sqlite/loader';
 
 if (environment.production) {
   enableProdMode();
@@ -18,7 +18,7 @@ if(platform === "web") {
   pwaElements(window);
   // required for jeep-sqlite Stencil component
   // to use a SQLite database in Browser
-  jeepSqlite(window);
+  // jeepSqlite(window);
 
   window.addEventListener('DOMContentLoaded', async () => {
       const jeepEl = document.createElement("jeep-sqlite");
