@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
-import { presentAlert } from 'src/shared/components/alert.component';
 import { presentAlertExchange } from 'src/shared/components/alert.exchange.component';
 import { Product } from 'src/shared/domain/response/PromotionsData';
 import { CartModelPipe } from 'src/shared/pipes/cartModel.pipe';
@@ -31,7 +29,6 @@ export class ExchangeProductsPage implements OnInit {
   api_token:string = '';
 
   constructor(
-    private requestUseCase: RequestUseCases,
     private alertController: AlertController,
     private userService: UserService,
     private shareObjectService:ShareObjectService,
@@ -55,9 +52,8 @@ export class ExchangeProductsPage implements OnInit {
   }
 
   canjear(){
-
       if (this.api_token !== '') {
-        this.puedeCanjear =this.userPoint  >= this.points ? true : false;
+        this.puedeCanjear = this.userPoint >= this.points ? true : false;
     
         if (this.puedeCanjear) {
           this.showAlertSuccess();
@@ -68,7 +64,6 @@ export class ExchangeProductsPage implements OnInit {
         this.signInObjectService.setObjetoCompartido("/exchange-products")
         this.router.navigate(['/sign-in']);
       }
-
   }
 
   getApiToken(){
@@ -120,7 +115,7 @@ export class ExchangeProductsPage implements OnInit {
       shareProduct = this.CartModelPipe.transform(this.shareObjectService.getObjetoCompartido()) ;
     }
     const quantity = {
-      quantitySelected: this.quantity,
+      quantitySelected: 1,
     };
     const productDetail:cartModel = {
       ...shareProduct,

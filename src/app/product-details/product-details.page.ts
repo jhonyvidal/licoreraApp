@@ -137,13 +137,14 @@ export class ProductDetailsPage implements OnInit {
     const quantity = {
       quantitySelected: this.quantity,
     };
+    console.log('shareProduct: ', shareProduct);
     
     const productDetail:cartModel = {
       ...shareProduct,
       ...quantity,
     };
 
-    productDetail.price = this.price;
+    // productDetail.price = this.price;
 
     this.cartService.setCart(productDetail)
     this.isSuccess = true;

@@ -225,6 +225,9 @@ export class PaymentMethodsPage implements OnInit {
 
   // This method changed because the flow to update order is must be here now
   async submit(transactionType: transationEnum) {    
+    if (this.myFormCash.get('cash')?.value) {
+      transactionType = this.myFormCash.get('cash')?.value;
+    }
     await this.presentLoader.showLoading();
     const orderId = (await this.getDataFromCart()).idOrder || 0;
     const transaction = transactionType;
@@ -562,7 +565,9 @@ export class PaymentMethodsPage implements OnInit {
     this.requestUseCase
       .postPaymentCreditCard(token, data)
       .subscribe(async (response) => {
-        if (response.success === true) {
+        console.log('postPaymentCreditCard: ', response);
+        
+        if (response.success === true && response.data.estado === 'Aceptada') {
           const payment = {
             type: 'Credit Card',
             reference: response.data.ref_payco,
@@ -576,6 +581,7 @@ export class PaymentMethodsPage implements OnInit {
           this.showAlertSuccess();
         } else {
           console.log('Body del error response: ', response);
+          this.showAlertError(`El estado de tu tarjeta es: ${response.data.estado} intenta con otra tarjeta`);
         }
       });
   }
@@ -658,10 +664,10 @@ export class PaymentMethodsPage implements OnInit {
 
   goHome(){
     this.cartService.deleteCompleteCart();
-    this.router.navigate(['/home/tab3']).then(() => {
+    this.router.navigate(['/home/tab1']).then(() => {
       this.router.navigate(['/home'])
       // this.getCart();
-      // location.reload();
+      location.reload();
     })
     ;
   }
