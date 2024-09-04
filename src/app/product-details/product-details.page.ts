@@ -135,7 +135,7 @@ export class ProductDetailsPage implements OnInit {
       shareProduct.product.presentation = shareProduct?.presentation;
     }
     const quantity = {
-      quantitySelected: this.quantity,
+      quantitySelected: this.quantity, //quantity fixed
     };
     console.log('shareProduct: ', shareProduct);
     
