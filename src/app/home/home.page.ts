@@ -73,8 +73,8 @@ export class HomePage {
     // Escuchar eventos de notificación.
     PushNotifications.addListener('registration', (token: PushNotificationToken) => {
       this.tokenPush = token.value;
-      this.createDevice(this.userData.uuid,token.value)
       console.log('Token de registro:', token.value);
+      this.createDevice(this.userData.uuid,token.value)
     });
 
     PushNotifications.addListener('registrationError', (error: any) => {
@@ -82,10 +82,12 @@ export class HomePage {
     });
 
     PushNotifications.addListener('pushNotificationReceived', (notification: PushNotification) => {
+      console.log('Notification:', notification);
       this.createModalNotifications(notification.data.op,notification.data.valud)
     });
 
     PushNotifications.addListener('pushNotificationActionPerformed', (notification: PushNotificationActionPerformed) => {
+      console.log('Notification:', notification);
       const actionId = notification.actionId;
       if(actionId === "tap"){
         this.createModalNotifications(notification.notification.data.op,notification.notification.data.value)
@@ -244,10 +246,12 @@ export class HomePage {
     this.cartService
       .getCartData()
       .then(async (data) => {
+        console.log("getCart:", data);
         if(data.payment &&  data.payment.type === "PSE" && data.idOrder){
           const token = await this.getToken()
           this.requestUseCase.getConfirmation(token, data.idOrder)
             .subscribe((response) => {
+              console.log("response request:",response);
               if(response.success === true){
                 if(response.data.status_id === 1){
                   this.redirecToCart()
@@ -290,7 +294,7 @@ export class HomePage {
   }
 
   redirecToCart(){
-    this.router.navigate(['/home/tab3/cart-checkout']);
+    this.router.navigate(['/payment-methods']);
   }
 
 

@@ -25,7 +25,8 @@ import { CardYearValidation } from 'src/shared/CustomValidations/CardYearValidat
 
 enum transationEnum {
   cash = 'Efectivo',
-  credit = 'Tarjeta débito/crédito'
+  credit = 'Tarjeta débito/crédito',
+  pse = 'PSE'
 }
 
 @Component({
@@ -181,6 +182,15 @@ export class PaymentMethodsPage implements OnInit {
     this.getBanks();
     this.getPaymentMethods();
     this.clearAll()
+    this.validateResultPSE();
+  }
+
+  async validateResultPSE(){
+    const data = await this.getDataFromCart()
+    console.log(data);
+    if(data?.payment?.type === "PSE"){
+      this.submit(transationEnum.pse)
+    }
   }
 
   message =
@@ -667,7 +677,9 @@ export class PaymentMethodsPage implements OnInit {
     this.router.navigate(['/home/tab1']).then(() => {
       this.router.navigate(['/home'])
       // this.getCart();
-      location.reload();
+      setTimeout(() => {
+          location.reload();
+      }, 1000);
     })
     ;
   }
