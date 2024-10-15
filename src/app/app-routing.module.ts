@@ -98,7 +98,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./point-entry/point-entry.module').then( m => m.PointEntryPageModule)
+  },  {
+    path: 'missing-info',
+    loadChildren: () => import('./missing-info/missing-info.module').then( m => m.MissingInfoPageModule)
   }
+
 
 
 ];
