@@ -5,6 +5,8 @@ import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { ClientData } from 'src/shared/domain/response/ClientResponse';
 import { UserService } from 'src/store/services/user.service';
 import { PresentLoaderComponent } from 'src/shared/Loader/PresentLoaderComponent';
+import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
+import { phoneMask } from 'src/shared/mask/mask';
 
 @Component({
   selector: 'app-missing-info',
@@ -20,6 +22,7 @@ export class MissingInfoPage implements OnInit {
   docNumber = false;
   buttonStyle = 'DisableButton';
   client: any;
+  readonly phoneMask: MaskitoOptions = phoneMask;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -32,15 +35,18 @@ export class MissingInfoPage implements OnInit {
     this.myForm = this.formBuilder.group({});
   }
 
-  ngOnInit() {
-    this.getUserData();
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el:any) => (el as HTMLIonInputElement).getInputElement();
 
+  ngOnInit() {
     // Observa los cambios en el formulario para habilitar el botón de guardar
     this.myForm.valueChanges.subscribe(() => {
       this.isFormValid = this.myForm.valid;
       this.classValid();
-      console.log('¿Formulario válido?:', this.isFormValid); // Debug para ver si cambia el valor
     });
+  }
+
+  async ionViewDidEnter(){
+    this.getUserData();
   }
 
   getUserData() {
@@ -49,22 +55,25 @@ export class MissingInfoPage implements OnInit {
       // Agregamos los controles al formulario de manera dinámica según los datos faltantes
       this.client = data;
       
-      if (!data.docNumber) {
+      if (!data.docNumber || data.docNumber === null) {
         this.docNumber = true;
-        this.myForm.addControl('document', this.formBuilder.control('', Validators.required));
+        this.myForm.addControl('document', this.formBuilder.control('', [
+          Validators.required,
+          Validators.minLength(6),
+        ]));
       }
       
-      if (!data.birthday) {
+      if (!data.birthday || data.birthday === null) {
         this.birthday = true;
         this.myForm.addControl('date', this.formBuilder.control('', Validators.required));
       }
       
-      if (!data.cellphone) {
+      if (!data.cellphone || data.cellphone === null) {
         this.cellphone = true;
         this.myForm.addControl('phone', this.formBuilder.control('', [
           Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
+          Validators.minLength(13),
+          Validators.maxLength(13)
         ]));
       }
 
@@ -96,7 +105,7 @@ export class MissingInfoPage implements OnInit {
       if (key === 'date') {
         acc['birthday'] = formValues[key];  // Cambia 'date' por 'birthday'
       } else if (key === 'phone') {
-        acc['cellphone'] = formValues[key];  // Cambia 'phone' por 'cellphone'
+        acc['cellphone'] = formValues[key].replaceAll(' ', '');  // Cambia 'phone' por 'cellphone'
       }else if (key === 'document'){
         acc['docNumber'] = formValues[key];
       } else {
@@ -104,8 +113,6 @@ export class MissingInfoPage implements OnInit {
       }
       return acc;
     }, {});
-      
-    console.log('filledFields: ', filledFields);
     
     this.requestUseCase.putClient(this.client.id, filledFields).subscribe(response => {
       if (response.success === true) {

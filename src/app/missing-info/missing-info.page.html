@@ -17,13 +17,13 @@
       <ion-grid class="imgWelcome">
         <ion-row class="ion-row">
           <ion-col *ngIf="docNumber" size="12" class="customCol">
-            <ion-input formControlName="document" class="custom" type="text" placeholder="Número de documento"></ion-input>
+            <ion-input formControlName="document" class="custom" type="number" placeholder="Número de documento"></ion-input>
           </ion-col>
           <ion-col *ngIf="birthday" size="12" class="customCol">
             <ion-input formControlName="date" class="custom" type="date" label="Fecha de nacimiento" required></ion-input>
           </ion-col>
           <ion-col *ngIf="cellphone" size="12" class="customCol">
-            <ion-input  formControlName="phone" class="custom" placeholder="Número de celular" required></ion-input>
+            <ion-input formControlName="phone" [maskito]="phoneMask" [maskitoElement]="maskPredicate" class="custom" type="text" placeholder="Número de celular" required></ion-input>
           </ion-col>
         </ion-row>
       </ion-grid>
