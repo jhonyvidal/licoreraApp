@@ -122,7 +122,9 @@ export class SignInPage implements OnInit {
       
       if (response.success === true) {
         this.userService.login(response.data, refresh_token)
-        if (!response.data.birthday || !response.data.cellphone || !response.data.docNumber) {
+        if (!response.data.birthday || !response.data.cellphone || !response.data.docNumber ||
+            response.data.birthday === null || response.data.cellphone === null || response.data.docNumber === null
+        ) {
           this.router.navigate(['/missing-info']);
         }else{
           this.router.navigate(['/home']);
