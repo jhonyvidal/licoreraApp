@@ -154,10 +154,18 @@ export class SignInPage implements OnInit {
   getMe(token:string, refresh_token? :string){
     this.requestUseCase.getMe(token)
     .subscribe((response) => {
+      console.log('Response getMe: ', response);
+      
       if (response.success === true) {
         response.data.api_token = token;
         this.userService.login(response.data, refresh_token)
-        this.router.navigate(['/home']);
+        if (!response.data.birthday || !response.data.cellphone || !response.data.docNumber ||
+            response.data.birthday === null || response.data.cellphone === null || response.data.docNumber === null
+        ) {
+          this.router.navigate(['/missing-info']);
+        }else{
+          this.router.navigate(['/home']);
+        }
       }
       else{
         this.showAlert();

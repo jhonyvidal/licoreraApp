@@ -3,5 +3,6 @@ export interface UpdateClientData {
   last_name?: string,
   email?: string,
   birthday?: string,
-  cellphone?: string
+  cellphone?: string,
+  docNumber?: string,
 }

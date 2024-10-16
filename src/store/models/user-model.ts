@@ -7,6 +7,7 @@ export interface UserModel  extends BaseResponse {
     birthday: string;
     email: string;
     password: string;
+    docNumber?: string;
     social_id: string;
     photo: string;
     cellphone: string;
