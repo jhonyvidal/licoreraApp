@@ -114,8 +114,17 @@ export class FirebaseAuthenticationService {
     await FirebaseAuthentication.signInWithApple();
   }
 
-  public async signInWithFacebook(): Promise<void> {
-    await FirebaseAuthentication.signInWithFacebook();
+  public async signInWithFacebook(): Promise<any> {
+    try {
+      // Llamada al método nativo para iniciar sesión con Facebook
+      var result = await FirebaseAuthentication.signInWithFacebook();
+
+      // La respuesta probablemente venga a través del listener anterior
+      console.log('Proceso de autenticación iniciado', result);
+      return result;
+    } catch (error) {
+      console.error('Error durante el inicio de sesión con Facebook:', error);
+    }
   }
 
   public async signInWithGithub(): Promise<void> {

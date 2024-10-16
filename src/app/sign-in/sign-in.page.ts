@@ -73,7 +73,8 @@ export class SignInPage implements OnInit {
   }
 
   public async signInWithGoogle(): Promise<void> {
-    await this.signInWith(SignInProvider.google).then(async (res)=>{
+    await this.signInWith(SignInProvider.google)
+    .then(async (res)=>{
       console.log("resultado de google:", res);
       const token = await this.firebaseAuthenticationService.getIdToken()
       this.getMe(token);
@@ -82,12 +83,38 @@ export class SignInPage implements OnInit {
   }
 
   public async signInWithFacebook(): Promise<void> {
-    var result = await this.signInWith(SignInProvider.facebook);
-    console.log("resultado de facebook:", result);
-    if (result) {
-      const token = await this.firebaseAuthenticationService.getIdToken()
-      this.getMe(token);
+    try {
+      // Inicia sesión con Facebook
+      const result = await this.signInWith(SignInProvider.facebook);
+  
+      if (result) {
+        console.log("Resultado de Facebook:", result);
+        
+        // Obtén el token de autenticación si el login fue exitoso
+        const token = await this.firebaseAuthenticationService.getIdToken();
+        
+        if (token) {
+          // Llama a la función getMe para procesar el token
+          this.getMe(token);
+        } else {
+          console.error("No se pudo obtener el token.");
+          // Muestra un mensaje de error al usuario si no hay token
+          this.showAlertLogin("Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.");
+        }
+      } else {
+        // Si el resultado es nulo o vacío, muestra un mensaje de error
+        console.error("El inicio de sesión con Facebook falló.");
+        this.showAlertLogin("Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.");
+      }
+      
+    } catch (error) {
+      // Captura cualquier error que ocurra durante el proceso
+      console.error("Error durante el inicio de sesión con Facebook:", error);
+      this.showAlertLogin("Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.");
     }
+  
+    // Este console.log solo se ejecutará si no hay errores en el proceso
+    console.log("Resultado final de Facebook login.");
   }
 
   public async signInWithEmail(): Promise<void> {
@@ -106,6 +133,15 @@ export class SignInPage implements OnInit {
     }
   }
 
+  async showAlertLogin(text:string) {
+    await presentAlert(
+      this.alertController,
+      'INFORMACIÓN',
+      text,
+      '/assets/img/loginError.svg'
+    );
+  }
+
   async showAlert() {
     await presentAlert(
       this.alertController,
@@ -119,6 +155,7 @@ export class SignInPage implements OnInit {
     this.requestUseCase.getMe(token)
     .subscribe((response) => {
       if (response.success === true) {
+        response.data.api_token = token;
         this.userService.login(response.data, refresh_token)
         this.router.navigate(['/home']);
       }

@@ -377,7 +377,7 @@ export  class RequestApiService extends RequestGateway {
   getMe(token: string):Observable<UserModel> {
     const headers = new HttpHeaders(
       {
-        'Authorization': token
+        'Authorization': `${token}`
       }
       );
     return this.http.getV2('api/v2/me', headers).pipe(

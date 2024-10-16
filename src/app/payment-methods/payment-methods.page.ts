@@ -516,7 +516,7 @@ export class PaymentMethodsPage implements OnInit {
     this.requestUseCase
       .postPaymentCreditCard(token, data)
       .subscribe(async (response) => {
-        if (response.success === true) {
+        if (response.success === true && response.data.cod_respuesta === 1) {
           const payment = {
             type: 'Credit Card',
             reference: response.data.ref_payco,
@@ -529,6 +529,8 @@ export class PaymentMethodsPage implements OnInit {
           await this.presentLoader.hideHandleLoading();
           this.showAlertSuccess();
         } else {
+          await this.presentLoader.hideHandleLoading();
+          this.showAlertError('Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.')
           console.log('Body del error response: ', response);
         }
       });
@@ -572,28 +574,54 @@ export class PaymentMethodsPage implements OnInit {
     };
 
     const token = await this.getToken();
-    this.requestUseCase
-      .postPaymentCreditCard(token, data)
-      .subscribe(async (response) => {
-        console.log('postPaymentCreditCard: ', response);
-        
-        if (response.success === true && response.data.estado === 'Aceptada') {
-          const payment = {
-            type: 'Credit Card',
-            reference: response.data.ref_payco,
-            status: response.data.estado,
-            code: response.data.cod_respuesta,
-            response: response.data.respuesta,
-          };
-          this.cartService.setPaymentCartData(payment);
-          this.observeObjectService.setObjetoCompartido('Credit Card');
-          await this.presentLoader.hideHandleLoading();
-          this.showAlertSuccess();
-        } else {
-          console.log('Body del error response: ', response);
-          this.showAlertError(`El estado de tu tarjeta es: ${response.data.estado} intenta con otra tarjeta`);
-        }
-      });
+
+    const newPayment = {
+      number: cardNumber,
+      cvv: this.mySecondFormCreditCard.get('cvv')?.value,
+      name: this.mySecondFormCreditCard.get('name')?.value,
+      favorite: false,
+      exp_month: this.mySecondFormCreditCard
+      .get('expirationDate')
+      ?.value.split('/')[0],
+      exp_year: this.mySecondFormCreditCard
+      .get('expirationDate')
+      ?.value.split('/')[1],
+    }
+
+    this.requestUseCase.postPaymentMethods(token, newPayment)
+    .subscribe(async responsePayment => {
+      console.log("response paymentmethods:",responsePayment);
+      
+      if (responsePayment.success === true) {
+        this.requestUseCase
+        .postPaymentCreditCard(token, data)
+        .subscribe(async (response) => {
+          console.log('postPaymentCreditCard: ', response);
+          
+          if (response.success === true && response.data.estado === 'Aceptada') {
+            const payment = {
+              type: 'Credit Card',
+              reference: response.data.ref_payco,
+              status: response.data.estado,
+              code: response.data.cod_respuesta,
+              response: response.data.respuesta,
+            };
+            this.cartService.setPaymentCartData(payment);
+            this.observeObjectService.setObjetoCompartido('Credit Card');
+            await this.presentLoader.hideHandleLoading();
+            this.showAlertSuccess();
+          } else {
+            await this.presentLoader.hideHandleLoading();
+            console.log('Body del error response: ', response);
+            this.showAlertError(`El estado de tu tarjeta es: ${response.data.estado} intenta con otra tarjeta`);
+          }
+        });
+      }else{
+        await this.presentLoader.hideHandleLoading();
+        console.log('Body del error response: ', responsePayment);
+      }
+    })
+  
   }
 
   async createPsePayment() {
