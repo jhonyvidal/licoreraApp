@@ -64,8 +64,8 @@ export class ProductDetailsPage implements OnInit {
     
     if(this.details.discount){
       this.beforePrice = this.details.price
-      const porcent =  (this.details.price * this.details.discount) / 100;
-      this.price = this.details.price - porcent;
+      const percent =  (this.details.price * this.details.discount) / 100;
+      this.price = this.details.price - percent;
     }
     
     if (!this.localStorageQuantity) {
@@ -144,7 +144,7 @@ export class ProductDetailsPage implements OnInit {
       ...quantity,
     };
 
-    // productDetail.price = this.price;
+    productDetail.price = this.price;
 
     this.cartService.setCart(productDetail)
     this.isSuccess = true;
