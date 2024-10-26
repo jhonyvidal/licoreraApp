@@ -27,6 +27,7 @@ export interface cartModel {
     ranking: number;
     recommended: boolean;
     product: Product;
+    discount?: number;
 }
 
 export interface Product {

@@ -109,15 +109,28 @@ export class ProductDetailsPage implements OnInit {
   }
 
   addBtn() {
-    this.quantity += this.quantity < 10 ? 1 : 0;
+    this.quantity += 1;
+    // this.quantity += this.quantity < 10 ? 1 : 0;
     localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
-    this.price = this.details.price * this.quantity;
+    if (this.details.discount > 0) {
+      const percent =  (this.details.price * this.details.discount) / 100;
+      const price = this.details.price - percent;
+      this.price = price * this.quantity;
+    }else{
+      this.price = this.details.price * this.quantity;
+    }
   }
 
   subtractBtn() {
     this.quantity -= this.quantity > 1 ? 1 : 0;
     localStorage.setItem('QUANTITY_PRODUCT', JSON.stringify(this.quantity));
-    this.price= this.details.price * this.quantity;
+    if (this.details.discount > 0) {
+      const percent =  (this.details.price * this.details.discount) / 100;
+      const price = this.details.price - percent;
+      this.price = price * this.quantity;
+    }else{
+      this.price= this.details.price * this.quantity;
+    }
   }
 
   goBack(): void {
@@ -144,7 +157,11 @@ export class ProductDetailsPage implements OnInit {
       ...quantity,
     };
 
-    productDetail.price = this.price;
+    if (productDetail.discount && productDetail.discount > 0) {
+      const percent =  (productDetail.price * productDetail.discount) / 100;
+      const price = productDetail.price - percent;
+      productDetail.price = price;
+    }
 
     this.cartService.setCart(productDetail)
     this.isSuccess = true;
