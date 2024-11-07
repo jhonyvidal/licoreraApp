@@ -234,7 +234,7 @@ export class PaymentMethodsPage implements OnInit {
   }
 
   // This method changed because the flow to update order is must be here now
-  async submit(transactionType: transationEnum) {    
+  async submit(transactionType: transationEnum) {
     if (this.myFormCash.get('cash')?.value) {
       transactionType = this.myFormCash.get('cash')?.value;
     }
@@ -262,10 +262,12 @@ export class PaymentMethodsPage implements OnInit {
       amount: this.total,
       phone: this.contact,
       discountCode: this.disccount,
-      instructions: '',
+      instructions: address?.details, //This field was empty
       description: '',
       transactionId: transaction || ''
     }
+    
+    console.log();
     
     const token = await this.getToken()
     this.requestUseCase
