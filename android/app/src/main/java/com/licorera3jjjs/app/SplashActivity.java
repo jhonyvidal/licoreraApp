@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.licorera3jjjs.app;
 
 import android.content.Intent;
 import android.os.Bundle;
