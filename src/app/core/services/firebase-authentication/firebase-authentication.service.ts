@@ -10,7 +10,6 @@ import {
   User,
 } from '@capacitor-firebase/authentication';
 import { Capacitor } from '@capacitor/core';
-
 import { Platform } from '@ionic/angular';
 import { initializeApp } from 'firebase/app';
 import { Observable, ReplaySubject, Subject, lastValueFrom, take } from 'rxjs';
@@ -173,6 +172,7 @@ export class FirebaseAuthenticationService {
 
   public async signOut(): Promise<void> {
     await FirebaseAuthentication.signOut();
+    localStorage.clear(); 
   }
 
   public async useAppLanguage(): Promise<void> {

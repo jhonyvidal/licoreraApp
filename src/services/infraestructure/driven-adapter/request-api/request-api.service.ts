@@ -205,9 +205,9 @@ export  class RequestApiService extends RequestGateway {
     const headers = new HttpHeaders(
       // {'Authorization': 'Bearer '+ token}
       );
-    return this.http.ResetPassword('https://applicorera3jjjs.com/clients/rememberPassword', data , headers).pipe(
+    return this.http.ResetPassword('https://licorera3jjjs.com/api/mobile/clients/rememberPassword', data , headers).pipe(
       map(response => {
-        // console.log(response)
+        // console.log(response)s
         return response as LoginResponse
       })
     )
