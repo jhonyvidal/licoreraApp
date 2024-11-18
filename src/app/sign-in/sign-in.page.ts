@@ -73,15 +73,40 @@ export class SignInPage implements OnInit {
   }
 
   public async signInWithGoogle(): Promise<void> {
-    await this.signInWith(SignInProvider.google)
-    .then(async (res)=>{
-      console.log("resultado de google:", res);
-      const token = await this.firebaseAuthenticationService.getIdToken()
-      this.getMe(token);
-    })
-   
+    try {
+      // Inicia sesión con Google
+      const result = await this.signInWith(SignInProvider.google);
+  
+      if (result) {
+        console.log("Resultado de Google:", result);
+        
+        // Obtén el token de autenticación si el login fue exitoso
+        const token = await this.firebaseAuthenticationService.getIdToken();
+        
+        if (token) {
+          // Llama a la función getMe para procesar el token
+          this.getMe(token);
+        } else {
+          console.error("No se pudo obtener el token.");
+          // Muestra un mensaje de error al usuario si no hay token
+          this.showAlertLogin("Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.");
+        }
+      } else {
+        // Si el resultado es nulo o vacío, muestra un mensaje de error
+        console.error("El inicio de sesión con Google falló.");
+        this.showAlertLogin("Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.");
+      }
+  
+    } catch (error) {
+      // Captura cualquier error que ocurra durante el proceso
+      console.error("Error durante el inicio de sesión con Google:", error);
+      this.showAlertLogin("Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.");
+    }
+  
+    // Este console.log solo se ejecutará si no hay errores en el proceso
+    console.log("Resultado final de Google login.");
   }
-
+  
   public async signInWithFacebook(): Promise<void> {
     try {
       // Inicia sesión con Facebook

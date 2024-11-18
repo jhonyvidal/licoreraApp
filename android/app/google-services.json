@@ -3,7 +3,7 @@
     "project_number": "648554160671",
     "firebase_url": "https://licorera-3jjjs-12d7e.firebaseio.com",
     "project_id": "licorera-3jjjs-12d7e",
-    "storage_bucket": "licorera-3jjjs-12d7e.appspot.com"
+    "storage_bucket": "licorera-3jjjs-12d7e.firebasestorage.app"
   },
   "client": [
     {
@@ -14,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "648554160671-rcdisedu0v7hdlrsr69fsdcbu417dfe7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.licorera3jjjs.app",
+            "certificate_hash": "99ca984d8d2e95d5ba93f16238c1bfdea4983294"
+          }
+        },
         {
           "client_id": "648554160671-paa0hggc1fo4u62gd41e8fpci804v1e7.apps.googleusercontent.com",
           "client_type": 3

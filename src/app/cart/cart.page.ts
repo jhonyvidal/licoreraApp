@@ -163,10 +163,10 @@ export class CartPage implements OnInit {
             this.PointAlert();
             return;
           }else{
-            element.quantitySelected += element.quantitySelected < 10 ? 1 : 0;
+            element.quantitySelected += element.quantitySelected < 1000 ? 1 : 0;
           }
         }else{
-          element.quantitySelected += element.quantitySelected < 10 ? 1 : 0;
+          element.quantitySelected += element.quantitySelected < 1000 ? 1 : 0;
         }
       }
     })
