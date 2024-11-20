@@ -29,7 +29,8 @@ export class CartCheckoutPage implements OnInit {
   myForm: FormGroup;
   isFormValid = false;
   buttonStyle = 'DisableButton';
-  buttonWelcome = 'contentPayChild';
+  // buttonWelcome = 'contentPayChild';
+  buttonWelcome = 'buttonWelcome';
   contentform = 'content-form';
   myLocations:any;
   address:any;

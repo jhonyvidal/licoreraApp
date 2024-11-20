@@ -1,12 +1,16 @@
-.contentPayChild{
-    padding: 0px 20px 0 20px;
-    position: fixed;
-    left: 0;
-    width: 100%;
-    bottom: 0;
-    background: #F7F5F5;
-    z-index: 2;
-  }
+// .contentPayChild{
+//     padding: 0px 20px 0 20px;
+//     position: fixed;
+//     left: 0;
+//     width: 100%;
+//     bottom: 0;
+//     background: #F7F5F5;
+//     z-index: 2;
+//   }
+.purchase-container {
+  margin: 0 auto;
+  width: 90%;
+}
   .hiddeFooter{
     display: none;
   }
@@ -26,7 +30,7 @@
     border-bottom: 1px solid;
   }
   .content-form{
-    max-height: 56%;
+    // max-height: 56%;
     overflow: scroll;
   }
   .content-form-full{
@@ -131,4 +135,5 @@
     background: white;
     padding: 10px 10px;
     margin-bottom: 15px;
+    border-radius: 10px;
   }
