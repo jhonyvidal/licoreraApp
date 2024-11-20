@@ -130,10 +130,11 @@ export class FirebaseAuthenticationService {
     await FirebaseAuthentication.signInWithGithub();
   }
 
-  public async signInWithGoogle(): Promise<void> {
-      await FirebaseAuthentication.signInWithGoogle({
-        mode: 'redirect',
-      });
+  public async signInWithGoogle(): Promise<any> {
+    var result = await FirebaseAuthentication.signInWithGoogle({
+        mode: 'popup',
+    });
+    return result;
   }
 
   public async signInWithMicrosoft(): Promise<void> {
