@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
-import { Keyboard } from '@capacitor/keyboard';
+// import { Keyboard } from '@capacitor/keyboard';
 import { AlertController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { Subscription } from 'rxjs';
@@ -70,17 +70,17 @@ export class CartCheckoutPage implements OnInit {
     });
     const platform = Capacitor.getPlatform();
 
-    if(platform !== "web") {
-      Keyboard.addListener('keyboardDidShow', () => {
-        this.buttonWelcome = "hiddeFooter";
-        this.contentform = "content-form-full";
-      });
+    // if(platform !== "web") {
+    //   Keyboard.addListener('keyboardDidShow', () => {
+    //     this.buttonWelcome = "hiddeFooter";
+    //     this.contentform = "content-form-full";
+    //   });
 
-      Keyboard.addListener('keyboardDidHide', () => {
-        this.buttonWelcome = "contentPayChild";
-        this.contentform = "content-form";
-      });
-    }
+    //   Keyboard.addListener('keyboardDidHide', () => {
+    //     this.buttonWelcome = "contentPayChild";
+    //     this.contentform = "content-form";
+    //   });
+    // }
     this.subscription = this.observeObjectService.shareObject$.subscribe(data => {
       if(data === "isPaymentSelected"){
         setTimeout(() => {
