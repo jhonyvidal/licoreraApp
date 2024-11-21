@@ -6,8 +6,8 @@ export const environment = {
   //finsh PROD Enviroments
 
   //start DEV Enviroments
-  apiUrl: 'https://licorera3jjjs.com/api/mobile/',
-  apiUrlV2: 'https://licorera3jjjs.com/',
+  apiUrl: 'https://dev.licorera3jjjs.com/api/mobile/',
+  apiUrlV2: 'https://dev.licorera3jjjs.com/',
   apiGoogleMap: 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=',
   ApiKey:'AIzaSyBsSA1CAEjidYGVeDHfHxnemdHMnCzjvh4',
   //finsh PROD Enviroments

@@ -31,8 +31,8 @@ export async function presentAlert(
               cssClass: 'alertButtonExchange',
               handler: () => {
                 if (AcceptFuntion) {
-                  AcceptFuntion();
                   closeAlert(alertController);
+                  AcceptFuntion();
                 }else{
                   closeAlert(alertController);
                 }
@@ -60,8 +60,8 @@ export async function presentAlert(
               cssClass: 'alertButton',
               handler: () => {
                 if (AcceptFuntion) {
-                  AcceptFuntion();
                   closeAlert(alertController);
+                  AcceptFuntion();
                 }else{
                   closeAlert(alertController);
                 }
