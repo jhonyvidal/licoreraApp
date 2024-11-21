@@ -65,7 +65,6 @@ export class CartCheckoutPage implements OnInit {
       address: ['', [Validators.required]],
       addressDetail: ['', [Validators.required]],
       contact: ['', [Validators.required,Validators.minLength(13)]],
-      // paymentMethod: ['', [Validators.required]],
       disccount: ['', []],
     });
     const platform = Capacitor.getPlatform();
@@ -112,17 +111,19 @@ export class CartCheckoutPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    document.body.style.overflow = 'auto';
+    document.body.style.touchAction = 'auto';
     this.getLocations();
     this.getCart();    
   }
 
   ionViewDidEnter(){
     const platform = Capacitor.getPlatform();
-    if(platform !== "web") {
-      setTimeout(() => {
-        this.applyStyle();
-      }, 3000);
-    }
+    // if(platform !== "web") {
+    //   setTimeout(() => {
+    //     this.applyStyle();
+    //   }, 3000);
+    // }
   }
 
   private applyStyle(): void {
@@ -418,7 +419,6 @@ export class CartCheckoutPage implements OnInit {
     this.router.navigate(['/home/tab3']).then(() => {
       this.router.navigate(['/home'])
       this.getCart();
-      // location.reload();
     })
     ;
   }

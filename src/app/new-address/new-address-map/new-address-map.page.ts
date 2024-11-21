@@ -18,11 +18,13 @@ export class NewAddressMapPage implements OnInit {
   myForm: FormGroup;
 
   @ViewChild('map')mapRef: ElementRef<HTMLElement>;
-  newMap: GoogleMap;
+  newMap: GoogleMap | undefined;
 
   coordinates: any;
   latitude:number = 7.068565;
   longitude:number = -73.1070059;
+
+  private mapInitialized = false;
 
   constructor(
     private router: Router,
@@ -38,9 +40,40 @@ export class NewAddressMapPage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    if (this.mapInitialized) return; // Evita inicializar dos veces
+     this.mapInitialized = true;
+
     this.coordinates = await this.shareObjectService.getObjetoCompartido();
     this.myForm.get('addressInput')?.setValue(this.coordinates?.addressInput);
     this.createMap(this.coordinates);
+  }
+
+  // Se ejecuta al salir de la página
+  ionViewWillLeave() {
+    this.destroyMap();
+  }
+
+  // Opción adicional para garantizar limpieza
+  ngOnDestroy() {
+    this.destroyMap();
+  }
+  
+  private async destroyMap() {
+    if (this.newMap) {
+      try {
+        console.log('destroy map loading...');
+        await this.newMap.destroy(); // Destruir el mapa
+        this.newMap = undefined; // Limpia la referencia para evitar llamadas posteriores
+      } catch (error) {
+        console.warn('No se pudo destruir el mapa:', error);
+      }
+      if (this.mapRef && this.mapRef.nativeElement) {
+        this.mapRef.nativeElement.innerHTML = '';
+      }
+      this.mapInitialized = false;
+      document.body.style.overflow = 'auto';
+      document.body.style.touchAction = 'auto';
+    }
   }
 
   ngOnInit() {
@@ -88,7 +121,7 @@ export class NewAddressMapPage implements OnInit {
 
 
   async getGoogleReverseApi(latitud:number,longitude:number){
-    await this.newMap.setCamera({
+    await this.newMap?.setCamera({
       coordinate: {
         lat: latitud,
         lng: longitude

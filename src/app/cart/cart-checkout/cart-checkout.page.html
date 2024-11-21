@@ -6,13 +6,6 @@
       <ion-row class="ion-row">
         <ion-col size="12">
           <label class="text-center">Mis ubicaciones</label>
-          <!-- <ion-input
-            formControlName="location"
-            class="custom"
-            type="text"
-            placeholder="Selecciona una ubicación"
-            required
-          ></ion-input> -->
           <ion-select 
             formControlName="location"
             class="custom"
@@ -46,7 +39,6 @@
       <h1 class="text-center">Contacto</h1>
       <ion-row class="ion-row">
         <ion-col size="12">
-          <!-- <label>Contacto</label> -->
           <ion-input
             formControlName="contact"
             class="time"
@@ -60,15 +52,6 @@
       </ion-row>
       <h1 class="text-center">¿Tienes un código de descuento?</h1>
       <ion-row class="ion-row">
-        <!-- <ion-col size="12" (click)="sendTo('payment-methods')">
-          <ion-input
-            formControlName="paymentMethod"
-            class="number"
-            type="text"
-            placeholder="Selecciona un metodo de pago"
-            required
-          ></ion-input>
-        </ion-col> -->
         <ion-col size="6">
           <ion-input
             formControlName="disccount"
@@ -84,8 +67,6 @@
         </ion-col>
       </ion-row>
 
-      <!-- ///////////////////////////////////// -->
-      <!-- <div [ngClass]="buttonWelcome"> -->
       <div class="purchase-container">
         <h1 class="text-center">Obtienes por tu compra {{points}} J</h1>
         <div class="card">
@@ -124,47 +105,7 @@
           >
         </div>
       </div>
-      <!-- ///////////////////////////////////// -->
     </div>
-   
-    <!-- <div [ngClass]="buttonWelcome">
-      <h1 class="text-center">Obtienes por tu compra {{points}} J</h1>
-      <div class="card">
-        <ion-grid class="p0" >
-          <ion-row style="background:none">
-            <ion-col size="6" class="heightCustom">
-              <h4 class="subtotal">SUBTOTAL:</h4>
-            </ion-col>
-            <ion-col size="6"  class="heightCustom">
-              <h4 class="paySubTotal">{{subtotal | customCurrency :'.':'$ '}}</h4>
-            </ion-col>
-            <ion-col size="6">
-              <h4 class="subtotal">DOMICILIO:</h4>
-            </ion-col>
-            <ion-col size="6">
-              <h4 class="paySubTotal">{{delivery| customCurrency :'.':'$ ' }}</h4>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <p class="line"></p>
-        <ion-grid class="p0">
-          <ion-row>
-            <ion-col>
-              <h4>Total:</h4>
-            </ion-col>
-            <ion-col>
-              <h4 class="payTotal">{{total | customCurrency :'.':'$ '}}</h4>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <p class="text">
-          Domicilio gratis por compras mayores a $ {{minimumOrderAmount}} IVA incluido.
-        </p>
-        <ion-button [ngClass]="buttonStyle" [disabled]="!isFormValid" (click)="sendTo('payment-methods')"
-          ><span style="margin-top: -5px" >CONFIRMAR</span></ion-button
-        >
-      </div>
-    </div> -->
 </ion-content>
 
 

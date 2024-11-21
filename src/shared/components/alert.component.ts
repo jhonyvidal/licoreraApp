@@ -32,6 +32,7 @@ export async function presentAlert(
               handler: () => {
                 if (AcceptFuntion) {
                   AcceptFuntion();
+                  closeAlert(alertController);
                 }else{
                   closeAlert(alertController);
                 }
@@ -60,6 +61,7 @@ export async function presentAlert(
               handler: () => {
                 if (AcceptFuntion) {
                   AcceptFuntion();
+                  closeAlert(alertController);
                 }else{
                   closeAlert(alertController);
                 }
