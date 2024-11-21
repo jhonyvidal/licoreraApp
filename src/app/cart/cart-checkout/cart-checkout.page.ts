@@ -67,19 +67,20 @@ export class CartCheckoutPage implements OnInit {
       contact: ['', [Validators.required,Validators.minLength(13)]],
       disccount: ['', []],
     });
-    const platform = Capacitor.getPlatform();
+    /*const platform = Capacitor.getPlatform();
 
-    // if(platform !== "web") {
-    //   Keyboard.addListener('keyboardDidShow', () => {
-    //     this.buttonWelcome = "hiddeFooter";
-    //     this.contentform = "content-form-full";
-    //   });
+    if(platform !== "web") {
+      Keyboard.addListener('keyboardDidShow', () => {
+        this.buttonWelcome = "hiddeFooter";
+        this.contentform = "content-form-full";
+      });
 
-    //   Keyboard.addListener('keyboardDidHide', () => {
-    //     this.buttonWelcome = "contentPayChild";
-    //     this.contentform = "content-form";
-    //   });
-    // }
+      Keyboard.addListener('keyboardDidHide', () => {
+        this.buttonWelcome = "contentPayChild";
+        this.contentform = "content-form";
+      });
+    }*/
+
     this.subscription = this.observeObjectService.shareObject$.subscribe(data => {
       if(data === "isPaymentSelected"){
         setTimeout(() => {
@@ -118,12 +119,6 @@ export class CartCheckoutPage implements OnInit {
   }
 
   ionViewDidEnter(){
-    const platform = Capacitor.getPlatform();
-    // if(platform !== "web") {
-    //   setTimeout(() => {
-    //     this.applyStyle();
-    //   }, 3000);
-    // }
   }
 
   private applyStyle(): void {
