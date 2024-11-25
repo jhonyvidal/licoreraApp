@@ -45,6 +45,13 @@ export class CartCheckoutPage implements OnInit {
   minimumOrderAmount: string = '0';
   paymentType:string;
   readonly phoneMask: MaskitoOptions = phoneMask;
+
+  showAlert = false;
+  alertTitle = '';
+  alertText = '';
+  alertImg = '';
+  alertTime = '';
+  alertType = '';
   
   constructor(public formBuilder: FormBuilder,
     private requestUseCase: RequestUseCases,
@@ -110,6 +117,21 @@ export class CartCheckoutPage implements OnInit {
       }
     });
   }
+
+  handleDismiss() {
+    this.showAlert = false;
+ }
+
+ handleAccept() {
+  this.goHome()
+ }
+
+ presentCustomAlert() {
+   this.alertTitle ='PEDIDO RECIBIDO';
+   this.alertText = 'Gracias por tu pedido. Lo recibirás en <b> 15 min aprox </b>';
+   this.alertImg = '/assets/img/successCheckout.svg';
+   this.showAlert = true;
+ }
 
   ionViewWillEnter() {
     document.body.style.overflow = 'auto';
@@ -227,8 +249,6 @@ export class CartCheckoutPage implements OnInit {
     this.cartService
       .getCartData()
       .then((data) => {
-        console.log('dataaaaaa: ', data);
-        
 
         this.address = data.address;
         if(data.idOrder){
@@ -392,7 +412,7 @@ export class CartCheckoutPage implements OnInit {
         if (response.success === true) {
           console.log('success', response);
           await this.presentLoader.hideHandleLoading();
-          this.showAlertSuccess();
+          this.presentCustomAlert();
         } else {
           if(response.message.includes('El producto')){
             this.showAlertError(response.message);

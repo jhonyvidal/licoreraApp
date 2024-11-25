@@ -109,4 +109,15 @@
     </ion-list>
 </ion-content>
 
+<app-custom-alert
+  *ngIf="showAlert"
+  [title]="alertTitle"
+  [text]="alertText"
+  [img]="alertImg"
+  [timeAlert]="alertTime"
+  [type]="alertType"
+  (onDismiss)="handleDismiss()"
+  (onAccept)="handleAccept()"
+></app-custom-alert>
+
 

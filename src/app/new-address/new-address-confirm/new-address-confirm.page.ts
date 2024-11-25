@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { RequestUseCases } from 'src/services/domains/usecase/request-use-case';
 import { presentAlert } from 'src/shared/components/alert.component';
 import { CreateLocationRequest } from 'src/shared/domain/request/CreateLocation';
+import { AddressObjectService } from 'src/shared/services/addressObject';
 import { ObserveObjectService } from 'src/shared/services/observeObject';
 import { ShareObjectService } from 'src/shared/services/shareObject';
 import { Address, cartModel } from 'src/store/models/cart.model';
@@ -27,7 +28,8 @@ export class NewAddressConfirmPage implements OnInit {
     private userService:UserService,
     private alertController: AlertController,
     private cartService:CartService,
-    private observeObjectService:ObserveObjectService
+    private observeObjectService:ObserveObjectService,
+    private addressObjectService:AddressObjectService
     ) {
     this.myForm = this.formBuilder.group({
       addressInput: ['', [Validators.required,]],
@@ -36,6 +38,30 @@ export class NewAddressConfirmPage implements OnInit {
       condition:[]
     });
    }
+
+   showAlert = false;
+   alertTitle = '';
+   alertText = '';
+   alertImg = '';
+   alertTime = '';
+   alertType = '';
+ 
+  handleDismiss() {
+     this.showAlert = false;
+  }
+ 
+  handleAccept() {
+     this.goCheckOut()
+  }
+ 
+  presentCustomAlert() {
+    this.alertTitle = '¡FELICITACIONES!';
+    this.alertText = 'La dirección fue agregada exitosamente.';
+    this.alertImg = '/assets/img/checkGreen.svg';
+    this.alertTime = '';
+    this.alertType = '';
+    this.showAlert = true;
+  }
 
   ngOnInit() {
     this.myForm.get('condition')?.valueChanges.subscribe(value => {
@@ -64,8 +90,8 @@ export class NewAddressConfirmPage implements OnInit {
       this.requestUseCase.postLocations(token,data)
       .subscribe((response) => {
         if (response.success === true) {
-          this.showAlertSuccess();
           console.log(response)
+          this.presentCustomAlert();   
         }
         else{
           this.showAlertError();
@@ -73,7 +99,7 @@ export class NewAddressConfirmPage implements OnInit {
         }
       });
     }else{
-      this.showAlertSuccess();
+      this.presentCustomAlert();
     }
   }
 
@@ -123,7 +149,8 @@ export class NewAddressConfirmPage implements OnInit {
     this.cartService.setAddressCartData(address)
     this.observeObjectService.setObjetoCompartido('isPaymentSelected')
     //let datos = { mensaje: true };
-    this.router.navigate(['/home/tab3/cart-checkout']);
+    const addressUrl = this.addressObjectService.getObjetoCompartido()
+    this.router.navigate([addressUrl]);
   }
 
 }

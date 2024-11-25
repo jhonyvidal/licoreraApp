@@ -63,6 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
         catchError((refreshError) => {
           this.isRefreshing = false;
+          this.userService.logout();
           // Manejar errores de renovación de token según tus necesidades
           return throwError(refreshError);
         }),

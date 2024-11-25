@@ -95,4 +95,6 @@ async function closeAlert(alert: any) {
   if (modal) {
     modal.dismiss();
   }
+  const body = document.body;
+  body.classList.remove('modal-open', 'overflow-hidden');
 }

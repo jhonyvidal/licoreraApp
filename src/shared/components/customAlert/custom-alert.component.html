@@ -1,0 +1,16 @@
+<div class="custom-alert-overlay" (click)="dismiss()">
+    <div class="custom-alert" (click)="$event.stopPropagation()">
+      <img *ngIf="img" [src]="img" alt="alert image" class="custom-alert-img" />
+      <h3 class="custom-alert-title">{{ title }}</h3>
+      <p class="custom-alert-text"  [innerHTML]="text">{{ text }}</p>
+      <ng-container *ngIf="timeAlert">
+        <p class="custom-alert-time"><b>{{ timeAlert }}</b></p>
+      </ng-container>
+      <div class="custom-alert-buttons">
+        <button *ngIf="type === 'Logout'" (click)="accept()" class="btn accept">Aceptar</button>
+        <button *ngIf="type === 'Logout'" (click)="dismiss()" class="btn cancel">Cancelar</button>
+        <button *ngIf="type !== 'Logout'" (click)="accept()" class="btn accept">Aceptar</button>
+      </div>
+    </div>
+</div>
+  

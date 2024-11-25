@@ -8,9 +8,11 @@ import { PaymentMethodsPageRoutingModule } from './payment-methods-routing.modul
 
 import { PaymentMethodsPage } from './payment-methods.page';
 import { MaskitoModule } from '@maskito/angular';
+import { SharedModule } from 'src/shared/shared.module';
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

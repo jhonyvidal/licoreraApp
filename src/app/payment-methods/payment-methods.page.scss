@@ -12,8 +12,14 @@ ion-header ion-toolbar ion-buttons {
 ion-segment{
     padding: 20px 12%;
 }
+
+.scrollable-content {
+  --overflow: auto;
+}
 .customContent{
-    padding: 0px 12%;
+  position: relative;
+  height: auto;
+  padding: 0px 12%;
 }
 
 ion-segment-button{
@@ -65,8 +71,10 @@ ion-radio::part(mark) {
     display: none;
 }
 .footer{
+    position: relative;
     padding: 0px 20px 0 20px;
-    position: fixed;
+    height: 100px;
+    // position: fixed;
     left: 0;
     width: 100%;
     bottom: 0;

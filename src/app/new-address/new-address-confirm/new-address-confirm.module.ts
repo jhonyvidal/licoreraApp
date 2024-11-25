@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { NewAddressConfirmPageRoutingModule } from './new-address-confirm-routing.module';
 
 import { NewAddressConfirmPage } from './new-address-confirm.page';
+import { SharedModule } from 'src/shared/shared.module';
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

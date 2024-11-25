@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" overflow-scroll="true"  class="scrollable-content">
   <!-- <ion-header collapse="condense" class="h60">
   </ion-header> -->
 
@@ -61,7 +61,7 @@
     </ion-segment>
   </ion-toolbar>
 
-  <ion-toolbar *ngIf="ionSegment === 1" class="customContent">
+  <ion-toolbar *ngIf="ionSegment === 1" class="customContent" >
     <div [formGroup]="myForm" *ngIf="!isIframeReady">
       <ion-grid class="imgWelcome">
         <ion-row class="ion-row">
@@ -355,7 +355,7 @@
     </ion-radio-group>
   </ion-toolbar>
 
-  <div class="footer" *ngIf="ionSegment === 1">
+  <div class="footer" *ngIf="ionSegment === 1" >
     <ion-button
       (click)="createPsePayment()"
       [disabled]="!isFormValid"
@@ -489,3 +489,15 @@
     >
   </div>
 </ion-content>
+
+
+<app-custom-alert
+  *ngIf="showAlert"
+  [title]="alertTitle"
+  [text]="alertText"
+  [img]="alertImg"
+  [timeAlert]="alertTime"
+  [type]="alertType"
+  (onDismiss)="handleDismiss()"
+  (onAccept)="handleAccept()"
+></app-custom-alert>

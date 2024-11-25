@@ -122,6 +122,13 @@ export class PaymentMethodsPage implements OnInit {
   disccount: any = 0;
   @ViewChild(IonModal) modal: IonModal;
 
+  showAlert = false;
+  alertTitle = '';
+  alertText = '';
+  alertImg = '';
+  alertTime = '';
+  alertType = '';
+
   readonly options: MaskitoOptions = {
     mask: /^\d{0,3}$/,
   };
@@ -183,6 +190,21 @@ export class PaymentMethodsPage implements OnInit {
     this.getPaymentMethods();
     this.clearAll()
     this.validateResultPSE();
+  }
+
+  handleDismiss() {
+    this.showAlert = false;
+  }
+
+  handleAccept() {
+    this.goHome()
+  }
+
+  presentCustomAlert() {
+    this.alertTitle ='PEDIDO RECIBIDO';
+    this.alertText = 'Gracias por tu pedido. Lo recibirás en <b> 15 min aprox </b>';
+    this.alertImg = '/assets/img/successCheckout.svg';
+    this.showAlert = true;
   }
 
   async validateResultPSE(){
@@ -281,7 +303,7 @@ export class PaymentMethodsPage implements OnInit {
         if (response.success === true) {
           console.log('success', response);
           await this.presentLoader.hideHandleLoading();
-          this.showAlertSuccessOrder();
+          this.presentCustomAlert();
         } else {
           if(response.message.includes('El producto')){
             this.showAlertError(response.message);
