@@ -132,7 +132,6 @@ export class CartService {
         cartObject.details = products
         this.storage.set('cartData', cartObject);
       }else{
-        console.log("details");
         for(var i=0; i<products.length; i++){
           if(storeCartData?.details?.find((a: { id: number; }) => a.id === products[i].id)){
             const index = storeCartData.details.findIndex((detail: { id: number }) => detail.id === products[i].id);
@@ -141,6 +140,10 @@ export class CartService {
             }
             storeCartData.details.push(products[i]);
           }else{
+            if (!storeCartData.details) {
+              storeCartData.details = [];
+            }
+            // Agrega el producto al array `details`
             storeCartData.details.push(products[i]);
           }
         }

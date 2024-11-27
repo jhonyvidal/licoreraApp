@@ -22,13 +22,14 @@ export const environment = {
     {name:"starter_config"},
   ],
   firebase: {
-    apiKey: "AIzaSyC7YeM_lFND0ftHHCOrNB6PsFk0xIM_Xs8",
-    authDomain: "licorera-3jjjs-12d7e.firebaseapp.com",
-    databaseURL: "https://licorera-3jjjs-12d7e.firebaseio.com",
-    projectId: "licorera-3jjjs-12d7e",
-    storageBucket: "licorera-3jjjs-12d7e.appspot.com",
-    messagingSenderId: "648554160671",
-    appId: "1:648554160671:web:90d620458d23b7463a2b2a"
+    apiKey: "AIzaSyDzkFjBcap2-ebxp4IHJ78xD5XqxuAG6_g",
+    authDomain: "licorera-tres-jotas-dev.firebaseapp.com",
+    databaseURL: "https://licorera-tres-jotas-dev-default-rtdb.firebaseio.com",
+    projectId: "licorera-tres-jotas-dev",
+    storageBucket: "licorera-tres-jotas-dev.firebasestorage.app",
+    messagingSenderId: "83635984357",
+    appId: "1:83635984357:web:d6b81023a74c4c7049810c",
+    measurementId: "G-9JLW1CPM2G"
   }
 };
 
