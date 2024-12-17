@@ -207,11 +207,18 @@ export class PaymentMethodsPage implements OnInit {
     this.showAlert = true;
   }
 
+  presentCustomAlertPSE() {
+    this.alertTitle ='PEDIDO RECIBIDO';
+    this.alertText = 'Procesaremos tu orden y en breves minutos confirmaremos tu pedido.';
+    this.alertImg = '/assets/img/successCheckout.svg';
+    this.showAlert = true;
+  }
+
   async validateResultPSE(){
     const data = await this.getDataFromCart()
     console.log(data);
     if(data?.payment?.type === "PSE"){
-      this.submit(transationEnum.pse)
+      this.presentCustomAlertPSE();
     }
   }
 
@@ -286,7 +293,9 @@ export class PaymentMethodsPage implements OnInit {
       discountCode: this.disccount,
       instructions: address?.details, //This field was empty
       description: '',
-      transactionId: transaction || ''
+      transactionId: transaction || '',
+      os: 1,
+      source: 'mobile'
     }
     
     console.log();
@@ -690,12 +699,58 @@ export class PaymentMethodsPage implements OnInit {
           ref_payco: response.data.data.ref_payco,
         });
         this.openLink(response.data.data.urlbanco);
-        // this.urlIframe =  this.sanitizer.bypassSecurityTrustResourceUrl(response.data.data.urlbanco) ;
-        // this.isIframeReady = true
       } else {
         console.log('Body del error response: ', response);
       }
     });
+
+    const transactionType: transationEnum = transationEnum.pse;
+    const transaction = transactionType;
+    const address = (await this.getDataFromCart()).address;
+    const orderId = (await this.getDataFromCart()).idOrder || 0;
+    const payload = {
+      latitude: address?.latitude,
+      longitude: address?.longitude,
+      address: address?.address,
+      addressDetails: address?.details,
+      paymentMethod: 'PSE',
+      pay_method: 'PSE',
+      amount: this.total,
+      phone: this.contact,
+      discountCode: this.disccount,
+      instructions: address?.details, //This field was empty
+      description: '',
+      transactionId: '', 
+      os: 1,
+      source: 'mobile'
+    }
+    
+    console.log();
+
+    this.requestUseCase
+    .updateOrder(
+      token,
+      orderId,
+      payload,
+    )
+    .subscribe(
+      async (response) => {
+        if (response.success === true) {
+          console.log('success', response);
+          await this.presentLoader.hideHandleLoading();
+        } else {
+          if(response.message.includes('El producto')){
+            this.showAlertError(response.message);
+          }else{
+            this.showAlertError('Ha ocurrido un problema y no pudimos procesar tu solicitud. Intenta de nuevo más tarde o contáctanos.')
+          }
+        }
+      },
+      (error) => {
+        console.error('Ha ocurrido un error:', error);
+      }
+    );
+
   }
 
   openLink(url: string) {
