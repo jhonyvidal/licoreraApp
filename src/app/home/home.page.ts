@@ -13,6 +13,7 @@ import { PushNotification, PushNotificationActionPerformed, PushNotificationToke
 import { Capacitor } from '@capacitor/core';
 import { AlertNotifications } from 'src/shared/components/alert.notifications';
 import { ShareObjectService } from 'src/shared/services/shareObject';
+// import { FirebaseMessaging } from '@capacitor-firebase/messaging';
 // import { StarRatingComponent } from '../../shared/components/StarRatingComponent'; 
 
 @Component({
@@ -44,15 +45,15 @@ export class HomePage {
  
 
   async ngOnInit(){
-    const platform = Capacitor.getPlatform();
-    if(platform !== "web") {
-      this.createNotificationPush();
-    }
     //this.showSuccessAlert('Tu pedido ya fue entregado. Por favor califica nuestro servicio.')
     //this.showInformationAlert('Tu pedido ha sido cancelado. Te invitamos a seguir comprando para que acumules puntos.')
   }
 
   ionViewDidEnter(){
+    const platform = Capacitor.getPlatform();
+    if(platform !== "web") {
+      this.createNotificationPush();
+    }
     if( this.shareObjectService.getObjetoCompartido() === 'tab3'){
       this.selectedTab = 'tab3';
     }
@@ -62,8 +63,14 @@ export class HomePage {
     this.getMeData();
   }
 
-  async createNotificationPush(){
-    
+  async createNotificationPush() {
+    // Verificar si el usuario está logueado
+    const token = await this.getToken();
+    if (!token) {
+      console.log('Usuario no logueado, no se registra para notificaciones push.');
+      return;
+    }
+
     // Solicitar permisos para notificaciones push (generalmente solo necesario en iOS).
     await PushNotifications.requestPermissions();
 
@@ -71,10 +78,18 @@ export class HomePage {
     const response = await PushNotifications.register();
 
     // Escuchar eventos de notificación.
-    PushNotifications.addListener('registration', (token: PushNotificationToken) => {
+    PushNotifications.addListener('registration', async (token: PushNotificationToken) => {
       this.tokenPush = token.value;
       console.log('Token de registro:', token.value);
-      this.createDevice(this.userData.uuid,token.value)
+      this.createDevice(this.userData.uuid, token.value);
+       // Suscribirse a un topic
+      // try {
+      //   const topic = 'promosAndroid'; // Cambia al topic deseado
+      //   await FirebaseMessaging.subscribeToTopic({ topic });
+      //   console.log(`Suscrito al topic: ${topic}`);
+      // } catch (error) {
+      //   console.error('Error al suscribirse al topic:', error);
+      // }
     });
 
     PushNotifications.addListener('registrationError', (error: any) => {
@@ -83,17 +98,19 @@ export class HomePage {
 
     PushNotifications.addListener('pushNotificationReceived', (notification: PushNotification) => {
       console.log('Notification:', notification);
-      this.createModalNotifications(notification.data.op,notification.data.valud)
+      this.createModalNotifications(notification.data.op, notification.data.value);
     });
 
     PushNotifications.addListener('pushNotificationActionPerformed', (notification: PushNotificationActionPerformed) => {
       console.log('Notification:', notification);
       const actionId = notification.actionId;
-      if(actionId === "tap"){
-        this.createModalNotifications(notification.notification.data.op,notification.notification.data.value)
+      if (actionId === "tap") {
+        this.createModalNotifications(notification.notification.data.op, notification.notification.data.value);
       }
     });
+    
   }
+  
 
   createDevice(uuid:string,pushkey:string){
     const data = {
@@ -124,7 +141,7 @@ export class HomePage {
     }
     if(op === "3"){
       // rateOrder
-      this.showInformationAlert(body || '')
+      this.showSuccessAlert(body || '')
     }
     if(op === "4"){
       // orderCancelled
@@ -132,7 +149,7 @@ export class HomePage {
     }
     if(op === "5"){
       // orderIsComing
-      this.showSuccessAlert(body || '')
+      this.showInformationAlert(body || '')
     }
     if(op=== "6"){
       // adjustPoints
@@ -143,6 +160,7 @@ export class HomePage {
       this.showInformationTwoButtonsAlert(body || '')
     }
   }
+  
 
   async showInformationAlert(message:string) {
     await AlertNotifications(
@@ -247,7 +265,7 @@ export class HomePage {
       .getCartData()
       .then(async (data) => {
         console.log("getCart:", data);
-        if(data.payment &&  data.payment.type === "PSE" && data.idOrder){
+        if(data && data.payment &&  data.payment.type === "PSE" && data.idOrder){
           const token = await this.getToken()
           this.requestUseCase.getConfirmation(token, data.idOrder)
             .subscribe((response) => {

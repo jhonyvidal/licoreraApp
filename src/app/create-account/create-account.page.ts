@@ -168,7 +168,7 @@ export class CreateAccountPage implements OnInit {
       last_name: this.myForm.get('lastName')?.value,
       email:  this.myForm.get('email')?.value,
       password:  this.myForm.get('password')?.value,
-      uuid:  this.myForm.get('email')?.value,
+      uuid:  '',
       birthday:  this.myForm.get('date')?.value,
       cellphone:  this.myForm.get('phone')?.value.replace(/ /g, ""),
       social_id: 3
