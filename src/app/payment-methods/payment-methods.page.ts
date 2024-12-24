@@ -692,7 +692,7 @@ export class PaymentMethodsPage implements OnInit {
     const token = await this.getToken();
     this.requestUseCase.postPaymentPse(token, data).subscribe((response) => {
       this.presentLoader.hideHandleLoading();
-      if (response.data.success === true) {
+      if (response.success === true) {
         console.log(response);
         this.cartService.setPaymentCartData({
           type: 'PSE',

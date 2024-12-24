@@ -114,7 +114,6 @@ export class CartPage implements OnInit {
         if(data && data.details && data.details.length > 0){
           this.products = data.details;
           console.log('This.products: ', this.products);
-          
           this.setTotal();
         }else{
           this.products = []

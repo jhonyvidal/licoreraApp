@@ -262,3 +262,8 @@ ion-alert .alert-wrapper{
     color: #000000;
     font-weight: 300;
 }
+.TextBold{
+    font-family: HudsonNYSerif; 
+    color: #000000;
+    margin:-5px 0 0;
+}

@@ -10,12 +10,14 @@ export async function AlertNotifications(
   timeAlert?: string,
   AcceptFuntion?: () => void,
   type?: string,
+  textBold?:string
 ) {
   const imagePath = window.location.origin + (img ? img : '/assets/img/cerrado.svg');
   const timeAlertText = timeAlert ? `<b>${timeAlert}</b></br>` : '';
   let startRating = type === 'Qualification' ? '<div id="starRating"></div>': ''
   const SumitText = type === 'Qualification' ? 'CALIFICAR' : 'ACEPTAR'
   const notificationClass = type === 'Qualification' ? 'imgQualify' :'imgNotifications'
+  const textInBold = textBold ? `<h5 class="TextBold">${textBold}</h5></br>` : '';
 
   const dynamicContent = `
     <div><img src="${imagePath}" class="${notificationClass}" alt="img cerrado"></div>
@@ -23,6 +25,7 @@ export async function AlertNotifications(
     <p class="alertSubtitle">${text}</p></br>
     ${timeAlertText}
     ${startRating}
+    ${textInBold}
   `;
 
   let alert: any;

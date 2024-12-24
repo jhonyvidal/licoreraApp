@@ -168,6 +168,13 @@ const routes: Routes = [
         (m) => m.MissingInfoPageModule
       ),
   },
+  {
+    path: 'epayco_response',
+    loadChildren: () =>
+      import('./epayco_response/epayco_response.module').then(
+        (m) => m.EpaycoResponseModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
