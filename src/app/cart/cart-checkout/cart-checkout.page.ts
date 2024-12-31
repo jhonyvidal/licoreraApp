@@ -224,6 +224,7 @@ export class CartCheckoutPage implements OnInit {
           (response) => {
             if (response.success === true) {
               this.delivery = parseInt(response.data)
+              this.cartService.setDelivery(this.delivery)
               this.total = this.subtotal + this.delivery
             } else {
               this.total = this.subtotal;

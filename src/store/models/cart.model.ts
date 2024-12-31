@@ -7,6 +7,7 @@ export interface cart {
     idOrder?:number;
     payment?:any;
     number?:number;
+    delivery?:number;
     fromAddress?:string
 }
 

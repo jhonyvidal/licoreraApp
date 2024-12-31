@@ -131,6 +131,7 @@ export class HomePage {
         if (actionId === 'tap') {
           this.createModalNotifications(
             notification.notification.data.op,
+            notification.notification.data.body,
             notification.notification.data.value
           );
         }

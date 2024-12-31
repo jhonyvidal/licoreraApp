@@ -272,6 +272,7 @@ export class PaymentMethodsPage implements OnInit {
     const transaction = transactionType;
     const subtotal = (await this.getDataFromCart()).total;
     const address = (await this.getDataFromCart()).address;
+    const delivery = (await this.getDataFromCart()).delivery;
     const payloadDelivery = await {
       latitude: address?.latitude,
       longitude: address?.longitude,
@@ -286,8 +287,8 @@ export class PaymentMethodsPage implements OnInit {
       longitude: address?.longitude,
       address: address?.address,
       addressDetails: address?.details,
-      paymentMethod: this.segment3,
-      pay_method: this.segment3,
+      paymentMethod: this.segment3 || 'TARJETA DE CRÉDITO',
+      pay_method: this.segment3 || 'TARJETA DE CRÉDITO',
       amount: this.total,
       phone: this.contact,
       discountCode: this.disccount,
@@ -322,7 +323,6 @@ export class PaymentMethodsPage implements OnInit {
         }
       },
       (error) => {
-      
         console.error('Ha ocurrido un error:', error);
       }
     );
@@ -522,8 +522,12 @@ export class PaymentMethodsPage implements OnInit {
     const reponse = await this.cartService
       .getCartData()
       .then((data) => {
+        let total = data.total;
+        if(data.total && data.delivery){
+          total = Number(data.total) + Number(data.delivery)
+        }
         return {
-          total: data.total,
+          total: total,
           idOrder: data.idOrder,
         };
       })
@@ -662,8 +666,12 @@ export class PaymentMethodsPage implements OnInit {
     const reponse = await this.cartService
       .getCartData()
       .then((data) => {
+        let total = data.total;
+        if(data.total && data.delivery){
+          total = Number(data.total) + Number(data.delivery)
+        }
         return {
-          total: data.total,
+          total: total,
           idOrder: data.idOrder,
         };
       })

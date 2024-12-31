@@ -101,6 +101,23 @@ export class CartService {
     return true;
   }
 
+  setDelivery(delivery: number){
+    let storeCartData;
+    this.storage.get('cartData')
+    .then(data => {
+      storeCartData = data;
+      if(data === null){
+        return;
+      }
+      storeCartData.delivery = delivery;
+      this.storage.set('cartData', storeCartData);
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del cart set delivery:', error);
+    });
+    return true;
+  }
+
   setProductsCartData(products: any){
     let storeCartData;
     this.storage.get('cartData')

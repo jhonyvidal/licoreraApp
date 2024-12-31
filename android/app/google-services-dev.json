@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "83635984357",
+    "firebase_url": "https://licorera-tres-jotas-dev-default-rtdb.firebaseio.com",
+    "project_id": "licorera-tres-jotas-dev",
+    "storage_bucket": "licorera-tres-jotas-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83635984357:android:e82b12a25c8550a949810c",
+        "android_client_info": {
+          "package_name": "com.licorera3jjjs.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83635984357-opf1343l0kbeumk0k0nrv71qf2a6o8go.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsAWWai71wvCX_udcMxDucfV0_7FsLHu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83635984357-opf1343l0kbeumk0k0nrv71qf2a6o8go.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "83635984357-ple23kn63uc1b0gcllr1tnmnshnq3p19.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.diegodiaz.licorera3jjjs.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
