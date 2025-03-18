@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "648554160671-rcdisedu0v7hdlrsr69fsdcbu417dfe7.apps.googleusercontent.com",
+          "client_id": "648554160671-bq2k3gfr9et30r3g5nat3koifcr1o2va.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.licorera3jjjs.app",
-            "certificate_hash": "99ca984d8d2e95d5ba93f16238c1bfdea4983294"
+            "certificate_hash": "6b5a0cbf0454935f316d444ac5fef18e41ba1ec9"
           }
         },
         {
@@ -29,7 +29,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCQ8uyLPxMbLUcv1TqbHzKFV0-OB_PqyBU"
+          "current_key": "AIzaSyDVkt3ey6BPYeI_45DmQDZ4z_G5kBiVR8Q"
         }
       ],
       "services": {
